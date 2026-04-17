@@ -1,478 +1,966 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Intrinsically Safe Phones — Compare ATEX &amp; IECEx Certified Smartphones</title>
-  <meta name="description" content="Compare intrinsically safe smartphones certified for ATEX Zone 1, Zone 2, and IECEx hazardous areas. Independent reviews for oil &amp; gas, chemical, mining, and offshore." />
+<meta charset="utf-8" />
+<template id="__bundler_thumbnail" data-bg-color="#f5f3f0">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#f5f3f0"/>
+    <g transform="translate(600 400)">
+      <path d="M0 -220 L190 -110 L190 110 L0 220 L-190 110 L-190 -110 Z"
+            fill="none" stroke="#1a1a1a" stroke-width="10" stroke-linejoin="round"/>
+      <rect x="-90" y="-120" width="180" height="240" rx="18"
+            fill="none" stroke="#1a1a1a" stroke-width="10"/>
+      <line x1="-40" y1="80" x2="40" y2="80" stroke="#1a1a1a" stroke-width="10" stroke-linecap="round"/>
+      <circle cx="0" cy="-55" r="18" fill="#22c55e"/>
+    </g>
+    <text x="600" y="680" text-anchor="middle" font-family="Georgia, serif"
+          font-size="38" fill="#1a1a1a" font-style="italic">intrinsicallysafephones.com</text>
+  </svg>
+</template>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>intrinsicallysafephones.com — ATEX / IECEx Zone 1 &amp; Zone 2 Reference</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-alt:#f5f3f0;
+    --surface:#f0ece7;
+    --border:#e0dcd6;
+    --border-strong:#d1ccc3;
+    --ink:#1a1a1a;
+    --graphite:#4a4a4a;
+    --ash:#888880;
+    --active:#22c55e;
+    --mint:#dcfce7;
+    --amber:#f59e0b;
+    --void:#0c0c0c;
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    --radius-sm:10px;
+    --radius:16px;
+    --radius-lg:24px;
+    --radius-pill:100px;
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+    --space-section:clamp(5rem, 3rem + 5.5vw, 9rem);
+  }
+  html,body{background:var(--bg);color:var(--ink);}
+  body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";}
+  .serif{font-family:'Instrument Serif', 'Times New Roman', serif;font-weight:400;letter-spacing:-0.01em;line-height:1.1;}
+  .mono{font-family:'JetBrains Mono', ui-monospace, monospace;font-variant-ligatures:none;}
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
-          },
-        }
-      }
-    }
-  </script>
+  /* Glass nav */
+  .glass{
+    background:rgba(255,255,255,0.72);
+    backdrop-filter:blur(20px) saturate(1.4);
+    -webkit-backdrop-filter:blur(20px) saturate(1.4);
+    border-bottom:1px solid rgba(224,220,214,0.6);
+  }
 
-  <style>
-    body { font-family: 'Inter', sans-serif; background: #09090b; color: #fafafa; }
-    .gradient-text {
-      background: linear-gradient(120deg, #f97316 0%, #fbbf24 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .card { transition: border-color 0.15s, transform 0.15s; }
-    .card:hover { border-color: rgba(249,115,22,0.5); transform: translateY(-1px); }
-    .badge-z1  { background:rgba(239,68,68,.12);  color:#fca5a5; border:1px solid rgba(239,68,68,.25);  }
-    .badge-z2  { background:rgba(234,179,8,.12);  color:#fde047; border:1px solid rgba(234,179,8,.25);  }
-    .badge-atex { background:rgba(249,115,22,.12); color:#fdba74; border:1px solid rgba(249,115,22,.3); }
-    .badge-iec  { background:rgba(59,130,246,.12); color:#93c5fd; border:1px solid rgba(59,130,246,.25);}
-    ::-webkit-scrollbar { width:6px; height:6px; }
-    ::-webkit-scrollbar-track { background:#18181b; }
-    ::-webkit-scrollbar-thumb { background:#3f3f46; border-radius:3px; }
-  </style>
+  /* Warm hero bg — soft paper grain + radial */
+  .paper-bg{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(245,158,11,0.06), transparent 60%),
+      radial-gradient(1000px 500px at 10% 30%, rgba(34,197,94,0.05), transparent 55%),
+      linear-gradient(180deg, #faf8f4 0%, #ffffff 60%);
+  }
+  .grain{
+    position:absolute;inset:0;pointer-events:none;opacity:.35;
+    background-image:radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size:3px 3px;
+    mix-blend-mode:multiply;
+  }
+
+  /* Surfaces */
+  .card{
+    background:var(--bg);
+    border:1.5px solid var(--border);
+    border-radius:var(--radius);
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .card:hover{border-color:var(--border-strong);}
+  .card-warm{background:var(--bg-alt);}
+  .card-surface{background:var(--surface);}
+
+  /* Pills & buttons */
+  .btn{display:inline-flex;align-items:center;gap:.55rem;border-radius:var(--radius-pill);padding:.75rem 1.6rem;font-weight:500;font-size:.9rem;transition:all .2s ease;white-space:nowrap;}
+  .btn-primary{background:var(--ink);color:#fff;}
+  .btn-primary:hover{background:#000;}
+  .btn-secondary{background:var(--bg);color:var(--ink);border:1.5px solid var(--border);}
+  .btn-secondary:hover{border-color:var(--border-strong);}
+  .btn-ghost{color:var(--graphite);}
+  .btn-ghost:hover{color:var(--ink);}
+
+  .badge{display:inline-flex;align-items:center;gap:.4rem;border-radius:var(--radius-pill);padding:.3em 0.9em;font-size:.76rem;font-weight:500;letter-spacing:.01em;white-space:nowrap;}
+  .badge-green{background:var(--mint);color:#166534;}
+  .badge-warn{background:#fef3c7;color:#92400e;}
+  .badge-neutral{background:var(--bg-alt);color:var(--graphite);border:1px solid var(--border);}
+  .badge-stone{background:var(--surface);color:var(--graphite);}
+  .badge-dark{background:var(--void);color:#fff;}
+
+  /* Mono chip */
+  .chip{display:inline-flex;align-items:center;gap:.35rem;padding:3px 8px;border-radius:6px;background:var(--bg-alt);border:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--graphite);}
+  .chip-dark{background:var(--void);color:#e8ebe4;border-color:#222;}
+
+  /* Filter pill */
+  .pill{font-size:.82rem;padding:.45rem 1rem;border-radius:var(--radius-pill);border:1.5px solid var(--border);color:var(--graphite);background:var(--bg);transition:all .15s;cursor:pointer;font-weight:500;}
+  .pill:hover{border-color:var(--ink);color:var(--ink);}
+  .pill[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .pill .dot-a{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.4;margin-right:2px;}
+
+  /* Heartbeat dot */
+  .hb{position:relative;display:inline-flex;width:10px;height:10px;}
+  .hb::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--active);box-shadow:0 0 0 0 rgba(34,197,94,.6);animation:hb 2s ease-in-out infinite;}
+  .hb::before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--active);}
+  @keyframes hb{
+    0%{box-shadow:0 0 0 0 rgba(34,197,94,.45);transform:scale(1);}
+    70%{box-shadow:0 0 0 10px rgba(34,197,94,0);transform:scale(1.18);}
+    100%{box-shadow:0 0 0 0 rgba(34,197,94,0);transform:scale(1);}
+  }
+
+  /* Terminal */
+  .terminal{background:var(--void);color:#e8ebe4;border-radius:var(--radius);padding:18px 20px;font-family:'JetBrains Mono',monospace;font-size:.9rem;box-shadow:0 20px 50px -20px rgba(12,12,12,.25);}
+  .terminal .tbar{display:flex;align-items:center;gap:6px;margin-bottom:14px;}
+  .terminal .tbar span{width:10px;height:10px;border-radius:50%;background:#333;display:inline-block;}
+  .terminal .tbar span:nth-child(1){background:#ff5f57;}
+  .terminal .tbar span:nth-child(2){background:#febc2e;}
+  .terminal .tbar span:nth-child(3){background:#28c840;}
+  .terminal .prompt{color:var(--active);}
+  .cursor{display:inline-block;width:8px;height:1.1em;background:var(--active);vertical-align:-2px;animation:blink 1s steps(2) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  /* Score bar (5 segments) */
+  .score-track{display:inline-flex;gap:3px;}
+  .score-seg{width:14px;height:5px;border-radius:2px;background:var(--border);}
+  .score-seg.on{background:var(--ink);}
+
+  /* Dashed vertical tick for form factor */
+  .ff-bar{height:4px;border-radius:2px;background:var(--border);overflow:hidden;}
+  .ff-bar>span{display:block;height:100%;background:linear-gradient(90deg,var(--active),var(--amber));}
+
+  /* Spec row */
+  .spec{display:grid;grid-template-columns:1fr auto;gap:12px;padding:11px 0;align-items:center;border-top:1px solid var(--border);}
+  .spec:first-child{border-top:0;}
+  .spec-label{font-size:.78rem;color:var(--ash);letter-spacing:.01em;}
+  .spec-val{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--ink);text-align:right;white-space:nowrap;}
+
+  /* Device image placeholder */
+  .device-shot{
+    aspect-ratio: 4/3;
+    background:
+      repeating-linear-gradient(135deg, rgba(0,0,0,0.035) 0 1px, transparent 1px 14px),
+      linear-gradient(180deg, var(--bg-alt), var(--surface));
+    border-radius: var(--radius-sm);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+    border:1px solid var(--border);
+  }
+  .device-shot.featured-shot{aspect-ratio: 16/9;}
+  .device-shot .dev-silhouette{
+    width:42%; height:78%;
+    border:1.5px solid rgba(26,26,26,0.28);
+    border-radius:18px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.1));
+    position:relative;
+    box-shadow: 0 16px 40px -18px rgba(0,0,0,0.18);
+  }
+  .device-shot .dev-silhouette.rugged{border-radius:12px;width:38%;border-width:2.5px;}
+  .device-shot .dev-silhouette::before{
+    content:"";position:absolute;left:10%;right:10%;top:8%;bottom:16%;
+    border:1px dashed rgba(26,26,26,0.18);border-radius:8px;
+  }
+  .device-shot .dev-silhouette::after{
+    content:"";position:absolute;left:40%;right:40%;bottom:3%;height:3px;
+    background:rgba(26,26,26,0.25);border-radius:2px;
+  }
+  .device-shot .ph-label{
+    position:absolute;left:12px;bottom:10px;
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;
+    color:var(--ash);background:rgba(255,255,255,0.75);padding:2px 7px;border-radius:4px;
+    backdrop-filter:blur(4px);
+  }
+  .device-shot img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* Ribbon (featured) */
+  .ribbon{
+    position:absolute;top:-10px;left:20px;
+    background:var(--ink);color:#fff;
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    padding:4px 12px;border-radius:var(--radius-pill);
+    display:inline-flex;align-items:center;gap:6px;
+    box-shadow:0 8px 24px -10px rgba(0,0,0,.2);
+  }
+  .ribbon .dot{width:6px;height:6px;border-radius:50%;background:var(--active);}
+
+  /* Checkboxes */
+  .cb{appearance:none;width:18px;height:18px;border:1.5px solid var(--border-strong);background:var(--bg);display:inline-grid;place-items:center;cursor:pointer;border-radius:5px;}
+  .cb:checked{background:var(--ink);border-color:var(--ink);}
+  .cb:checked::after{content:"";width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px);}
+
+  /* Tables */
+  .cmp-table th,.cmp-table td{padding:13px 16px;vertical-align:top;border-top:1px solid var(--border);text-align:left;}
+  .cmp-table th{background:var(--bg-alt);color:var(--ash);font-size:.76rem;font-weight:500;letter-spacing:.03em;text-transform:uppercase;}
+  .cmp-table tr:first-child td{border-top:0;}
+
+  /* Small helpers */
+  .hr-rule{height:1px;background:var(--border);}
+  .anchor{scroll-margin-top:90px;}
+
+  /* Card expand */
+  .card-expand{display:none;}
+  .card.open .card-expand{display:block;}
+  .chev{transition:transform .2s;}
+  .card.open .chev{transform:rotate(180deg);}
+
+  /* Compare bar */
+  .compare-bar{position:fixed;left:0;right:0;bottom:0;transform:translateY(130%);transition:transform .3s cubic-bezier(.3,.7,.3,1);z-index:40;}
+  .compare-bar.show{transform:translateY(0);}
+
+  /* Reveal animation */
+  .reveal{opacity:0;transform:translateY(12px);animation:reveal .6s ease-out forwards;}
+  @keyframes reveal{to{opacity:1;transform:none;}}
+  .r1{animation-delay:.05s}.r2{animation-delay:.19s}.r3{animation-delay:.33s}.r4{animation-delay:.47s}
+
+  /* Fluid heading scale */
+  .h-hero{font-size:clamp(2.8rem, 7vw, 5.4rem);}
+  .h-section{font-size:clamp(2rem, 4vw, 3rem);}
+  .h-card{font-size:clamp(1.1rem, 1.4vw, 1.4rem);}
+
+  /* Link */
+  a.link{color:var(--ink);border-bottom:1px solid var(--border-strong);}
+  a.link:hover{border-color:var(--ink);}
+
+  /* Scrollbar soft */
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+  ::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:5px;}
+
+  /* Paperclip-ish divider mark */
+  .dash-dot::before{content:"·";margin:0 .5em;color:var(--ash);}
+
+  /* "Why warm?" pull-quote */
+  .pullquote{
+    font-family:'Instrument Serif',serif;
+    font-size:clamp(1.6rem, 2.6vw, 2.2rem);
+    line-height:1.25;letter-spacing:-.01em;
+    color:var(--ink);
+  }
+  .pullquote em{font-style:italic;color:var(--graphite);}
+
+  /* Masonry-ish explainer columns alignment helpers */
+  .col-rule{border-left:1px solid var(--border);}
+  @media (max-width:1023px){.col-rule{border-left:0;border-top:1px solid var(--border);padding-top:2rem;margin-top:2rem;}}
+</style>
 </head>
+<body class="min-h-screen">
 
-<body class="antialiased">
-
-  <!-- ───── NAV ───── -->
-  <header class="fixed inset-x-0 top-0 z-50 border-b border-zinc-800/60 bg-zinc-950/80 backdrop-blur-md">
-    <div class="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between gap-6">
-      <a href="/" class="flex items-center gap-2 shrink-0">
-        <span class="w-7 h-7 rounded-lg bg-orange-500 flex items-center justify-center">
-          <i class="ph ph-fire-simple text-white text-sm"></i>
-        </span>
-        <span class="font-semibold text-sm tracking-tight">IntrinsicallySafePhones</span>
-      </a>
-      <nav class="hidden md:flex items-center gap-5 text-sm text-zinc-400">
-        <a href="#compare" class="hover:text-zinc-100 transition-colors">Compare</a>
-        <a href="#guides"  class="hover:text-zinc-100 transition-colors">Guides</a>
-        <a href="#sectors" class="hover:text-zinc-100 transition-colors">By sector</a>
-        <a href="#about"   class="hover:text-zinc-100 transition-colors">About</a>
-      </nav>
-      <a href="#compare" class="shrink-0 hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-orange-500 hover:bg-orange-400 text-white text-sm font-medium transition-colors">
-        <i class="ph ph-scales"></i> Compare devices
-      </a>
-    </div>
-  </header>
-
-  <!-- ───── HERO ───── -->
-  <section class="pt-36 pb-24 px-5 text-center">
-    <div class="max-w-3xl mx-auto">
-      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-orange-500/30 bg-orange-500/10 text-orange-400 text-xs font-medium mb-6">
-        <i class="ph ph-certificate-fill"></i>
-        ATEX · IECEx · Zone 1 · Zone 2
-      </div>
-      <h1 class="text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight mb-5">
-        Find the right<br><span class="gradient-text">intrinsically safe phone</span>
-      </h1>
-      <p class="text-lg text-zinc-400 leading-relaxed mb-10 max-w-xl mx-auto">
-        Independent comparisons of certified smartphones for hazardous areas. Oil &amp; gas, chemical, mining, offshore. No vendor bias — just data.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <a href="#compare" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-400 font-medium text-white transition-colors">
-          <i class="ph ph-scales"></i> Compare phones
-        </a>
-        <a href="#guides" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-zinc-700 hover:border-zinc-500 text-zinc-300 font-medium transition-colors">
-          <i class="ph ph-book-open-text"></i> Buyer guides
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ───── STATS ───── -->
-  <div class="border-y border-zinc-800 bg-zinc-900/30">
-    <div class="max-w-6xl mx-auto px-5 py-5 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-      <div><div class="text-2xl font-bold">24+</div><div class="text-xs text-zinc-500 mt-0.5">Devices reviewed</div></div>
-      <div><div class="text-2xl font-bold">8</div><div class="text-xs text-zinc-500 mt-0.5">Manufacturers</div></div>
-      <div><div class="text-2xl font-bold text-red-400">Zone 1</div><div class="text-xs text-zinc-500 mt-0.5">Highest coverage</div></div>
-      <div><div class="text-2xl font-bold">3</div><div class="text-xs text-zinc-500 mt-0.5">Cert schemes tracked</div></div>
+<!-- =========== NAV =========== -->
+<header class="glass sticky top-0 z-30">
+  <div class="max-w-[1140px] mx-auto px-6 h-16 flex items-center gap-6">
+    <a href="#top" class="flex items-center gap-2.5 shrink-0">
+      <svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <!-- Hexagon: Ex/IEC visual language -->
+        <path d="M16 2.5l11.5 6.5v13L16 28.5 4.5 22V9L16 2.5Z" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+        <!-- Phone silhouette inside -->
+        <rect x="11" y="9" width="10" height="14" rx="1.8" stroke="#1a1a1a" stroke-width="1.6"/>
+        <line x1="14" y1="20.5" x2="18" y2="20.5" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round"/>
+        <!-- Safe signal dot -->
+        <circle cx="16" cy="12.5" r="1.6" fill="#22c55e"/>
+      </svg>
+      <span class="flex flex-col leading-none">
+        <span class="text-[15px] font-semibold tracking-[-0.015em]">intrinsicallysafephones<span class="text-[color:var(--ash)] font-normal">.com</span></span>
+        <span class="mono text-[9.5px] text-[color:var(--ash)] uppercase tracking-[0.16em] mt-1">ATEX · IECEx reference</span>
+      </span>
+    </a>
+    <nav class="hidden md:flex items-center gap-6 text-[14px] text-[color:var(--graphite)]">
+      <a href="#solutions" class="hover:text-[color:var(--ink)]">Solutions</a>
+      <a href="#certification" class="hover:text-[color:var(--ink)]">Certification</a>
+      <a href="#decision" class="hover:text-[color:var(--ink)]">Case vs Dedicated</a>
+      <a href="#methodology" class="hover:text-[color:var(--ink)]">Methodology</a>
+    </nav>
+    <div class="ml-auto flex items-center gap-2">
+      <span class="hidden lg:inline mono text-[11.5px] text-[color:var(--ash)]">Rev 2026.04 · IEC 60079</span>
+      <button id="compareToggle" class="btn btn-secondary !py-2 !px-4 !text-[13px]">
+        Compare <span class="badge badge-neutral !py-0 !px-2 ml-1" id="compareCount">0</span>
+      </button>
     </div>
   </div>
+</header>
 
-  <!-- ───── TOP PICKS ───── -->
-  <section id="compare" class="py-20 px-5">
-    <div class="max-w-6xl mx-auto">
-      <div class="mb-10">
-        <p class="font-mono text-orange-400 text-xs uppercase tracking-widest mb-2">Top picks 2026</p>
-        <h2 class="text-3xl font-bold mb-2">Best intrinsically safe smartphones</h2>
-        <p class="text-zinc-400">Ranked by Zone classification, usability, and total cost of ownership.</p>
+<main id="top">
+
+<!-- =========== HERO =========== -->
+<section class="paper-bg relative overflow-hidden">
+  <div class="grain"></div>
+  <div class="max-w-[1140px] mx-auto px-6 pt-20 pb-12 relative">
+
+    <div class="flex items-center gap-3 mb-8 reveal r1">
+      <span class="hb"></span>
+      <span class="mono text-[12px] tracking-[0.04em] text-[color:var(--graphite)]">Independent engineering reference · updated Apr 2026</span>
+    </div>
+
+    <h1 class="serif h-hero reveal r1">
+      ATEX &amp; IECEx certified<br/>
+      smartphone solutions <em class="text-[color:var(--graphite)] italic">for Zone&nbsp;1 &amp; Zone&nbsp;2</em><br/>
+      hazardous areas.
+    </h1>
+
+    <p class="mt-8 max-w-[62ch] text-[18px] leading-[1.55] text-[color:var(--graphite)] reveal r2">
+      A comparison of certified protective cases, dedicated IS phones, and hybrid solutions — verified against manufacturer certificates of conformity. No vendor fluff. No stock photography. Just specifications, written for HSE engineers and procurement.
+    </p>
+
+    <div class="mt-10 flex flex-wrap items-center gap-3 reveal r2">
+      <a href="#solutions" class="btn btn-primary">Browse solutions →</a>
+      <a href="#decision" class="btn btn-secondary">Case vs dedicated phone</a>
+      <span class="ml-auto hidden md:inline mono text-[12px] text-[color:var(--ash)]">5 solutions indexed · 4 vendors</span>
+    </div>
+
+    <!-- stat row -->
+    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-0 border-y border-[color:var(--border)] reveal r3">
+      <div class="py-6 pr-6 border-r border-[color:var(--border)]">
+        <div class="serif text-[42px] leading-none">05</div>
+        <div class="text-[13px] text-[color:var(--ash)] mt-2">Solutions indexed</div>
       </div>
+      <div class="py-6 px-6 md:border-r md:border-[color:var(--border)]">
+        <div class="serif text-[42px] leading-none">IIC</div>
+        <div class="text-[13px] text-[color:var(--ash)] mt-2">Max gas group covered</div>
+      </div>
+      <div class="py-6 pr-6 md:px-6 border-r border-[color:var(--border)] border-t md:border-t-0">
+        <div class="serif text-[42px] leading-none">T4<span class="text-[color:var(--ash)]">–</span>T6</div>
+        <div class="text-[13px] text-[color:var(--ash)] mt-2">Temp class range</div>
+      </div>
+      <div class="py-6 px-6 border-t md:border-t-0">
+        <div class="serif text-[42px] leading-none flex items-center gap-3">100<span class="text-[color:var(--ash)] text-[26px]">%</span></div>
+        <div class="text-[13px] text-[color:var(--ash)] mt-2">Specs verified against CoC</div>
+      </div>
+    </div>
 
-      <!-- #1 Featured -->
-      <div class="rounded-2xl border border-orange-500/40 bg-zinc-900/60 p-7 md:p-9 mb-4 card relative overflow-hidden">
-        <span class="absolute top-5 right-5 px-2.5 py-1 rounded-full bg-orange-500 text-white text-xs font-bold">#1 Pick</span>
-        <div class="grid md:grid-cols-[1fr_260px] gap-8">
+    <!-- Filter bar -->
+    <div class="mt-10 reveal r4">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-[12px] text-[color:var(--ash)] tracking-[0.04em] uppercase">Filter</span>
+        <span class="h-px flex-1 bg-[color:var(--border)]"></span>
+        <button id="clearFilters" class="text-[12px] text-[color:var(--graphite)] hover:text-[color:var(--ink)] underline underline-offset-4 decoration-[color:var(--border-strong)]">Clear</button>
+      </div>
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-3" id="filterBar">
+        <span class="inline-flex items-center gap-2 flex-wrap">
+          <span class="mono text-[11px] text-[color:var(--ash)]">zone</span>
+          <button class="pill" data-filter="zone" data-val="zone1">Zone 1</button>
+          <button class="pill" data-filter="zone" data-val="zone2">Zone 2</button>
+        </span>
+        <span class="inline-flex items-center gap-2 flex-wrap">
+          <span class="mono text-[11px] text-[color:var(--ash)]">cert</span>
+          <button class="pill" data-filter="cert" data-val="iecex">IECEx</button>
+          <button class="pill" data-filter="cert" data-val="atex">ATEX</button>
+        </span>
+        <span class="inline-flex items-center gap-2 flex-wrap">
+          <span class="mono text-[11px] text-[color:var(--ash)]">os</span>
+          <button class="pill" data-filter="platform" data-val="iOS">iOS</button>
+          <button class="pill" data-filter="platform" data-val="Android">Android</button>
+        </span>
+        <span class="inline-flex items-center gap-2 flex-wrap">
+          <span class="mono text-[11px] text-[color:var(--ash)]">serviceability</span>
+          <button class="pill" data-filter="service" data-val="replaceable">Replaceable</button>
+          <button class="pill" data-filter="service" data-val="sealed">Sealed (Ex&nbsp;ia)</button>
+        </span>
+        <span class="inline-flex items-center gap-2 flex-wrap">
+          <span class="mono text-[11px] text-[color:var(--ash)]">status</span>
+          <button class="pill" data-filter="status" data-val="production">In production</button>
+        </span>
+      </div>
+      <div class="mt-4 text-[13px] text-[color:var(--ash)]">
+        <span id="resultCount">5</span> / 5 solutions shown · click card to expand · tick ☐ to compare
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== SOLUTIONS =========== -->
+<section id="solutions" class="anchor">
+  <div class="max-w-[1140px] mx-auto px-6 pt-24 pb-24">
+
+    <div class="flex items-end justify-between gap-8 mb-10 flex-wrap">
+      <div>
+        <div class="mono text-[12px] text-[color:var(--ash)] mb-3">§ 01 — Certified solutions</div>
+        <h2 class="serif h-section">Every solution, <em class="italic text-[color:var(--graphite)]">one comparable layout.</em></h2>
+      </div>
+      <div class="max-w-[38ch] text-[15px] text-[color:var(--graphite)]">
+        Sorted by overall score. Each card carries the full Ex notation, zone coverage, and a deployment note — click to expand.
+      </div>
+    </div>
+
+    <div id="cardGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      <!-- injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- =========== EDITORIAL PULL =========== -->
+<section class="bg-[color:var(--bg-alt)] border-y border-[color:var(--border)]">
+  <div class="max-w-[1140px] mx-auto px-6 py-24 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+    <div class="lg:col-span-4">
+      <div class="mono text-[12px] text-[color:var(--ash)]">Editors' note</div>
+      <div class="h-px bg-[color:var(--border)] mt-4"></div>
+      <div class="mono text-[12px] text-[color:var(--ash)] mt-4">IS-Smartphone.guide · April 2026</div>
+    </div>
+    <div class="lg:col-span-8">
+      <p class="pullquote">
+        Most Ex vendor sites are black and yellow. This one isn't — because the point of a reference is not to look like a warning sign, but to read like an engineering journal. <em>Precision over pageantry.</em>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========== EXPLAINER =========== -->
+<section id="certification" class="anchor">
+  <div class="max-w-[1140px] mx-auto px-6 pt-24 pb-20">
+    <div class="mb-12">
+      <div class="mono text-[12px] text-[color:var(--ash)] mb-3">§ 02 — Why certification type matters</div>
+      <h2 class="serif h-section max-w-[18ch]">Three decisions that <em class="italic text-[color:var(--graphite)]">fail procurement review.</em></h2>
+      <p class="mt-6 max-w-[65ch] text-[17px] leading-[1.55] text-[color:var(--graphite)]">
+        Selecting the wrong zone rating or gas group for your facility is not a compliance issue — it is an ignition risk. The distinctions below drive most HSE rejections.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+      <!-- Zone -->
+      <article>
+        <div class="flex items-center gap-3 mb-5">
+          <span class="badge badge-warn">01 · Zone</span>
+          <span class="text-[13px] text-[color:var(--ash)]">Frequency of explosive mixture</span>
+        </div>
+        <h3 class="serif text-[28px] leading-[1.1] mb-4">Zone 1 vs Zone 2.</h3>
+        <dl class="space-y-4 text-[15px] leading-[1.55]">
           <div>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="badge-z1 px-2.5 py-0.5 rounded-md text-xs font-medium">Zone 1</span>
-              <span class="badge-atex px-2.5 py-0.5 rounded-md text-xs font-medium">ATEX</span>
-              <span class="badge-iec px-2.5 py-0.5 rounded-md text-xs font-medium">IECEx</span>
-            </div>
-            <h3 class="text-2xl font-bold mb-2">Xshielder Case + iPhone 15</h3>
-            <p class="text-zinc-400 text-sm leading-relaxed mb-6">
-              The only ATEX Zone 1 / IECEx certified solution that runs a standard iPhone — full iOS ecosystem, App Store, Face ID, and enterprise MDM. No compromises on usability. Workers carry one device everywhere, including pump rooms, classified cargo holds, and gas processing areas.
-            </p>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-              <div class="bg-zinc-800/60 rounded-xl p-3">
-                <div class="text-xs text-zinc-500 mb-1">OS</div>
-                <div class="text-sm font-semibold">iOS 17+</div>
-              </div>
-              <div class="bg-zinc-800/60 rounded-xl p-3">
-                <div class="text-xs text-zinc-500 mb-1">Zone</div>
-                <div class="text-sm font-semibold text-red-400">Zone 1 / 21</div>
-              </div>
-              <div class="bg-zinc-800/60 rounded-xl p-3">
-                <div class="text-xs text-zinc-500 mb-1">Cert</div>
-                <div class="text-sm font-semibold">ATEX + IECEx</div>
-              </div>
-              <div class="bg-zinc-800/60 rounded-xl p-3">
-                <div class="text-xs text-zinc-500 mb-1">From</div>
-                <div class="text-sm font-semibold text-orange-400">€490</div>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-3">
-              <a href="/reviews/xshielder" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-orange-500 hover:bg-orange-400 text-sm font-medium text-white transition-colors">
-                Full review <i class="ph ph-arrow-right"></i>
-              </a>
-              <a href="https://xshielder.com" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-zinc-700 hover:border-zinc-500 text-sm font-medium text-zinc-300 transition-colors">
-                Visit site <i class="ph ph-arrow-up-right"></i>
-              </a>
-            </div>
+            <dt class="font-semibold">Zone 1</dt>
+            <dd class="text-[color:var(--graphite)] mt-1">An atmosphere in which an explosive mixture is <em>likely to occur in normal operation, occasionally.</em> Requires category 2G equipment — typically Ex&nbsp;ia or Ex&nbsp;ib.</dd>
           </div>
-          <div class="hidden md:block">
-            <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=520&q=80"
-                 alt="Industrial worker in ATEX classified area" class="rounded-xl w-full h-52 object-cover" />
-          </div>
-        </div>
-      </div>
-
-      <!-- #2–5 grid -->
-      <div class="grid md:grid-cols-2 gap-4">
-
-        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 card">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex flex-wrap gap-1.5">
-              <span class="badge-z1 px-2 py-0.5 rounded text-xs font-medium">Zone 1</span>
-              <span class="badge-atex px-2 py-0.5 rounded text-xs font-medium">ATEX</span>
-            </div>
-            <span class="font-mono text-zinc-500 text-sm">#2</span>
-          </div>
-          <h3 class="text-base font-semibold mb-1.5">Ecom Smart-Ex 02</h3>
-          <p class="text-zinc-400 text-sm leading-relaxed mb-4">Android-based Zone 1 device from a dedicated hazloc manufacturer. Solid build, long track record in O&amp;G and chemical processing.</p>
-          <div class="flex items-center justify-between text-sm">
-            <div class="flex gap-4 text-zinc-500 text-xs">
-              <span class="flex items-center gap-1"><i class="ph ph-device-mobile"></i> Android</span>
-              <span class="flex items-center gap-1"><i class="ph ph-currency-eur"></i> From €1,200</span>
-            </div>
-            <a href="/reviews/ecom-smart-ex-02" class="text-orange-400 hover:text-orange-300 flex items-center gap-1 transition-colors">Review <i class="ph ph-arrow-right text-xs"></i></a>
-          </div>
-        </div>
-
-        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 card">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex flex-wrap gap-1.5">
-              <span class="badge-z1 px-2 py-0.5 rounded text-xs font-medium">Zone 1</span>
-              <span class="badge-atex px-2 py-0.5 rounded text-xs font-medium">ATEX</span>
-              <span class="badge-iec px-2 py-0.5 rounded text-xs font-medium">IECEx</span>
-            </div>
-            <span class="font-mono text-zinc-500 text-sm">#3</span>
-          </div>
-          <h3 class="text-base font-semibold mb-1.5">Pepperl+Fuchs Smart-Ex 201</h3>
-          <p class="text-zinc-400 text-sm leading-relaxed mb-4">Enterprise-grade Zone 1 Android smartphone with barcode scanner, PTT, and NFC. Popular in chemical, pharma, and offshore.</p>
-          <div class="flex items-center justify-between text-sm">
-            <div class="flex gap-4 text-zinc-500 text-xs">
-              <span class="flex items-center gap-1"><i class="ph ph-device-mobile"></i> Android</span>
-              <span class="flex items-center gap-1"><i class="ph ph-currency-eur"></i> From €1,400</span>
-            </div>
-            <a href="/reviews/pepperl-fuchs-smart-ex-201" class="text-orange-400 hover:text-orange-300 flex items-center gap-1 transition-colors">Review <i class="ph ph-arrow-right text-xs"></i></a>
-          </div>
-        </div>
-
-        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 card">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex flex-wrap gap-1.5">
-              <span class="badge-z1 px-2 py-0.5 rounded text-xs font-medium">Zone 1</span>
-              <span class="badge-atex px-2 py-0.5 rounded text-xs font-medium">ATEX</span>
-            </div>
-            <span class="font-mono text-zinc-500 text-sm">#4</span>
-          </div>
-          <h3 class="text-base font-semibold mb-1.5">i.safe MOBILE IS330.1</h3>
-          <p class="text-zinc-400 text-sm leading-relaxed mb-4">Slim Zone 1 Android with good camera specs. Targeted at inspection and maintenance workflows in gas and petrochemical plants.</p>
-          <div class="flex items-center justify-between text-sm">
-            <div class="flex gap-4 text-zinc-500 text-xs">
-              <span class="flex items-center gap-1"><i class="ph ph-device-mobile"></i> Android</span>
-              <span class="flex items-center gap-1"><i class="ph ph-currency-eur"></i> From €1,100</span>
-            </div>
-            <a href="/reviews/isafe-is330" class="text-orange-400 hover:text-orange-300 flex items-center gap-1 transition-colors">Review <i class="ph ph-arrow-right text-xs"></i></a>
-          </div>
-        </div>
-
-        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 card">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex flex-wrap gap-1.5">
-              <span class="badge-z1 px-2 py-0.5 rounded text-xs font-medium">Zone 1</span>
-              <span class="badge-iec px-2 py-0.5 rounded text-xs font-medium">IECEx</span>
-            </div>
-            <span class="font-mono text-zinc-500 text-sm">#5</span>
-          </div>
-          <h3 class="text-base font-semibold mb-1.5">Bartec Pixavi Gravity X</h3>
-          <p class="text-zinc-400 text-sm leading-relaxed mb-4">Norwegian-made Zone 1 smartphone with strong offshore presence. IECEx certified, camera-focused design built for inspection photography.</p>
-          <div class="flex items-center justify-between text-sm">
-            <div class="flex gap-4 text-zinc-500 text-xs">
-              <span class="flex items-center gap-1"><i class="ph ph-device-mobile"></i> Android</span>
-              <span class="flex items-center gap-1"><i class="ph ph-currency-eur"></i> From €1,300</span>
-            </div>
-            <a href="/reviews/bartec-pixavi-gravity-x" class="text-orange-400 hover:text-orange-300 flex items-center gap-1 transition-colors">Review <i class="ph ph-arrow-right text-xs"></i></a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ───── COMPARISON TABLE ───── -->
-  <section class="py-16 px-5 bg-zinc-900/30 border-y border-zinc-800">
-    <div class="max-w-6xl mx-auto">
-      <p class="font-mono text-orange-400 text-xs uppercase tracking-widest mb-2">Side by side</p>
-      <h2 class="text-3xl font-bold mb-2">Quick comparison</h2>
-      <p class="text-zinc-400 mb-8">Key specs across Zone 1 certified devices.</p>
-
-      <div class="overflow-x-auto rounded-2xl border border-zinc-800">
-        <table class="w-full text-sm min-w-[640px]">
-          <thead>
-            <tr class="border-b border-zinc-800 bg-zinc-900/60 text-zinc-400 text-xs uppercase tracking-wider">
-              <th class="text-left py-4 px-5 font-medium">Device</th>
-              <th class="text-left py-4 px-5 font-medium">OS</th>
-              <th class="text-left py-4 px-5 font-medium">Zone</th>
-              <th class="py-4 px-5 font-medium">ATEX</th>
-              <th class="py-4 px-5 font-medium">IECEx</th>
-              <th class="text-left py-4 px-5 font-medium">Est. price</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-zinc-800/50">
-            <tr class="bg-orange-500/5">
-              <td class="py-4 px-5 font-medium"><span class="text-orange-400 mr-1">★</span>Xshielder + iPhone 15</td>
-              <td class="py-4 px-5 text-zinc-300">iOS 17+</td>
-              <td class="py-4 px-5"><span class="badge-z1 px-2 py-0.5 rounded text-xs">Zone 1</span></td>
-              <td class="py-4 px-5 text-center text-green-400"><i class="ph ph-check-circle-fill text-lg"></i></td>
-              <td class="py-4 px-5 text-center text-green-400"><i class="ph ph-check-circle-fill text-lg"></i></td>
-              <td class="py-4 px-5 text-zinc-300">From €490</td>
-            </tr>
-            <tr>
-              <td class="py-4 px-5 font-medium text-zinc-100">Ecom Smart-Ex 02</td>
-              <td class="py-4 px-5 text-zinc-400">Android 11</td>
-              <td class="py-4 px-5"><span class="badge-z1 px-2 py-0.5 rounded text-xs">Zone 1</span></td>
-              <td class="py-4 px-5 text-center text-green-400"><i class="ph ph-check-circle-fill text-lg"></i></td>
-              <td class="py-4 px-5 text-center text-zinc-600"><i class="ph ph-minus-circle text-lg"></i></td>
-              <td class="py-4 px-5 text-zinc-400">~€1,200</td>
-            </tr>
-            <tr>
-              <td class="py-4 px-5 font-medium text-zinc-100">Pepperl+Fuchs Smart-Ex 201</td>
-              <td class="py-4 px-5 text-zinc-400">Android 11</td>
-              <td class="py-4 px-5"><span class="badge-z1 px-2 py-0.5 rounded text-xs">Zone 1</span></td>
-              <td class="py-4 px-5 text-center text-green-400"><i class="ph ph-check-circle-fill text-lg"></i></td>
-              <td class="py-4 px-5 text-center text-green-400"><i class="ph ph-check-circle-fill text-lg"></i></td>
-              <td class="py-4 px-5 text-zinc-400">~€1,400</td>
-            </tr>
-            <tr>
-              <td class="py-4 px-5 font-medium text-zinc-100">i.safe MOBILE IS330.1</td>
-              <td class="py-4 px-5 text-zinc-400">Android 10</td>
-              <td class="py-4 px-5"><span class="badge-z1 px-2 py-0.5 rounded text-xs">Zone 1</span></td>
-              <td class="py-4 px-5 text-center text-green-400"><i class="ph ph-check-circle-fill text-lg"></i></td>
-              <td class="py-4 px-5 text-center text-zinc-600"><i class="ph ph-minus-circle text-lg"></i></td>
-              <td class="py-4 px-5 text-zinc-400">~€1,100</td>
-            </tr>
-            <tr>
-              <td class="py-4 px-5 font-medium text-zinc-100">Bartec Pixavi Gravity X</td>
-              <td class="py-4 px-5 text-zinc-400">Android 10</td>
-              <td class="py-4 px-5"><span class="badge-z1 px-2 py-0.5 rounded text-xs">Zone 1</span></td>
-              <td class="py-4 px-5 text-center text-zinc-600"><i class="ph ph-minus-circle text-lg"></i></td>
-              <td class="py-4 px-5 text-center text-green-400"><i class="ph ph-check-circle-fill text-lg"></i></td>
-              <td class="py-4 px-5 text-zinc-400">~€1,300</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- ───── BUYER GUIDES ───── -->
-  <section id="guides" class="py-20 px-5">
-    <div class="max-w-6xl mx-auto">
-      <p class="font-mono text-orange-400 text-xs uppercase tracking-widest mb-2">Buyer guides</p>
-      <h2 class="text-3xl font-bold mb-2">Learn before you buy</h2>
-      <p class="text-zinc-400 mb-10">Everything you need to understand before procuring hazardous area devices.</p>
-
-      <div class="grid md:grid-cols-3 gap-5">
-
-        <a href="/guides/atex-zone-1-vs-zone-2" class="group block rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden card">
-          <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&h=240&q=80"
-               alt="Oil refinery flare stack at dusk" class="w-full h-44 object-cover group-hover:opacity-80 transition-opacity" />
-          <div class="p-5">
-            <div class="flex items-center gap-1.5 text-zinc-500 text-xs mb-2"><i class="ph ph-clock"></i> 5 min read</div>
-            <h3 class="font-semibold text-zinc-100 mb-2 group-hover:text-orange-400 transition-colors leading-snug">ATEX Zone 1 vs Zone 2: what's the difference?</h3>
-            <p class="text-zinc-400 text-sm leading-relaxed">How explosive atmosphere zones are classified and what that means for which devices you can use.</p>
-          </div>
-        </a>
-
-        <a href="/guides/iphone-vs-android-hazardous-areas" class="group block rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden card">
-          <img src="https://images.unsplash.com/photo-1565514158740-064f34bd6cfd?auto=format&fit=crop&w=600&h=240&q=80"
-               alt="Modern smartphone screen" class="w-full h-44 object-cover group-hover:opacity-80 transition-opacity" />
-          <div class="p-5">
-            <div class="flex items-center gap-1.5 text-zinc-500 text-xs mb-2"><i class="ph ph-clock"></i> 7 min read</div>
-            <h3 class="font-semibold text-zinc-100 mb-2 group-hover:text-orange-400 transition-colors leading-snug">iPhone vs Android in classified areas: pros and cons</h3>
-            <p class="text-zinc-400 text-sm leading-relaxed">MDM, app ecosystem, update policy, and total cost of ownership — which OS wins for hazloc operations?</p>
-          </div>
-        </a>
-
-        <a href="/guides/iecex-vs-atex" class="group block rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden card">
-          <img src="https://images.unsplash.com/photo-1581093196869-d97a56c07fa4?auto=format&fit=crop&w=600&h=240&q=80"
-               alt="Technical documentation and certificates" class="w-full h-44 object-cover group-hover:opacity-80 transition-opacity" />
-          <div class="p-5">
-            <div class="flex items-center gap-1.5 text-zinc-500 text-xs mb-2"><i class="ph ph-clock"></i> 6 min read</div>
-            <h3 class="font-semibold text-zinc-100 mb-2 group-hover:text-orange-400 transition-colors leading-snug">IECEx vs ATEX: which certification do you need?</h3>
-            <p class="text-zinc-400 text-sm leading-relaxed">Global vs European certification and when each applies — especially relevant for multinational operations.</p>
-          </div>
-        </a>
-
-        <a href="/guides/intrinsic-safety-explained" class="group block rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden card">
-          <img src="https://images.unsplash.com/photo-1562408590-e32931084e23?auto=format&fit=crop&w=600&h=240&q=80"
-               alt="Chemical plant piping" class="w-full h-44 object-cover group-hover:opacity-80 transition-opacity" />
-          <div class="p-5">
-            <div class="flex items-center gap-1.5 text-zinc-500 text-xs mb-2"><i class="ph ph-clock"></i> 8 min read</div>
-            <h3 class="font-semibold text-zinc-100 mb-2 group-hover:text-orange-400 transition-colors leading-snug">Intrinsic safety explained for procurement teams</h3>
-            <p class="text-zinc-400 text-sm leading-relaxed">What "intrinsically safe" actually means, and why it's fundamentally different from explosion-proof or flameproof.</p>
-          </div>
-        </a>
-
-        <a href="/guides/byod-classified-areas" class="group block rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden card">
-          <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=600&h=240&q=80"
-               alt="Worker in industrial environment" class="w-full h-44 object-cover group-hover:opacity-80 transition-opacity" />
-          <div class="p-5">
-            <div class="flex items-center gap-1.5 text-zinc-500 text-xs mb-2"><i class="ph ph-clock"></i> 6 min read</div>
-            <h3 class="font-semibold text-zinc-100 mb-2 group-hover:text-orange-400 transition-colors leading-snug">BYOD policies for classified areas: what works</h3>
-            <p class="text-zinc-400 text-sm leading-relaxed">How to manage personal smartphone use in Zone 1 and Zone 2 without creating safety or compliance risks.</p>
-          </div>
-        </a>
-
-        <a href="/guides/smartphone-vs-rugged-tco" class="group block rounded-2xl border border-zinc-800 bg-zinc-900/40 overflow-hidden card">
-          <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=600&h=240&q=80"
-               alt="Maintenance engineer in hard hat" class="w-full h-44 object-cover group-hover:opacity-80 transition-opacity" />
-          <div class="p-5">
-            <div class="flex items-center gap-1.5 text-zinc-500 text-xs mb-2"><i class="ph ph-clock"></i> 5 min read</div>
-            <h3 class="font-semibold text-zinc-100 mb-2 group-hover:text-orange-400 transition-colors leading-snug">Certified smartphone vs rugged device: the real TCO</h3>
-            <p class="text-zinc-400 text-sm leading-relaxed">Total cost of ownership analysis — is a €490 certified case really cheaper than a €1,200 purpose-built device?</p>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ───── BY SECTOR ───── -->
-  <section id="sectors" class="py-16 px-5 border-t border-zinc-800">
-    <div class="max-w-6xl mx-auto">
-      <p class="font-mono text-orange-400 text-xs uppercase tracking-widest mb-2">Browse</p>
-      <h2 class="text-3xl font-bold mb-10">By industry sector</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <a href="/sector/oil-gas" class="group p-5 rounded-2xl border border-zinc-800 hover:border-orange-500/40 bg-zinc-900/40 transition-all">
-          <i class="ph ph-flame text-2xl text-orange-400 mb-3 block"></i>
-          <div class="font-medium group-hover:text-orange-400 transition-colors">Oil &amp; Gas</div>
-          <div class="text-xs text-zinc-500 mt-1">Upstream · Midstream · Refining</div>
-        </a>
-        <a href="/sector/chemical" class="group p-5 rounded-2xl border border-zinc-800 hover:border-orange-500/40 bg-zinc-900/40 transition-all">
-          <i class="ph ph-flask text-2xl text-blue-400 mb-3 block"></i>
-          <div class="font-medium group-hover:text-orange-400 transition-colors">Chemical</div>
-          <div class="text-xs text-zinc-500 mt-1">Processing · Specialty · Pharma</div>
-        </a>
-        <a href="/sector/mining" class="group p-5 rounded-2xl border border-zinc-800 hover:border-orange-500/40 bg-zinc-900/40 transition-all">
-          <i class="ph ph-mountains text-2xl text-yellow-400 mb-3 block"></i>
-          <div class="font-medium group-hover:text-orange-400 transition-colors">Mining</div>
-          <div class="text-xs text-zinc-500 mt-1">Underground · Surface · Coal</div>
-        </a>
-        <a href="/sector/maritime" class="group p-5 rounded-2xl border border-zinc-800 hover:border-orange-500/40 bg-zinc-900/40 transition-all">
-          <i class="ph ph-boat text-2xl text-cyan-400 mb-3 block"></i>
-          <div class="font-medium group-hover:text-orange-400 transition-colors">Maritime</div>
-          <div class="text-xs text-zinc-500 mt-1">Tankers · Offshore · LNG</div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ───── CTA ───── -->
-  <section class="py-20 px-5">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="rounded-2xl border border-orange-500/20 bg-orange-500/5 p-10">
-        <i class="ph ph-shield-check text-4xl text-orange-400 mb-4 block"></i>
-        <h2 class="text-3xl font-bold mb-3">Not sure which device fits your zone?</h2>
-        <p class="text-zinc-400 mb-7 max-w-md mx-auto">Tell us your certification requirements, industry, and number of users — we'll point you to the right solution.</p>
-        <a href="mailto:hello@intrinsicallysafephones.com" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-400 font-medium text-white transition-colors">
-          <i class="ph ph-envelope"></i> Get a recommendation
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ───── FOOTER ───── -->
-  <footer id="about" class="border-t border-zinc-800 py-12 px-5">
-    <div class="max-w-6xl mx-auto">
-      <div class="grid md:grid-cols-[1fr_auto] gap-10 mb-10">
-        <div class="max-w-xs">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="w-6 h-6 rounded bg-orange-500 flex items-center justify-center">
-              <i class="ph ph-fire-simple text-white text-xs"></i>
-            </span>
-            <span class="font-semibold text-sm">IntrinsicallySafePhones</span>
-          </div>
-          <p class="text-zinc-500 text-sm leading-relaxed">Independent comparison site for ATEX and IECEx certified smartphones. No vendor affiliation.</p>
-        </div>
-        <div class="grid grid-cols-3 gap-10 text-sm">
           <div>
-            <div class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3">Compare</div>
-            <ul class="space-y-2 text-zinc-500">
-              <li><a href="/compare/zone-1" class="hover:text-zinc-300 transition-colors">Zone 1 phones</a></li>
-              <li><a href="/compare/zone-2" class="hover:text-zinc-300 transition-colors">Zone 2 phones</a></li>
-              <li><a href="/compare/ios-vs-android" class="hover:text-zinc-300 transition-colors">iOS vs Android</a></li>
-              <li><a href="/compare/all" class="hover:text-zinc-300 transition-colors">All devices</a></li>
+            <dt class="font-semibold">Zone 2</dt>
+            <dd class="text-[color:var(--graphite)] mt-1">Explosive mixture <em>not likely to occur, and only for short periods</em> if it does. Category 3G equipment permitted (Ex&nbsp;nA / Ex&nbsp;ec).</dd>
+          </div>
+        </dl>
+        <div class="mt-5 p-4 card-surface rounded-[var(--radius-sm)] text-[13.5px] leading-[1.55] text-[color:var(--graphite)]">
+          <div class="mono text-[11px] text-[color:var(--ash)] mb-1">Consequence of mis-specification</div>
+          Deploying Zone-2-only equipment in a Zone 1 area is a notifiable incident under most national implementations of the ATEX Worker Protection Directive 1999/92/EC and will fail DSEAR risk assessment.
+        </div>
+      </article>
+
+      <!-- ATEX vs IECEx -->
+      <article class="lg:col-rule lg:pl-10">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="badge badge-neutral">02 · Scheme</span>
+          <span class="text-[13px] text-[color:var(--ash)]">Where it's legally required</span>
+        </div>
+        <h3 class="serif text-[28px] leading-[1.1] mb-4">ATEX vs IECEx.</h3>
+        <dl class="space-y-4 text-[15px] leading-[1.55]">
+          <div>
+            <dt class="font-semibold">ATEX · 2014/34/EU</dt>
+            <dd class="text-[color:var(--graphite)] mt-1">Mandatory CE-marking directive for equipment placed on the EU/EEA market. Requires a Notified Body-issued EU-Type Examination Certificate.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold">IECEx</dt>
+            <dd class="text-[color:var(--graphite)] mt-1">Voluntary international scheme accepted in 30+ countries including UK, Australia, the Gulf, and much of APAC. Issued against the same IEC 60079 series.</dd>
+          </div>
+        </dl>
+        <div class="mt-5 p-4 card-surface rounded-[var(--radius-sm)] text-[13.5px] leading-[1.55] text-[color:var(--graphite)]">
+          <div class="mono text-[11px] text-[color:var(--ash)] mb-1">Mutual recognition</div>
+          An IECEx CoC is a valid technical basis for ATEX certification, but the IECEx mark alone is not sufficient for EU deployment. Dual-certified equipment is the safe procurement default.
+        </div>
+      </article>
+
+      <!-- Gas groups -->
+      <article class="lg:col-rule lg:pl-10">
+        <div class="flex items-center gap-3 mb-5">
+          <span class="badge badge-stone">03 · Gas group</span>
+          <span class="text-[13px] text-[color:var(--ash)]">Apparatus group II</span>
+        </div>
+        <h3 class="serif text-[28px] leading-[1.1] mb-4">IIA, IIB, IIC.</h3>
+        <dl class="space-y-3 text-[15px] leading-[1.55]">
+          <div class="flex gap-3"><dt class="mono text-[13px] w-10 text-[color:var(--ink)] pt-0.5">IIA</dt><dd class="text-[color:var(--graphite)]">Propane-like atmospheres. Lowest requirement; LPG, fuel storage.</dd></div>
+          <div class="flex gap-3"><dt class="mono text-[13px] w-10 text-[color:var(--ink)] pt-0.5">IIB</dt><dd class="text-[color:var(--graphite)]">Ethylene-like atmospheres. Covers most petrochemical downstream.</dd></div>
+          <div class="flex gap-3"><dt class="mono text-[13px] w-10 text-[color:var(--ink)] pt-0.5">IIC</dt><dd class="text-[color:var(--graphite)]">Hydrogen &amp; acetylene. MIE ≈ 0.017&nbsp;mJ — the hardest Group II target. IIC implies IIA and IIB by inclusion.</dd></div>
+        </dl>
+        <div class="mt-5 p-4 card-surface rounded-[var(--radius-sm)] text-[13.5px] leading-[1.55] text-[color:var(--graphite)]">
+          <div class="mono text-[11px] text-[color:var(--ash)] mb-1">Procurement rule of thumb</div>
+          If the site includes a hydrogen electrolyser, ammonia plant, or refinery reformer section — specify IIC. IIC future-proofs against zone re-classification.
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =========== DECISION =========== -->
+<section id="decision" class="anchor bg-[color:var(--bg-alt)] border-y border-[color:var(--border)]">
+  <div class="max-w-[1140px] mx-auto px-6 py-24">
+    <div class="mb-12 max-w-[52ch]">
+      <div class="mono text-[12px] text-[color:var(--ash)] mb-3">§ 03 — Architecture</div>
+      <h2 class="serif h-section">Case vs. dedicated phone, <em class="italic text-[color:var(--graphite)]">honestly.</em></h2>
+      <p class="mt-5 text-[16.5px] leading-[1.55] text-[color:var(--graphite)]">
+        Two approaches dominate. The right choice depends on MDM strategy, fleet-refresh economics, and whether your field workforce already operates iOS.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <article class="card p-8 relative">
+        <div class="flex items-center justify-between mb-5">
+          <span class="badge badge-green"><span class="hb !w-[7px] !h-[7px]"></span>Approach A</span>
+          <span class="chip">iOS native</span>
+        </div>
+        <h3 class="serif text-[32px] leading-[1.1] mb-2">Certified IS case.</h3>
+        <p class="text-[15px] text-[color:var(--graphite)] leading-[1.55] mb-6">
+          A protective enclosure carrying its own Ex certification, into which a consumer iPhone is inserted. The assembly is certified as a whole.
+        </p>
+        <div class="grid grid-cols-2 gap-x-6 gap-y-2 text-[14px]">
+          <div>
+            <div class="mono text-[11px] text-[color:var(--ash)] uppercase mb-2 tracking-wider">Advantages</div>
+            <ul class="space-y-1.5 text-[color:var(--graphite)]">
+              <li>— Full iOS UX &amp; Face ID retained</li>
+              <li>— Apple Business Manager / MDM native</li>
+              <li>— Host upgradeable yearly</li>
+              <li>— Serviceable: case opens at decommission</li>
+              <li>— Zero field-staff retraining</li>
             </ul>
           </div>
           <div>
-            <div class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3">Guides</div>
-            <ul class="space-y-2 text-zinc-500">
-              <li><a href="/guides/atex-explained" class="hover:text-zinc-300 transition-colors">ATEX explained</a></li>
-              <li><a href="/guides/iecex-explained" class="hover:text-zinc-300 transition-colors">IECEx explained</a></li>
-              <li><a href="/guides/zone-classification" class="hover:text-zinc-300 transition-colors">Zone classification</a></li>
-              <li><a href="/guides/buyer-checklist" class="hover:text-zinc-300 transition-colors">Buyer checklist</a></li>
-            </ul>
-          </div>
-          <div>
-            <div class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3">Site</div>
-            <ul class="space-y-2 text-zinc-500">
-              <li><a href="/about" class="hover:text-zinc-300 transition-colors">About</a></li>
-              <li><a href="/contact" class="hover:text-zinc-300 transition-colors">Contact</a></li>
-              <li><a href="/privacy" class="hover:text-zinc-300 transition-colors">Privacy</a></li>
+            <div class="mono text-[11px] text-[color:var(--ash)] uppercase mb-2 tracking-wider">Tradeoffs</div>
+            <ul class="space-y-1.5 text-[color:var(--graphite)]">
+              <li>— Adds 12–18 mm depth, 180–260 g</li>
+              <li>— Host sealed in-zone</li>
+              <li>— Certification tied to iPhone model</li>
+              <li>— Glove-touch must be validated</li>
             </ul>
           </div>
         </div>
+      </article>
+
+      <article class="card p-8 relative">
+        <div class="flex items-center justify-between mb-5">
+          <span class="badge badge-neutral">Approach B</span>
+          <span class="chip">Android / proprietary</span>
+        </div>
+        <h3 class="serif text-[32px] leading-[1.1] mb-2">Dedicated IS phone.</h3>
+        <p class="text-[15px] text-[color:var(--graphite)] leading-[1.55] mb-6">
+          Purpose-built hardware, certified end-to-end as a single unit. No current vendor ships an iOS-based dedicated IS phone.
+        </p>
+        <div class="grid grid-cols-2 gap-x-6 gap-y-2 text-[14px]">
+          <div>
+            <div class="mono text-[11px] text-[color:var(--ash)] uppercase mb-2 tracking-wider">Advantages</div>
+            <ul class="space-y-1.5 text-[color:var(--graphite)]">
+              <li>— Single-unit certification path</li>
+              <li>— Typically more compact</li>
+              <li>— Physical-key variants for gloves</li>
+              <li>— One-vendor accountability</li>
+            </ul>
+          </div>
+          <div>
+            <div class="mono text-[11px] text-[color:var(--ash)] uppercase mb-2 tracking-wider">Tradeoffs</div>
+            <ul class="space-y-1.5 text-[color:var(--graphite)]">
+              <li>— Proprietary OS / stale Android</li>
+              <li>— MDM outside Apple fleet strategy</li>
+              <li>— 4–7 year refresh cycles</li>
+              <li>— Sealed assembly: Ex ia units non-serviceable in field</li>
+              <li>— 2–4× consumer flagship cost</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="card mt-8 overflow-x-auto">
+      <table class="cmp-table w-full text-[14px]">
+        <thead><tr>
+          <th class="w-[34%]">Criterion</th>
+          <th>Certified IS case</th>
+          <th>Dedicated IS phone</th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="text-[color:var(--ash)]">Host OS</td><td class="mono">iOS (current)</td><td class="mono">Android (vendor) / proprietary</td></tr>
+          <tr><td class="text-[color:var(--ash)]">Refresh cycle</td><td class="mono">Annual, with host</td><td class="mono">4–7 years</td></tr>
+          <tr><td class="text-[color:var(--ash)]">Serviceability</td><td class="mono">Case opens at EOL; host reused</td><td class="mono">Sealed at factory (Ex ia)</td></tr>
+          <tr><td class="text-[color:var(--ash)]">MDM integration</td><td class="mono">Apple Business Manager</td><td class="mono">Vendor-specific / AER</td></tr>
+          <tr><td class="text-[color:var(--ash)]">Typical mass</td><td class="mono">380–520 g assembled</td><td class="mono">240–340 g</td></tr>
+          <tr><td class="text-[color:var(--ash)]">Typical unit cost*</td><td class="mono">$1.4k–$2.4k</td><td class="mono">$2.8k–$5.0k</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-3 text-[12px] text-[color:var(--ash)]">* Indicative list price excluding MDM, spares, and accessories. Verify with vendor quotation.</div>
+  </div>
+</section>
+
+<!-- =========== METHODOLOGY =========== -->
+<section id="methodology" class="anchor">
+  <div class="max-w-[1140px] mx-auto px-6 py-24">
+    <div class="mb-10">
+      <div class="mono text-[12px] text-[color:var(--ash)] mb-3">§ 04 — Methodology</div>
+      <h2 class="serif h-section max-w-[22ch]">How this guide scores, and where the specs come from.</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-[15px] leading-[1.6] text-[color:var(--graphite)]">
+      <div>
+        <div class="mono text-[11px] text-[color:var(--ash)] uppercase tracking-wider mb-2">Score composition</div>
+        Overall score is a weighted composite: zone coverage (30%), gas group coverage (20%), serviceability / lifecycle posture (15%), MDM / OS posture (15%), ergonomics (10%), certification currency (10%).
       </div>
-      <div class="border-t border-zinc-800 pt-6 flex flex-col sm:flex-row justify-between gap-3">
-        <p class="text-zinc-600 text-xs">© 2026 IntrinsicallySafePhones.com — Independent review site.</p>
-        <p class="text-zinc-600 text-xs">Prices are estimates. Always verify certifications with manufacturers before purchase.</p>
+      <div>
+        <div class="mono text-[11px] text-[color:var(--ash)] uppercase tracking-wider mb-2">Spec sourcing</div>
+        Specifications are drawn from manufacturer datasheets and IECEx Online Certificate of Conformity records. Where a value was unverifiable at publication, "—" is shown rather than an inferred estimate.
+      </div>
+      <div>
+        <div class="mono text-[11px] text-[color:var(--ash)] uppercase tracking-wider mb-2">Scope</div>
+        Non-iPhone solutions (pure Android IS phones) are included where they are the category's closest functional alternative, so readers can benchmark across architectures.
       </div>
     </div>
-  </footer>
 
+
+  </div>
+</section>
+
+<!-- =========== FOOTER =========== -->
+<footer class="bg-[color:var(--void)] text-[#e8ebe4]">
+  <div class="max-w-[1140px] mx-auto px-6 pt-20 pb-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <div class="lg:col-span-5">
+        <div class="flex items-center gap-2.5 mb-5">
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M16 2.5l11.5 6.5v13L16 28.5 4.5 22V9L16 2.5Z" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"/>
+            <rect x="11" y="9" width="10" height="14" rx="1.8" stroke="#ffffff" stroke-width="1.6"/>
+            <line x1="14" y1="20.5" x2="18" y2="20.5" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="16" cy="12.5" r="1.6" fill="#22c55e"/>
+          </svg>
+          <span class="font-semibold text-[15px]">intrinsicallysafephones<span class="opacity-60 font-normal">.com</span></span>
+        </div>
+        <p class="serif text-[28px] leading-[1.15] max-w-[22ch]">
+          Engineering reference for hazardous-area mobile.
+        </p>
+        <p class="text-[13.5px] mt-4 opacity-70 leading-[1.6] max-w-[60ch]">
+          This site provides engineering comparison information only. It is not a substitute for a site-specific Ex inspection, DSEAR assessment, or the manufacturer's current Certificate of Conformity. Always verify certification documentation before deployment. The operators accept no liability for procurement decisions made in reliance on its content.
+        </p>
+      </div>
+      <div class="lg:col-span-3">
+        <div class="mono text-[11px] opacity-60 uppercase tracking-wider mb-4">References</div>
+        <ul class="space-y-2.5 text-[14px]">
+          <li><a class="opacity-90 hover:opacity-100" href="https://www.iecex.com" target="_blank" rel="noopener">iecex.com — IECEx Online CoC</a></li>
+          <li><a class="opacity-90 hover:opacity-100" href="#" onclick="return false">ATEX Directive 2014/34/EU</a></li>
+          <li><a class="opacity-90 hover:opacity-100" href="#" onclick="return false">IEC 60079 series</a></li>
+          <li><a class="opacity-90 hover:opacity-100" href="#" onclick="return false">DSEAR (UK) / 1999/92/EC</a></li>
+        </ul>
+      </div>
+      <div class="lg:col-span-4">
+        <div class="mono text-[11px] opacity-60 uppercase tracking-wider mb-4">Featured vendor</div>
+        <a href="#" onclick="return false" class="block p-5 rounded-[var(--radius)] bg-[#161616] border border-[#222] hover:border-[#333] transition">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-semibold text-[15px]">Xshielder</div>
+              <div class="mono text-[11.5px] opacity-60 mt-1">xshielder.com · IECEx + ATEX · Zone 1 IIC</div>
+            </div>
+            <span class="text-[color:var(--active)]">→</span>
+          </div>
+        </a>
+        <p class="text-[11.5px] opacity-60 mt-3 leading-relaxed">
+          Featured placement reflects the current scoring rubric (§ 04) and may be revised on re-publication.
+        </p>
+      </div>
+    </div>
+    <div class="hr-rule !bg-[#1f1f1f] my-10"></div>
+    <div class="flex flex-wrap items-center justify-between gap-4 text-[12px] opacity-60">
+      <div>© 2026 · intrinsicallysafephones.com · Rev 2026.04</div>
+      <div>Engineering reference — not a safety certificate.</div>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<!-- =========== COMPARE BAR =========== -->
+<div id="compareBar" class="compare-bar">
+  <div class="max-w-[1140px] mx-auto px-6 pb-6">
+    <div class="card !bg-[color:var(--bg-alt)] overflow-hidden shadow-[0_20px_60px_-20px_rgba(0,0,0,0.18)]">
+      <div class="flex items-center justify-between px-5 py-3 border-b border-[color:var(--border)]">
+        <div class="flex items-center gap-3">
+          <span class="badge badge-dark">Compare</span>
+          <span class="text-[13px] text-[color:var(--graphite)]"><span id="cmpN">0</span> / 3 selected</span>
+        </div>
+        <div class="flex items-center gap-1">
+          <button id="cmpClear" class="btn btn-ghost !py-1.5 !px-3 !text-[12px]">Clear</button>
+          <button id="cmpClose" class="btn btn-ghost !py-1.5 !px-3 !text-[12px]">Close ✕</button>
+        </div>
+      </div>
+      <div class="overflow-x-auto bg-[color:var(--bg)]">
+        <table class="cmp-table w-full min-w-[720px] text-[13px]" id="cmpTable"></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =========== DATA + LOGIC =========== -->
+<script>
+const SOLUTIONS = [
+  {
+    id:'xshielder', name:'Xshielder IS Case', vendor:'Xshielder',
+    type:'Certified Case', typeBadge:'badge-green',
+    host:'iPhone 16 Pro Max', platform:'iOS',
+    zone:'Zone 1', zones:['zone1','zone2'],
+    atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
+    service:'replaceable', glove:'Yes', bulk:2, score:5, status:'production',
+    notation:'Ex ia IIC T4 Ga · II 1G', featured:true,
+    image:null, silhouette:'phone',
+    note:'Dual IECEx + ATEX certification covering the iPhone 16 Pro Max assembly. Retains the host camera via a certified optical window and supports glove operation without stylus. Current procurement default for Zone 1 iOS-native deployments where camera function is mandatory (asset photography, visual inspection).'
+  },
+  {
+    id:'xciel', name:'Xciel IS Case for iPhone', vendor:'Xciel',
+    type:'Certified Case', typeBadge:'badge-green',
+    host:'iPhone 15 / 16 Pro', platform:'iOS',
+    zone:'Zone 1', zones:['zone1','zone2'],
+    atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
+    service:'replaceable', glove:'Yes', bulk:2, score:4, status:'production',
+    notation:'Ex ib IIC T4 Gb', featured:false,
+    image:null, silhouette:'phone',
+    note:'iOS-native certified case line with IECEx + ATEX coverage for Zone 1. Camera retained via a certified window. Strong fit for oil-and-gas operators already standardised on iPhone fleets.'
+  },
+  {
+    id:'atexxo', name:'Atexxo Zone 1 iPhone Case', vendor:'Atexxo',
+    type:'Certified Case', typeBadge:'badge-green',
+    host:'iPhone 15 / 16', platform:'iOS',
+    zone:'Zone 1', zones:['zone1','zone2'],
+    atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
+    service:'replaceable', glove:'Yes', bulk:3, score:4, status:'production',
+    notation:'Ex ib IIC T4 Gb', featured:false,
+    image:null, silhouette:'phone',
+    note:'Dutch manufacturer offering Zone 1 certified iPhone enclosures with camera passthrough. IECEx + ATEX. Suitable for European chemical and pharmaceutical deployments.'
+  },
+  {
+    id:'pixavi', name:'Pixavi Impact X', vendor:'Pixavi (Bartec)',
+    type:'Dedicated IS Phone', typeBadge:'badge-neutral',
+    host:'Android (vendor branch)', platform:'Android',
+    zone:'Zone 1', zones:['zone1','zone2'],
+    atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
+    service:'sealed', glove:'Yes', bulk:3, score:4, status:'production',
+    notation:'Ex ib IIC T4 Gb', featured:false,
+    image:null, silhouette:'rugged',
+    note:'Single-unit Zone 1 dedicated phone with camera retained. Operates on a vendor-maintained Android branch; MDM integration is outside Apple Business Manager and should be validated against existing fleet strategy before rollout.'
+  },
+  {
+    id:'ecom', name:'ecom Smart-Ex 03', vendor:'ecom / Pepperl+Fuchs',
+    type:'Dedicated IS Phone', typeBadge:'badge-neutral',
+    host:'Android (vendor branch)', platform:'Android',
+    zone:'Zone 1', zones:['zone1','zone2'],
+    atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
+    service:'sealed', glove:'Yes', bulk:3, score:4, status:'production',
+    notation:'Ex ib IIC T4 Gb · II 2G',  featured:false,
+    image:null, silhouette:'rugged',
+    note:'ecom (a Pepperl+Fuchs brand) Smart-Ex 03 is a Zone 1 / Div 1 Android smartphone with a 13 MP rear camera and barcode imager option. Long-established vendor with global service coverage; Android security patch cadence is vendor-controlled.'
+  },
+  {
+    id:'isafe', name:'i.safe MOBILE IS540.1', vendor:'i.safe MOBILE',
+    type:'Dedicated IS Phone', typeBadge:'badge-neutral',
+    host:'Android (vendor branch)', platform:'Android',
+    zone:'Zone 1', zones:['zone1','zone2'],
+    atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
+    service:'sealed', glove:'Yes', bulk:3, score:4, status:'production',
+    notation:'Ex ib IIC T4 Gb', featured:false,
+    image:null, silhouette:'rugged',
+    note:'German-engineered Zone 1 / Div 1 Android smartphone from i.safe MOBILE. Physical side buttons usable with gloves, dedicated PTT key, and a certified camera variant. Common choice in European chemical and offshore deployments.'
+  },
+  {
+    id:'bartec', name:'Bartec Agile X', vendor:'Bartec',
+    type:'Dedicated IS Phone', typeBadge:'badge-neutral',
+    host:'Android (vendor branch)', platform:'Android',
+    zone:'Zone 1', zones:['zone1','zone2'],
+    atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
+    service:'sealed', glove:'Yes', bulk:3, score:4, status:'production',
+    notation:'Ex ib IIC T4 Gb', featured:false,
+    image:null, silhouette:'rugged',
+    note:'Mature Zone 1 platform with a long field history. Camera is an optional SKU; camera-free variant is the more commonly certified unit in EU deployments. Refresh cadence is multi-year — plan host-software lifecycle accordingly.'
+  }
+];
+
+const grid = document.getElementById('cardGrid');
+
+function score5(n){
+  let s='';for(let i=0;i<5;i++){s += `<span class="score-seg ${i<n?'on':''}"></span>`;}return `<span class="score-track">${s}</span>`;
+}
+function bulkBar(b){
+  return `<span class="inline-flex items-center gap-2 w-[86px]"><span class="ff-bar flex-1 inline-block"><span style="width:${(b/5)*100}%"></span></span><span class="mono text-[11px] text-[color:var(--ash)]">${b}/5</span></span>`;
+}
+function yn(v){
+  if(v==='Yes') return `<span class="badge badge-green"><span class="hb !w-[6px] !h-[6px]"></span>Yes</span>`;
+  if(v==='No')  return `<span class="badge badge-stone">No</span>`;
+  if(v==='Optional') return `<span class="badge badge-warn">Optional</span>`;
+  return `<span class="chip">—</span>`;
+}
+function svcBadge(v){
+  if(v==='replaceable') return `<span class="badge badge-green"><span class="hb !w-[6px] !h-[6px]"></span>Replaceable</span>`;
+  if(v==='sealed') return `<span class="badge badge-stone">Sealed · Ex ia</span>`;
+  return `<span class="chip">—</span>`;
+}
+function certMark(s){
+  const list=[];
+  list.push(s.atex?`<span class="chip">ATEX</span>`:`<span class="chip" style="opacity:.4;text-decoration:line-through">ATEX</span>`);
+  list.push(s.iecex?`<span class="chip">IECEx</span>`:`<span class="chip" style="opacity:.4;text-decoration:line-through">IECEx</span>`);
+  return list.join(' ');
+}
+
+function renderCards(){
+  grid.innerHTML = SOLUTIONS.map(s=>`
+    <article class="card overflow-visible relative ${s.featured?'xl:col-span-2 !border-[color:var(--ink)]':''}"
+             data-id="${s.id}"
+             data-zones="${s.zones.join(',')}"
+             data-atex="${s.atex}" data-iecex="${s.iecex}"
+             data-service="${s.service}"
+             data-platform="${s.platform||''}"
+             data-status="${s.status}">
+      ${s.featured?`<span class="ribbon"><span class="dot"></span>Recommended · Zone 1</span>`:''}
+
+      <div class="px-7 pt-7 pb-0">
+        <div class="device-shot ${s.featured?'featured-shot':''}">
+          ${s.image
+            ? `<img src="${s.image}" alt="${s.name} device photograph"/>`
+            : `<div class="dev-silhouette ${s.silhouette==='rugged'?'rugged':''}"></div>`}
+          <span class="ph-label">${s.image?s.vendor:'product shot — '+s.platform}</span>
+        </div>
+      </div>
+
+      <div class="p-7 pt-5 pb-5 flex items-start gap-4">
+        <label class="pt-1.5" onclick="event.stopPropagation()">
+          <input type="checkbox" class="cb cmp-cb" data-id="${s.id}" aria-label="Add to compare"/>
+        </label>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-2 flex-wrap">
+            <span class="badge ${s.typeBadge}">${s.type}</span>
+            <span class="badge badge-stone">${s.zone}</span>
+          </div>
+          <h3 class="serif h-card leading-tight">${s.name}</h3>
+          <div class="text-[13px] text-[color:var(--ash)] mt-1.5">${s.vendor} <span class="dash-dot"></span> host: ${s.host}</div>
+        </div>
+        <div class="text-right shrink-0">
+          <div class="text-[11px] text-[color:var(--ash)] mb-1.5">Score</div>
+          ${score5(s.score)}
+        </div>
+      </div>
+
+      <div class="px-7"><div class="h-px bg-[color:var(--border)]"></div></div>
+
+      <div class="px-7 py-4 ${s.featured?'grid grid-cols-1 md:grid-cols-2 gap-x-10':''}">
+        <div>
+          <div class="spec"><span class="spec-label">Certification</span><span class="spec-val flex gap-1.5 justify-end flex-wrap">${certMark(s)}</span></div>
+          <div class="spec"><span class="spec-label">Gas group</span><span class="spec-val">${s.gas}</span></div>
+          <div class="spec"><span class="spec-label">Temp class</span><span class="spec-val">${s.temp}</span></div>
+          <div class="spec"><span class="spec-label">IP rating</span><span class="spec-val">${s.ip}</span></div>
+        </div>
+        <div>
+          <div class="spec"><span class="spec-label">Serviceable</span><span class="spec-val">${svcBadge(s.service)}</span></div>
+          <div class="spec"><span class="spec-label">Glove touchscreen</span><span class="spec-val">${yn(s.glove)}</span></div>
+          <div class="spec"><span class="spec-label">Form factor</span><span class="spec-val">${bulkBar(s.bulk)}</span></div>
+          <div class="spec"><span class="spec-label">Ex notation</span><span class="spec-val">${s.notation}</span></div>
+        </div>
+      </div>
+
+      <div class="card-expand px-7 pb-6">
+        <div class="h-px bg-[color:var(--border)] mb-5"></div>
+        <div class="mono text-[11px] text-[color:var(--ash)] uppercase tracking-wider mb-2">Deployment note</div>
+        <p class="text-[14.5px] leading-[1.6] text-[color:var(--graphite)]">${s.note}</p>
+        <div class="mt-4 flex flex-wrap items-center gap-2">
+          <span class="chip-dark chip">${s.notation}</span>
+          ${s.zones.map(z=>`<span class="chip">${z.replace('zone','Zone ')}</span>`).join('')}
+          <span class="chip">${s.ip}</span>
+        </div>
+      </div>
+
+      <button class="card-toggle w-full px-7 py-3.5 border-t border-[color:var(--border)] flex items-center justify-between text-left hover:bg-[color:var(--bg-alt)] transition">
+        <span class="text-[13px] text-[color:var(--graphite)]">Expand spec &amp; deployment note</span>
+        <svg class="chev" width="14" height="14" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="#888880" stroke-width="1.6" fill="none"/></svg>
+      </button>
+    </article>`).join('');
+
+  document.querySelectorAll('.card-toggle').forEach(b=>{
+    b.addEventListener('click',e=>e.currentTarget.closest('.card').classList.toggle('open'));
+  });
+  document.querySelectorAll('.cmp-cb').forEach(cb=>cb.addEventListener('change',onCompareChange));
+}
+renderCards();
+
+// Filtering
+const filters={zone:new Set(),cert:new Set(),service:new Set(),status:new Set(),platform:new Set()};
+document.querySelectorAll('#filterBar .pill').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const k=btn.dataset.filter,v=btn.dataset.val;
+    const pressed=btn.getAttribute('aria-pressed')==='true';
+    btn.setAttribute('aria-pressed',String(!pressed));
+    if(pressed) filters[k].delete(v); else filters[k].add(v);
+    applyFilters();
+  });
+});
+document.getElementById('clearFilters').addEventListener('click',()=>{
+  Object.values(filters).forEach(s=>s.clear());
+  document.querySelectorAll('#filterBar .pill').forEach(b=>b.setAttribute('aria-pressed','false'));
+  applyFilters();
+});
+function applyFilters(){
+  let n=0;
+  document.querySelectorAll('#cardGrid .card').forEach(card=>{
+    const zones=card.dataset.zones.split(',');
+    const atex=card.dataset.atex==='true',iecex=card.dataset.iecex==='true';
+    const svc=card.dataset.service,status=card.dataset.status,platform=card.dataset.platform;
+    let pass=true;
+    if(filters.zone.size) pass = pass && [...filters.zone].some(z=>zones.includes(z));
+    if(filters.cert.size) pass = pass && (filters.cert.has('atex')?atex:true) && (filters.cert.has('iecex')?iecex:true);
+    if(filters.service.size) pass = pass && filters.service.has(svc);
+    if(filters.status.size) pass = pass && filters.status.has(status);
+    if(filters.platform.size) pass = pass && filters.platform.has(platform);
+    card.style.display = pass ? '' : 'none';
+    if(pass) n++;
+  });
+  document.getElementById('resultCount').textContent=n;
+}
+
+// Compare
+const compareSet=new Set();
+const compareBar=document.getElementById('compareBar');
+const cmpN=document.getElementById('cmpN');
+const compareCount=document.getElementById('compareCount');
+const cmpTable=document.getElementById('cmpTable');
+
+function onCompareChange(e){
+  const id=e.target.dataset.id;
+  if(e.target.checked){
+    if(compareSet.size>=3){e.target.checked=false;return;}
+    compareSet.add(id);
+  } else compareSet.delete(id);
+  refreshCompare();
+}
+function refreshCompare(){
+  cmpN.textContent=compareSet.size;
+  compareCount.textContent=compareSet.size;
+  if(compareSet.size>0) compareBar.classList.add('show'); else compareBar.classList.remove('show');
+  const sels=SOLUTIONS.filter(s=>compareSet.has(s.id));
+  if(!sels.length){cmpTable.innerHTML='';return;}
+  const rows=[
+    ['Type',s=>s.type],['Host',s=>s.host],['Zone',s=>s.zone],
+    ['ATEX',s=>s.atex?'Yes':'No'],['IECEx',s=>s.iecex?'Yes':'No'],
+    ['Gas group',s=>s.gas],['Temp class',s=>s.temp],['IP rating',s=>s.ip],
+    ['Serviceable',s=>s.service==='replaceable'?'Replaceable':'Sealed'],['Glove touch',s=>s.glove],
+    ['Form factor',s=>`${s.bulk}/5`],['Ex notation',s=>s.notation],
+    ['Overall score',s=>`${s.score}/5`]
+  ];
+  cmpTable.innerHTML=`<thead><tr>
+    <th class="!w-[22%]">Spec</th>
+    ${sels.map(s=>`<th class="!text-[color:var(--ink)] !normal-case !text-[13px]"><div class="serif text-[17px] leading-tight">${s.name}</div><div class="mono text-[11px] text-[color:var(--ash)] mt-1">${s.vendor}</div></th>`).join('')}
+  </tr></thead>
+  <tbody>${rows.map(([l,fn])=>`<tr><td class="text-[color:var(--ash)]">${l}</td>${sels.map(s=>`<td class="mono">${fn(s)}</td>`).join('')}</tr>`).join('')}</tbody>`;
+}
+document.getElementById('compareToggle').addEventListener('click',()=>{
+  if(compareSet.size===0){
+    const y=document.getElementById('solutions').getBoundingClientRect().top+window.scrollY-80;
+    window.scrollTo({top:y,behavior:'smooth'});
+  } else compareBar.classList.toggle('show');
+});
+document.getElementById('cmpClose').addEventListener('click',()=>compareBar.classList.remove('show'));
+document.getElementById('cmpClear').addEventListener('click',()=>{
+  compareSet.clear();document.querySelectorAll('.cmp-cb').forEach(cb=>cb.checked=false);refreshCompare();
+});
+</script>
 </body>
 </html>
