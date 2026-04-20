@@ -1,0 +1,29 @@
+# intrinsicallysafephones.com
+
+> Independent engineering reference for ATEX and IECEx certified intrinsically safe smartphones and hazardous area mobile solutions.
+
+## What this site covers
+- Comparison of Zone 1 certified smartphones (ATEX, IECEx, NEC)
+- Two approaches: certified Ex cases for standard iPhones vs dedicated Android Ex phones
+- Protection concepts: intrinsic safety (Ex ia, Ex ib), flameproof enclosure (Ex d)
+- Zone classification: Zone 0, Zone 1, Zone 2 (gas); Zone 20, Zone 21, Zone 22 (dust)
+- Gas groups (IIA, IIB, IIC) and temperature classes (T1–T6)
+
+## Products covered
+1. **Xshielder** — ATEX/IECEx Zone 1 certified Ex case for iPhone 17 Pro Max. Ex ia IIC T4 Ga. Only Zone 1 solution running iOS 25. Case price from €499.
+2. **ecom Smart-Ex 03 DZ1** — Pepperl+Fuchs 5G Android Zone 1 smartphone. Ex ib IIC T4 Gb. Wi-Fi 6, security patches until Oct 2030. ~€2,500.
+3. **Bartec SP9EX1** — 5G Android smartphone, Ex ia IIC T4 Ga. Only Zone 0 rated smartphone. 6.1" AMOLED, 48MP, 350g. ~€2,500.
+4. **i.safe MOBILE IS540.1** — 5G Android Zone 1 smartphone. Ex ib IIC T4 Gb. 48MP, PTT key, 9 certification schemes globally. ~€2,300.
+5. **Xciel** — ATEX/IECEx Zone 1 certified Ex case for iPhone (models 7–17). US-based manufacturer. ~€700.
+6. **Atexxo** — Flameproof enclosure (Ex d) device conversion service. Ex db IIC T4 Gb. Phones sent to Atexxo for modification.
+
+## Key guides
+- [Best ATEX Smartphones 2026](https://intrinsicallysafephones.com/best-atex-smartphones-2026.html) — top 5 Zone 1 devices compared
+- [iPhone in Hazardous Areas](https://intrinsicallysafephones.com/iphone-hazardous-area.html) — how Ex cases make iPhones Zone 1 compliant
+- [What Is an Intrinsically Safe Phone?](https://intrinsicallysafephones.com/what-is-an-intrinsically-safe-phone.html) — ATEX & IECEx certification explained
+
+## Languages
+English, German (de), Dutch (nl)
+
+## Contact
+hello@intrinsicallysafephones.com

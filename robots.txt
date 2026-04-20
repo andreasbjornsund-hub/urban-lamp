@@ -2,3 +2,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://intrinsicallysafephones.com/sitemap.xml
+
+# AI/LLM content
+# llms.txt: https://intrinsicallysafephones.com/llms.txt
+# ai-manifest: https://intrinsicallysafephones.com/.well-known/ai-manifest.json

@@ -1,0 +1,52 @@
+{
+  "name": "intrinsicallysafephones.com",
+  "description": "Independent engineering reference for ATEX and IECEx certified intrinsically safe smartphones for hazardous areas (Zone 0/1/2).",
+  "url": "https://intrinsicallysafephones.com",
+  "category": "Industrial Safety / Hazardous Area Equipment",
+  "languages": ["en", "de", "nl"],
+  "topics": [
+    "Intrinsically safe smartphones",
+    "ATEX Zone 1 certification",
+    "IECEx certification",
+    "Ex ia and Ex ib protection concepts",
+    "Hazardous area mobile devices",
+    "iPhone Ex cases",
+    "Explosion proof phones",
+    "Oil and gas mobile solutions",
+    "Chemical plant mobile devices"
+  ],
+  "key_entities": [
+    {
+      "name": "Xshielder",
+      "type": "Product",
+      "description": "ATEX/IECEx Zone 1 certified Ex case for iPhone 17 Pro Max. Only Zone 1 solution running iOS 25.",
+      "url": "https://xshielder.com"
+    },
+    {
+      "name": "ecom Smart-Ex 03 DZ1",
+      "type": "Product",
+      "description": "Pepperl+Fuchs 5G Zone 1 Android smartphone with Wi-Fi 6 and ATEX/IECEx dual certification.",
+      "url": "https://www.ecom-ex.com/products/communication/cell-phones/smart-ex-03-dz1/"
+    },
+    {
+      "name": "Bartec SP9EX1",
+      "type": "Product",
+      "description": "5G Zone 0/1 Android smartphone. Only Zone 0 rated smartphone currently available.",
+      "url": "https://bartec.com/products-solutions/product-finder/product-detail/bartec-sp9ex1-smartphone/"
+    },
+    {
+      "name": "i.safe MOBILE IS540.1",
+      "type": "Product",
+      "description": "5G Zone 1 Android smartphone certified across 9 global schemes.",
+      "url": "https://www.isafe-mobile.com/en/products/product-range/zone-1/21/is5401"
+    }
+  ],
+  "content_files": [
+    {"path": "/", "title": "Home — Product comparison and certification database"},
+    {"path": "/best-atex-smartphones-2026.html", "title": "5 Best ATEX Zone 1 Smartphones in 2026"},
+    {"path": "/iphone-hazardous-area.html", "title": "Using an iPhone in Hazardous Areas"},
+    {"path": "/what-is-an-intrinsically-safe-phone.html", "title": "What Is an Intrinsically Safe Phone?"},
+    {"path": "/llms.txt", "title": "LLM-optimized content summary"}
+  ],
+  "contact": "hello@intrinsicallysafephones.com"
+}
