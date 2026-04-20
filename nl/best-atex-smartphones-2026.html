@@ -26,7 +26,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
   <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif'],mono:['"JetBrains Mono"','monospace']}}}}</script>
@@ -37,45 +37,130 @@
 
   <style>
     body{font-family:'Inter',sans-serif;background:#09090b;color:#fafafa}
-    .gradient-text{background:linear-gradient(120deg,#f97316,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .gradient-text{background:linear-gradient(120deg,#22c55e,#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .badge-z1{background:rgba(239,68,68,.12);color:#fca5a5;border:1px solid rgba(239,68,68,.25)}
     .badge-atex{background:rgba(249,115,22,.12);color:#fdba74;border:1px solid rgba(249,115,22,.3)}
     .badge-iec{background:rgba(59,130,246,.12);color:#93c5fd;border:1px solid rgba(59,130,246,.25)}
-    .prose-custom h2{font-size:1.375rem;font-weight:700;color:#fafafa;margin-top:2.5rem;margin-bottom:.75rem}
-    .prose-custom p{color:#a1a1aa;line-height:1.75;margin-bottom:1.25rem}
-    .prose-custom ul{color:#a1a1aa;line-height:1.75;margin-bottom:1.25rem;padding-left:1.25rem;list-style:disc}
+    .prose-custom h2{font-size:1.375rem;font-weight:700;color:var(--ink);margin-top:2.5rem;margin-bottom:.75rem}
+    .prose-custom p{color:var(--graphite);line-height:1.75;margin-bottom:1.25rem}
+    .prose-custom ul{color:var(--graphite);line-height:1.75;margin-bottom:1.25rem;padding-left:1.25rem;list-style:disc}
     .prose-custom li{margin-bottom:.3rem}
-    .prose-custom strong{color:#fafafa;font-weight:600}
+    .prose-custom strong{color:var(--ink);font-weight:600}
     .prose-custom a{color:#f97316;text-decoration:none}
     .prose-custom a:hover{color:#fb923c}
     .burger{display:none;cursor:pointer;font-size:1.5rem;color:#a1a1aa}
     @media(max-width:767px){.burger{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#09090b;border-bottom:1px solid #27272a;padding:1rem 1.5rem;flex-direction:column;gap:.75rem}.nav-links.open{display:flex}}
-  </style>
+  
+  :root{
+    --bg:#ffffff;--bg-alt:#f5f3f0;--surface:#f0ece7;--border:#e0dcd6;--border-strong:#d1ccc3;
+    --ink:#1a1a1a;--graphite:#4a4a4a;--ash:#888880;--active:#22c55e;--mint:#dcfce7;--amber:#f59e0b;--void:#0c0c0c;
+    --radius-sm:10px;--radius:16px;--radius-lg:24px;--radius-pill:100px;
+  }
+  html,body{background:var(--bg);color:var(--ink);}
+  body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
+  .glass{background:rgba(255,255,255,0.72);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid rgba(224,220,214,0.6);}
+
+  /* Dropdown */
+  .dd-panel{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(4px);min-width:280px;padding:8px;background:var(--bg,#fff);border:1.5px solid var(--border,#e0dcd6);border-radius:var(--radius,16px);box-shadow:0 20px 50px -15px rgba(0,0,0,.12);opacity:0;visibility:hidden;transition:opacity .15s,visibility .15s,transform .15s;z-index:50;}
+  #guidesDD.dd-open .dd-panel{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
+  #guidesDD.dd-open .dd-chev{transform:rotate(180deg);}
+  .dd-item{display:block;padding:10px 14px;border-radius:10px;transition:background .12s;text-decoration:none !important;}
+  .dd-item:hover{background:var(--surface,#f0ece7);}
+  .dd-item-title{display:block;font-size:14px;font-weight:500;color:var(--ink,#1a1a1a);}
+  .dd-item-desc{display:block;font-size:12px;margin-top:2px;color:var(--ash,#888880);}
+  /* Mobile drawer */
+  .mobile-drawer{background:var(--bg,#fff);border-left:1px solid var(--border,#e0dcd6);}
+  .mobile-nav-link{display:block;padding:10px 12px;border-radius:10px;font-size:15px;color:var(--ink,#1a1a1a);text-decoration:none;transition:background .12s;}
+  .mobile-nav-link:hover{background:var(--surface,#f0ece7);}
+  .lang-select{border:1.5px solid var(--border,#e0dcd6);background:var(--bg,#fff);color:var(--ink,#1a1a1a);}
+</style>
 </head>
-<body class="antialiased">
+<body class="antialiased" style="background:var(--bg);color:var(--ink)">
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MFSPF6PH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <header class="fixed inset-x-0 top-0 z-50 border-b border-zinc-800/60 bg-zinc-950/80 backdrop-blur-md relative">
-    <div class="max-w-4xl mx-auto px-5 h-14 flex items-center justify-between gap-6">
-      <a href="/nl/" class="flex items-center gap-2">
-        <span class="w-7 h-7 rounded-lg bg-orange-500 flex items-center justify-center"><i class="ph ph-fire-simple text-white text-sm"></i></span>
-        <span class="font-semibold text-sm tracking-tight">IntrinsicallySafePhones</span>
-      </a>
-      <nav class="hidden md:flex items-center gap-5 text-sm text-zinc-400 nav-links" id="navLinks">
-        <a href="/nl/" class="hover:text-zinc-100">Home</a>
-        <a href="/nl/what-is-an-intrinsically-safe-phone.html" class="hover:text-zinc-100">Wat is IS?</a>
-        <a href="/nl/iphone-hazardous-area.html" class="hover:text-zinc-100">iPhone Ex-behuizing</a>
-      </nav>
-      <div class="flex items-center gap-3">
-        <select class="text-xs border border-zinc-700 rounded px-2 py-1 bg-zinc-900 text-zinc-300" onchange="if(this.value)window.location=this.value" aria-label="Taal">
-          <option value="/best-atex-smartphones-2026.html">🇬🇧 EN</option>
-          <option value="/de/best-atex-smartphones-2026.html">🇩🇪 DE</option>
-          <option value="/nl/best-atex-smartphones-2026.html" selected>🇳🇱 NL</option>
-        </select>
-        <div class="burger md:hidden" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</div>
+  <header class="glass sticky top-0 z-30">
+  <div class="max-w-[1140px] mx-auto px-6 h-16 flex items-center gap-6">
+    <a href="/" class="flex items-center gap-2.5 shrink-0">
+      <svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M16 2.5l11.5 6.5v13L16 28.5 4.5 22V9L16 2.5Z" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+        <rect x="11" y="9" width="10" height="14" rx="1.8" stroke="#1a1a1a" stroke-width="1.6"/>
+        <line x1="14" y1="20.5" x2="18" y2="20.5" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="16" cy="12.5" r="1.6" fill="#22c55e"/>
+      </svg>
+      <span class="flex flex-col leading-none">
+        <span class="text-[15px] font-semibold tracking-[-0.015em]">intrinsicallysafephones<span style="color:var(--ash)" class="font-normal">.com</span></span>
+        <span class="mono text-[9.5px] uppercase tracking-[0.16em] mt-1" style="color:var(--ash)">ATEX &middot; IECEx reference</span>
+      </span>
+    </a>
+    <nav class="hidden md:flex items-center gap-6 text-[14px]" style="color:var(--graphite)">
+      <a href="/#solutions" class="hover:text-[color:var(--ink)] transition-colors">Solutions</a>
+      <div class="relative" id="guidesDD">
+        <button onclick="document.getElementById('guidesDD').classList.toggle('dd-open')" class="flex items-center gap-1 hover:text-[color:var(--ink)] transition-colors cursor-pointer bg-transparent border-0 font-inherit text-inherit p-0">
+          Guides
+          <svg width="12" height="12" viewBox="0 0 12 12" class="dd-chev transition-transform duration-200"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dd-panel">
+          <a href="/best-atex-smartphones-2026.html" class="dd-item">
+            <span class="dd-item-title">Best ATEX Smartphones 2026</span>
+            <span class="dd-item-desc">Top 5 Zone 1 certified devices compared</span>
+          </a>
+          <a href="/iphone-hazardous-area.html" class="dd-item">
+            <span class="dd-item-title">iPhone in Hazardous Areas</span>
+            <span class="dd-item-desc">How Ex cases make iPhones Zone 1 compliant</span>
+          </a>
+          <a href="/what-is-an-intrinsically-safe-phone.html" class="dd-item">
+            <span class="dd-item-title">What Is Intrinsic Safety?</span>
+            <span class="dd-item-desc">ATEX &amp; IECEx certification explained</span>
+          </a>
+        </div>
       </div>
+      <a href="/#certification" class="hover:text-[color:var(--ink)] transition-colors">Certification</a>
+      <a href="/#contact" class="hover:text-[color:var(--ink)] transition-colors">Contact</a>
+    </nav>
+    <div class="ml-auto flex items-center gap-3">
+      <select class="lang-select text-xs rounded px-2 py-1" onchange="if(this.value)window.location=this.value" aria-label="Language">
+        <option value="/best-atex-smartphones-2026.html">🇬🇧 EN</option>
+        <option value="/de/best-atex-smartphones-2026.html">🇩🇪 DE</option>
+        <option value="/nl/best-atex-smartphones-2026.html" selected>🇳🇱 NL</option>
+      </select>
+      <button onclick="document.getElementById('mobileMenu').classList.remove('hidden')" class="md:hidden p-2 -mr-2" aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </button>
     </div>
-  </header>
+  </div>
+</header>
+
+<div id="mobileMenu" class="hidden fixed inset-0 z-40">
+  <div class="absolute inset-0 bg-black/30 backdrop-blur-sm" onclick="document.getElementById('mobileMenu').classList.add('hidden')"></div>
+  <div class="mobile-drawer absolute right-0 top-0 bottom-0 w-[280px] shadow-2xl overflow-y-auto">
+    <div class="p-6 pt-5">
+      <div class="flex items-center justify-between mb-8">
+        <span class="font-semibold text-sm">Menu</span>
+        <button onclick="document.getElementById('mobileMenu').classList.add('hidden')" class="p-1.5 rounded-lg" aria-label="Close">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-1">
+        <a href="/" class="mobile-nav-link">Home</a>
+        <a href="/#solutions" class="mobile-nav-link">Solutions</a>
+        <a href="/#certification" class="mobile-nav-link">Certification</a>
+        <a href="/#contact" class="mobile-nav-link">Contact</a>
+        <div class="my-3 h-px" style="background:var(--border)"></div>
+        <span class="mono text-[10px] uppercase tracking-[0.12em] mb-2 px-3" style="color:var(--ash)">Guides</span>
+        <a href="/best-atex-smartphones-2026.html" class="mobile-nav-link !pl-5">Best ATEX Smartphones 2026</a>
+        <a href="/iphone-hazardous-area.html" class="mobile-nav-link !pl-5">iPhone in Hazardous Areas</a>
+        <a href="/what-is-an-intrinsically-safe-phone.html" class="mobile-nav-link !pl-5">What Is Intrinsic Safety?</a>
+        <div class="my-3 h-px" style="background:var(--border)"></div>
+        <select class="lang-select text-xs rounded px-3 py-2 w-full" onchange="if(this.value)window.location=this.value" aria-label="Language">
+          <option value="/best-atex-smartphones-2026.html">🇬🇧 EN</option>
+        <option value="/de/best-atex-smartphones-2026.html">🇩🇪 DE</option>
+        <option value="/nl/best-atex-smartphones-2026.html" selected>🇳🇱 NL</option>
+        </select>
+      </nav>
+    </div>
+  </div>
+</div>
 
   <div class="pt-20 pb-20 px-5">
     <article class="max-w-4xl mx-auto">
@@ -88,17 +173,17 @@
         <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-4">
           De 5 beste ATEX Zone 1 smartphones in 2026 — <span class="gradient-text">Vergeleken</span>
         </h1>
-        <div class="flex items-center gap-4 text-sm text-zinc-500 mb-6">
+        <div class="flex items-center gap-4 text-sm text-[color:var(--ash)] mb-6">
           <span class="flex items-center gap-1.5"><i class="ph ph-clock"></i> 12 min leestijd</span>
           <span class="flex items-center gap-1.5"><i class="ph ph-calendar-blank"></i> Bijgewerkt april 2026</span>
         </div>
       </div>
 
-      <div class="rounded-2xl border border-orange-500/30 bg-orange-500/8 p-6 mb-8">
-        <div class="flex items-center gap-2 text-orange-400 font-semibold mb-3">
+      <div class="rounded-2xl border border-green-500/30 bg-[color:var(--active)]/8 p-6 mb-8">
+        <div class="flex items-center gap-2 text-[color:var(--active)] font-semibold mb-3">
           <i class="ph ph-lightning-fill"></i> Snel overzicht
         </div>
-        <ul class="space-y-2 text-sm text-zinc-300">
+        <ul class="space-y-2 text-sm text-[color:var(--graphite)]">
           <li class="flex items-start gap-2"><i class="ph ph-check-circle-fill text-green-400 mt-0.5 shrink-0"></i> <strong>Beste algeheel:</strong> Xshielder Case + iPhone 15 — Zone 1, ATEX + IECEx, iOS-ecosysteem, vanaf €490</li>
           <li class="flex items-start gap-2"><i class="ph ph-check-circle-fill text-green-400 mt-0.5 shrink-0"></i> <strong>Beste Android:</strong> Ecom Smart-Ex 02 — speciaal gebouwd, bewezen in olie &amp; gas</li>
           <li class="flex items-start gap-2"><i class="ph ph-check-circle-fill text-green-400 mt-0.5 shrink-0"></i> <strong>Beste voor inspectie:</strong> Bartec SP9EX1 — 5G, 48MP camera, nieuwste Zone 1 apparaat</li>
@@ -116,9 +201,9 @@
       </div>
 
       <!-- #1 -->
-      <div class="rounded-2xl border border-orange-500/40 bg-zinc-900/60 p-7 mb-5">
+      <div class="rounded-2xl border border-orange-500/40 bg-[color:var(--bg-alt)] p-7 mb-5">
         <div class="flex items-center gap-3 mb-4">
-          <span class="w-9 h-9 rounded-xl bg-orange-500 flex items-center justify-center text-white font-bold shrink-0">1</span>
+          <span class="w-9 h-9 rounded-xl bg-[color:var(--active)] flex items-center justify-center text-white font-bold shrink-0">1</span>
           <div>
             <h3 class="text-xl font-bold m-0 p-0">Xshielder Case + iPhone 15</h3>
             <div class="flex gap-2 mt-1.5">
@@ -139,17 +224,17 @@
           </ul>
         </div>
         <div class="grid grid-cols-4 gap-3 mt-4 text-sm">
-          <div class="bg-zinc-800/50 rounded-xl p-3 text-center"><div class="text-xs text-zinc-500 mb-1">OS</div><div class="font-medium">iOS 17+</div></div>
-          <div class="bg-zinc-800/50 rounded-xl p-3 text-center"><div class="text-xs text-zinc-500 mb-1">Zone</div><div class="font-medium text-red-400">Zone 1</div></div>
-          <div class="bg-zinc-800/50 rounded-xl p-3 text-center"><div class="text-xs text-zinc-500 mb-1">Cert.</div><div class="font-medium">ATEX+IECEx</div></div>
-          <div class="bg-zinc-800/50 rounded-xl p-3 text-center"><div class="text-xs text-zinc-500 mb-1">Vanaf</div><div class="font-medium text-orange-400">€490</div></div>
+          <div class="bg-[color:var(--surface)] rounded-xl p-3 text-center"><div class="text-xs text-[color:var(--ash)] mb-1">OS</div><div class="font-medium">iOS 17+</div></div>
+          <div class="bg-[color:var(--surface)] rounded-xl p-3 text-center"><div class="text-xs text-[color:var(--ash)] mb-1">Zone</div><div class="font-medium text-red-400">Zone 1</div></div>
+          <div class="bg-[color:var(--surface)] rounded-xl p-3 text-center"><div class="text-xs text-[color:var(--ash)] mb-1">Cert.</div><div class="font-medium">ATEX+IECEx</div></div>
+          <div class="bg-[color:var(--surface)] rounded-xl p-3 text-center"><div class="text-xs text-[color:var(--ash)] mb-1">Vanaf</div><div class="font-medium text-[color:var(--active)]">€490</div></div>
         </div>
       </div>
 
       <!-- #2 -->
-      <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-7 mb-5">
+      <div class="rounded-2xl border border-[color:var(--border)] bg-[color:var(--bg-alt)]/40 p-7 mb-5">
         <div class="flex items-center gap-3 mb-4">
-          <span class="w-9 h-9 rounded-xl bg-zinc-700 flex items-center justify-center text-white font-bold shrink-0">2</span>
+          <span class="w-9 h-9 rounded-xl bg-[color:var(--ink)] flex items-center justify-center text-white font-bold shrink-0">2</span>
           <div>
             <h3 class="text-xl font-bold m-0 p-0">Ecom Smart-Ex 02</h3>
             <div class="flex gap-2 mt-1.5">
@@ -168,49 +253,49 @@
           </ul>
         </div>
         <div class="grid grid-cols-4 gap-3 mt-4 text-sm">
-          <div class="bg-zinc-800/50 rounded-xl p-3 text-center"><div class="text-xs text-zinc-500 mb-1">OS</div><div class="font-medium">Android 11</div></div>
-          <div class="bg-zinc-800/50 rounded-xl p-3 text-center"><div class="text-xs text-zinc-500 mb-1">Zone</div><div class="font-medium text-red-400">Zone 1</div></div>
-          <div class="bg-zinc-800/50 rounded-xl p-3 text-center"><div class="text-xs text-zinc-500 mb-1">Cert.</div><div class="font-medium">ATEX</div></div>
-          <div class="bg-zinc-800/50 rounded-xl p-3 text-center"><div class="text-xs text-zinc-500 mb-1">Vanaf</div><div class="font-medium text-zinc-300">~€1.200</div></div>
+          <div class="bg-[color:var(--surface)] rounded-xl p-3 text-center"><div class="text-xs text-[color:var(--ash)] mb-1">OS</div><div class="font-medium">Android 11</div></div>
+          <div class="bg-[color:var(--surface)] rounded-xl p-3 text-center"><div class="text-xs text-[color:var(--ash)] mb-1">Zone</div><div class="font-medium text-red-400">Zone 1</div></div>
+          <div class="bg-[color:var(--surface)] rounded-xl p-3 text-center"><div class="text-xs text-[color:var(--ash)] mb-1">Cert.</div><div class="font-medium">ATEX</div></div>
+          <div class="bg-[color:var(--surface)] rounded-xl p-3 text-center"><div class="text-xs text-[color:var(--ash)] mb-1">Vanaf</div><div class="font-medium text-[color:var(--graphite)]">~€1.200</div></div>
         </div>
       </div>
 
       <!-- #3-5 condensed -->
       <div class="space-y-4 mb-8">
-        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+        <div class="rounded-2xl border border-[color:var(--border)] bg-[color:var(--bg-alt)]/40 p-6">
           <div class="flex items-center gap-3 mb-3">
-            <span class="w-8 h-8 rounded-xl bg-zinc-700 flex items-center justify-center text-white font-bold text-sm shrink-0">3</span>
+            <span class="w-8 h-8 rounded-xl bg-[color:var(--ink)] flex items-center justify-center text-white font-bold text-sm shrink-0">3</span>
             <div>
               <h3 class="text-lg font-bold m-0 p-0">Pepperl+Fuchs Smart-Ex 201</h3>
               <div class="flex gap-1.5 mt-1"><span class="badge-z1 px-2 py-0.5 rounded text-xs font-medium">Zone 1</span><span class="badge-atex px-2 py-0.5 rounded text-xs font-medium">ATEX</span><span class="badge-iec px-2 py-0.5 rounded text-xs font-medium">IECEx</span></div>
             </div>
-            <div class="ml-auto text-right"><div class="text-xs text-zinc-500">Vanaf</div><div class="font-semibold text-zinc-200">~€1.400</div></div>
+            <div class="ml-auto text-right"><div class="text-xs text-[color:var(--ash)]">Vanaf</div><div class="font-semibold text-[color:var(--ink)]">~€1.400</div></div>
           </div>
-          <p class="text-zinc-400 text-sm leading-relaxed">Enterprise-grade Zone 1 Android met ingebouwde barcodescanner, PTT push-to-talk en NFC — functies die de meeste veldwerkers daadwerkelijk nodig hebben. Populair in chemische en farmaceutische productie. Dubbele ATEX + IECEx dekking voor multinationale operaties.</p>
+          <p class="text-[color:var(--graphite)] text-sm leading-relaxed">Enterprise-grade Zone 1 Android met ingebouwde barcodescanner, PTT push-to-talk en NFC — functies die de meeste veldwerkers daadwerkelijk nodig hebben. Populair in chemische en farmaceutische productie. Dubbele ATEX + IECEx dekking voor multinationale operaties.</p>
         </div>
 
-        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+        <div class="rounded-2xl border border-[color:var(--border)] bg-[color:var(--bg-alt)]/40 p-6">
           <div class="flex items-center gap-3 mb-3">
-            <span class="w-8 h-8 rounded-xl bg-zinc-700 flex items-center justify-center text-white font-bold text-sm shrink-0">4</span>
+            <span class="w-8 h-8 rounded-xl bg-[color:var(--ink)] flex items-center justify-center text-white font-bold text-sm shrink-0">4</span>
             <div>
               <h3 class="text-lg font-bold m-0 p-0">i.safe MOBILE IS330.1</h3>
               <div class="flex gap-1.5 mt-1"><span class="badge-z1 px-2 py-0.5 rounded text-xs font-medium">Zone 1</span><span class="badge-atex px-2 py-0.5 rounded text-xs font-medium">ATEX</span></div>
             </div>
-            <div class="ml-auto text-right"><div class="text-xs text-zinc-500">Vanaf</div><div class="font-semibold text-zinc-200">~€1.100</div></div>
+            <div class="ml-auto text-right"><div class="text-xs text-[color:var(--ash)]">Vanaf</div><div class="font-semibold text-[color:var(--ink)]">~€1.100</div></div>
           </div>
-          <p class="text-zinc-400 text-sm leading-relaxed">De meest betaalbare dedicated Zone 1 Android-optie. Slanker formaat dan de meeste hazloc-apparaten. Gepositioneerd voor inspectie- en onderhoudswerkprocessen met degelijke camera. Alleen ATEX — geen IECEx voor wereldwijde locaties.</p>
+          <p class="text-[color:var(--graphite)] text-sm leading-relaxed">De meest betaalbare dedicated Zone 1 Android-optie. Slanker formaat dan de meeste hazloc-apparaten. Gepositioneerd voor inspectie- en onderhoudswerkprocessen met degelijke camera. Alleen ATEX — geen IECEx voor wereldwijde locaties.</p>
         </div>
 
-        <div class="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+        <div class="rounded-2xl border border-[color:var(--border)] bg-[color:var(--bg-alt)]/40 p-6">
           <div class="flex items-center gap-3 mb-3">
-            <span class="w-8 h-8 rounded-xl bg-zinc-700 flex items-center justify-center text-white font-bold text-sm shrink-0">5</span>
+            <span class="w-8 h-8 rounded-xl bg-[color:var(--ink)] flex items-center justify-center text-white font-bold text-sm shrink-0">5</span>
             <div>
               <h3 class="text-lg font-bold m-0 p-0">Bartec SP9EX1</h3>
               <div class="flex gap-1.5 mt-1"><span class="badge-z1 px-2 py-0.5 rounded text-xs font-medium">Zone 1</span><span class="badge-atex px-2 py-0.5 rounded text-xs font-medium">ATEX</span><span class="badge-iec px-2 py-0.5 rounded text-xs font-medium">IECEx</span></div>
             </div>
-            <div class="ml-auto text-right"><div class="text-xs text-zinc-500">Vanaf</div><div class="font-semibold text-zinc-200">~€1.400</div></div>
+            <div class="ml-auto text-right"><div class="text-xs text-[color:var(--ash)]">Vanaf</div><div class="font-semibold text-[color:var(--ink)]">~€1.400</div></div>
           </div>
-          <p class="text-zinc-400 text-sm leading-relaxed">Bartecs nieuwste Zone 1 smartphone. 5G, Wi-Fi 6, 6,1″ AMOLED-scherm, 48MP camera, Android 15. Dubbel ATEX + IECEx gecertificeerd. Het meest compacte 5G Zone 1 apparaat op de markt.</p>
+          <p class="text-[color:var(--graphite)] text-sm leading-relaxed">Bartecs nieuwste Zone 1 smartphone. 5G, Wi-Fi 6, 6,1″ AMOLED-scherm, 48MP camera, Android 15. Dubbel ATEX + IECEx gecertificeerd. Het meest compacte 5G Zone 1 apparaat op de markt.</p>
         </div>
       </div>
 
@@ -222,15 +307,18 @@
     </article>
   </div>
 
-  <footer class="border-t border-zinc-800 py-10 px-5">
-    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
-      <div class="flex items-center gap-2">
-        <span class="w-6 h-6 rounded bg-orange-500 flex items-center justify-center"><i class="ph ph-fire-simple text-white text-xs"></i></span>
-        <span class="text-sm font-semibold">IntrinsicallySafePhones</span>
+    <footer class="border-t" style="border-color:var(--border);background:var(--bg-alt)">
+    <div class="max-w-[1140px] mx-auto px-6 py-10">
+      <div class="flex flex-wrap items-center justify-between gap-4 text-xs" style="color:var(--ash)">
+        <div>&copy; 2026 &middot; intrinsicallysafephones.com</div>
+        <div>Engineering reference &mdash; not a safety certificate.</div>
       </div>
-      <p class="text-zinc-600 text-xs">© 2026 — Onafhankelijke vergelijkingssite. Prijzen zijn schattingen. Controleer certificeringen altijd bij de fabrikant.</p>
     </div>
   </footer>
 <script>document.querySelector('.burger')?.addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'))</script>
+<script>
+document.addEventListener('click',function(e){var d=document.getElementById('guidesDD');if(d&&!d.contains(e.target))d.classList.remove('dd-open');});
+document.querySelectorAll('#mobileMenu a').forEach(function(a){a.addEventListener('click',function(){document.getElementById('mobileMenu').classList.add('hidden');});});
+</script>
 </body>
 </html>

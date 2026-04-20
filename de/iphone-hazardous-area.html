@@ -26,7 +26,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif'],mono:['"JetBrains Mono"','monospace']}}}}</script>
   <style>
@@ -44,7 +44,31 @@
     .callout-warn{background:#fffbeb;border-left-color:#f59e0b}
     .burger{display:none;cursor:pointer;font-size:1.5rem;color:#374151}
     @media(max-width:767px){.burger{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid #e5e7eb;padding:1rem 1.5rem;flex-direction:column;gap:.75rem}.nav-links.open{display:flex}}
-  </style>
+  
+  :root{
+    --bg:#ffffff;--bg-alt:#f5f3f0;--surface:#f0ece7;--border:#e0dcd6;--border-strong:#d1ccc3;
+    --ink:#1a1a1a;--graphite:#4a4a4a;--ash:#888880;--active:#22c55e;--mint:#dcfce7;--amber:#f59e0b;--void:#0c0c0c;
+    --radius-sm:10px;--radius:16px;--radius-lg:24px;--radius-pill:100px;
+  }
+  html,body{background:var(--bg);color:var(--ink);}
+  body{font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
+  .glass{background:rgba(255,255,255,0.72);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid rgba(224,220,214,0.6);}
+
+  /* Dropdown */
+  .dd-panel{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(4px);min-width:280px;padding:8px;background:var(--bg,#fff);border:1.5px solid var(--border,#e0dcd6);border-radius:var(--radius,16px);box-shadow:0 20px 50px -15px rgba(0,0,0,.12);opacity:0;visibility:hidden;transition:opacity .15s,visibility .15s,transform .15s;z-index:50;}
+  #guidesDD.dd-open .dd-panel{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
+  #guidesDD.dd-open .dd-chev{transform:rotate(180deg);}
+  .dd-item{display:block;padding:10px 14px;border-radius:10px;transition:background .12s;text-decoration:none !important;}
+  .dd-item:hover{background:var(--surface,#f0ece7);}
+  .dd-item-title{display:block;font-size:14px;font-weight:500;color:var(--ink,#1a1a1a);}
+  .dd-item-desc{display:block;font-size:12px;margin-top:2px;color:var(--ash,#888880);}
+  /* Mobile drawer */
+  .mobile-drawer{background:var(--bg,#fff);border-left:1px solid var(--border,#e0dcd6);}
+  .mobile-nav-link{display:block;padding:10px 12px;border-radius:10px;font-size:15px;color:var(--ink,#1a1a1a);text-decoration:none;transition:background .12s;}
+  .mobile-nav-link:hover{background:var(--surface,#f0ece7);}
+  .lang-select{border:1.5px solid var(--border,#e0dcd6);background:var(--bg,#fff);color:var(--ink,#1a1a1a);}
+</style>
 
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Article","headline":"Kann man ein iPhone im explosionsgefährdeten Bereich verwenden?","description":"Wie ATEX- und IECEx-zertifizierte Ex-Gehäuse iPhones für Zone 1 und Zone 2 explosionsgefährdete Bereiche konform machen.","url":"https://intrinsicallysafephones.com/de/iphone-hazardous-area.html","datePublished":"2026-04-19","dateModified":"2026-04-19","inLanguage":"de","publisher":{"@type":"Organization","name":"intrinsicallysafephones.com","url":"https://intrinsicallysafephones.com"}}
@@ -62,24 +86,88 @@
 <body class="bg-white text-gray-900">
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MFSPF6PH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <header class="border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur z-30 relative">
-    <div class="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="/de/" class="font-semibold text-sm">intrinsicallysafephones<span class="text-gray-400">.com</span></a>
-      <nav class="hidden md:flex items-center gap-5 text-sm text-gray-500 nav-links" id="navLinks">
-        <a href="/de/" class="hover:text-gray-900">Startseite</a>
-        <a href="/de/best-atex-smartphones-2026.html" class="hover:text-gray-900">Beste Smartphones</a>
-        <a href="/de/what-is-an-intrinsically-safe-phone.html" class="hover:text-gray-900">Was ist IS?</a>
-      </nav>
-      <div class="flex items-center gap-3">
-        <select class="text-xs border border-gray-200 rounded px-2 py-1 bg-white" onchange="if(this.value)window.location=this.value" aria-label="Sprache">
-          <option value="/iphone-hazardous-area.html">🇬🇧 EN</option>
-          <option value="/de/iphone-hazardous-area.html" selected>🇩🇪 DE</option>
-          <option value="/nl/iphone-hazardous-area.html">🇳🇱 NL</option>
-        </select>
-        <div class="burger md:hidden" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</div>
+  <header class="glass sticky top-0 z-30">
+  <div class="max-w-[1140px] mx-auto px-6 h-16 flex items-center gap-6">
+    <a href="/" class="flex items-center gap-2.5 shrink-0">
+      <svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M16 2.5l11.5 6.5v13L16 28.5 4.5 22V9L16 2.5Z" stroke="#1a1a1a" stroke-width="1.6" stroke-linejoin="round"/>
+        <rect x="11" y="9" width="10" height="14" rx="1.8" stroke="#1a1a1a" stroke-width="1.6"/>
+        <line x1="14" y1="20.5" x2="18" y2="20.5" stroke="#1a1a1a" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="16" cy="12.5" r="1.6" fill="#22c55e"/>
+      </svg>
+      <span class="flex flex-col leading-none">
+        <span class="text-[15px] font-semibold tracking-[-0.015em]">intrinsicallysafephones<span style="color:var(--ash)" class="font-normal">.com</span></span>
+        <span class="mono text-[9.5px] uppercase tracking-[0.16em] mt-1" style="color:var(--ash)">ATEX &middot; IECEx reference</span>
+      </span>
+    </a>
+    <nav class="hidden md:flex items-center gap-6 text-[14px]" style="color:var(--graphite)">
+      <a href="/#solutions" class="hover:text-[color:var(--ink)] transition-colors">Solutions</a>
+      <div class="relative" id="guidesDD">
+        <button onclick="document.getElementById('guidesDD').classList.toggle('dd-open')" class="flex items-center gap-1 hover:text-[color:var(--ink)] transition-colors cursor-pointer bg-transparent border-0 font-inherit text-inherit p-0">
+          Guides
+          <svg width="12" height="12" viewBox="0 0 12 12" class="dd-chev transition-transform duration-200"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="dd-panel">
+          <a href="/best-atex-smartphones-2026.html" class="dd-item">
+            <span class="dd-item-title">Best ATEX Smartphones 2026</span>
+            <span class="dd-item-desc">Top 5 Zone 1 certified devices compared</span>
+          </a>
+          <a href="/iphone-hazardous-area.html" class="dd-item">
+            <span class="dd-item-title">iPhone in Hazardous Areas</span>
+            <span class="dd-item-desc">How Ex cases make iPhones Zone 1 compliant</span>
+          </a>
+          <a href="/what-is-an-intrinsically-safe-phone.html" class="dd-item">
+            <span class="dd-item-title">What Is Intrinsic Safety?</span>
+            <span class="dd-item-desc">ATEX &amp; IECEx certification explained</span>
+          </a>
+        </div>
       </div>
+      <a href="/#certification" class="hover:text-[color:var(--ink)] transition-colors">Certification</a>
+      <a href="/#contact" class="hover:text-[color:var(--ink)] transition-colors">Contact</a>
+    </nav>
+    <div class="ml-auto flex items-center gap-3">
+      <select class="lang-select text-xs rounded px-2 py-1" onchange="if(this.value)window.location=this.value" aria-label="Language">
+        <option value="/iphone-hazardous-area.html">🇬🇧 EN</option>
+        <option value="/de/iphone-hazardous-area.html" selected>🇩🇪 DE</option>
+        <option value="/nl/iphone-hazardous-area.html">🇳🇱 NL</option>
+      </select>
+      <button onclick="document.getElementById('mobileMenu').classList.remove('hidden')" class="md:hidden p-2 -mr-2" aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </button>
     </div>
-  </header>
+  </div>
+</header>
+
+<div id="mobileMenu" class="hidden fixed inset-0 z-40">
+  <div class="absolute inset-0 bg-black/30 backdrop-blur-sm" onclick="document.getElementById('mobileMenu').classList.add('hidden')"></div>
+  <div class="mobile-drawer absolute right-0 top-0 bottom-0 w-[280px] shadow-2xl overflow-y-auto">
+    <div class="p-6 pt-5">
+      <div class="flex items-center justify-between mb-8">
+        <span class="font-semibold text-sm">Menu</span>
+        <button onclick="document.getElementById('mobileMenu').classList.add('hidden')" class="p-1.5 rounded-lg" aria-label="Close">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-1">
+        <a href="/" class="mobile-nav-link">Home</a>
+        <a href="/#solutions" class="mobile-nav-link">Solutions</a>
+        <a href="/#certification" class="mobile-nav-link">Certification</a>
+        <a href="/#contact" class="mobile-nav-link">Contact</a>
+        <div class="my-3 h-px" style="background:var(--border)"></div>
+        <span class="mono text-[10px] uppercase tracking-[0.12em] mb-2 px-3" style="color:var(--ash)">Guides</span>
+        <a href="/best-atex-smartphones-2026.html" class="mobile-nav-link !pl-5">Best ATEX Smartphones 2026</a>
+        <a href="/iphone-hazardous-area.html" class="mobile-nav-link !pl-5">iPhone in Hazardous Areas</a>
+        <a href="/what-is-an-intrinsically-safe-phone.html" class="mobile-nav-link !pl-5">What Is Intrinsic Safety?</a>
+        <div class="my-3 h-px" style="background:var(--border)"></div>
+        <select class="lang-select text-xs rounded px-3 py-2 w-full" onchange="if(this.value)window.location=this.value" aria-label="Language">
+          <option value="/iphone-hazardous-area.html">🇬🇧 EN</option>
+        <option value="/de/iphone-hazardous-area.html" selected>🇩🇪 DE</option>
+        <option value="/nl/iphone-hazardous-area.html">🇳🇱 NL</option>
+        </select>
+      </nav>
+    </div>
+  </div>
+</div>
 
   <main class="max-w-3xl mx-auto px-6 py-12">
     <div class="mono text-xs text-gray-400 uppercase tracking-wider mb-3">Ratgeber · Aktualisiert April 2026</div>
@@ -196,14 +284,18 @@
     </div>
   </main>
 
-  <footer class="bg-gray-900 text-gray-400 mt-16">
-    <div class="max-w-3xl mx-auto px-6 py-10">
-      <div class="flex flex-wrap items-center justify-between gap-4 text-xs">
-        <div>© 2026 · intrinsicallysafephones.com</div>
-        <div>Technische Referenz — kein Sicherheitszertifikat.</div>
+    <footer class="border-t" style="border-color:var(--border);background:var(--bg-alt)">
+    <div class="max-w-[1140px] mx-auto px-6 py-10">
+      <div class="flex flex-wrap items-center justify-between gap-4 text-xs" style="color:var(--ash)">
+        <div>&copy; 2026 &middot; intrinsicallysafephones.com</div>
+        <div>Engineering reference &mdash; not a safety certificate.</div>
       </div>
     </div>
   </footer>
 <script>document.querySelector('.burger')?.addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'))</script>
+<script>
+document.addEventListener('click',function(e){var d=document.getElementById('guidesDD');if(d&&!d.contains(e.target))d.classList.remove('dd-open');});
+document.querySelectorAll('#mobileMenu a').forEach(function(a){a.addEventListener('click',function(){document.getElementById('mobileMenu').classList.add('hidden');});});
+</script>
 </body>
 </html>
