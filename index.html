@@ -333,7 +333,7 @@
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Xciel Ex Case for iPhone",
-    "description": "Zone 1 ATEX and IECEx certified Ex case for iPhone 15 and 16 Pro. Ex ib IIC T4 Gb with camera passthrough and IP68 rating.",
+    "description": "Zone 1 ATEX and IECEx certified Ex case supporting iPhone 7 through 16. Ex ib IIC T4 Gb with camera passthrough and IP68 rating.",
     "brand": {
       "@type": "Brand",
       "name": "Xciel"
@@ -352,8 +352,8 @@
   {
     "@context": "https://schema.org",
     "@type": "Product",
-    "name": "Atexxo Zone 1 iPhone Case",
-    "description": "Zone 1 ATEX and IECEx certified iPhone enclosure from Dutch manufacturer. Ex ib IIC T4 Gb with camera passthrough and IP68 rating.",
+    "name": "Atexxo Explosion Proof iPhone",
+    "description": "Zone 1 ATEX and IECEx certified iPhone conversion from Dutch manufacturer. Ex db IIC T4 Gb flameproof enclosure with full feature retention.",
     "brand": {
       "@type": "Brand",
       "name": "Atexxo"
@@ -364,7 +364,7 @@
     "offers": {
       "@type": "Offer",
       "priceCurrency": "EUR",
-      "price": "549",
+      "price": "0",
       "availability": "https://schema.org/InStock",
       "url": "https://atexxo.com"
     }
@@ -373,7 +373,7 @@
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Bartec SP9EX1",
-    "description": "Zone 1 ATEX and IECEx certified dedicated Android smartphone with 5G, 6.1 inch AMOLED display. Ex ib IIC T4 Gb, IP68.",
+    "description": "Zone 0/1 ATEX and IECEx certified dedicated Android smartphone with 5G, 6.1 inch AMOLED display. Ex ia IIC T4 Ga, IP68, 350g.",
     "brand": {
       "@type": "Brand",
       "name": "Bartec"
@@ -384,7 +384,7 @@
     "offers": {
       "@type": "Offer",
       "priceCurrency": "EUR",
-      "price": "1800",
+      "price": "0",
       "availability": "https://schema.org/InStock",
       "url": "https://bartec.com/smart/"
     }
@@ -392,8 +392,8 @@
   {
     "@context": "https://schema.org",
     "@type": "Product",
-    "name": "ecom Smart-Ex 03",
-    "description": "Zone 1 ATEX and IECEx certified dedicated Android smartphone by Pepperl+Fuchs. Ex ib IIC T4 Gb with 13 MP camera and IP68.",
+    "name": "ecom Smart-Ex 03 DZ1",
+    "description": "Zone 1 ATEX and IECEx certified 5G Android smartphone by Pepperl+Fuchs. Ex ib IIC T4 Gb with Wi-Fi 6, fingerprint sensor and IP68.",
     "brand": {
       "@type": "Brand",
       "name": "ecom (Pepperl+Fuchs)"
@@ -403,7 +403,7 @@
     "offers": {
       "@type": "Offer",
       "priceCurrency": "EUR",
-      "price": "1500",
+      "price": "0",
       "availability": "https://schema.org/InStock",
       "url": "https://ecom-ex.com"
     }
@@ -422,7 +422,7 @@
     "offers": {
       "@type": "Offer",
       "priceCurrency": "EUR",
-      "price": "1200",
+      "price": "0",
       "availability": "https://schema.org/InStock",
       "url": "https://isafe-mobile.com"
     }
@@ -958,7 +958,7 @@
           <li><a class="opacity-90 hover:opacity-100" href="https://xshielder.com" target="_blank" rel="noopener">Xshielder (featured vendor)</a></li>
           <li><a class="opacity-90 hover:opacity-100" href="https://xciel.com" target="_blank" rel="noopener">Xciel</a></li>
           <li><a class="opacity-90 hover:opacity-100" href="https://atexxo.com" target="_blank" rel="noopener">Atexxo</a></li>
-          <li><a class="opacity-90 hover:opacity-100" href="https://bartec.com/smart/" target="_blank" rel="noopener">Bartec SP9EX1</a></li>
+          <li><a class="opacity-90 hover:opacity-100" href="https://bartec.com/products-solutions/product-finder/product-detail/bartec-sp9ex1-smartphone/" target="_blank" rel="noopener">Bartec SP9EX1</a></li>
           <li><a class="opacity-90 hover:opacity-100" href="https://ecom-ex.com" target="_blank" rel="noopener">ecom instruments (Pepperl+Fuchs)</a></li>
           <li><a class="opacity-90 hover:opacity-100" href="https://isafe-mobile.com" target="_blank" rel="noopener">i.safe MOBILE</a></li>
         </ul>
@@ -1035,7 +1035,7 @@ const SOLUTIONS = [
   {
     id:'xciel', name:'Xciel Ex Case for iPhone', vendor:'Xciel',
     type:'Certified Ex Case', typeBadge:'badge-green',
-    host:'iPhone 15 / 16 Pro', platform:'iOS',
+    host:'iPhone 7 – 16 (multiple models)', platform:'iOS',
     zone:'Zone 1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
     service:'sealed', glove:'Yes', bulk:2, score:4, status:'production',
@@ -1045,40 +1045,40 @@ const SOLUTIONS = [
     note:'iOS-native certified Ex case line with IECEx + ATEX coverage for Zone 1. Camera retained via a certified window. Strong fit for oil and gas operators already standardised on iPhone fleets. Host device is sealed into the case assembly.'
   },
   {
-    id:'atexxo', name:'Atexxo Zone 1 iPhone Case', vendor:'Atexxo',
-    type:'Certified Ex Case', typeBadge:'badge-green',
-    host:'iPhone 15 / 16', platform:'iOS',
+    id:'atexxo', name:'Atexxo Explosion Proof iPhone', vendor:'Atexxo',
+    type:'Device Conversion (flameproof)', typeBadge:'badge-neutral',
+    host:'iPhone 17 / 16 / 15 / 14', platform:'iOS',
     zone:'Zone 1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
-    service:'sealed', glove:'Yes', bulk:3, score:4, status:'production',
-    notation:'Ex ib IIC T4 Gb', featured:false,
+    service:'sealed', glove:'Yes', bulk:3, score:3, status:'production',
+    notation:'Ex db IIC T4 Gb \u00b7 II 2G', featured:false,
     image:'images/atexxo.png', silhouette:'phone',
     url:'https://atexxo.com',
-    note:'Dutch manufacturer offering Zone 1 certified iPhone enclosures with camera passthrough. IECEx + ATEX. The conversion process seals the host device into the certified assembly. Suitable for European chemical and pharmaceutical deployments.'
+    note:'Dutch manufacturer offering Zone 1 certified iPhone conversions using flameproof enclosure (Ex db) protection. The phone is sent to Atexxo for casing modification and certification. IECEx + ATEX dual certified. Host device is sealed into the assembly. Note: Ex db is a different protection concept from Ex ia/ib (intrinsic safety).'
   },
   {
     id:'bartec-sp9', name:'Bartec SP9EX1', vendor:'Bartec',
     type:'Dedicated Ex Phone', typeBadge:'badge-neutral',
     host:'Android 15', platform:'Android',
-    zone:'Zone 1', zones:['zone1','zone2'],
+    zone:'Zone 0/1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
     service:'sealed', glove:'Yes', bulk:2, score:4, status:'production',
-    notation:'Ex ib IIC T4 Gb', featured:false,
+    notation:'Ex ia IIC T4 Ga \u00b7 II 1G', featured:false,
     image:'images/bartec-sp9.webp', silhouette:'rugged',
-    url:'https://bartec.com/smart/',
-    note:'Bartec\u2019s latest Zone 1 smartphone. 5G and Wi-Fi 6, Qualcomm QCM6490 processor, 6.1\u2033 AMOLED display, 48 MP camera, 4,300 mAh battery. Runs Android 15. Replaces the older Agile X and Pixavi Impact X lines. Dual ATEX + IECEx certification. The most compact 5G Zone 1 device currently available.'
+    url:'https://bartec.com/products-solutions/product-finder/product-detail/bartec-sp9ex1-smartphone/',
+    note:'Bartec\u2019s latest Zone 0/1 smartphone. 5G and Wi-Fi 6, Qualcomm QCM6490 processor, 6.1\u2033 AMOLED display, 48 MP camera, 4,300 mAh battery, 350 g. Runs Android 15. Ex ia (intrinsic safety) rated for Zone 0 — the highest zone rating available. Dual ATEX + IECEx + NEC Div 1 certification.'
   },
   {
-    id:'ecom', name:'ecom Smart-Ex 03', vendor:'ecom / Pepperl+Fuchs',
+    id:'ecom', name:'ecom Smart-Ex 03 DZ1', vendor:'ecom / Pepperl+Fuchs',
     type:'Dedicated Ex Phone', typeBadge:'badge-neutral',
     host:'Android (vendor branch)', platform:'Android',
     zone:'Zone 1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
     service:'sealed', glove:'Yes', bulk:3, score:4, status:'production',
-    notation:'Ex ib IIC T4 Gb \u00b7 II 2G', featured:false,
+    notation:'Ex ib IIC T4 Gb', featured:false,
     image:null, silhouette:'rugged',
-    url:'https://ecom-ex.com',
-    note:'ecom (a Pepperl+Fuchs brand) Smart-Ex 03 is a Zone 1 / Div 1 Android smartphone with a 13 MP rear camera and barcode imager option. Long-established vendor with global service coverage; Android security patch cadence is vendor-controlled.'
+    url:'https://www.ecom-ex.com/products/communication/cell-phones/smart-ex-03-dz1/',
+    note:'ecom (a Pepperl+Fuchs brand) Smart-Ex 03 DZ1 is a Zone 1 / Div 1 5G Android smartphone with fingerprint sensor, 6-inch display, and Wi-Fi 6. German Design Award 2024. Long-established vendor with global service coverage; security patches guaranteed until October 2030.'
   },
   {
     id:'isafe', name:'i.safe MOBILE IS540.1', vendor:'i.safe MOBILE',
@@ -1089,8 +1089,8 @@ const SOLUTIONS = [
     service:'sealed', glove:'Yes', bulk:3, score:4, status:'production',
     notation:'Ex ib IIC T4 Gb', featured:false,
     image:null, silhouette:'rugged',
-    url:'https://isafe-mobile.com',
-    note:'German-engineered Zone 1 / Div 1 Android smartphone from i.safe MOBILE. Physical side buttons usable with gloves, dedicated PTT key, and a certified camera variant. Common choice in European chemical and offshore deployments.'
+    url:'https://www.isafe-mobile.com/en/products/product-range/zone-1/21/is5401',
+    note:'German-engineered Zone 1 / Div 1 5G Android smartphone with 6-inch FHD display, 48 MP main camera, and 16-pin ISM interface for accessories. Dual-SIM (nano + eSIM). Certified across 9 schemes: ATEX, IECEx, NEC, KCs, INMETRO, PCEC, TIIS, IA, PESO. Dedicated PTT key and amplified loudspeaker.'
   }
 ];const grid = document.getElementById('cardGrid');
 
