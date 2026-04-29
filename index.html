@@ -388,6 +388,23 @@
   {
     "@context": "https://schema.org",
     "@type": "Product",
+    "name": "ecom Smart-Ex 203",
+    "description": "Zone 1 ATEX and IECEx certified next-generation 5G Android smartphone by Pepperl+Fuchs. Ex ib IIC T4 Gb with security patches until Q1/2032.",
+    "brand": {
+      "@type": "Brand",
+      "name": "ecom (Pepperl+Fuchs)"
+    },
+    "category": "Intrinsically Safe Phones",
+    "url": "https://www.ecom-ex.com/products/communication/cell-phones/smart-ex-203/",
+    "offers": {
+      "@type": "Offer",
+      "availability": "https://schema.org/InStock",
+      "url": "https://www.ecom-ex.com/products/communication/cell-phones/smart-ex-203/"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
     "name": "ecom Smart-Ex 03 DZ1",
     "description": "Zone 1 ATEX and IECEx certified 5G Android smartphone by Pepperl+Fuchs. Ex ib IIC T4 Gb with Wi-Fi 6, fingerprint sensor and IP68.",
     "brand": {
@@ -591,13 +608,13 @@
     <div class="mt-10 flex flex-wrap items-center gap-3 reveal r2">
       <a href="#solutions" class="btn btn-primary">Browse solutions →</a>
       <a href="#decision" class="btn btn-secondary">Case vs dedicated phone</a>
-      <span class="ml-auto hidden md:inline mono text-[12px] text-[color:var(--ash)]">6 solutions indexed · 4 vendors</span>
+      <span class="ml-auto hidden md:inline mono text-[12px] text-[color:var(--ash)]">7 solutions indexed · 4 vendors</span>
     </div>
 
     <!-- stat row -->
     <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-0 border-y border-[color:var(--border)] reveal r3">
       <div class="py-6 pr-6 border-r border-[color:var(--border)]">
-        <div class="serif text-[42px] leading-none">06</div>
+        <div class="serif text-[42px] leading-none">07</div>
         <div class="text-[13px] text-[color:var(--ash)] mt-2">Solutions indexed</div>
       </div>
       <div class="py-6 px-6 md:border-r md:border-[color:var(--border)]">
@@ -648,7 +665,7 @@
         </span>
       </div>
       <div class="mt-4 text-[13px] text-[color:var(--ash)]">
-        <span id="resultCount">5</span> / 6 solutions shown · click card to expand · tick ☐ to compare
+        <span id="resultCount">6</span> / 7 solutions shown · click card to expand · tick ☐ to compare
       </div>
     </div>
   </div>
@@ -786,7 +803,7 @@
         </div>
         <ul class="space-y-3 text-[14.5px] leading-[1.6] text-[color:var(--graphite)]">
           <li><strong class="text-[color:var(--ink)]">Multi-vendor patch chain</strong> — Security fixes must pass through Qualcomm → Google → device OEM before reaching users. Each step adds delay; some Ex-phone vendors ship patches quarterly or slower.</li>
-          <li><strong class="text-[color:var(--ink)]">~5–7 year support</strong> — The best Android Ex vendors (ecom) guarantee patches for ~7 years. Others publish no end-of-support date at all. The Qualcomm QCM6490 SoC used in all three major Ex phones has a finite vendor support window.</li>
+          <li><strong class="text-[color:var(--ink)]">~5–7 year support</strong> — The best Android Ex vendors (ecom) guarantee patches for ~6–7 years: the Smart-Ex 03 until Q3/2030, the newer Smart-Ex 203 until Q1/2032. Others publish no end-of-support date at all. The Qualcomm QCM6490 SoC used in all major Ex phones has a finite vendor support window.</li>
           <li><strong class="text-[color:var(--ink)]">SoC dependency</strong> — When Qualcomm ends BSP (Board Support Package) updates for the QCM6490, the OEM can no longer ship kernel-level security fixes — even if Android itself is still maintained.</li>
           <li><strong class="text-[color:var(--ink)]">Vendor-branch Android</strong> — Ex phone OEMs run customised Android builds. OS major version upgrades (e.g., Android 14→15) require re-certification effort and may arrive 6–12 months after Google's release.</li>
         </ul>
@@ -797,7 +814,7 @@
       <p class="mono text-[12px] text-[color:var(--ash)] uppercase tracking-wider mb-2">Sources</p>
       <p class="text-[13px] leading-[1.6] text-[color:var(--graphite)]">
         Apple security releases: <a href="https://support.apple.com/en-us/100100" target="_blank" rel="noopener" class="border-b border-[color:var(--border)] hover:text-[color:var(--ink)]">support.apple.com/en-us/100100</a> · 
-        ecom patch policy: <a href="https://www.ecom-ex.com/products/communication/cell-phones/smart-ex-03-dz1/" target="_blank" rel="noopener" class="border-b border-[color:var(--border)] hover:text-[color:var(--ink)]">ecom-ex.com</a> · 
+        ecom release plans: <a href="https://support.ecom-ex.com/457976005.html" target="_blank" rel="noopener" class="border-b border-[color:var(--border)] hover:text-[color:var(--ink)]">support.ecom-ex.com</a> · 
         i.safe security updates: <a href="https://www.isafe-mobile.com/en/support/security-updates" target="_blank" rel="noopener" class="border-b border-[color:var(--border)] hover:text-[color:var(--ink)]">isafe-mobile.com</a> · 
         Qualcomm Product Longevity Program: <a href="https://www.qualcomm.com/products/product-longevity-program" target="_blank" rel="noopener" class="border-b border-[color:var(--border)] hover:text-[color:var(--ink)]">qualcomm.com</a> ·
         Android Enterprise directory: <a href="https://androidenterprisepartners.withgoogle.com/devices/" target="_blank" rel="noopener" class="border-b border-[color:var(--border)] hover:text-[color:var(--ink)]">androidenterprisepartners.withgoogle.com</a>
@@ -1122,15 +1139,28 @@ const SOLUTIONS = [
   {
     id:'ecom', name:'ecom Smart-Ex 03 DZ1', vendor:'ecom / Pepperl+Fuchs',
     type:'Dedicated Ex Phone', typeBadge:'badge-neutral',
-    host:'Android 15', platform:'Android',
-    osVersion:'Android 15', chipset:'Qualcomm QCM6490', patchCadence:'Vendor-dependent', updateEnd:'October 2030', updateYears:'~7', chipVendor:'Qualcomm (3rd-party SoC)',
+    host:'Android 14', platform:'Android',
+    osVersion:'Android 14', chipset:'Qualcomm QCM6490', patchCadence:'Vendor-dependent', updateEnd:'Q3/2030', updateYears:'~6', chipVendor:'Qualcomm (3rd-party SoC)',
     zone:'Zone 1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
     service:'sealed', glove:'Yes', bulk:3, score:4, status:'production',
     notation:'Ex ib IIC T4 Gb', featured:false,
     image:'images/ecom-smart-ex-03.png', silhouette:'rugged',
     url:'https://www.ecom-ex.com/products/communication/cell-phones/smart-ex-03-dz1/',
-    note:'ecom (a Pepperl+Fuchs brand) Smart-Ex 03 DZ1 is a Zone 1 / Div 1 5G Android smartphone with fingerprint sensor, 6-inch display, and Wi-Fi 6. German Design Award 2024. Long-established vendor with global service coverage; security patches guaranteed until October 2030.'
+    note:'ecom (a Pepperl+Fuchs brand) Smart-Ex 03 DZ1 is a Zone 1 / Div 1 5G Android smartphone with fingerprint sensor, 6-inch display, and Wi-Fi 6. German Design Award 2024. Long-established vendor with global service coverage. Currently on Android 14 with a planned upgrade to Android 16. Security patches guaranteed until Q3/2030.'
+  },
+  {
+    id:'ecom-203', name:'ecom Smart-Ex 203', vendor:'ecom / Pepperl+Fuchs',
+    type:'Dedicated Ex Phone', typeBadge:'badge-neutral',
+    host:'Android 14', platform:'Android',
+    osVersion:'Android 14', chipset:'Qualcomm QCM6490', patchCadence:'Vendor-dependent', updateEnd:'Q1/2032', updateYears:'~7', chipVendor:'Qualcomm (3rd-party SoC)',
+    zone:'Zone 1', zones:['zone1','zone2'],
+    atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
+    service:'sealed', glove:'Yes', bulk:3, score:4, status:'production',
+    notation:'Ex ib IIC T4 Gb', featured:false,
+    image:'', silhouette:'rugged',
+    url:'https://www.ecom-ex.com/products/communication/cell-phones/smart-ex-203/',
+    note:'The Smart-Ex 203 is ecom\u2019s next-generation Zone 1 smartphone, launched Q3/2025. Security patches guaranteed until Q1/2032 \u2014 the longest published Android support window among Ex phones. Currently on Android 14 with a planned upgrade path to Android 16. Successor to the Smart-Ex 03 with extended lifecycle support.'
   },
   {
     id:'isafe', name:'i.safe MOBILE IS540.1', vendor:'i.safe MOBILE',
@@ -1372,7 +1402,10 @@ document.querySelectorAll('#mobileMenu a').forEach(function(a){a.addEventListene
 <p>Xshielder is the only vendor offering ATEX Zone 1 certification for the Apple iPhone 17 Pro Max. The Xshielder Ex case is certified Ex ia IIC T4 Ga — the highest level of intrinsic safety, providing two-fault tolerance. Workers carry a genuine iPhone 17 Pro Max running iOS 25 inside the certified case, retaining full access to the App Store, Face ID, Apple Intelligence, and enterprise MDM platforms like Jamf and Intune. <a href="mailto:hello@intrinsicallysafephones.com" class="text-orange-400 hover:underline">Inquire here</a> for pricing — the total solution is significantly less expensive than dedicated Android alternatives. Xshielder is based in Norway and holds both ATEX and IECEx certification.</p>
 
 <h3>ecom Smart-Ex 03 DZ1</h3>
-<p>The ecom Smart-Ex 03 DZ1 by Pepperl+Fuchs is a dedicated 5G Android Zone 1 smartphone certified Ex ib IIC T4 Gb. It features Wi-Fi 6, a 6-inch display, and security patches guaranteed until October 2030. It is the benchmark dedicated Android Ex phone with the widest global service network. <a href="mailto:hello@intrinsicallysafephones.com" class="text-orange-400 hover:underline">Inquire here</a> for pricing.</p>
+<p>The ecom Smart-Ex 03 DZ1 by Pepperl+Fuchs is a dedicated 5G Android Zone 1 smartphone certified Ex ib IIC T4 Gb. It features Wi-Fi 6, a 6-inch display, and currently runs Android 14 with a planned upgrade to Android 16. Security patches guaranteed until Q3/2030. It is the benchmark dedicated Android Ex phone with the widest global service network. <a href="mailto:hello@intrinsicallysafephones.com" class="text-orange-400 hover:underline">Inquire here</a> for pricing.</p>
+
+<h3>ecom Smart-Ex 203</h3>
+<p>The ecom Smart-Ex 203 is ecom's next-generation Zone 1 smartphone, launched Q3/2025. It runs Android 14 with a planned upgrade to Android 16 and has the longest published Android security patch guarantee among Ex phones — until Q1/2032. Certified Ex ib IIC T4 Gb with dual ATEX and IECEx certification. <a href="mailto:hello@intrinsicallysafephones.com" class="text-orange-400 hover:underline">Inquire here</a> for pricing.</p>
 
 <h3>Bartec SP9EX1</h3>
 <p>The Bartec SP9EX1 is the only 5G smartphone with Ex ia Zone 0 certification (Ga level). It runs Android 15, has a 6.11-inch AMOLED display, 48MP camera, and weighs just 350g. For sites requiring Zone 0 rating, it is currently the only option. <a href="mailto:hello@intrinsicallysafephones.com" class="text-orange-400 hover:underline">Inquire here</a> for pricing.</p>
