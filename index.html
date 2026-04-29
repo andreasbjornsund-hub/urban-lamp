@@ -802,9 +802,9 @@
           <span class="serif text-[22px]">Fragmentation risk</span>
         </div>
         <ul class="space-y-3 text-[14.5px] leading-[1.6] text-[color:var(--graphite)]">
-          <li><strong class="text-[color:var(--ink)]">Multi-vendor patch chain</strong> — Security fixes must pass through Qualcomm → Google → device OEM before reaching users. Each step adds delay; some Ex-phone vendors ship patches quarterly or slower.</li>
-          <li><strong class="text-[color:var(--ink)]">~5–7 year support</strong> — The best Android Ex vendors (ecom) guarantee patches for ~6–7 years: the Smart-Ex 03 until Q3/2030, the newer Smart-Ex 203 until Q1/2032. Others publish no end-of-support date at all. The Qualcomm QCM6490 SoC used in all major Ex phones has a finite vendor support window.</li>
-          <li><strong class="text-[color:var(--ink)]">SoC dependency</strong> — When Qualcomm ends BSP (Board Support Package) updates for the QCM6490, the OEM can no longer ship kernel-level security fixes — even if Android itself is still maintained.</li>
+          <li><strong class="text-[color:var(--ink)]">Multi-vendor patch chain</strong> — Security fixes must pass through Qualcomm → Google → device OEM before reaching users. Each step adds delay. Despite Android Enterprise Recommended (AER) approval requiring patches within 90 days of Google’s release, ecom and i.safe have shipped Zone 1 devices with security patch levels several months behind. Bartec is currently the only Ex phone vendor consistently meeting the AER 90-day requirement.</li>
+          <li><strong class="text-[color:var(--ink)]">~5–7 year support (with caveats)</strong> — ecom guarantees patches for ~6–7 years: the Smart-Ex 03 until Q3/2030, the newer Smart-Ex 203 claims Q1/2032. However, the Qualcomm QCM6490 SoC used in all major Android Ex phones reaches end-of-life ~2030 — after which kernel-level patches cannot be delivered, regardless of OEM commitments. Any vendor claiming security updates beyond QCM6490 EOL cannot deliver kernel fixes.</li>
+          <li><strong class="text-[color:var(--ink)]">SoC dependency</strong> — When Qualcomm ends BSP (Board Support Package) updates for the QCM6490 (~2030), the OEM can no longer ship kernel-level security fixes — even if Android itself is still maintained. This is the hard ceiling that no vendor promise can override.</li>
           <li><strong class="text-[color:var(--ink)]">Vendor-branch Android</strong> — Ex phone OEMs run customised Android builds. OS major version upgrades (e.g., Android 14→15) require re-certification effort and may arrive 6–12 months after Google's release.</li>
         </ul>
       </div>
@@ -1100,7 +1100,7 @@ const SOLUTIONS = [
   {
     id:'xciel', name:'Xciel Ex Case for iPhone', vendor:'Xciel',
     type:'Certified Ex Case', typeBadge:'badge-green',
-    host:'iPhone 7 – 16 (multiple models)', platform:'iOS',
+    host:'iPhone 7 – 15 (multiple models)', platform:'iOS',
     osVersion:'iOS 18 (model-dependent)', chipset:'Apple A-series', patchCadence:'Monthly', updateEnd:'Varies by model', updateYears:'6–8', chipVendor:'Apple (vertically integrated)',
     zone:'Zone 1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
@@ -1108,7 +1108,7 @@ const SOLUTIONS = [
     notation:'Ex ib IIC T4 Gb', featured:false,
     image:'images/xciel.png', silhouette:'phone',
     url:'https://xciel.com',
-    note:'iOS-native certified Ex case line with IECEx + ATEX coverage for Zone 1. Camera retained via a certified window. Strong fit for oil and gas operators already standardised on iPhone fleets. Host device is sealed into the case assembly.'
+    note:'iOS-native certified Ex case line with IECEx + ATEX coverage for Zone 1, supporting iPhone models 7 through 15. Camera retained via a certified window. Strong fit for oil and gas operators already standardised on iPhone fleets. Host device is sealed into the case assembly. Note: does not yet support iPhone 16 or later.'
   },
   {
     id:'atexxo', name:'Atexxo Explosion Proof iPhone', vendor:'Atexxo',
@@ -1127,53 +1127,53 @@ const SOLUTIONS = [
     id:'bartec-sp9', name:'Bartec SP9EX1', vendor:'Bartec',
     type:'Dedicated Ex Phone', typeBadge:'badge-neutral',
     host:'Android 15', platform:'Android',
-    osVersion:'Android 15', chipset:'Qualcomm QCM6490', patchCadence:'Vendor-dependent', updateEnd:'Not published', updateYears:'~5', chipVendor:'Qualcomm (3rd-party SoC)',
+    osVersion:'Android 15', chipset:'Qualcomm QCM6490', patchCadence:'AER 90-day', updateEnd:'QCM6490 EOL ~2030', updateYears:'~5', chipVendor:'Qualcomm (3rd-party SoC)',
     zone:'Zone 0/1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
     service:'sealed', glove:'Yes', bulk:2, score:4, status:'production',
     notation:'Ex ia IIC T4 Ga \u00b7 II 1G', featured:false,
     image:'images/bartec-sp9.webp', silhouette:'rugged',
     url:'https://bartec.com/products-solutions/product-finder/product-detail/bartec-sp9ex1-smartphone/',
-    note:'Bartec\u2019s latest Zone 0/1 smartphone. 5G and Wi-Fi 6, Qualcomm QCM6490 processor, 6.1\u2033 AMOLED display, 48 MP camera, 4,300 mAh battery, 350 g. Runs Android 15. Ex ia (intrinsic safety) rated for Zone 0 — the highest zone rating available. Dual ATEX + IECEx + NEC Div 1 certification.'
+    note:'Bartec\u2019s latest Zone 0/1 smartphone. 5G and Wi-Fi 6, Qualcomm QCM6490 processor, 6.1\u2033 AMOLED display, 48 MP camera, 4,300 mAh battery, 350 g. Runs Android 15. Ex ia (intrinsic safety) rated for Zone 0 \u2014 the highest zone rating available. Dual ATEX + IECEx + NEC Div 1 certification. Bartec is the only Android Ex phone vendor consistently meeting the AER 90-day security patch requirement.'
   },
   {
     id:'ecom', name:'ecom Smart-Ex 03 DZ1', vendor:'ecom / Pepperl+Fuchs',
     type:'Dedicated Ex Phone', typeBadge:'badge-neutral',
     host:'Android 14', platform:'Android',
-    osVersion:'Android 14', chipset:'Qualcomm QCM6490', patchCadence:'Vendor-dependent', updateEnd:'Q3/2030', updateYears:'~6', chipVendor:'Qualcomm (3rd-party SoC)',
+    osVersion:'Android 14', chipset:'Qualcomm QCM6490', patchCadence:'Overdue', updateEnd:'Q3/2030', updateYears:'~6', chipVendor:'Qualcomm (3rd-party SoC)',
     zone:'Zone 1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
-    service:'sealed', glove:'Yes', bulk:3, score:4, status:'production',
+    service:'sealed', glove:'Yes', bulk:3, score:3, status:'production',
     notation:'Ex ib IIC T4 Gb', featured:false,
     image:'images/ecom-smart-ex-03.png', silhouette:'rugged',
     url:'https://www.ecom-ex.com/products/communication/cell-phones/smart-ex-03-dz1/',
-    note:'ecom (a Pepperl+Fuchs brand) Smart-Ex 03 DZ1 is a Zone 1 / Div 1 5G Android smartphone with fingerprint sensor, 6-inch display, and Wi-Fi 6. German Design Award 2024. Long-established vendor with global service coverage. Currently on Android 14 with a planned upgrade to Android 16. Security patches guaranteed until Q3/2030.'
+    note:'ecom (a Pepperl+Fuchs brand) Smart-Ex 03 DZ1 is a Zone 1 / Div 1 5G Android smartphone with fingerprint sensor, 6-inch display, and Wi-Fi 6. German Design Award 2024. Long-established vendor with global service coverage. Currently on Android 14 with a planned upgrade to Android 16. Security patches guaranteed until Q3/2030. Caution: despite AER approval, the Smart-Ex 03 has shipped with security patch levels several months behind Google\u2019s release \u2014 well beyond the 90-day AER requirement.'
   },
   {
     id:'ecom-203', name:'ecom Smart-Ex 203', vendor:'ecom / Pepperl+Fuchs',
     type:'Dedicated Ex Phone', typeBadge:'badge-neutral',
     host:'Android 14', platform:'Android',
-    osVersion:'Android 14', chipset:'Qualcomm QCM6490', patchCadence:'Vendor-dependent', updateEnd:'Q1/2032', updateYears:'~7', chipVendor:'Qualcomm (3rd-party SoC)',
+    osVersion:'Android 14', chipset:'Qualcomm QCM6490', patchCadence:'Overdue', updateEnd:'Q1/2032 (claimed)', updateYears:'~7', chipVendor:'Qualcomm (3rd-party SoC)',
     zone:'Zone 1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
     service:'sealed', glove:'Yes', bulk:3, score:4, status:'production',
     notation:'Ex ib IIC T4 Gb', featured:false,
     image:'', silhouette:'rugged',
     url:'https://www.ecom-ex.com/products/communication/cell-phones/smart-ex-203/',
-    note:'The Smart-Ex 203 is ecom\u2019s next-generation Zone 1 smartphone, launched Q3/2025. Security patches guaranteed until Q1/2032 \u2014 the longest published Android support window among Ex phones. Currently on Android 14 with a planned upgrade path to Android 16. Successor to the Smart-Ex 03 with extended lifecycle support.'
+    note:'The Smart-Ex 203 is ecom\u2019s next-generation Zone 1 smartphone, launched Q3/2025. ecom claims security patches until Q1/2032, however the Qualcomm QCM6490 SoC reaches end-of-life ~2030 \u2014 after which kernel-level patches cannot be delivered regardless of OEM intent. Currently on Android 14 with a planned upgrade path to Android 16. Like the Smart-Ex 03, patch delivery has not met the AER 90-day requirement.'
   },
   {
     id:'isafe', name:'i.safe MOBILE IS540.1', vendor:'i.safe MOBILE',
     type:'Dedicated Ex Phone', typeBadge:'badge-neutral',
     host:'Android 14', platform:'Android',
-    osVersion:'Android 14', chipset:'Qualcomm QCM6490', patchCadence:'Quarterly', updateEnd:'Not published', updateYears:'~5', chipVendor:'Qualcomm (3rd-party SoC)',
+    osVersion:'Android 14', chipset:'Qualcomm QCM6490', patchCadence:'Overdue', updateEnd:'QCM6490 EOL ~2030', updateYears:'~5', chipVendor:'Qualcomm (3rd-party SoC)',
     zone:'Zone 1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
-    service:'sealed', glove:'Yes', bulk:3, score:4, status:'production',
+    service:'sealed', glove:'Yes', bulk:3, score:3, status:'production',
     notation:'Ex ib IIC T4 Gb', featured:false,
     image:'images/isafe-is540.png', silhouette:'rugged',
     url:'https://www.isafe-mobile.com/en/products/product-range/zone-1/21/is5401',
-    note:'German-engineered Zone 1 / Div 1 5G Android smartphone with 6-inch FHD display, 48 MP main camera, and 16-pin ISM interface for accessories. Dual-SIM (nano + eSIM). Certified across 9 schemes: ATEX, IECEx, NEC, KCs, INMETRO, PCEC, TIIS, IA, PESO. Dedicated PTT key and amplified loudspeaker.'
+    note:'German-engineered Zone 1 / Div 1 5G Android smartphone with 6-inch FHD display, 48 MP main camera, and 16-pin ISM interface for accessories. Dual-SIM (nano + eSIM). Certified across 9 schemes: ATEX, IECEx, NEC, KCs, INMETRO, PCEC, TIIS, IA, PESO. Dedicated PTT key and amplified loudspeaker. Caution: despite AER approval, i.safe has shipped patch levels several months behind Google\u2019s release. The QCM6490 SoC reaches end-of-life ~2030, which sets a hard ceiling on kernel-level security patches regardless of any vendor claims beyond that date.'
   }
 ];const grid = document.getElementById('cardGrid');
 
@@ -1260,7 +1260,7 @@ function renderCards(){
         <div class="mono text-[11px] text-[color:var(--ash)] uppercase tracking-wider mb-2">Software &amp; Compliance</div>
         <div>
           <div class="spec"><span class="spec-label">Current OS</span><span class="spec-val mono">${s.osVersion}</span></div>
-          <div class="spec"><span class="spec-label">Patch cadence</span><span class="spec-val">${s.patchCadence==='Monthly'?'<span class="badge badge-green"><span class="hb !w-[6px] !h-[6px]"></span>Monthly</span>':s.patchCadence==='Quarterly'?'<span class="badge badge-warn">Quarterly</span>':'<span class="badge badge-stone">'+s.patchCadence+'</span>'}</span></div>
+          <div class="spec"><span class="spec-label">Patch cadence</span><span class="spec-val">${s.patchCadence==='Monthly'?'<span class="badge badge-green"><span class="hb !w-[6px] !h-[6px]"></span>Monthly</span>':s.patchCadence==='AER 90-day'?'<span class="badge badge-green">AER 90-day</span>':s.patchCadence==='Overdue'?'<span class="badge badge-warn">\u26a0 Overdue</span>':s.patchCadence==='Quarterly'?'<span class="badge badge-warn">Quarterly</span>':'<span class="badge badge-stone">'+s.patchCadence+'</span>'}</span></div>
           <div class="spec"><span class="spec-label">Update support</span><span class="spec-val">${s.updateYears} years (until ${s.updateEnd})</span></div>
           <div class="spec"><span class="spec-label">Chipset</span><span class="spec-val mono text-[12px]">${s.chipset}</span></div>
           <div class="spec"><span class="spec-label">SoC vendor</span><span class="spec-val text-[12px]">${s.chipVendor}</span></div>
