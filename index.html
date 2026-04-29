@@ -514,6 +514,7 @@
         </div>
       </div>
       <a href="/#certification" class="hover:text-[color:var(--ink)] transition-colors">Certification</a>
+      <a href="/#software" class="hover:text-[color:var(--ink)] transition-colors">Software</a>
       <a href="/#contact" class="hover:text-[color:var(--ink)] transition-colors">Contact</a>
     </nav>
     <div class="ml-auto flex items-center gap-3">
@@ -547,6 +548,7 @@
         <a href="/" class="mobile-nav-link">Home</a>
         <a href="/#solutions" class="mobile-nav-link">Solutions</a>
         <a href="/#certification" class="mobile-nav-link">Certification</a>
+        <a href="/#software" class="mobile-nav-link">Software</a>
         <a href="/#contact" class="mobile-nav-link">Contact</a>
         <div class="my-3 h-px" style="background:var(--border)"></div>
         <span class="mono text-[10px] uppercase tracking-[0.12em] mb-2 px-3" style="color:var(--ash)">Guides</span>
@@ -753,6 +755,57 @@
 </section>
 
 <!-- =========== DECISION =========== -->
+<section id="software" class="anchor">
+  <div class="max-w-[1140px] mx-auto px-6 py-[var(--space-section)]">
+    <div class="max-w-[680px]">
+      <span class="badge badge-dark mb-5">Software lifecycle</span>
+      <h2 class="serif h-section max-w-[22ch]">Patch cadence, OS longevity, <em class="italic text-[color:var(--graphite)]">and why it matters in Ex.</em></h2>
+      <p class="mt-5 text-[15px] leading-[1.7] text-[color:var(--graphite)]">
+        A hazardous-area phone is deployed for years — often 5 to 8. During that time, the operating system must keep receiving security patches. An unpatched device in a Zone 1 environment is a compliance liability: enterprise MDM policies will quarantine it, and site auditors will flag it.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+      <div class="p-8 rounded-[var(--radius)] border border-[color:var(--active)] bg-[#f0fdf4]">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="badge badge-green">iOS</span>
+          <span class="serif text-[22px]">Apple advantage</span>
+        </div>
+        <ul class="space-y-3 text-[14.5px] leading-[1.6] text-[color:var(--graphite)]">
+          <li><strong class="text-[color:var(--ink)]">Monthly patches</strong> — Apple ships security updates on a predictable monthly cadence, delivered OTA to every supported device simultaneously.</li>
+          <li><strong class="text-[color:var(--ink)]">8+ year support</strong> — iPhone 16 Pro Max (A18 Pro) will receive iOS updates through at least 2032. Apple has supported some models for 8 years of major releases plus 2 additional years of security-only patches.</li>
+          <li><strong class="text-[color:var(--ink)]">Vertically integrated</strong> — Apple designs both the SoC (A-series) and the OS. There is no dependency on a third-party chipset vendor for patch availability. When Apple releases a fix, it ships.</li>
+          <li><strong class="text-[color:var(--ink)]">Enterprise MDM</strong> — iOS integrates natively with Jamf, Intune, VMware, and all major MDM platforms. Zero-day response times are measured in days, not months.</li>
+        </ul>
+      </div>
+
+      <div class="p-8 rounded-[var(--radius)] border border-[color:var(--border)] bg-[color:var(--bg-alt)]">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="badge badge-neutral">Android</span>
+          <span class="serif text-[22px]">Fragmentation risk</span>
+        </div>
+        <ul class="space-y-3 text-[14.5px] leading-[1.6] text-[color:var(--graphite)]">
+          <li><strong class="text-[color:var(--ink)]">Multi-vendor patch chain</strong> — Security fixes must pass through Qualcomm → Google → device OEM before reaching users. Each step adds delay; some Ex-phone vendors ship patches quarterly or slower.</li>
+          <li><strong class="text-[color:var(--ink)]">~5–7 year support</strong> — The best Android Ex vendors (ecom) guarantee patches for ~7 years. Others publish no end-of-support date at all. The Qualcomm QCM6490 SoC used in all three major Ex phones has a finite vendor support window.</li>
+          <li><strong class="text-[color:var(--ink)]">SoC dependency</strong> — When Qualcomm ends BSP (Board Support Package) updates for the QCM6490, the OEM can no longer ship kernel-level security fixes — even if Android itself is still maintained.</li>
+          <li><strong class="text-[color:var(--ink)]">Vendor-branch Android</strong> — Ex phone OEMs run customised Android builds. OS major version upgrades (e.g., Android 14→15) require re-certification effort and may arrive 6–12 months after Google's release.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-10 p-6 rounded-[var(--radius)] border border-[color:var(--border)] bg-[color:var(--bg)]">
+      <p class="mono text-[12px] text-[color:var(--ash)] uppercase tracking-wider mb-2">Sources</p>
+      <p class="text-[13px] leading-[1.6] text-[color:var(--graphite)]">
+        Apple security releases: <a href="https://support.apple.com/en-us/100100" target="_blank" rel="noopener" class="border-b border-[color:var(--border)] hover:text-[color:var(--ink)]">support.apple.com/en-us/100100</a> · 
+        ecom patch policy: <a href="https://www.ecom-ex.com/products/communication/cell-phones/smart-ex-03-dz1/" target="_blank" rel="noopener" class="border-b border-[color:var(--border)] hover:text-[color:var(--ink)]">ecom-ex.com</a> · 
+        i.safe security updates: <a href="https://www.isafe-mobile.com/en/support/security-updates" target="_blank" rel="noopener" class="border-b border-[color:var(--border)] hover:text-[color:var(--ink)]">isafe-mobile.com</a> · 
+        Qualcomm Product Longevity Program: <a href="https://www.qualcomm.com/products/product-longevity-program" target="_blank" rel="noopener" class="border-b border-[color:var(--border)] hover:text-[color:var(--ink)]">qualcomm.com</a> ·
+        Android Enterprise directory: <a href="https://androidenterprisepartners.withgoogle.com/devices/" target="_blank" rel="noopener" class="border-b border-[color:var(--border)] hover:text-[color:var(--ink)]">androidenterprisepartners.withgoogle.com</a>
+      </p>
+    </div>
+  </div>
+</section>
+
 <section id="decision" class="anchor bg-[color:var(--bg-alt)] border-y border-[color:var(--border)]">
   <div class="max-w-[1140px] mx-auto px-6 py-24">
     <div class="mb-12 max-w-[52ch]">
@@ -1018,6 +1071,7 @@ const SOLUTIONS = [
     id:'xshielder', name:'Xshielder Ex Case', vendor:'Xshielder',
     type:'Certified Ex Case', typeBadge:'badge-green',
     host:'iPhone 16 Pro Max', platform:'iOS',
+    osVersion:'iOS 18', chipset:'Apple A18 Pro', patchCadence:'Monthly', updateEnd:'2032+', updateYears:'8+', chipVendor:'Apple (vertically integrated)',
     zone:'Zone 1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
     service:'replaceable', glove:'Yes', bulk:2, score:5, status:'production',
@@ -1030,6 +1084,7 @@ const SOLUTIONS = [
     id:'xciel', name:'Xciel Ex Case for iPhone', vendor:'Xciel',
     type:'Certified Ex Case', typeBadge:'badge-green',
     host:'iPhone 7 – 16 (multiple models)', platform:'iOS',
+    osVersion:'iOS 18 (model-dependent)', chipset:'Apple A-series', patchCadence:'Monthly', updateEnd:'Varies by model', updateYears:'6–8', chipVendor:'Apple (vertically integrated)',
     zone:'Zone 1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
     service:'sealed', glove:'Yes', bulk:2, score:4, status:'production',
@@ -1042,6 +1097,7 @@ const SOLUTIONS = [
     id:'atexxo', name:'Atexxo Explosion Proof iPhone', vendor:'Atexxo',
     type:'Device Conversion (flameproof)', typeBadge:'badge-neutral',
     host:'iPhone 17 / 16 / 15 / 14', platform:'iOS',
+    osVersion:'iOS 18', chipset:'Apple A-series', patchCadence:'Monthly', updateEnd:'2032+', updateYears:'8+', chipVendor:'Apple (vertically integrated)',
     zone:'Zone 1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
     service:'sealed', glove:'Yes', bulk:3, score:3, status:'production',
@@ -1054,6 +1110,7 @@ const SOLUTIONS = [
     id:'bartec-sp9', name:'Bartec SP9EX1', vendor:'Bartec',
     type:'Dedicated Ex Phone', typeBadge:'badge-neutral',
     host:'Android 15', platform:'Android',
+    osVersion:'Android 15', chipset:'Qualcomm QCM6490', patchCadence:'Vendor-dependent', updateEnd:'Not published', updateYears:'~5', chipVendor:'Qualcomm (3rd-party SoC)',
     zone:'Zone 0/1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
     service:'sealed', glove:'Yes', bulk:2, score:4, status:'production',
@@ -1065,7 +1122,8 @@ const SOLUTIONS = [
   {
     id:'ecom', name:'ecom Smart-Ex 03 DZ1', vendor:'ecom / Pepperl+Fuchs',
     type:'Dedicated Ex Phone', typeBadge:'badge-neutral',
-    host:'Android (vendor branch)', platform:'Android',
+    host:'Android 15', platform:'Android',
+    osVersion:'Android 15', chipset:'Qualcomm QCM6490', patchCadence:'Vendor-dependent', updateEnd:'October 2030', updateYears:'~7', chipVendor:'Qualcomm (3rd-party SoC)',
     zone:'Zone 1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
     service:'sealed', glove:'Yes', bulk:3, score:4, status:'production',
@@ -1077,7 +1135,8 @@ const SOLUTIONS = [
   {
     id:'isafe', name:'i.safe MOBILE IS540.1', vendor:'i.safe MOBILE',
     type:'Dedicated Ex Phone', typeBadge:'badge-neutral',
-    host:'Android (vendor branch)', platform:'Android',
+    host:'Android 14', platform:'Android',
+    osVersion:'Android 14', chipset:'Qualcomm QCM6490', patchCadence:'Quarterly', updateEnd:'Not published', updateYears:'~5', chipVendor:'Qualcomm (3rd-party SoC)',
     zone:'Zone 1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
     service:'sealed', glove:'Yes', bulk:3, score:4, status:'production',
@@ -1166,6 +1225,17 @@ function renderCards(){
           <div class="spec"><span class="spec-label">Ex notation</span><span class="spec-val">${s.notation}</span></div>
         </div>
       </div>
+      <div class="px-7"><div class="h-px bg-[color:var(--border)]"></div></div>
+      <div class="px-7 py-4">
+        <div class="mono text-[11px] text-[color:var(--ash)] uppercase tracking-wider mb-2">Software &amp; Compliance</div>
+        <div>
+          <div class="spec"><span class="spec-label">Current OS</span><span class="spec-val mono">${s.osVersion}</span></div>
+          <div class="spec"><span class="spec-label">Patch cadence</span><span class="spec-val">${s.patchCadence==='Monthly'?'<span class="badge badge-green"><span class="hb !w-[6px] !h-[6px]"></span>Monthly</span>':s.patchCadence==='Quarterly'?'<span class="badge badge-warn">Quarterly</span>':'<span class="badge badge-stone">'+s.patchCadence+'</span>'}</span></div>
+          <div class="spec"><span class="spec-label">Update support</span><span class="spec-val">${s.updateYears} years (until ${s.updateEnd})</span></div>
+          <div class="spec"><span class="spec-label">Chipset</span><span class="spec-val mono text-[12px]">${s.chipset}</span></div>
+          <div class="spec"><span class="spec-label">SoC vendor</span><span class="spec-val text-[12px]">${s.chipVendor}</span></div>
+        </div>
+      </div>
 
       <div class="card-expand px-7 pb-6">
         <div class="h-px bg-[color:var(--border)] mb-5"></div>
@@ -1252,7 +1322,12 @@ function refreshCompare(){
     ['Gas group',s=>s.gas],['Temp class',s=>s.temp],['IP rating',s=>s.ip],
     ['Serviceable',s=>s.service==='replaceable'?'Replaceable':'Sealed'],['Glove touch',s=>s.glove],
     ['Form factor',s=>`${s.bulk}/5`],['Ex notation',s=>s.notation],
-    ['Overall score',s=>`${s.score}/5`]
+    ['Overall score',s=>`${s.score}/5`],
+    ['Current OS',s=>s.osVersion],
+    ['Patch cadence',s=>s.patchCadence],
+    ['Update support',s=>`${s.updateYears} yrs`],
+    ['Chipset',s=>s.chipset],
+    ['SoC vendor',s=>s.chipVendor]
   ];
   cmpTable.innerHTML=`<thead><tr>
     <th class="!w-[22%]">Spec</th>
