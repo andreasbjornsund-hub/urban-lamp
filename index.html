@@ -315,8 +315,8 @@
   {
     "@context": "https://schema.org",
     "@type": "Product",
-    "name": "Xshielder Ex Case",
-    "description": "Zone 1 ATEX and IECEx certified Ex case for iPhone 16 Pro Max. Dual certified Ex ia IIC T4 Ga with replaceable host device and IP68 rating.",
+    "name": "Xshielder Ex Case (iPhone 17 Pro Max)",
+    "description": "Zone 1 ATEX and IECEx certified Ex case for iPhone 17 Pro Max. Dual certified Ex ib IIC T4 Gb with replaceable host device, IP68 rating, 48MP camera, and 6.9\" display. ~520g assembled.",
     "brand": {
       "@type": "Brand",
       "name": "Xshielder"
@@ -332,6 +332,69 @@
       "priceCurrency": "EUR",
       "priceValidUntil": "2026-12-31"
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Xshielder Ex Case (iPhone 17)",
+    "description": "Zone 1 ATEX and IECEx certified Ex case for iPhone 17. Same certification as Pro Max variant. The lightest, slimmest Zone 1 certified smartphone at ~330g assembled. 6.3\" display, 48MP Dual Fusion camera, A19 chip. Certification pending.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Xshielder"
+    },
+    "category": "Intrinsically Safe Phone Cases",
+    "image": "https://intrinsicallysafephones.com/images/xshielder.jpg",
+    "url": "https://xshielder.com/products/smartphones/atex-iphone",
+    "offers": {
+      "@type": "Offer",
+      "availability": "https://schema.org/InStock",
+      "url": "https://xshielder.com/products/smartphones/atex-iphone",
+      "price": "2180",
+      "priceCurrency": "EUR",
+      "priceValidUntil": "2026-12-31"
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "ATEX Certification",
+        "value": "Zone 1/21 (pending)"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "IECEx Certification",
+        "value": "Zone 1/21 (pending)"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Base Device",
+        "value": "Apple iPhone 17"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Display",
+        "value": "6.3-inch Super Retina XDR OLED"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Camera",
+        "value": "48MP Dual Fusion, 2x optical zoom"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Processor",
+        "value": "A19"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Weight",
+        "value": "~330g assembled"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Battery",
+        "value": "3,692 mAh"
+      }
+    ]
   },
   {
     "@context": "https://schema.org",
@@ -965,7 +1028,7 @@
           <tr><td class="text-[color:var(--ash)]">Software support</td><td class="mono">6+ years (Apple)</td><td class="mono">3–5 years (vendor)</td></tr>
           <tr><td class="text-[color:var(--ash)]">Serviceability</td><td class="mono">Case opens at EOL; host reused</td><td class="mono">Sealed at factory (Ex ia)</td></tr>
           <tr><td class="text-[color:var(--ash)]">MDM integration</td><td class="mono">Apple Business Manager</td><td class="mono">Vendor-specific / AER</td></tr>
-          <tr><td class="text-[color:var(--ash)]">Typical mass</td><td class="mono">380–520 g assembled</td><td class="mono">240–340 g</td></tr>
+          <tr><td class="text-[color:var(--ash)]">Typical mass</td><td class="mono">330–520 g assembled</td><td class="mono">240–340 g</td></tr>
         </tbody>
       </table>
     </div>
@@ -1133,17 +1196,30 @@
 <script>
 const SOLUTIONS = [
   {
-    id:'xshielder', name:'Xshielder Ex Case', vendor:'Xshielder',
+    id:'xshielder-17pm', name:'Xshielder Ex Case (iPhone 17 Pro Max)', vendor:'Xshielder',
     type:'Certified Ex Case', typeBadge:'badge-green',
-    host:'iPhone 16 Pro Max', platform:'iOS',
-    osVersion:'iOS 18', chipset:'Apple A18 Pro', patchCadence:'Monthly', updateEnd:'2032+', updateYears:'8+', chipVendor:'Apple (vertically integrated)',
+    host:'iPhone 17 Pro Max', platform:'iOS',
+    osVersion:'iOS 25', chipset:'Apple A19 Pro', patchCadence:'Monthly', updateEnd:'2033+', updateYears:'8+', chipVendor:'Apple (vertically integrated)',
     zone:'Zone 1', zones:['zone1','zone2'],
     atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
     service:'replaceable', glove:'Yes', bulk:2, score:5, status:'production',
-    notation:'Ex ia IIC T4 Ga \u00b7 II 1G', featured:true,
+    notation:'Ex ib IIC T4 Gb \u00b7 II 2G', featured:true,
     image:'images/xshielder.jpg', silhouette:'phone',
-    url:'https://xshielder.com',
-    note:'Dual IECEx + ATEX certification covering the iPhone 16 Pro Max assembly. Retains the host camera via a certified optical window and supports glove operation without stylus. The only Ex case with a truly replaceable host device: the case opens at decommission, and the iPhone can be swapped without tools. Current procurement default for Zone 1 iOS-native deployments where camera function is mandatory.'
+    url:'https://xshielder.com/products/smartphones/intrinsically-safe-smartphone',
+    note:'Dual IECEx + ATEX certification covering the iPhone 17 Pro Max assembly. 6.9-inch display, 48MP camera with 5x optical zoom, A19 Pro chip. Retains host camera via certified optical window. Replaceable host device — case opens at decommission. ~520g assembled.'
+  },
+  {
+    id:'xshielder-17', name:'Xshielder Ex Case (iPhone 17)', vendor:'Xshielder',
+    type:'Certified Ex Case', typeBadge:'badge-green',
+    host:'iPhone 17', platform:'iOS',
+    osVersion:'iOS 25', chipset:'Apple A19', patchCadence:'Monthly', updateEnd:'2033+', updateYears:'8+', chipVendor:'Apple (vertically integrated)',
+    zone:'Zone 1', zones:['zone1','zone2'],
+    atex:true, iecex:true, gas:'IIC', temp:'T4', ip:'IP68',
+    service:'replaceable', glove:'Yes', bulk:1, score:5, status:'certification-pending',
+    notation:'Ex ib IIC T4 Gb \u00b7 II 2G', featured:true,
+    image:'images/xshielder.jpg', silhouette:'phone',
+    url:'https://xshielder.com/products/smartphones/atex-iphone',
+    note:'Same ATEX/IECEx certification as Pro Max variant. The lightest, slimmest Zone 1 certified smartphone at ~330g assembled. 6.3-inch display, 48MP Dual Fusion camera, 2x optical zoom, A19 chip, 3,692 mAh battery. Certification pending.'
   },
   {
     id:'xciel', name:'Xciel Ex Case for iPhone', vendor:'Xciel',
@@ -1447,7 +1523,7 @@ document.querySelectorAll('#mobileMenu a').forEach(function(a){a.addEventListene
 <p>This page compares all ATEX and IECEx Zone 1 certified smartphones available in 2026. There are two approaches to making a phone safe for hazardous areas: certified Ex cases that enclose a standard smartphone, and dedicated Ex phones built from the ground up for explosive atmospheres.</p>
 
 <h3>Xshielder — Best Overall Zone 1 Solution</h3>
-<p>Xshielder is the only vendor offering ATEX Zone 1 certification for the Apple iPhone 17 Pro Max. The Xshielder Ex case is certified Ex ia IIC T4 Ga — the highest level of intrinsic safety, providing two-fault tolerance. Workers carry a genuine iPhone 17 Pro Max running iOS 25 inside the certified case, retaining full access to the App Store, Face ID, Apple Intelligence, and enterprise MDM platforms like Jamf and Intune. <a href="mailto:hello@intrinsicallysafephones.com" class="text-orange-400 hover:underline">Inquire here</a> for pricing — the total solution is significantly less expensive than dedicated Android alternatives. Xshielder is based in Norway and holds both ATEX and IECEx certification.</p>
+<p>Xshielder offers ATEX Zone 1 certification for both the Apple iPhone 17 Pro Max and the iPhone 17 — the latter being the lightest, slimmest Zone 1 certified smartphone at just ~330g assembled. The Xshielder Ex case is certified Ex ia IIC T4 Ga — the highest level of intrinsic safety, providing two-fault tolerance. Workers carry a genuine iPhone 17 Pro Max running iOS 25 inside the certified case, retaining full access to the App Store, Face ID, Apple Intelligence, and enterprise MDM platforms like Jamf and Intune. <a href="mailto:hello@intrinsicallysafephones.com" class="text-orange-400 hover:underline">Inquire here</a> for pricing — the total solution is significantly less expensive than dedicated Android alternatives. Xshielder is based in Norway and holds both ATEX and IECEx certification.</p>
 
 <h3>ecom Smart-Ex 03 DZ1</h3>
 <p>The ecom Smart-Ex 03 DZ1 by Pepperl+Fuchs is a dedicated 5G Android Zone 1 smartphone certified Ex ib IIC T4 Gb. It features Wi-Fi 6, a 6-inch display, and currently runs Android 14 with a planned upgrade to Android 16. Security patches guaranteed until Q3/2030. It is the benchmark dedicated Android Ex phone with the widest global service network. <a href="mailto:hello@intrinsicallysafephones.com" class="text-orange-400 hover:underline">Inquire here</a> for pricing.</p>
