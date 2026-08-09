@@ -37,7 +37,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css">
+<style>
+  :root{--bg:#f5f3f0;--bg-alt:#eae7e2;--ink:#1a1a1a;--graphite:#6b6b6b;--ash:#999;--void:#111;--accent:#22c55e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);}
+  .serif{font-family:'Instrument Serif',Georgia,serif;}
+  .glass-nav{position:sticky;top:0;z-index:50;background:rgba(245,243,240,.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.06);}
+  .card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:2rem;}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.4rem;border-radius:999px;font-size:.875rem;font-weight:500;transition:all .2s;cursor:pointer;border:none;text-decoration:none;}
+  .btn-pri{background:var(--ink);color:#fff;}
+  .btn-pri:hover{background:#333;}
+  .btn-sec{background:#fff;color:var(--ink);border:1.5px solid rgba(0,0,0,.1);}
+  .verdict{border-left:4px solid var(--accent);padding-left:1.5rem;}
+  h2{scroll-margin-top:5rem;}
+  .step{display:flex;gap:1.25rem;margin-bottom:1.5rem;}
+  .step-num{flex-shrink:0;width:2rem;height:2rem;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;margin-top:.15rem;}
+</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16941652225"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-16941652225');</script>
 <!-- GA4 Hazardous Area Guide Network -->
@@ -47,8 +62,18 @@
 <body class="min-h-screen">
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MFSPF6PH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<div id="site-nav"></div>
-
+<header class="glass-nav">
+  <div class="max-w-[860px] mx-auto px-6 h-16 flex items-center gap-6">
+    <a href="/" class="text-[15px] font-semibold tracking-tight">intrinsicallysafephones<span style="color:var(--ash)">.com</span></a>
+    <nav class="hidden md:flex items-center gap-5 text-[14px] ml-auto" style="color:var(--graphite)">
+      <a href="/" class="hover:text-[color:var(--ink)]">Home</a>
+      <a href="/best-atex-smartphones-2026.html" class="hover:text-[color:var(--ink)]">Best 2026</a>
+      <a href="/what-is-an-intrinsically-safe-phone.html" class="hover:text-[color:var(--ink)]">What Is IS?</a>
+      <a href="/top-5-atex-iphone-enclosures-zone-1.html" class="hover:text-[color:var(--ink)]">Top 5 Enclosures</a>
+      <a href="/iphone-ex-case-vs-dedicated-atex-phone.html" class="hover:text-[color:var(--ink)]">Case vs Dedicated</a>
+    </nav>
+  </div>
+</header>
 
 <main class="max-w-[860px] mx-auto px-6 py-16">
   <div class="mb-3 text-[13px]" style="color:var(--ash)">
@@ -247,9 +272,10 @@
   </div>
 </main>
 
-<div id="site-footer"></div>
-
-<script src="/js/nav.js"></script>
-<script src="/js/footer.js"></script>
+<footer class="border-t" style="border-color:rgba(0,0,0,.06)">
+  <div class="max-w-[860px] mx-auto px-6 py-8 text-[12px]" style="color:var(--ash)">
+    &copy; 2026 intrinsicallysafephones.com &middot; Engineering reference — not a safety certificate.
+  </div>
+</footer>
 </body>
 </html>
