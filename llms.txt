@@ -10,7 +10,7 @@
 - Gas groups (IIA, IIB, IIC) and temperature classes (T1–T6)
 
 ## Products covered
-1. **Xshielder** — ATEX/IECEx Zone 1 certified Ex case for iPhone 17 Pro Max. Ex ia IIC T4 Ga. Only Zone 1 solution running iOS 25. Case price from €499.
+1. **Xshielder** — ATEX/IECEx Zone 1 certified Ex cases for the iPhone 17 (330 g / 16.1 mm — the lightest and thinnest Zone 1 smartphone solution, II 2G Ex db IIC T6 Gb) and iPhone 17 Pro Max. Only Zone 1 solutions running iOS 27. Case price from €499.
 2. **ecom Smart-Ex 03 DZ1** — Pepperl+Fuchs 5G Android Zone 1 smartphone. Ex ib IIC T4 Gb. Wi-Fi 6, security patches until Oct 2030. ~€2,500.
 3. **Bartec SP9EX1** — 5G Android smartphone, Ex ia IIC T4 Ga. Only Zone 0 rated smartphone. 6.1" AMOLED, 48MP, 350g. ~€2,500.
 4. **i.safe MOBILE IS540.1** — 5G Android Zone 1 smartphone. Ex ib IIC T4 Gb. 48MP, PTT key, 9 certification schemes globally. ~€2,300.

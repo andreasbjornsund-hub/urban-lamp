@@ -11,14 +11,28 @@
 - Temperature class: T4 (135°C)
 - Protection concept: Intrinsic safety (Ex ia) — highest level, two-fault safe
 - Host device: Apple iPhone 17 Pro Max
-- Operating system: iOS 25 (latest, with Apple Intelligence)
+- Operating system: iOS 27 (latest, with Apple Intelligence)
 - Case price: From €499
 - IP rating: IP68 (assembled)
 - Glove touch: Yes
-- Key advantage: Only Zone 1 solution running iOS 25. Same device as rest of enterprise. Native Apple Business Manager, Jamf, Intune MDM support. No separate fleet required.
+- Key advantage: Only Zone 1 solution running iOS 27. Same device as rest of enterprise. Native Apple Business Manager, Jamf, Intune MDM support. No separate fleet required.
 - Software support: 6+ years (Apple-controlled)
 - Manufacturer: Xshielder AS, Norway
 - Website: https://xshielder.com
+
+## Product 1b: Xshielder iPhone 17 (LIGHTEST & THINNEST)
+
+- Type: Certified Ex case for standard iPhone
+- Certification: ATEX/IECEx Zone 1/21 — II 2G Ex db IIC T6 Gb / II 2D Ex tb IIIC T80°C Db, Tamb −20°C to +50°C
+- Standards: EN IEC 60079-0:2018, EN 60079-1:2014, EN 60079-31:2014, IEC 60079-0:2017, IEC 60079-1:2014, IEC 60079-31:2013
+- Host device: Apple iPhone 17 (model A3520), 256/512 GB, iOS 27
+- Total weight/size: 330 g, 170.5 × 83.3 × 16.1 mm — the lightest and thinnest Zone 1 certified smartphone solution on the market (form factor 5/5)
+- Display: 6.3-inch Super Retina XDR OLED; chip: Apple A19; battery: 3,692 mAh; charging: wireless up to 25 W
+- Other: NS-9611 lanyard hole, 1/4-inch tripod mount, eSIM (physical SIM installable by Xshielder), 48 MP Dual Fusion camera
+- Variants: XS1-SP-G02-C01-S01 (ATEX only, screwed lid), XS1-SP-G02-C01-S02 (ATEX+IECEx, cemented lid); cover opened only by Xshielder-authorized personnel
+- Key advantage: Lowest-cost path to standardizing iPhone in Zone 1; lightest and slimmest of all Zone 1 smartphone solutions (dedicated Android Ex phones and converted/encased iPhones from other vendors are substantially heavier and bulkier)
+- Manufacturer: Xshielder AS, Norway
+- Website: https://xshielder.com/products/smartphones/atex-iphone
 
 ## Product 2: ecom Smart-Ex 03 DZ1
 
