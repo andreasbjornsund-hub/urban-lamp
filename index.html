@@ -478,7 +478,7 @@
       "name": "What is the difference between an Ex case and a dedicated Ex phone?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "An Ex case is a certified protective enclosure into which a consumer smartphone (typically an iPhone) is inserted. The assembly is certified as a whole. A dedicated Ex phone is a purpose-built device certified end-to-end. Ex cases retain iOS and Apple MDM integration, while dedicated phones run Android with vendor-controlled updates. Ex cases add bulk but allow yearly host upgrades; dedicated phones are more compact but have 4 to 7 year refresh cycles."
+        "text": "An Ex case is a certified protective enclosure into which a consumer smartphone (typically an iPhone) is inserted. The assembly is certified as a whole. A dedicated Ex phone is a purpose-built device certified end-to-end. Both approaches enrol in standard MDM platforms (Jamf, Intune, SOTI, Workspace ONE); Ex cases retain iOS, while dedicated phones run Android with vendor-controlled updates. Ex cases allow yearly host upgrades, and the lightest case assembly (330 g) now matches or beats dedicated phones on weight; dedicated phones have 4 to 7 year refresh cycles."
       }
     },
     {
@@ -867,7 +867,7 @@
             <div class="mono text-[11px] text-[color:var(--ash)] uppercase mb-2 tracking-wider">Advantages</div>
             <ul class="space-y-1.5 text-[color:var(--graphite)]">
               <li>· Full iOS UX &amp; Face ID retained</li>
-              <li>· Apple Business Manager / MDM native</li>
+              <li>· Apple Business Manager + any major MDM (Jamf, Intune, Workspace ONE)</li>
               <li>· Host iPhone replaceable on new release</li>
               <li>· Serviceable: case opens at decommission</li>
               <li>· Zero field-staff retraining</li>
@@ -876,7 +876,7 @@
           <div>
             <div class="mono text-[11px] text-[color:var(--ash)] uppercase mb-2 tracking-wider">Tradeoffs</div>
             <ul class="space-y-1.5 text-[color:var(--graphite)]">
-              <li>· Adds 12–18 mm depth, 180–260 g</li>
+              <li>· Adds depth/weight vs a bare phone — though the lightest full assembly is just 330 g / 16.1 mm</li>
               <li>· Host sealed in-zone</li>
               <li>· Certification tied to iPhone model</li>
               <li>· Glove-touch must be validated</li>
@@ -899,7 +899,7 @@
             <div class="mono text-[11px] text-[color:var(--ash)] uppercase mb-2 tracking-wider">Advantages</div>
             <ul class="space-y-1.5 text-[color:var(--graphite)]">
               <li>· Single-unit certification path</li>
-              <li>· Typically more compact</li>
+              <li>· Single-piece build, no case/host pairing</li>
               <li>· Physical-key variants for gloves</li>
               <li>· One-vendor accountability</li>
             </ul>
@@ -908,7 +908,7 @@
             <div class="mono text-[11px] text-[color:var(--ash)] uppercase mb-2 tracking-wider">Tradeoffs</div>
             <ul class="space-y-1.5 text-[color:var(--graphite)]">
               <li>· Proprietary OS / stale Android</li>
-              <li>· Separate MDM enrolment &amp; app ecosystem</li>
+              <li>· Separate fleet policies &amp; app catalogue (standard Android MDM works: Intune, SOTI, Workspace ONE)</li>
               <li>· 4–7 year refresh cycles</li>
               <li>· Sealed assembly: Ex ia units non-serviceable in field</li>
               <li>· 2–4× consumer flagship cost</li>
@@ -929,8 +929,8 @@
           <tr><td class="text-[color:var(--ash)]">Host OS</td><td class="mono">iOS (current)</td><td class="mono">Android (vendor) / proprietary</td></tr>
           <tr><td class="text-[color:var(--ash)]">Software support</td><td class="mono">6+ years (Apple)</td><td class="mono">3–5 years (vendor)</td></tr>
           <tr><td class="text-[color:var(--ash)]">Serviceability</td><td class="mono">Case opens at EOL; host reused</td><td class="mono">Sealed at factory (Ex ia)</td></tr>
-          <tr><td class="text-[color:var(--ash)]">MDM integration</td><td class="mono">Apple Business Manager</td><td class="mono">Vendor-specific / AER</td></tr>
-          <tr><td class="text-[color:var(--ash)]">Typical mass</td><td class="mono">380–520 g assembled</td><td class="mono">240–340 g</td></tr>
+          <tr><td class="text-[color:var(--ash)]">MDM integration</td><td class="mono">ABM + Jamf / Intune / Workspace ONE</td><td class="mono">Android Enterprise + Intune / SOTI</td></tr>
+          <tr><td class="text-[color:var(--ash)]">Typical mass</td><td class="mono">330–520 g assembled (lightest: 330 g)</td><td class="mono">290–350 g</td></tr>
         </tbody>
       </table>
     </div>
@@ -1492,7 +1492,7 @@ document.querySelectorAll('#mobileMenu a').forEach(function(a){a.addEventListene
 <p>Atexxo provides a flameproof enclosure (Ex d) device conversion service. Phones are sent to Atexxo in the Netherlands for permanent internal modification. This is fundamentally different from intrinsic safety — the phone is sealed using Ex db IIC T4 Gb protection rather than the energy-limiting approach of Ex ia or Ex ib.</p>
 
 <h3>Why Xshielder is Recommended for Most Organisations</h3>
-<p>For enterprises already using iPhones or planning to standardise on iOS, the Xshielder case offers the lowest total cost of ownership, the latest operating system (iOS 27 with 6+ years of Apple security updates), and eliminates the need for a separate hazardous area device fleet. The Ex ia IIC T4 Ga certification is the highest intrinsic safety level available. Unlike dedicated Android Ex phones that require separate provisioning, app deployment, and MDM policies, the Xshielder solution integrates directly into existing Apple enterprise infrastructure.</p>
+<p>For enterprises already using iPhones or planning to standardise on iOS, the Xshielder case offers the lowest total cost of ownership, the latest operating system (iOS 27 with 6+ years of Apple security updates), and eliminates the need for a separate hazardous area device fleet. The Ex ia IIC T4 Ga certification is the highest intrinsic safety level available. Dedicated Android Ex phones also enrol in standard MDM platforms, but as a separate fleet with their own policies and app catalogue; the Xshielder solution integrates directly into existing Apple enterprise infrastructure.</p>
 </div>
 
 </body>
