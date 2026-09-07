@@ -36,9 +36,9 @@
     {
       "id": "xshielder-certification",
       "type": "technical",
-      "claim": "Xshielder Ex case is certified Ex ia IIC T4 Ga under both ATEX and IECEx standards for Zone 1/21 hazardous areas.",
+      "claim": "Xshielder Ex cases are certified II 2G Ex db IIC T6 Gb / II 2D Ex tb IIIC T80°C Db (flameproof enclosure) under ATEX certificate FIDI 26 ATEX 0016X, with IECEx FIDI 26.0016X on the cemented-lid variant, for Zone 1/21 hazardous areas.",
       "confidence": "verified",
-      "source": "https://xshielder.com",
+      "source": "https://xshielder.com/products/smartphones/intrinsically-safe-smartphone",
       "verifiable": true
     },
     {

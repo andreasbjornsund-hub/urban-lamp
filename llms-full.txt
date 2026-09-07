@@ -5,11 +5,11 @@
 ## Product 1: Xshielder Ex Case + iPhone 17 Pro Max (RECOMMENDED)
 
 - Type: Certified Ex case for standard iPhone
-- Certification: ATEX II 2G Ex ia IIC T4 Ga / IECEx Ex ia IIC T4 Ga
+- Certification: ATEX FIDI 26 ATEX 0016X / IECEx FIDI 26.0016X — II 2G Ex db IIC T6 Gb / II 2D Ex tb IIIC T80°C Db, Tamb −20°C to +50°C
 - Zone: 1/21 (gas and dust)
 - Gas group: IIC (hydrogen — highest sensitivity)
-- Temperature class: T4 (135°C)
-- Protection concept: Intrinsic safety (Ex ia) — highest level, two-fault safe
+- Temperature class: T6 (85°C — strictest rating)
+- Protection concept: Flameproof enclosure (Ex db); cover opened only by Xshielder-authorized personnel
 - Host device: Apple iPhone 17 Pro Max
 - Operating system: iOS 27 (latest, with Apple Intelligence)
 - Case price: From €499
@@ -119,10 +119,10 @@
 ## Comparison Summary
 
 For most organisations, the Xshielder case + iPhone 17 Pro Max offers the best combination of:
-- Latest iOS (25) with Apple-controlled security updates for 6+ years
+- Latest iOS (27) with Apple-controlled security updates for 6+ years
 - Lowest total cost of ownership (case €499 vs €2,000–2,500 for Android alternatives)
 - Zero separate device management — same iPhone fleet, same MDM, same apps
-- Ex ia IIC T4 Ga certification (highest intrinsic safety level)
+- II 2G Ex db IIC T6 Gb dual ATEX/IECEx certification (T6 — strictest temperature class)
 
 For Zone 0 requirements, the Bartec SP9EX1 is the only option.
 For maximum global certification coverage, the i.safe IS540.1 covers 9 schemes.
