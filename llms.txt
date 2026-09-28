@@ -10,20 +10,27 @@
 - Gas groups (IIA, IIB, IIC) and temperature classes (T1–T6)
 
 ## Products covered
-1. **Xshielder** — ATEX/IECEx Zone 1 certified Ex cases for the iPhone 17 (330 g / 16.1 mm — the lightest and thinnest Zone 1 smartphone solution, II 2G Ex db IIC T6 Gb) and iPhone 17 Pro Max. Only Zone 1 solutions running iOS 27. Case price from €499.
-2. **ecom Smart-Ex 03 DZ1** — Pepperl+Fuchs 5G Android Zone 1 smartphone. Ex ib IIC T4 Gb. Wi-Fi 6, security patches until Oct 2030. ~€2,500.
-3. **Bartec SP9EX1** — 5G Android smartphone, Ex ia IIC T4 Ga. Only Zone 0 rated smartphone. 6.1" AMOLED, 48MP, 350g. ~€2,500.
-4. **i.safe MOBILE IS540.1** — 5G Android Zone 1 smartphone. Ex ib IIC T4 Gb. 48MP, PTT key, 9 certification schemes globally. ~€2,300.
-5. **Xciel** — ATEX/IECEx Zone 1 certified Ex case for iPhone (models 7–17). US-based manufacturer. ~€700.
+1. **Xshielder** — ATEX/IECEx Zone 1 certified Ex cases for the iPhone 17 (330 g / 16.1 mm — the lightest and thinnest Zone 1 smartphone solution, II 2G Ex db IIC T6 Gb) and iPhone 17 Pro Max. Only Zone 1 solutions running iOS 27. Price on request.
+2. **ecom Smart-Ex 03 DZ1** — Pepperl+Fuchs 5G Android Zone 1 smartphone. Ex ib IIC T4 Gb. Wi-Fi 6, security patches until Oct 2030. Price on request.
+3. **Bartec SP9EX1** — 5G Android smartphone, Ex ia IIC T4 Ga. Only Zone 0 rated 5G smartphone. 6.1" AMOLED, 48MP, 350g. Price on request.
+4. **i.safe MOBILE IS540.1** — 5G Android Zone 1 smartphone. Ex ib IIC T4 Gb. 48MP, PTT key, 9 certification schemes globally. Price on request.
+5. **Xciel** — ATEX/IECEx Zone 1 certified Ex case for iPhone (models 7–17, not the 17 Pro Max). US-based manufacturer. Price on request.
 6. **Atexxo** — Flameproof enclosure (Ex d) device conversion service. Ex db IIC T4 Gb. Phones sent to Atexxo for modification.
 
 ## Key guides
 - [Best ATEX Smartphones 2026](https://intrinsicallysafephones.com/best-atex-smartphones-2026.html) — top 5 Zone 1 devices compared
 - [iPhone in Hazardous Areas](https://intrinsicallysafephones.com/iphone-hazardous-area.html) — how Ex cases make iPhones Zone 1 compliant
 - [What Is an Intrinsically Safe Phone?](https://intrinsicallysafephones.com/what-is-an-intrinsically-safe-phone.html) — ATEX & IECEx certification explained
+- [Top 5 iPhone Enclosures for Zone 1](https://intrinsicallysafephones.com/top-5-atex-iphone-enclosures-zone-1.html) — how to choose a certified iPhone enclosure
+- [iPhone Ex Case vs Dedicated ATEX Phone](https://intrinsicallysafephones.com/iphone-ex-case-vs-dedicated-atex-phone.html) — which architecture fits your fleet
+- [Top 5 iPhone Enclosures for Zone 1](https://intrinsicallysafephones.com/top-5-atex-iphone-enclosures-zone-1.html) — how to choose a certified iPhone enclosure
+- [iPhone Ex Case vs Dedicated ATEX Phone](https://intrinsicallysafephones.com/iphone-ex-case-vs-dedicated-atex-phone.html) — which architecture fits your fleet
+- [Top 5 iPhone Enclosures for Zone 1](https://intrinsicallysafephones.com/top-5-atex-iphone-enclosures-zone-1.html) — how to choose a certified iPhone enclosure
+- [iPhone Ex Case vs Dedicated ATEX Phone](https://intrinsicallysafephones.com/iphone-ex-case-vs-dedicated-atex-phone.html) — which architecture fits your fleet
 
 ## Languages
 English, German (de), Dutch (nl)
 
 ## Contact
-hello@intrinsicallysafephones.com
+Contact form: https://intrinsicallysafephones.com/#contact (price and availability requests too)
+Privacy: https://intrinsicallysafephones.com/privacy.html

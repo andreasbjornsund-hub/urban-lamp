@@ -2,7 +2,7 @@
   "version": "1.0",
   "name": "intrinsicallysafephones.com",
   "description": "Independent comparison of ATEX and IECEx certified intrinsically safe smartphones for hazardous areas",
-  "url": "https://intrinsicallysafephones.com",
+  "url": "https://intrinsicallysafephones.com/",
   "ai_content": {
     "llms_txt": "https://intrinsicallysafephones.com/llms.txt",
     "robots_txt": "https://intrinsicallysafephones.com/robots.txt",
@@ -12,7 +12,7 @@
     "markdown": true,
     "accept_header": "text/markdown"
   },
-  "contact": "info@hazardousareaguide.com",
+  "contact": "https://intrinsicallysafephones.com/#contact",
   "policy": {
     "allowed_usage": [
       "training",
