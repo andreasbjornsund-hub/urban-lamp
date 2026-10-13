@@ -12,9 +12,9 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.google(),
-      name: 'Source Serif 4',
-      cssVariable: '--font-source-serif',
-      weights: ['400 700'],
+      name: 'Prata',
+      cssVariable: '--font-prata',
+      weights: ['400'],
       styles: ['normal'],
       subsets: ['latin'],
       fallbacks: ['Georgia', 'serif'],
