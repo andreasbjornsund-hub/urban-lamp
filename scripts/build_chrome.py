@@ -9,9 +9,11 @@
 - The network consent banner loads before any Google tag (Consent Mode defaults first).
 Pages without a site header (404) only get the <head> clean-up and site.js.
 
-Usage (from the repo root): python3 scripts/build_chrome.py
+Usage: npm run legacy:chrome  (works from anywhere; it runs inside public/, where the legacy pages live)
 """
-import pathlib, re, html
+import os, pathlib, re, html
+
+os.chdir(pathlib.Path(__file__).resolve().parent.parent / 'public')
 
 LANGS = ['en', 'de', 'nl']
 def _paths(name):

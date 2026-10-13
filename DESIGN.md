@@ -1,13 +1,19 @@
 # intrinsicallysafephones.com design system
 
-This file is the source of truth for how pages look and behave. The shared files implement it:
+This file is the source of truth for how pages look and behave.
+
+## Project layout (Astro migration, 2026-10)
+
+The site is moving to Astro. New pages go in `src/pages/` and are built to static HTML. The legacy pages live in `public/` and are copied into the build unchanged, so their URLs keep working until each one is rebuilt in Astro and redirected. `npm run dev` previews both, but legacy folder URLs (`/`, `/de/`, `/nl/`) only resolve as `/index.html` there; `npm run build && npm run preview` serves the site exactly as GitHub Pages does. `npm run build` writes the full site to `dist/`. Pushes to `main` are built and deployed by `.github/workflows/deploy.yml`, which then purges the Cloudflare cache.
+
+The shared files for the legacy pages implement this design:
 
 | File | What it holds |
 |---|---|
-| `assets/site.css` | Tokens, base styles, components (buttons, cards, badges, header, drawer, footer, forms) |
-| `assets/tw.css` | Compiled Tailwind utilities. Rebuild with `bash scripts/build-css.sh` after changing classes in any page |
-| `assets/site.js` | Guides dropdown, mobile menu dialog, and every form marked `data-isp-form` |
-| `scripts/build_chrome.py` | Rebuilds the header, mobile menu, footer and head on every page. Safe to re-run |
+| `public/assets/site.css` | Tokens, base styles, components (buttons, cards, badges, header, drawer, footer, forms) |
+| `public/assets/tw.css` | Compiled Tailwind utilities. Rebuild with `npm run legacy:css` after changing classes in any legacy page |
+| `public/assets/site.js` | Guides dropdown, mobile menu dialog, and every form marked `data-isp-form` |
+| `scripts/build_chrome.py` | Rebuilds the header, mobile menu, footer and head on every legacy page. Safe to re-run |
 
 Load order in every `<head>`: the consent banner script before any Google tag, then `site.css`, then `tw.css`, then the page's own `<style>`. Utilities must come after components so classes like `md:hidden` win.
 
@@ -50,13 +56,14 @@ Warm paper and ink. Green is a signal, never a fill for text or buttons.
 ## Rebuilding
 
 ```bash
-python3 scripts/build_chrome.py   # header, menu, footer, head, consent order
-bash scripts/build-css.sh         # after any class change in the HTML
+npm run legacy:chrome   # header, menu, footer, head, consent order
+npm run legacy:css      # after any class change in the HTML
+npm run legacy:links    # HAG link policy, below
 ```
 
 ## HAG network link policy (2026-09-30)
 
-Run `python3 scripts/hag_link_policy.py <this-site-host>` after any chrome/nav rebuild, translation run or new page. It is idempotent and:
+Run `npm run legacy:links` (it runs `scripts/hag_link_policy.py intrinsicallysafephones.com` inside `public/`) after any chrome/nav rebuild, translation run or new page. It is idempotent and:
 - tags every link to xshielder.com `rel="sponsored"` with UTM (`utm_campaign=hag_network`),
 - adds `nofollow` to competitor links (list in the script),
 - removes links to the other network sites from header/nav/footer (links in the text stay followed),

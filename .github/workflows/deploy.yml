@@ -1,0 +1,47 @@
+name: Deploy to GitHub Pages
+
+# Needs Settings > Pages > Source set to "GitHub Actions".
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: withastro/action@v6
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
+
+  # Runs after the new version is live, so Cloudflare never re-caches the old one.
+  purge-cache:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge Cloudflare cache
+        run: |
+          curl -s -X POST \
+            "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_CACHE_PURGE_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"purge_everything": true}' \
+            | jq '.success'

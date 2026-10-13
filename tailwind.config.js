@@ -1,7 +1,7 @@
 // Tailwind build for intrinsicallysafephones.com (replaces cdn.tailwindcss.com).
 // Rebuild after changing classes in any page:  bash scripts/build-css.sh
 module.exports = {
-  content: ['./*.html', './de/*.html', './nl/*.html'],
+  content: ['./public/*.html', './public/de/*.html', './public/nl/*.html'],
   theme: {
     extend: {
       fontFamily: {
