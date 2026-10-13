@@ -1,6 +1,4 @@
 ---
-import { SITE } from '../config/site';
-
 interface Props {
   class?: string;
 }
@@ -9,35 +7,64 @@ const { class: className } = Astro.props;
 ---
 
 <a href="/" class:list={['logo', className]}>
-  <svg class="logo-mark" viewBox="0 0 32 26" aria-hidden="true" focusable="false">
-    <path d="M12.5 1 1 25h23L12.5 1Z" fill="currentColor" />
-    <path d="M21.5 9 31 25H12l9.5-16Z" fill="currentColor" opacity="0.72" />
-    <path d="M12.5 13.5 8.6 21.5h7.8l-3.9-8Z" fill="var(--logo-cut, #fafaf7)" />
+  <svg class="logo-mark" viewBox="0 0 172 276" aria-hidden="true" focusable="false">
+    <path d="M83 0H22L0 22v232l22 22h61v-28H39a7 7 0 0 1-7-7V35a7 7 0 0 1 7-7h44Z" />
+    <path d="M89 0h61l22 22v232l-22 22H89v-28h44a7 7 0 0 0 7-7V35a7 7 0 0 0-7-7H89Z" />
+    <rect x="67" y="40" width="38" height="7" rx="3.5" />
   </svg>
-  <span class="logo-text">{SITE.name}</span>
+  <span class="logo-text">
+    <span class="logo-word"><strong>intrinsicallysafephones</strong>.com</span>
+    <span class="logo-tagline">ATEX Zone 1 &amp; 2 Devices Compared</span>
+  </span>
 </a>
 
 <style>
   .logo {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.625rem;
     min-height: 2.75rem;
-    color: var(--color-forest);
+    min-width: 0;
+    color: var(--color-ink);
     text-decoration: none;
   }
+
   .logo-mark {
-    width: 1.75rem;
-    height: auto;
     flex: none;
+    width: auto;
+    height: 2.5rem;
+    fill: var(--color-logo);
   }
+
   .logo-text {
+    display: grid;
+    gap: 0.125rem;
+    min-width: 0;
+  }
+
+  .logo-word {
     font-family: var(--font-display);
-    font-size: 1.1875rem;
-    font-weight: var(--heading-weight);
-    font-stretch: var(--heading-stretch);
-    letter-spacing: var(--tracking-heading);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
     color: var(--color-heading);
     white-space: nowrap;
+  }
+  .logo-word strong { font-weight: 700; }
+
+  .logo-tagline {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  @media (min-width: 30rem) {
+    .logo-mark { height: 2.75rem; }
+    .logo-word { font-size: 1.1875rem; }
+    .logo-tagline { font-size: 0.75rem; }
   }
 </style>

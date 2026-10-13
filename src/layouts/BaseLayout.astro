@@ -37,6 +37,7 @@ const graph = {
       '@type': 'WebSite',
       '@id': `${SITE.url}/#website`,
       name: SITE.name,
+      alternateName: 'intrinsicallysafephones.com',
       url: `${SITE.url}/`,
       inLanguage: 'en',
       publisher: { '@id': `${SITE.url}/#organization` },
@@ -75,7 +76,7 @@ const graph = {
 
     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-optimized content summary" />
 
-    <Font cssVariable="--font-franklin" preload={[{ weight: '500 700', style: 'normal' }]} />
+    <Font cssVariable="--font-franklin" preload={[{ weight: '400 700', style: 'normal' }]} />
     <Font cssVariable="--font-inter" preload={[{ weight: '400 700', style: 'normal' }]} />
 
     <!-- Network consent banner must load before any Google tag (Consent Mode defaults first) -->

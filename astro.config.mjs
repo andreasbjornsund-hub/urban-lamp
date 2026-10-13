@@ -14,7 +14,7 @@ export default defineConfig({
       provider: fontProviders.google(),
       name: 'Libre Franklin',
       cssVariable: '--font-franklin',
-      weights: ['500 700'],
+      weights: ['400 700'],
       styles: ['normal'],
       subsets: ['latin'],
       fallbacks: ['system-ui', 'sans-serif'],
