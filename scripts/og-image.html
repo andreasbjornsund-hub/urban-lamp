@@ -1,0 +1,43 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&family=Inter:wght@400;500&display=block" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    position: relative;
+    background-color: #faf8f4;
+    background-image:
+      radial-gradient(900px 500px at 85% -10%, rgb(245 158 11 / 0.08), transparent 60%),
+      radial-gradient(800px 420px at 5% 40%, rgb(34 197 94 / 0.06), transparent 55%),
+      radial-gradient(rgb(0 0 0 / 0.02) 1px, transparent 1px);
+    background-size: auto, auto, 3px 3px;
+    font-family: Inter, sans-serif;
+    color: #1f2723;
+  }
+  .watermark { position: absolute; right: -40px; top: 40px; height: 470px; fill: #114634; opacity: 0.07; }
+  .wrap { position: absolute; inset: 72px 80px 120px; display: flex; flex-direction: column; justify-content: space-between; }
+  .logo { display: flex; align-items: center; gap: 22px; }
+  .logo svg { height: 92px; fill: #114634; }
+  .word { font-family: 'Libre Franklin', sans-serif; font-size: 40px; font-weight: 400; letter-spacing: -0.015em; color: #1c3529; line-height: 1.05; }
+  .word b { font-weight: 700; }
+  .tag { margin-top: 8px; font-size: 21px; color: #555e58; }
+  h1 { max-width: 900px; font-family: 'Libre Franklin', sans-serif; font-weight: 600; font-size: 62px; line-height: 1.06; letter-spacing: -0.03em; color: #1c3529; }
+  .band { position: absolute; left: 0; right: 0; bottom: 0; height: 84px; background: #1e3a2f; display: flex; align-items: center; padding: 0 80px; gap: 14px; }
+  .chip { padding: 9px 18px; border: 1px solid rgb(244 242 234 / 0.35); border-radius: 999px; color: #f4f2ea; font-size: 19px; font-weight: 500; letter-spacing: 0.01em; }
+  .band span.note { margin-left: auto; color: #c9d1c9; font-size: 19px; }
+</style></head>
+<body>
+  <svg class="watermark" viewBox="0 0 172 276"><path d="M83 0H22L0 22v232l22 22h61v-28H39a7 7 0 0 1-7-7V35a7 7 0 0 1 7-7h44Z"/><path d="M89 0h61l22 22v232l-22 22H89v-28h44a7 7 0 0 0 7-7V35a7 7 0 0 0-7-7H89Z"/><rect x="67" y="40" width="38" height="7" rx="3.5"/></svg>
+  <div class="wrap">
+    <div class="logo">
+      <svg viewBox="0 0 172 276"><path d="M83 0H22L0 22v232l22 22h61v-28H39a7 7 0 0 1-7-7V35a7 7 0 0 1 7-7h44Z"/><path d="M89 0h61l22 22v232l-22 22H89v-28h44a7 7 0 0 0 7-7V35a7 7 0 0 0-7-7H89Z"/><rect x="67" y="40" width="38" height="7" rx="3.5"/></svg>
+      <div><div class="word"><b>intrinsicallysafephones</b>.com</div><div class="tag">ATEX Zone 1 &amp; 2 Devices Compared</div></div>
+    </div>
+    <h1>Find the right intrinsically safe phone for Zone 1 and Zone 2.</h1>
+  </div>
+  <div class="band">
+    <span class="chip">ATEX</span><span class="chip">IECEx</span><span class="chip">Zone 1</span><span class="chip">Zone 2</span>
+    <span class="note">Independent comparisons &amp; buying guides</span>
+  </div>
+</body></html>
