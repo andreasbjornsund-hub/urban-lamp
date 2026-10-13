@@ -1,0 +1,45 @@
+{
+  "name": "Xshielder iPhone 17 Pro Max",
+  "brand": "Xshielder",
+  "brandSlug": "xshielder",
+  "manufacturer": { "name": "Xshielder AS", "country": "Norway", "website": "https://xshielder.com" },
+  "type": "ex-case",
+  "hostDevice": "Apple iPhone 17 Pro Max",
+  "summary": "A flameproof (Ex db) cover for the Apple iPhone 17 Pro Max, dual ATEX and IECEx certified for Zone 1 and 21 with a T6 temperature class. Organisations keep the same iPhone, apps and device management they use everywhere else.",
+  "image": "../../assets/phones/xshielder.jpg",
+  "imageAlt": "Worker in a high-visibility jacket holding an iPhone in an Xshielder Ex case",
+  "certification": {
+    "atex": { "marking": "II 2G Ex db IIC T6 Gb / II 2D Ex tb IIIC T80°C Db", "number": "FIDI 26 ATEX 0016X" },
+    "iecex": { "marking": "Ex db IIC T6 Gb / Ex tb IIIC T80°C Db", "number": "IECEx FIDI 26.0016X" },
+    "zonesGas": ["1", "2"],
+    "zonesDust": ["21", "22"],
+    "protection": "Flameproof enclosure (Ex db)",
+    "gasGroup": "IIC",
+    "tempClass": "T6",
+    "epl": "Gb / Db",
+    "ambient": "−20 °C to +50 °C"
+  },
+  "os": { "name": "iOS", "version": "iOS 27", "updates": "6+ years, Apple-controlled" },
+  "specs": {
+    "ipRating": "IP68 (assembled)",
+    "gloveTouch": true,
+    "mdm": ["Apple Business Manager", "Jamf", "Microsoft Intune"]
+  },
+  "strengths": [
+    "Dual ATEX and IECEx certificates with published certificate numbers",
+    "T6 temperature class, the strictest rating",
+    "Runs iOS 27 with 6+ years of Apple-controlled updates",
+    "Same device as the rest of the fleet: native Apple Business Manager, Jamf and Intune support"
+  ],
+  "limitations": [
+    "The cover can only be opened by Xshielder-authorised personnel",
+    "Not rated for Zone 0",
+    "Ambient temperature rating of −20 °C to +50 °C",
+    "No hardware push-to-talk key"
+  ],
+  "bestFor": ["iphone", "zone-1-phones"],
+  "alternatives": ["xshielder-iphone-17", "xciel-ex-case-iphone", "atexxo-iphone-conversion"],
+  "sponsor": true,
+  "lastVerified": "2026-09-30",
+  "sources": [{ "label": "Xshielder website", "url": "https://xshielder.com" }]
+}

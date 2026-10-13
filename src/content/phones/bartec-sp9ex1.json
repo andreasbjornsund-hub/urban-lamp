@@ -1,0 +1,44 @@
+{
+  "name": "Bartec SP9EX1",
+  "brand": "Bartec",
+  "brandSlug": "bartec",
+  "manufacturer": { "name": "Bartec GmbH", "country": "Germany", "website": "https://bartec.com" },
+  "type": "dedicated",
+  "summary": "A dedicated 5G Android smartphone with Ex ia intrinsic safety, the highest level, making it the only 5G smartphone in this comparison rated for Zone 0.",
+  "image": "../../assets/phones/bartec-sp9.webp",
+  "imageAlt": "Bartec SP9EX1 smartphone",
+  "certification": {
+    "atex": { "marking": "II 1G Ex ia IIC T4 Ga" },
+    "iecex": { "marking": "Ex ia IIC T4 Ga" },
+    "zonesGas": ["0", "1", "2"],
+    "zonesDust": ["21", "22"],
+    "division": "Division 1",
+    "protection": "Intrinsic safety (Ex ia)",
+    "gasGroup": "IIC",
+    "tempClass": "T4",
+    "epl": "Ga"
+  },
+  "os": { "name": "Android", "version": "Android 15" },
+  "specs": {
+    "display": "6.11-inch AMOLED",
+    "camera": "48 MP main, 8 MP front",
+    "connectivity": ["5G", "Wi-Fi 6"],
+    "ipRating": "IP68",
+    "ruggedness": "MIL-STD-810H",
+    "weightG": 350
+  },
+  "strengths": [
+    "The only Zone 0 rated 5G smartphone",
+    "Ex ia, the highest level of intrinsic safety",
+    "Most compact Zone 0/1 device",
+    "Runs Android 15"
+  ],
+  "limitations": [
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "Android updates are controlled by the vendor"
+  ],
+  "bestFor": ["zone-0-phones", "5g", "division-1-phones"],
+  "alternatives": ["ecom-smart-ex-03-dz1", "isafe-is540-1", "xshielder-iphone-17"],
+  "lastVerified": "2026-09-30",
+  "sources": [{ "label": "Bartec SP9EX1 product page", "url": "https://bartec.com/products-solutions/product-finder/product-detail/bartec-sp9ex1-smartphone/" }]
+}

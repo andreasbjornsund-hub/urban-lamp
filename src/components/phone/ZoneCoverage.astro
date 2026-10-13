@@ -1,0 +1,88 @@
+---
+import { ZONES, type Phone } from '../../lib/phones';
+
+interface Props {
+  phone: Phone;
+}
+
+const { certification: c } = Astro.props.phone.data;
+const groups = [
+  { title: 'Gas', zones: ZONES.gas, certified: c.zonesGas as readonly string[] },
+  { title: 'Dust', zones: ZONES.dust, certified: c.zonesDust as readonly string[] },
+];
+---
+
+<div class="coverage">
+  {groups.map((g) => (
+    <div class="coverage-group">
+      <p class="coverage-title">{g.title}</p>
+      {g.certified.length === 0 ? (
+        <p class="coverage-none">No {g.title.toLowerCase()} zones listed in our verified data. Check the certificate.</p>
+      ) : (
+      <ul>
+        {g.zones.map((z) => {
+          const ok = g.certified.includes(z.id);
+          return (
+            <li class:list={['zone', { ok }]}>
+              <span class="zone-mark" aria-hidden="true">{ok ? '✓' : '✕'}</span>
+              <span class="zone-name">{z.label}</span>
+              <span class="visually-hidden">{ok ? 'certified' : 'not certified'}.</span>
+              <span class="zone-hint">{z.hint}</span>
+            </li>
+          );
+        })}
+      </ul>
+      )}
+    </div>
+  ))}
+</div>
+
+<style>
+  .coverage { display: grid; gap: 1.25rem; }
+  .coverage-title {
+    margin-bottom: 0.5rem;
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .coverage ul { display: grid; gap: 0.5rem; }
+  .coverage-none {
+    padding: 0.9rem 1rem;
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+  .zone {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.1rem 0.75rem;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+  }
+  .zone-mark {
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--color-panel-warm);
+    color: var(--color-muted);
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+  .zone.ok .zone-mark { background: var(--color-forest); color: var(--color-on-dark); }
+  .zone-name { font-weight: 600; color: var(--color-ink); font-size: var(--text-sm); }
+  .zone:not(.ok) .zone-name { color: var(--color-muted); font-weight: 500; }
+  .zone-hint { font-size: 0.8125rem; color: var(--color-muted); }
+
+  @media (min-width: 48rem) {
+    .coverage { grid-template-columns: 1fr 1fr; }
+  }
+</style>

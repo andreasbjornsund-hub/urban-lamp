@@ -2,8 +2,11 @@
 import { SITE, FOOTER_NAV, LEGAL_NAV } from '../config/site';
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
+import { externalLink } from '../lib/links';
 
 const year = new Date().getFullYear();
+// HAG network sponsor line (same wording as the legacy pages; see scripts/hag_link_policy.py)
+const sponsor = externalLink('https://xshielder.com/', 'footer_sponsor');
 ---
 
 <footer class="site-footer">
@@ -55,6 +58,12 @@ const year = new Date().getFullYear();
         <p class="newsletter-status" role="status" data-newsletter-status></p>
       </div>
     </div>
+
+    <p class="sponsor-line">
+      This site's main sponsor is <a href={sponsor.href} rel={sponsor.rel} target={sponsor.target}>Xshielder</a>.
+      Want to sponsor this site? <a href="/contact/">Contact us</a>. Part of the{' '}
+      <a href="https://hazardousareaguide.com/" rel="nofollow">Hazardous Area Guide</a> network.
+    </p>
 
     <div class="footer-bottom">
       <p>© {year} {SITE.name}. All rights reserved.</p>
@@ -185,13 +194,20 @@ const year = new Date().getFullYear();
   .newsletter-status:empty { display: none; }
   .newsletter-status { margin-top: 0.5rem; color: var(--color-forest); }
 
+  .sponsor-line {
+    margin-top: 3rem;
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+  .sponsor-line a { color: inherit; }
+
   .footer-bottom {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem 2rem;
-    margin-top: 3rem;
+    margin-top: 1rem;
     padding-top: 1.25rem;
     border-top: 1px solid var(--color-border);
     color: var(--color-muted);

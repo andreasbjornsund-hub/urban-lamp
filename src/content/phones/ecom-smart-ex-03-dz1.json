@@ -1,0 +1,44 @@
+{
+  "name": "ecom Smart-Ex 03 DZ1",
+  "brand": "ecom (Pepperl+Fuchs)",
+  "brandSlug": "ecom",
+  "manufacturer": { "name": "ecom instruments (Pepperl+Fuchs)", "country": "Germany", "website": "https://www.ecom-ex.com" },
+  "type": "dedicated",
+  "summary": "A dedicated 5G Android smartphone, intrinsically safe (Ex ib) for Zone 1/21 and Division 1, from one of the longest-established hazardous-area mobile brands.",
+  "image": "../../assets/phones/ecom-smart-ex-03.png",
+  "imageAlt": "ecom Smart-Ex 03 DZ1 smartphone",
+  "certification": {
+    "atex": { "marking": "II 2G Ex ib IIC T4 Gb" },
+    "iecex": { "marking": "Ex ib IIC T4 Gb" },
+    "zonesGas": ["1", "2"],
+    "zonesDust": ["21", "22"],
+    "division": "Division 1",
+    "protection": "Intrinsic safety (Ex ib)",
+    "gasGroup": "IIC",
+    "tempClass": "T4",
+    "epl": "Gb"
+  },
+  "os": { "name": "Android", "version": "Android 14", "updates": "Security patches until October 2030" },
+  "specs": {
+    "display": "6.0-inch",
+    "connectivity": ["5G", "Wi-Fi 6"],
+    "ipRating": "IP68",
+    "weightG": 390,
+    "weightNote": "Approximate"
+  },
+  "strengths": [
+    "Widest global service network of the brands compared",
+    "Security patches guaranteed until October 2030",
+    "Certified for Division 1 as well as Zone 1/21",
+    "German Design Award 2024"
+  ],
+  "limitations": [
+    "Android updates are controlled by the vendor",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "Not rated for Zone 0"
+  ],
+  "bestFor": ["zone-1-phones", "division-1-phones", "5g"],
+  "alternatives": ["isafe-is540-1", "bartec-sp9ex1", "xshielder-iphone-17"],
+  "lastVerified": "2026-09-30",
+  "sources": [{ "label": "ecom Smart-Ex 03 DZ1 product page", "url": "https://www.ecom-ex.com/products/communication/cell-phones/smart-ex-03-dz1/" }]
+}

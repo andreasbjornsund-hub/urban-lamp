@@ -1,0 +1,46 @@
+{
+  "name": "i.safe MOBILE IS540.1",
+  "brand": "i.safe MOBILE",
+  "brandSlug": "isafe-mobile",
+  "manufacturer": { "name": "i.safe MOBILE GmbH", "country": "Germany", "website": "https://www.isafe-mobile.com" },
+  "type": "dedicated",
+  "summary": "A dedicated 5G Android smartphone, intrinsically safe (Ex ib) for Zone 1/21, with a push-to-talk key, a replaceable battery and certification across nine schemes worldwide.",
+  "image": "../../assets/phones/isafe-is540.png",
+  "imageAlt": "i.safe MOBILE IS540.1 smartphone",
+  "certification": {
+    "atex": { "marking": "II 2G Ex ib IIC T4 Gb" },
+    "iecex": { "marking": "Ex ib IIC T4 Gb" },
+    "otherSchemes": ["7 additional national and regional schemes"],
+    "zonesGas": ["1", "2"],
+    "zonesDust": ["21", "22"],
+    "protection": "Intrinsic safety (Ex ib)",
+    "gasGroup": "IIC",
+    "tempClass": "T4",
+    "epl": "Gb"
+  },
+  "os": { "name": "Android", "version": "Android 12 (upgrading to 14)" },
+  "specs": {
+    "display": "6.0-inch FHD",
+    "camera": "48 MP rear, 5 MP front",
+    "connectivity": ["5G"],
+    "ipRating": "IP68",
+    "ruggedness": "MIL-STD-810G",
+    "weightG": 422,
+    "pttKey": true,
+    "replaceableBattery": true
+  },
+  "strengths": [
+    "Certified across 9 schemes worldwide",
+    "Dedicated push-to-talk key",
+    "Replaceable battery"
+  ],
+  "limitations": [
+    "Heaviest phone in this comparison at 422 g",
+    "Ships with Android 12, with an upgrade to Android 14 planned",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C"
+  ],
+  "bestFor": ["push-to-talk", "zone-1-phones", "5g"],
+  "alternatives": ["ecom-smart-ex-03-dz1", "bartec-sp9ex1", "xshielder-iphone-17"],
+  "lastVerified": "2026-09-30",
+  "sources": [{ "label": "i.safe MOBILE IS540.1 product page", "url": "https://www.isafe-mobile.com/en/products/product-range/zone-1/21/is5401" }]
+}
