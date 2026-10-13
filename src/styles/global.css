@@ -156,6 +156,13 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .btn-light { background: var(--color-bg); color: var(--color-forest); }
 .btn-light:hover { background: #ffffff; }
 
+.btn-outline-light {
+  background: transparent;
+  border-color: rgb(244 242 234 / 0.6);
+  color: var(--color-on-dark);
+}
+.btn-outline-light:hover { background: rgb(244 242 234 / 0.1); border-color: var(--color-on-dark); }
+
 .btn-sm { min-height: 2.5rem; padding: 0.55rem 1rem; font-size: 0.8125rem; }
 
 /* Text link with arrow, used for "Read the guide" and similar */

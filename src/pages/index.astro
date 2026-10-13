@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon, { type IconName } from '../components/Icon.astro';
-import { SITE } from '../config/site';
+import { SITE, FIND_PHONES, BUYING_GUIDE, CONTACT } from '../config/site';
 
 // Placeholder images cropped from the design mockup. Replace with full-resolution originals.
 import heroImg from '../assets/home/hero-phone.png';
@@ -43,9 +43,9 @@ const guides: { icon: IconName; title: string; text: string; href: string }[] = 
 ];
 
 const industries = [
-  { label: 'Oil & gas', href: '/industries/oil-and-gas/' },
-  { label: 'Chemical processing', href: '/industries/chemical-processing/' },
-  { label: 'Manufacturing', href: '/industries/manufacturing/' },
+  { label: 'Oil & gas', href: '/best/oil-and-gas/' },
+  { label: 'Chemical processing', href: '/best/chemical-processing/' },
+  { label: 'Manufacturing', href: '/best/manufacturing/' },
 ];
 
 const approach = [
@@ -107,8 +107,8 @@ const schema = [
           Clear guidance for choosing intrinsically safe and explosion-proof phones for your workforce.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="/phones/">Explore phones <Icon name="arrow-right" /></a>
-          <a class="btn btn-secondary" href="/contact/">Get guidance</a>
+          <a class="btn btn-primary" href={FIND_PHONES.href}>{FIND_PHONES.label} <Icon name="arrow-right" /></a>
+          <a class="btn btn-secondary" href={BUYING_GUIDE.href}>{BUYING_GUIDE.label}</a>
         </div>
       </div>
       <div class="hero-media">
@@ -259,10 +259,14 @@ const schema = [
         <p class="eyebrow">Get started</p>
         <h2 id="cta-title" class="h2">Start with the right questions.</h2>
         <p class="cta-text">
-          Speak to our team for tailored, impartial guidance on choosing hazardous-area phones for your workforce.
+          Filter every certified phone by zone, industry and feature, and compare models side by side. Or ask our
+          team for impartial advice.
         </p>
       </div>
-      <a class="btn btn-light" href="/contact/">Get guidance <Icon name="arrow-right" /></a>
+      <div class="cta-actions">
+        <a class="btn btn-light" href={FIND_PHONES.href}>{FIND_PHONES.label} <Icon name="arrow-right" /></a>
+        <a class="btn btn-outline-light" href={CONTACT.href}>{CONTACT.label}</a>
+      </div>
     </div>
   </section>
 </BaseLayout>
@@ -505,7 +509,11 @@ const schema = [
     margin-top: 1rem;
     color: var(--color-on-dark-muted);
   }
-  .cta .btn { justify-self: start; }
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
   .cta :global(:focus-visible) { outline-color: var(--color-on-dark); }
 
   /* ---------- Tablet and up ---------- */
