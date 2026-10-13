@@ -12,12 +12,12 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.google(),
-      name: 'Prata',
-      cssVariable: '--font-prata',
-      weights: ['400'],
+      name: 'Libre Franklin',
+      cssVariable: '--font-franklin',
+      weights: ['500 700'],
       styles: ['normal'],
       subsets: ['latin'],
-      fallbacks: ['Georgia', 'serif'],
+      fallbacks: ['system-ui', 'sans-serif'],
     },
     {
       provider: fontProviders.google(),
