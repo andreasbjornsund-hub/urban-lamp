@@ -17,6 +17,7 @@ export const GET: APIRoute = async () => {
 
   const astroPages: Entry[] = [
     { loc: `${SITE.url}/`, lastmod: day(new Date()), priority: '1.0' },
+    { loc: `${SITE.url}/phones/`, lastmod: day(new Date()), priority: '0.9' },
     ...phones.map((p) => ({ loc: `${SITE.url}/phones/${p.id}/`, lastmod: day(p.data.lastVerified), priority: '0.8' })),
   ];
   const astroLocs = new Set(astroPages.map((e) => e.loc));
