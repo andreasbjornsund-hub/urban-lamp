@@ -1,0 +1,568 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon, { type IconName } from '../components/Icon.astro';
+import { SITE } from '../config/site';
+
+// Placeholder images cropped from the design mockup. Replace with full-resolution originals.
+import heroImg from '../assets/home/hero-phone.png';
+import industriesImg from '../assets/home/industries-worker.png';
+import insightStart from '../assets/home/insight-starting-point.png';
+import insightQuestions from '../assets/home/insight-questions.png';
+import insightRollout from '../assets/home/insight-rollout.png';
+
+const title = 'Intrinsically Safe & Explosion-Proof Phones: Expert Guide';
+const description =
+  'Impartial guidance on choosing intrinsically safe and explosion-proof phones for Zone 1 and Zone 2 hazardous areas. Compare devices, read guides, get advice.';
+
+const steps: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'document', title: 'Understand your requirements', text: 'Clarify your operating environment, risk areas and user needs.' },
+  { icon: 'search', title: 'Evaluate suitable devices', text: 'Explore options that fit your requirements and use cases.' },
+  { icon: 'users', title: 'Build a considered shortlist', text: 'Make a confident, well-informed decision for your team.' },
+];
+
+const guides: { icon: IconName; title: string; text: string; href: string }[] = [
+  {
+    icon: 'clipboard',
+    title: 'Hazardous-area requirements',
+    text: 'Understand your operating environment, risk zones and the factors that influence device selection.',
+    href: '/guides/hazardous-area-requirements/',
+  },
+  {
+    icon: 'users',
+    title: 'Workforce needs',
+    text: 'Consider how your teams work, what features they need and the challenges they face on site.',
+    href: '/guides/workforce-needs/',
+  },
+  {
+    icon: 'settings',
+    title: 'Deployment and support',
+    text: 'Plan for rollouts, device management and ongoing support to keep your workforce connected.',
+    href: '/guides/deployment-and-support/',
+  },
+];
+
+const industries = [
+  { label: 'Oil & gas', href: '/industries/oil-and-gas/' },
+  { label: 'Chemical processing', href: '/industries/chemical-processing/' },
+  { label: 'Manufacturing', href: '/industries/manufacturing/' },
+];
+
+const approach = [
+  { title: 'Define your requirements', text: 'Tell us about your environment, use cases and key priorities.' },
+  { title: 'Explore the options', text: 'Get clear, impartial guidance on suitable device types and features.' },
+  { title: 'Choose with confidence', text: 'Build a shortlist that fits your needs and plan for successful deployment.' },
+];
+
+const insights = [
+  {
+    img: insightStart,
+    alt: 'Pipework and distillation columns at a refinery at sunset',
+    title: 'A starting point for hazardous-area phones',
+    text: 'Key considerations to help you understand your options and ask the right questions.',
+    href: '/guides/hazardous-area-phones-starting-point/',
+  },
+  {
+    img: insightQuestions,
+    alt: 'Gloved hand writing on a clipboard checklist',
+    title: 'Questions to ask before you shortlist',
+    text: 'A practical checklist to help you evaluate devices and suppliers with confidence.',
+    href: '/guides/questions-before-you-shortlist/',
+  },
+  {
+    img: insightRollout,
+    alt: 'Two workers in hard hats and high-visibility jackets walking through a processing plant',
+    title: 'Planning a workforce rollout',
+    text: 'From testing to training, learn how to plan a smooth and successful deployment.',
+    href: '/guides/planning-a-workforce-rollout/',
+  },
+];
+
+const schema = [
+  {
+    '@type': 'WebPage',
+    '@id': `${SITE.url}/#webpage`,
+    url: `${SITE.url}/`,
+    name: title,
+    description,
+    inLanguage: 'en',
+    isPartOf: { '@id': `${SITE.url}/#website` },
+    about: [
+      { '@type': 'Thing', name: 'Intrinsically safe phone' },
+      { '@type': 'Thing', name: 'Explosion-proof phone' },
+    ],
+    primaryImageOfPage: { '@type': 'ImageObject', url: `${SITE.url}${heroImg.src}` },
+  },
+];
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Specialist device guidance</p>
+        <h1 id="hero-title">The right phone. <span>For the right environment.</span></h1>
+        <p class="lead">
+          Clear guidance for choosing intrinsically safe and explosion-proof phones for your workforce.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/phones/">Explore phones <Icon name="arrow-right" /></a>
+          <a class="btn btn-secondary" href="/contact/">Get guidance</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <Image
+          src={heroImg}
+          alt="A rugged explosion-proof smartphone resting on concrete in front of a refinery"
+          widths={[324]}
+          sizes="(min-width: 56rem) 50vw, 100vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Three-step strip -->
+  <section class="steps bg-ivory" aria-label="How we help">
+    <div class="container">
+      <ul class="steps-grid">
+        {steps.map((s) => (
+          <li class="step">
+            <span class="icon-badge"><Icon name={s.icon} /></span>
+            <h2 class="step-title">{s.title}</h2>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Buying guides -->
+  <section class="section bg-ivory-deep" aria-labelledby="guides-title">
+    <div class="container">
+      <div class="split-head">
+        <div>
+          <p class="eyebrow">Buying guides</p>
+          <h2 id="guides-title" class="h2">Clarity before comparison.</h2>
+        </div>
+        <p class="split-head-text">
+          Choosing a phone for a hazardous environment involves more than device specs. Our guides help you
+          understand your needs, the key considerations and the steps to a successful deployment.
+        </p>
+      </div>
+      <ul class="guide-grid">
+        {guides.map((g) => (
+          <li class="guide-card">
+            <span class="icon-badge"><Icon name={g.icon} /></span>
+            <h3>{g.title}</h3>
+            <p>{g.text}</p>
+            <a class="arrow-link" href={g.href}>
+              Read the guide <span class="visually-hidden">on {g.title.toLowerCase()}</span>
+              <Icon name="arrow-right" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Industries -->
+  <section class="section industries bg-ivory" aria-labelledby="industries-title">
+    <div class="container industries-grid">
+      <div class="industries-media">
+        <Image
+          src={industriesImg}
+          alt="A site worker in a hard hat and safety glasses on a phone call at a refinery"
+          widths={[362]}
+          sizes="(min-width: 56rem) 50vw, 100vw"
+        />
+      </div>
+      <div class="industries-copy">
+        <p class="eyebrow">Industries</p>
+        <h2 id="industries-title" class="h2">Built around your working environment.</h2>
+        <p class="industries-text">
+          Different environments bring different challenges. We provide tailored guidance to help you find suitable
+          phone options for your industry.
+        </p>
+        <ul class="industry-list">
+          {industries.map((i) => (
+            <li>
+              <a href={i.href}>{i.label} <Icon name="arrow-right" /></a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach -->
+  <section class="section bg-ivory-deep" aria-labelledby="approach-title">
+    <div class="container">
+      <p class="eyebrow">Our approach</p>
+      <h2 id="approach-title" class="h2">A more informed way to choose.</h2>
+      <ol class="approach">
+        {approach.map((a, i) => (
+          <li class="approach-step">
+            <span class="approach-num" aria-hidden="true">{i + 1}</span>
+            <div class="approach-body">
+              <h3><span class="visually-hidden">Step {i + 1}: </span>{a.title}</h3>
+              <p>{a.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Latest insights -->
+  <section class="section bg-ivory" aria-labelledby="insights-title">
+    <div class="container">
+      <div class="insights-head">
+        <div>
+          <p class="eyebrow">Latest insights</p>
+          <h2 id="insights-title" class="h2">Practical guidance, at your pace.</h2>
+        </div>
+        <a class="arrow-link" href="/guides/">View all guides <Icon name="arrow-right" /></a>
+      </div>
+      <ul class="insight-grid">
+        {insights.map((p) => (
+          <li class="insight">
+            <Image src={p.img} alt={p.alt} widths={[192]} sizes="(min-width: 56rem) 33vw, 100vw" />
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+            <a class="arrow-link" href={p.href}>
+              Read more <span class="visually-hidden">: {p.title}</span>
+              <Icon name="arrow-right" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Call to action -->
+  <section class="cta" aria-labelledby="cta-title">
+    <svg class="cta-contours" viewBox="0 0 600 260" aria-hidden="true" focusable="false" preserveAspectRatio="xMaxYMid slice">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M420 130c0-48 46-92 104-92s92 40 92 92-38 96-96 96-100-48-100-96Z" />
+        <path d="M380 132c0-70 64-128 146-128s126 58 126 128-54 134-136 134-136-64-136-134Z" />
+        <path d="M340 134c0-92 82-166 186-166s162 76 162 166-70 172-174 172-174-80-174-172Z" />
+        <path d="M300 136c0-114 100-204 226-204s198 94 198 204-86 210-212 210-212-96-212-210Z" />
+        <path d="M262 138c0-136 118-242 264-242s234 112 234 242-102 248-250 248-248-112-248-248Z" />
+        <path d="M462 128c0-24 28-48 62-48s54 22 54 48-22 52-56 52-60-26-60-52Z" />
+      </g>
+    </svg>
+    <div class="container cta-inner">
+      <div>
+        <p class="eyebrow">Get started</p>
+        <h2 id="cta-title" class="h2">Start with the right questions.</h2>
+        <p class="cta-text">
+          Speak to our team for tailored, impartial guidance on choosing hazardous-area phones for your workforce.
+        </p>
+      </div>
+      <a class="btn btn-light" href="/contact/">Get guidance <Icon name="arrow-right" /></a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero { padding-block: 2rem 4rem; }
+
+  .hero-grid {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .hero h1 {
+    font-size: var(--text-h1);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 span { display: block; }
+
+  .hero .lead {
+    max-width: 30rem;
+    margin-top: 1.5rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.25rem;
+  }
+
+  .hero-media img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
+  /* ---------- Steps strip ---------- */
+  .steps {
+    border-block: 1px solid var(--color-border);
+  }
+  .steps-grid { display: grid; }
+  .step {
+    display: grid;
+    justify-items: center;
+    gap: 0.5rem;
+    padding: 2.25rem 1rem;
+    text-align: center;
+  }
+  .step + .step { border-top: 1px solid var(--color-border); }
+  .step .icon-badge { margin-bottom: 0.75rem; }
+  .step-title { font-size: var(--text-h3); }
+  .step p {
+    max-width: 17rem;
+    font-size: var(--text-sm);
+    color: var(--color-text);
+  }
+
+  /* ---------- Section heading with side text ---------- */
+  .split-head {
+    display: grid;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  .split-head-text {
+    max-width: 28rem;
+    font-size: var(--text-sm);
+  }
+
+  /* ---------- Guide cards ---------- */
+  .guide-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .guide-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.75rem 1.5rem 1.25rem;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-card);
+  }
+  .guide-card h3 {
+    margin-top: 1.5rem;
+    font-size: var(--text-h3);
+  }
+  .guide-card p {
+    flex: 1;
+    margin-top: 0.75rem;
+    font-size: var(--text-sm);
+  }
+  .guide-card .arrow-link { margin-top: 1.25rem; }
+
+  /* ---------- Industries ---------- */
+  .industries-grid {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  .industries-media img {
+    width: 100%;
+    aspect-ratio: 362 / 298;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+  .industries-text {
+    max-width: 30rem;
+    margin-top: 1.25rem;
+    font-size: var(--text-sm);
+  }
+  .industry-list { margin-top: 2rem; }
+  .industry-list li { border-bottom: 1px solid var(--color-border-strong); }
+  .industry-list a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 3.5rem;
+    color: var(--color-ink);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .industry-list :global(svg) {
+    width: 1rem;
+    height: 1rem;
+    color: var(--color-forest);
+    transition: transform 0.15s ease;
+  }
+  .industry-list a:hover { color: var(--color-forest); }
+  .industry-list a:hover :global(svg) { transform: translateX(3px); }
+
+  /* ---------- Approach ---------- */
+  .approach {
+    display: grid;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .approach-step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem;
+    position: relative;
+  }
+  /* Vertical connector on mobile */
+  .approach-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 3.25rem;
+    bottom: -1.75rem;
+    left: 1.5rem;
+    width: 1px;
+    background: var(--color-border-strong);
+  }
+  .approach-num {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--color-icon-bg);
+    color: var(--color-forest);
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+  }
+  .approach-body { padding-top: 0.6rem; }
+  .approach-body h3 { font-size: var(--text-h3); }
+  .approach-body p {
+    max-width: 17rem;
+    margin-top: 0.6rem;
+    font-size: var(--text-sm);
+  }
+
+  /* ---------- Insights ---------- */
+  .insights-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    margin-bottom: 2rem;
+  }
+  .insight-grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+  .insight {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .insight img {
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+  }
+  .insight h3 {
+    margin-top: 1.25rem;
+    font-size: var(--text-h3);
+  }
+  .insight p {
+    flex: 1;
+    margin-top: 0.6rem;
+    font-size: var(--text-sm);
+  }
+  .insight .arrow-link { margin-top: 0.75rem; }
+
+  /* ---------- CTA panel ---------- */
+  .cta {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(3.5rem, 3rem + 2vw, 4.5rem);
+    background: var(--color-forest);
+    color: var(--color-on-dark);
+  }
+  .cta-contours {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(60%, 40rem);
+    height: 100%;
+    color: var(--color-on-dark);
+    opacity: 0.09;
+    pointer-events: none;
+  }
+  .cta-inner {
+    position: relative;
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+  .cta .eyebrow { color: var(--color-on-dark-muted); }
+  .cta h2 { color: var(--color-on-dark); }
+  .cta-text {
+    max-width: 34rem;
+    margin-top: 1rem;
+    color: var(--color-on-dark-muted);
+  }
+  .cta .btn { justify-self: start; }
+  .cta :global(:focus-visible) { outline-color: var(--color-on-dark); }
+
+  /* ---------- Tablet and up ---------- */
+  @media (min-width: 48rem) {
+    .guide-grid,
+    .insight-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .insight-grid { gap: 1.25rem; }
+
+    .steps-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .step { padding-block: 2.5rem; }
+    .step + .step {
+      border-top: 0;
+      border-left: 1px solid var(--color-border);
+    }
+
+    .approach {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+    .approach-step {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    /* Horizontal connector between numbers */
+    .approach-step:not(:last-child)::after {
+      top: 1.5rem;
+      bottom: auto;
+      left: 4.25rem;
+      right: 1.25rem;
+      width: auto;
+      height: 1px;
+    }
+    .approach-body { padding: 0 0 0 2.75rem; }
+  }
+
+  /* ---------- Desktop ---------- */
+  @media (min-width: 56rem) {
+    .hero { padding-block: 1rem 3rem; }
+    .hero-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .split-head {
+      grid-template-columns: 1fr minmax(0, 24rem);
+      align-items: end;
+      gap: 3rem;
+    }
+
+    .industries-grid {
+      grid-template-columns: 1.15fr 1fr;
+      gap: 4rem;
+    }
+
+    .cta-inner {
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+    }
+  }
+</style>

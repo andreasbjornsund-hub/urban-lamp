@@ -1,0 +1,42 @@
+---
+import { SITE } from '../config/site';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<a href="/" class:list={['logo', className]}>
+  <svg class="logo-mark" viewBox="0 0 32 26" aria-hidden="true" focusable="false">
+    <path d="M12.5 1 1 25h23L12.5 1Z" fill="currentColor" />
+    <path d="M21.5 9 31 25H12l9.5-16Z" fill="currentColor" opacity="0.72" />
+    <path d="M12.5 13.5 8.6 21.5h7.8l-3.9-8Z" fill="var(--logo-cut, #fafaf7)" />
+  </svg>
+  <span class="logo-text">{SITE.name}</span>
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.75rem;
+    color: var(--color-forest);
+    text-decoration: none;
+  }
+  .logo-mark {
+    width: 1.75rem;
+    height: auto;
+    flex: none;
+  }
+  .logo-text {
+    font-family: var(--font-serif);
+    font-size: 1.1875rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--color-heading);
+    white-space: nowrap;
+  }
+</style>

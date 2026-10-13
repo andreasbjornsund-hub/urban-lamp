@@ -1,0 +1,165 @@
+---
+import { MAIN_NAV, HEADER_CTA } from '../config/site';
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <Logo />
+
+    <nav class="nav-desktop" aria-label="Main">
+      <ul>
+        {MAIN_NAV.map((l) => (
+          <li>
+            <a href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+      <a class="btn btn-primary btn-sm" href={HEADER_CTA.href}>{HEADER_CTA.label}</a>
+    </nav>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      data-menu-toggle
+    >
+      <span class="icon-open"><Icon name="menu" /></span>
+      <span class="icon-close"><Icon name="close" /></span>
+      <span class="visually-hidden">Menu</span>
+    </button>
+  </div>
+
+  <nav id="mobile-nav" class="nav-mobile" aria-label="Main" hidden>
+    <ul class="container">
+      {MAIN_NAV.map((l) => (
+        <li>
+          <a href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>
+        </li>
+      ))}
+      <li class="nav-mobile-cta">
+        <a class="btn btn-primary" href={HEADER_CTA.href}>{HEADER_CTA.label}</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const panel = document.getElementById('mobile-nav');
+
+  if (toggle && panel) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      panel.hidden = !open;
+    };
+
+    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !panel.hidden) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    // Close if the viewport grows past the mobile breakpoint
+    matchMedia('(min-width: 56rem)').addEventListener('change', (e) => {
+      if (e.matches) setOpen(false);
+    });
+  }
+</script>
+
+<style>
+  .site-header {
+    position: relative;
+    z-index: 20;
+    background: var(--color-bg);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: var(--header-h);
+  }
+
+  .nav-desktop { display: none; }
+
+  .nav-desktop ul {
+    display: flex;
+    gap: 2.25rem;
+  }
+
+  .nav-desktop a:not(.btn),
+  .nav-mobile a:not(.btn) {
+    color: var(--color-ink);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 450;
+  }
+
+  .nav-desktop a:not(.btn) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    background: linear-gradient(currentColor, currentColor) no-repeat left calc(100% - 0.6rem) / 0 1px;
+    transition: background-size 0.2s ease;
+  }
+  .nav-desktop a:not(.btn):hover,
+  .nav-desktop a[aria-current='page'] {
+    background-size: 100% 1px;
+  }
+
+  .menu-toggle {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-right: -0.5rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+  .menu-toggle :global(svg) { width: 1.5rem; height: 1.5rem; }
+  .menu-toggle .icon-close,
+  .menu-toggle[aria-expanded='true'] .icon-open { display: none; }
+  .menu-toggle[aria-expanded='true'] .icon-close { display: block; }
+
+  .nav-mobile {
+    position: absolute;
+    inset: 100% 0 auto;
+    background: var(--color-bg);
+    border-block: 1px solid var(--color-border);
+    box-shadow: 0 12px 24px rgb(30 40 35 / 0.08);
+  }
+  .nav-mobile ul { padding-block: 0.5rem 1.25rem; }
+  .nav-mobile li:not(.nav-mobile-cta) { border-bottom: 1px solid var(--color-border); }
+  .nav-mobile a:not(.btn) {
+    display: flex;
+    align-items: center;
+    min-height: 3.25rem;
+    font-size: var(--text-base);
+  }
+  .nav-mobile a[aria-current='page'] { font-weight: 600; }
+  .nav-mobile-cta { padding-top: 1.25rem; }
+  .nav-mobile-cta .btn { width: 100%; }
+
+  @media (min-width: 56rem) {
+    .nav-desktop {
+      display: flex;
+      align-items: center;
+      gap: 2.75rem;
+    }
+    .menu-toggle,
+    .nav-mobile { display: none; }
+  }
+</style>
