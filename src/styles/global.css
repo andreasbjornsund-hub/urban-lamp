@@ -28,6 +28,14 @@
   /* Type */
   --font-serif: var(--font-prata), Georgia, 'Times New Roman', serif;
   --font-sans: var(--font-inter), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* Heading treatment, tuned to the display font */
+  --heading-weight: 400;
+  --heading-stretch: 100%;
+  --tracking-hero: -0.045em;
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.01em;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -76,15 +84,16 @@ body {
 h1, h2, h3, h4 {
   margin: 0;
   font-family: var(--font-serif);
-  font-weight: 400;
+  font-weight: var(--heading-weight);
+  font-stretch: var(--heading-stretch);
   color: var(--color-heading);
   line-height: 1.15;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tracking-heading);
   text-wrap: balance;
 }
 
 /* Prata is wide: tighten the large sizes, keep small headings readable */
-h1, h2 { letter-spacing: -0.035em; }
+h1, h2 { letter-spacing: var(--tracking-display); }
 
 p { margin: 0; text-wrap: pretty; }
 img, svg { display: block; max-width: 100%; }

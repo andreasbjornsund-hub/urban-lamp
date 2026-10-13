@@ -1,0 +1,109 @@
+---
+// Dev-only font comparison panel. BaseLayout renders it only when import.meta.env.DEV,
+// so neither this markup nor the Google Fonts request reaches the production build.
+const OPTIONS = [
+  { id: 'prata', label: 'A · Prata + Inter (current)' },
+  { id: 'source', label: 'B · Source Serif 4 + Inter' },
+  { id: 'plex', label: 'C · IBM Plex Sans + Plex Mono' },
+  { id: 'mix', label: 'Mix · Source Serif 4 + Plex Sans' },
+  { id: 'archivo', label: 'D · Archivo + Inter' },
+];
+---
+
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Archivo:wdth,wght@100..125,400..700&display=swap"
+/>
+
+<form class="font-switcher" aria-label="Font preview">
+  <fieldset>
+    <legend>Font preview <span>(dev only)</span></legend>
+    {OPTIONS.map((o, i) => (
+      <label>
+        <input type="radio" name="font" value={o.id} checked={i === 0} />
+        {o.label}
+      </label>
+    ))}
+  </fieldset>
+</form>
+
+<script is:inline>
+  (() => {
+    const KEY = 'isp-font-preview';
+    const form = document.querySelector('.font-switcher');
+    const apply = (id) => {
+      if (id === 'prata') delete document.documentElement.dataset.font;
+      else document.documentElement.dataset.font = id;
+      const input = form.querySelector(`input[value="${id}"]`);
+      if (input) input.checked = true;
+    };
+    let saved = null;
+    try { saved = localStorage.getItem(KEY); } catch {}
+    if (saved) apply(saved);
+    form.addEventListener('change', (e) => {
+      apply(e.target.value);
+      try { localStorage.setItem(KEY, e.target.value); } catch {}
+    });
+  })();
+</script>
+
+<style is:global>
+  html[data-font='source'] {
+    --font-serif: 'Source Serif 4', Georgia, serif;
+    --heading-weight: 500;
+    --tracking-hero: -0.03em;
+    --tracking-display: -0.02em;
+    --tracking-heading: -0.01em;
+  }
+  html[data-font='plex'] {
+    --font-serif: 'IBM Plex Sans', system-ui, sans-serif;
+    --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --heading-weight: 500;
+    --tracking-hero: -0.03em;
+    --tracking-display: -0.025em;
+    --tracking-heading: -0.01em;
+  }
+  html[data-font='mix'] {
+    --font-serif: 'Source Serif 4', Georgia, serif;
+    --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --heading-weight: 500;
+    --tracking-hero: -0.03em;
+    --tracking-display: -0.02em;
+    --tracking-heading: -0.01em;
+  }
+  html[data-font='archivo'] {
+    --font-serif: 'Archivo', system-ui, sans-serif;
+    --heading-weight: 600;
+    --heading-stretch: 112%;
+    --tracking-hero: -0.035em;
+    --tracking-display: -0.03em;
+    --tracking-heading: -0.01em;
+  }
+
+  .font-switcher {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 1000;
+    padding: 0.75rem 1rem;
+    background: #fff;
+    border: 1px solid #c9c4b6;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.15);
+    font: 13px/1.4 system-ui, sans-serif;
+    color: #1f2723;
+  }
+  .font-switcher fieldset { margin: 0; padding: 0; border: 0; }
+  .font-switcher legend { margin-bottom: 0.4rem; font-weight: 600; }
+  .font-switcher legend span { font-weight: 400; color: #555e58; }
+  .font-switcher label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 1.9rem;
+    cursor: pointer;
+  }
+  .font-switcher input { accent-color: #1e3a2f; margin: 0; }
+</style>
