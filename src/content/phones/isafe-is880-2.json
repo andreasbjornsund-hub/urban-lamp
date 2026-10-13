@@ -1,0 +1,168 @@
+{
+  "productId": "IS-880.2",
+  "name": "i.safe MOBILE IS880.2",
+  "brand": "i.safe MOBILE",
+  "brandSlug": "isafe",
+  "manufacturer": {
+    "name": "i.safe MOBILE GmbH",
+    "country": "Germany",
+    "website": "https://www.isafe-mobile.com"
+  },
+  "type": "dedicated",
+  "formFactor": "smartphone",
+  "status": "current",
+  "launchYear": 2025,
+  "summary": "The i.safe MOBILE IS880.2 is an intrinsically safe (Ex ic) smartphone from i.safe MOBILE, certified for Zone 2/22 under ATEX and IECEx. It runs Android 14, with a user-replaceable battery.",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ic IIC T4 Gc / II 3D Ex ic IIIC T135°C Dc",
+      "number": "EPS 23 ATEX 1 346 X"
+    },
+    "iecex": {
+      "marking": "Ex ic IIC T4 Gc / Ex ic IIIC T135°C Dc",
+      "number": "IECEx EPS 23.0092X"
+    },
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ic)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gc / Dc",
+    "ambient": "−20 °C to +55 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "batterySwap": "Outside the hazardous area only",
+    "conditions": "Physical (wired) connections only outside hazardous areas; charge only with i.safe-approved equipment (operating manual 2025-07-09)"
+  },
+  "os": {
+    "name": "Android",
+    "version": "Android 14",
+    "enterprise": "Android Enterprise compliant"
+  },
+  "specs": {
+    "display": "5.5-inch Gorilla Glass 3",
+    "resolution": "720 × 1440",
+    "chip": "Qualcomm Snapdragon SM6225",
+    "ram": "6 GB",
+    "camera": "50 MP AF",
+    "frontCamera": "8 MP",
+    "battery": "4500 mAh",
+    "network": "4G",
+    "wifi": "2.4 + 5 GHz",
+    "bluetooth": "Bluetooth 5.1",
+    "nfc": "Yes",
+    "gnss": "GNSS",
+    "sim": "Dual nano-SIM",
+    "keys": "PTT side key; channel selector; SOS red key; side fingerprint",
+    "accessories": "13-pin ISM interface",
+    "biometrics": "Fingerprint (side)",
+    "touch": "Glove",
+    "storage": "128 GB",
+    "replaceableBattery": true,
+    "gloveTouch": true,
+    "pttKey": true,
+    "mdm": [
+      "Android Enterprise compliant"
+    ],
+    "connectivity": [
+      "4G",
+      "NFC"
+    ],
+    "weightG": 267,
+    "dimensionsMm": "161.0 × 75.0 × 15.8",
+    "ipRating": "IP68",
+    "ruggedness": "MIL-STD-810H",
+    "partNumbers": "Model M880A01; 01-00880002-001-001"
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Built in (PTT side key + channel selector) + app"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (SOS key)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app (SOS key)"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "specs.weightG": "From i.safe MOBILE's datasheet; a reseller lists 196.4 g."
+  },
+  "features": [
+    "nfc",
+    "camera-48mp",
+    "sos-key"
+  ],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "Push-to-talk and SOS keys",
+    "User-replaceable battery",
+    "Among the lightest Zone 2 smartphones we list, at 267 g in use"
+  ],
+  "limitations": [
+    "Zone 2 only, so not for Zone 1 areas",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "4G only, no 5G",
+    "No published end date for security updates"
+  ],
+  "bestFor": [
+    "zone-2-phones",
+    "push-to-talk"
+  ],
+  "alternatives": [
+    "bartec-sp9ex2",
+    "ecom-smart-ex-203",
+    "atexxo-zone-2-galaxy-s24"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "IECEx (Bureau Veritas Consumer Products Services Germany GmbH): IECEx EPS 23.0092X issue 0 (2024-10-30, Current) - IS880.2 intrinsically safe Smartphone",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/1715760/view"
+    },
+    {
+      "label": "i.safe MOBILE: IS880.2 safety instructions 1074MM02 (EPS 23 ATEX 1 346 X, Ta)",
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/DOC/PRO/MM/DOC_PRO_MM_IS880.2_Safety_Instructions_DINA6_1074MM02__SALL__AWEB__V5.pdf"
+    },
+    {
+      "label": "A2S ATEX (reseller): IS880.2 listing",
+      "url": "https://www.a2s-atex.com/en/accueil/1441-is8802-smartphone-4g-atex-zone-222.html"
+    },
+    {
+      "label": "Able Instruments (reseller): IS880.2 listing",
+      "url": "https://ableinstruments.com/?p=119510"
+    },
+    {
+      "label": "voelkner (reseller): IS880.2 listing (says ATEX/IECEx 'applied for')",
+      "url": "https://www.voelkner.de/products/11266483/ISafe-MOBILE-IS880.2-Smartphone-Set-Ex-geschuetztes-Smartphone-Ex-Zone-2-22-14cm-5.5-Zoll-IP68-MIL-STD-810H-mit-NFC.html"
+    },
+    {
+      "label": "i.safe MOBILE (via tester.co.uk): IS880.2 datasheet 08.2024",
+      "url": "https://www.tester.co.uk/files/get/download/id/112678/exloc-is8802-atex-zone-2-22-certified-android-smartphone-datasheet.pdf"
+    },
+    {
+      "label": "i.safe MOBILE (via ManualsLib): IS880.2 operating manual (2025) - IECEx EPS 23.0092X",
+      "url": "https://www.manualslib.fr/manual/1026664/I-Safe-Mobile-Is880-2.html"
+    }
+  ]
+}

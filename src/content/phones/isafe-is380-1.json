@@ -1,0 +1,171 @@
+{
+  "productId": "IS-380.1",
+  "name": "i.safe MOBILE IS380.1",
+  "brand": "i.safe MOBILE",
+  "brandSlug": "isafe",
+  "manufacturer": {
+    "name": "i.safe MOBILE GmbH",
+    "country": "Germany",
+    "website": "https://www.isafe-mobile.com"
+  },
+  "type": "dedicated",
+  "formFactor": "radio",
+  "status": "current",
+  "launchYear": 2026,
+  "summary": "The i.safe MOBILE IS380.1 is an intrinsically safe (Ex ia) 4G push-to-talk radio from i.safe MOBILE, certified for Zone 1/21 under ATEX and IECEx. It runs ISM-OS 16, with a user-replaceable battery.",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 2G Ex ia IIC T4 Gb / II 2D Ex ia IIIC T135°C Db",
+      "number": "EPS 25 ATEX 1 269 X"
+    },
+    "iecex": {
+      "marking": "Ex ia IIC T4 Gb / Ex ia IIIC T135°C Db",
+      "number": "IECEx EPS 25.0060X"
+    },
+    "zonesGas": [
+      "1",
+      "2"
+    ],
+    "zonesDust": [
+      "21",
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ia)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gb / Db",
+    "ambient": "−20 °C to +55 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "batterySwap": "Outside the hazardous area only",
+    "conditions": "EPS 25 ATEX 1 269 X / IECEx EPS 25.0060X: battery may be charged and replaced outside hazardous areas only; USB connection for charging/data only outside hazardous areas, to SELV/PELV/ES1 sources (Um ≤ 11.5 V); protect from high-energy impacts, excessive UV light and high electrostatic charge processes; USB-C and ISM interface covers must be securely closed in hazardous areas; Ta −20 °C to +55 °C. Only approved accessories on the 13-pin ISM interface (IS-HS1.1, IS-HDHS1x.1, IS-PTTB3A.1, IS-RSMG2.1, IS-RSM3C.1); nano-SIM cards meeting Uo 4.35 V, Co 80 µF, Lo 1 µH."
+  },
+  "os": {
+    "name": "Android",
+    "version": "ISM-OS 16",
+    "atLaunch": "ISM-OS 16 (Android-based)"
+  },
+  "specs": {
+    "display": "2.4-inch Gorilla Glass 3",
+    "resolution": "240 × 320",
+    "chip": "Qualcomm Snapdragon 662",
+    "ram": "8 GB",
+    "camera": "13 MP AF",
+    "battery": "3600 mAh",
+    "network": "4G (2G/3G/4G)",
+    "bands": "GSM 850/900/1800/1900; WCDMA B1/2/4/5/8; LTE-FDD B1/2/3/4/5/7/8/12/13/14/17/18/19/20/25/26/28/29/30/66/71; LTE-TDD B34/38/39/40/41",
+    "wifi": "Wi-Fi 5 (802.11 a/b/g/n/ac), 2.4 + 5 GHz",
+    "bluetooth": "Bluetooth 5.1",
+    "nfc": "Yes",
+    "gnss": "GPS, A-GPS, GLONASS, BeiDou, Galileo",
+    "sim": "nano-SIM + eSIM",
+    "keys": "Side PTT; rotary channel/volume switch; red function/SOS key (next to antenna, assignable e.g. LWP)",
+    "accessories": "13-pin ISM interface; USB-C; charging contacts",
+    "apps": "App World (pre-installed; curated PTT and LWP apps)",
+    "storage": "64 GB",
+    "replaceableBattery": true,
+    "pttKey": true,
+    "connectivity": [
+      "4G",
+      "Wi-Fi 5",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 359,
+    "dimensionsMm": "138 × 60 × 32",
+    "ipRating": "IP68",
+    "ruggedness": "MIL-STD-810H",
+    "operatingTemp": "−20 °C to +55 °C"
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Built in (side PTT key + PoC apps)"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (red SOS key)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app (red key)"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in"
+    }
+  ],
+  "variants": [
+    {
+      "name": "IS380.M1",
+      "description": "Mining version, rated for Group I as well as Zone 1/21.",
+      "marking": "I M1 Ex ia I Ma",
+      "certificates": "EPS 26 ATEX 1 132 X; IECEx EPS 26.0039X"
+    }
+  ],
+  "unconfirmed": {},
+  "features": [
+    "nfc",
+    "sos-key",
+    "mining-version"
+  ],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "A mining version (Group I) is also available",
+    "Push-to-talk and SOS keys",
+    "User-replaceable battery"
+  ],
+  "limitations": [
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "No published end date for security updates",
+    "Not certified for Zone 0"
+  ],
+  "bestFor": [
+    "zone-1-phones",
+    "push-to-talk"
+  ],
+  "alternatives": [
+    "ecom-smart-ex-03-dz1",
+    "bartec-sp9ex1",
+    "isafe-is440-1"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "i.safe MOBILE: Datasheet IS380.1 (1091MD01REV04_EN_08.2026) (2026-08)",
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/DOC/PRO/MD/DOC_PRO_MD_i.safe_MOBILE_IS380.1-A4-datasheet_1091MD01__SEN__AWEB__V5.pdf"
+    },
+    {
+      "label": "i.safe MOBILE: IS380.1 product page",
+      "url": "https://www.isafe-mobile.com/en/products/product-range/zone-1/21/is3801"
+    },
+    {
+      "label": "i.safe MOBILE: News: i.safe MOBILE launches IS380.1 (2026-02-19)",
+      "url": "https://www.isafe-mobile.com/en/company/news/detail/isafe-mobile-is3801"
+    },
+    {
+      "label": "i.safe MOBILE: Security updates (security patch table) (2026-10-13)",
+      "url": "https://www.isafe-mobile.com/en/support/security-updates"
+    },
+    {
+      "label": "Critical Comms (supplied by i.safe MOBILE): IS380.1 4G radio release (May 2026)",
+      "url": "https://www.criticalcomms.com.au/content/radio-systems/product/i-safe-mobile-is380-1-4g-radio-382200502"
+    },
+    {
+      "label": "New Equipment Digest: IS380.1 - available June 2026",
+      "url": "https://www.newequipment.com/product-directory/software-computers/mobile-devices/radios/product/55360367/isafe-mobile-gmbh-is3801-4g-radio-bridges-traditional-radio-and-mobile-networks"
+    },
+    {
+      "label": "Skillings Mining Review: IS380.1 announcement article (low quality; speculative wording)",
+      "url": "https://www.skillings.net/?p=80428"
+    }
+  ]
+}

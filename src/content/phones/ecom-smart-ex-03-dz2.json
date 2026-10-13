@@ -1,0 +1,209 @@
+{
+  "productId": "PF-SE03-DZ2",
+  "name": "ecom Smart-Ex 03 DZ2",
+  "brand": "ecom (Pepperl+Fuchs)",
+  "brandSlug": "ecom",
+  "manufacturer": {
+    "name": "ecom instruments (Pepperl+Fuchs)",
+    "country": "Germany",
+    "website": "https://www.ecom-ex.com"
+  },
+  "type": "dedicated",
+  "formFactor": "smartphone",
+  "status": "current",
+  "launchYear": 2024,
+  "summary": "The ecom Smart-Ex 03 DZ2 is an intrinsically safe (Ex ic) smartphone from ecom (Pepperl+Fuchs), certified for Zone 2/22 under ATEX and IECEx, and for Class I Division 2 in North America. It runs Android 15, with 5G and a user-replaceable battery.",
+  "certification": {
+    "otherSchemes": [
+      "UKCA (self-declared, category 3)",
+      "IA (South Africa) MASC S/24-8207X"
+    ],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ic IIC T4 Gc / II 3D Ex ic IIIC T135°C Dc",
+      "number": "EPS 23 ATEX 1 098 X"
+    },
+    "iecex": {
+      "marking": "Ex ic IIC T4 Gc / Ex ic IIIC T135°C Dc",
+      "number": "IECEx EPS 23.0021X"
+    },
+    "northAmerica": "E115956: Class I Div 2 Groups A-D T4; Class II Div 2 Group FG T4; Zone 2 AEx ic IIC T4 Gc",
+    "division": "Class I Division 2",
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ic)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gc / Dc",
+    "ambient": "−20 °C to +60 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "batterySwap": "Outside the hazardous area only",
+    "conditions": "Charging, SIM-card and battery-pack replacement only in non-hazardous areas; charge only at 0 to 45 °C; battery cover must be fitted before entering the hazardous area (IECEx EPS 23.0021X)."
+  },
+  "os": {
+    "name": "Android",
+    "version": "Android 15",
+    "atLaunch": "Android 13",
+    "upgradeLimit": "Android 15",
+    "securityUntil": "2032-11-30",
+    "updates": "Security updates until November 2032",
+    "enterprise": "Android Enterprise Recommended"
+  },
+  "specs": {
+    "display": "6-inch Gorilla Glass",
+    "resolution": "1080 × 2160",
+    "chip": "Qualcomm Dragonwing QCM6490",
+    "ram": "8 GB",
+    "camera": "13 MP PDAF, LED flash (optimised for scanning)",
+    "frontCamera": "5 MP",
+    "video": "1080p",
+    "battery": "4400 mAh",
+    "network": "5G",
+    "wifi": "Wi-Fi 6E",
+    "bluetooth": "Bluetooth 5.2",
+    "nfc": "Yes",
+    "gnss": "GPS, GLONASS, Galileo, QZSS, BeiDou",
+    "sim": "nano-SIM + eSIM",
+    "keys": "Programmable PTT, alarm (LWP) and multifunction keys; fingerprint in power key",
+    "accessories": "USB-C; docking charge pads; 3.5 mm audio with PTT accessory support",
+    "biometrics": "Fingerprint (power key)",
+    "touch": "Glove",
+    "apps": "PTT, eSentinel (LWP), eMDM, eBarcode, eDiagnostics, eConfig (2024 datasheet)",
+    "storage": "128 GB",
+    "replaceableBattery": true,
+    "gloveTouch": true,
+    "pttKey": true,
+    "mdm": [
+      "Android Enterprise Recommended"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 6E",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 400,
+    "dimensionsMm": "84 × 172 × 18/25",
+    "ipRating": "IP68",
+    "ruggedness": "MIL-STD-810H",
+    "operatingTemp": "−20 °C to +60 °C",
+    "partNumbers": "SMART-EX03-DZ2-AIX-C128-000-.."
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Built in (PTT key + preinstalled app)"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (alarm key)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Built in (eSentinel app + LWP key)"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Built in (eBarcode, camera-based)"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {},
+  "features": [
+    "nfc",
+    "sos-key",
+    "programmable-key",
+    "updates-2030"
+  ],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "Also certified for Class I Division 2 in North America",
+    "Push-to-talk and SOS keys",
+    "5G connectivity",
+    "Security updates until November 2032"
+  ],
+  "limitations": [
+    "Zone 2 only, so not for Zone 1 areas",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C"
+  ],
+  "bestFor": [
+    "zone-2-phones",
+    "push-to-talk",
+    "5g"
+  ],
+  "alternatives": [
+    "isafe-is540-2",
+    "bartec-sp9ex2",
+    "atexxo-zone-2-galaxy-xcover7-pro"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "Eurofins MET Labs: MET approval letter Smart-Ex 03 DZ1/DZ2 (cert7527)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/cert/cert7527.pdf"
+    },
+    {
+      "label": "MASC (South Africa): IA certificate MASC S/24-8207X Smart-Ex 03 DZ1/DZ2 (cert7419)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/cert/cert7419.pdf"
+    },
+    {
+      "label": "Bureau Veritas / MASC (via P+F): IECEx EPS 23.0021X Issue 1 with conditions of use (2024-02-26)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/cert/cert7419.pdf"
+    },
+    {
+      "label": "Pepperl+Fuchs: UK DoC DOC-7587 Smart-Ex 03 DZ2",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/doc/doc7587.pdf"
+    },
+    {
+      "label": "Pepperl+Fuchs: Smart-Ex 03 DZ2 datasheet t218209 (DE)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pds/t218209_ger.pdf"
+    },
+    {
+      "label": "Pepperl+Fuchs: Smart-Ex 03 DZ2 datasheet 480994-100099_eng",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pds/480994-100099_eng.pdf"
+    },
+    {
+      "label": "Pepperl+Fuchs: Smart-Ex 03 DZ1 datasheet 480994_eng (release 2026-09-01)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pds/480994_eng.pdf"
+    },
+    {
+      "label": "Pepperl+Fuchs: Smart-Ex 03 DZ1 datasheet t203555 (DE, release 2024-05-07)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pds/t203555_ger.pdf"
+    },
+    {
+      "label": "Pepperl+Fuchs: Smart-Ex 03 DZ1 product page (rockwell.pepperl-fuchs.com, says Oct 2029)",
+      "url": "https://rockwell.pepperl-fuchs.com/en/p118776"
+    },
+    {
+      "label": "Onedirect UK (reseller): Smart-Ex 03 DZ2 listing (price)",
+      "url": "https://www.onedirect.co.uk/product/pepperl-fuchs-smart-ex-03-dz2"
+    },
+    {
+      "label": "Pepperl+Fuchs: Smart-Ex 03 DZ2 datasheet (released 2026-09-01)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pds/480994-100099_eng.pdf"
+    },
+    {
+      "label": "Pepperl+Fuchs: UK Declaration of Conformity DOC-7587, Smart-Ex 03 DZ2 (2024-04-30)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/doc/doc7587.pdf"
+    },
+    {
+      "label": "Onedirect UK (reseller): Smart-Ex 03 DZ1 listing (price, Android 15)",
+      "url": "https://www.onedirect.co.uk/product/pepperl-fuchs-smart-ex-03-dz1"
+    }
+  ]
+}

@@ -5,17 +5,25 @@ interface Props {
   scheme: string;
   marking: string;
   number?: string;
+  /** What the certificate covers, when it isn't every version */
+  scope?: string;
+  /** Number of the note explaining why the marking is unconfirmed */
+  flag?: number;
 }
 
-const { scheme, marking, number } = Astro.props;
+const { scheme, marking, number, scope, flag } = Astro.props;
 // "II 2G Ex db IIC T6 Gb / II 2D Ex tb IIIC T80°C Db" -> one decoded line per atmosphere
 const lines = marking.split(' / ').map(decodeMarking);
 ---
 
 <div class="decoder">
   <div class="decoder-head">
-    <span class="scheme">{scheme}</span>
+    <span class="scheme">
+      {scheme}
+      {flag && <a class="flag" href={`#note-${flag}`}>Unconfirmed<span class="visually-hidden">: see note</span> {flag}</a>}
+    </span>
     {number && <span class="cert-no">Certificate {number}</span>}
+    {scope && <span class="cert-scope">{scope}</span>}
   </div>
   {lines.map((parts) => (
     <div class="decoder-line">
@@ -57,6 +65,7 @@ const lines = marking.split(' / ').map(decodeMarking);
   }
   .scheme { font-weight: 600; color: var(--color-ink); }
   .cert-no { color: var(--color-muted); font-family: var(--font-mono); font-size: 0.8125rem; }
+  .cert-scope { flex-basis: 100%; color: var(--color-muted); font-size: 0.8125rem; }
 
   .decoder-line { padding: 1.25rem; }
   .decoder-line + .decoder-line { border-top: 1px dashed var(--color-panel-border); }

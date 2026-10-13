@@ -1,0 +1,168 @@
+{
+  "productId": "PF-EH10-DZ1",
+  "name": "ecom Ex-Handy 10 DZ1",
+  "brand": "ecom (Pepperl+Fuchs)",
+  "brandSlug": "ecom",
+  "manufacturer": {
+    "name": "ecom instruments (Pepperl+Fuchs)",
+    "country": "Germany",
+    "website": "https://www.ecom-ex.com"
+  },
+  "type": "dedicated",
+  "formFactor": "feature-phone",
+  "status": "discontinued",
+  "statusNote": "Resellers list it as obsolete, replaced by the Smart-Ex 03 DZ1.",
+  "successor": "ecom-smart-ex-03-dz1",
+  "launchYear": 2019,
+  "summary": "The ecom Ex-Handy 10 DZ1 is an intrinsically safe (Ex ib) feature phone from ecom (Pepperl+Fuchs), certified for Zone 1/21 under ATEX and IECEx, and for Class I Division 1 in North America. It runs Android 9. It has been discontinued; the ecom Smart-Ex 03 DZ1 replaces it.",
+  "certification": {
+    "otherSchemes": [
+      "INMETRO marking on Brazil version (cert no. not captured)"
+    ],
+    "standards": [],
+    "atex": {
+      "marking": "II 2G Ex ib op is IIC T4 Gb IP64 / II 2D Ex ib op is IIIC T120°C Db",
+      "number": "EPS 19 ATEX 1 015 X"
+    },
+    "iecex": {
+      "marking": "Ex ib op is IIC T4 Gb IP64 / Ex ib op is IIIC T120°C Db",
+      "number": "IECEx EPS 19.0008X"
+    },
+    "northAmerica": "CSA: I.S. Class I Div 1 Groups A-D T4; Class II, III Div 1 Groups E-G T120°C; CL I Zone 1 AEx ib op is IIC T4 Gb; Zone 21 AEx ib op is IIIC T120°C Db",
+    "division": "Class I Division 1",
+    "zonesGas": [
+      "1",
+      "2"
+    ],
+    "zonesDust": [
+      "21",
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ib) with inherently safe optical radiation (op is)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "120 °C",
+    "epl": "Gb / Db",
+    "ambient": "−20 °C to +60 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "See Ex-Handy 10 DZ1 safety instructions (not reviewed)"
+  },
+  "os": {
+    "name": "Android",
+    "version": "Android 9",
+    "upgradeLimit": "Android 9",
+    "enterprise": "Android Enterprise Recommended (zero-touch)"
+  },
+  "specs": {
+    "display": "2.6-inch Gorilla Glass",
+    "chip": "Qualcomm MSM8909",
+    "ram": "2 GB",
+    "camera": "8 MP AF, LED flash",
+    "battery": "4400 mAh",
+    "network": "4G",
+    "wifi": "802.11 a/b/g/n",
+    "bluetooth": "Bluetooth 4.2",
+    "nfc": "Yes",
+    "gnss": "GPS, A-GPS, GLONASS, BeiDou",
+    "sim": "Single nano-SIM",
+    "keys": "PTT, alarm, multifunction, Android keys",
+    "accessories": "7-pin magnetic USB 2.0; 3.5 mm jack",
+    "touch": "Glove",
+    "apps": "Classic Mode (SMT suite)",
+    "storage": "16 GB, microSD up to 16 GB",
+    "replaceableBattery": false,
+    "gloveTouch": true,
+    "pttKey": true,
+    "mdm": [
+      "Android Enterprise Recommended (zero-touch)"
+    ],
+    "connectivity": [
+      "4G",
+      "NFC"
+    ],
+    "weightG": 330,
+    "dimensionsMm": "67 × 148 × 24",
+    "ipRating": "IP68",
+    "exIp": "IP64",
+    "ruggedness": "MIL-STD-810G",
+    "operatingTemp": "−20 °C to +60 °C",
+    "partNumbers": "Ex-Handy10-ROW-DZ1AIC-ANDC00.."
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Built in (PTT key) + app"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (alarm key)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app (LWP key)"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {},
+  "features": [
+    "nfc",
+    "sos-key",
+    "programmable-key"
+  ],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "Also certified for Class I Division 1 in North America",
+    "Push-to-talk and SOS keys",
+    "Certified for ambient temperatures up to +60 °C"
+  ],
+  "limitations": [
+    "Discontinued; the ecom Smart-Ex 03 DZ1 replaces it",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "OS upgrades ended at Android 9",
+    "Battery isn't user-replaceable",
+    "Not certified for Zone 0"
+  ],
+  "bestFor": [],
+  "alternatives": [
+    "ecom-smart-ex-03-dz1",
+    "isafe-is330-1",
+    "bartec-sp9ex1"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "IECEx (Bureau Veritas Consumer Products Services Germany GmbH): IECEx EPS 19.0008X issue 1 (2020-11-30, Current) - Intrinsically safe Feature Phone - Ex-Handy 10 *** DZ1",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/50915/view"
+    },
+    {
+      "label": "Pepperl+Fuchs: Ex-Handy 10 DZ1 datasheet 480985-100019_eng (release 2024-05-13)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pds/480985-100019_eng.pdf"
+    },
+    {
+      "label": "Able Instruments (UK reseller): Ex-Handy 10 DZ1 - obsolete, superseded by Smart-Ex 03 DZ1",
+      "url": "https://ableinstruments.com/?p=55358"
+    },
+    {
+      "label": "Oilfield Technology (P+F launch release, Apr 2019): Ex-Handy 10 launch - 5-year life cycle",
+      "url": "https://www.oilfieldtechnology.com/digital-oilfield/26042019/providing-flexible-and-easy-communication-in-hazardous-areas"
+    },
+    {
+      "label": "Pepperl+Fuchs: Ex-Handy 10 safety manual - battery replaced only by ECOM/P+F/authorised service",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/mas/mas0070b.pdf"
+    }
+  ]
+}

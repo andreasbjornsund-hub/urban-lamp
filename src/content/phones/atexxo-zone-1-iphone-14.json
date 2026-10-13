@@ -1,0 +1,226 @@
+{
+  "productId": "AX-Z1-IP14",
+  "name": "Atexxo Zone 1 iPhone 14",
+  "brand": "Atexxo",
+  "brandSlug": "atexxo",
+  "manufacturer": {
+    "name": "Atexxo",
+    "country": "Netherlands",
+    "website": "https://atexxo.com"
+  },
+  "type": "conversion",
+  "formFactor": "smartphone",
+  "hostDevice": "Apple iPhone 14",
+  "status": "current",
+  "launchYear": 2023,
+  "summary": "The Atexxo Zone 1 iPhone 14 is a standard Apple iPhone 14 converted by Atexxo for hazardous areas, certified for Zone 1/21 under ATEX and IECEx. It uses a flameproof (Ex db) housing. The phone runs iOS 27.",
+  "certification": {
+    "otherSchemes": [
+      "INMETRO RBNA 24.0042X"
+    ],
+    "standards": [],
+    "atex": {
+      "marking": "II 2G Ex db IIC T4 Gb / II 2D Ex tb IIIC T135°C Db",
+      "number": "EPS 23 ATEX 1 127 X"
+    },
+    "iecex": {
+      "marking": "Ex db IIC T4 Gb / Ex tb IIIC T135°C Db",
+      "number": "IECEx EPS 23.0033X"
+    },
+    "zonesGas": [
+      "1",
+      "2"
+    ],
+    "zonesDust": [
+      "21",
+      "22"
+    ],
+    "protection": "Flameproof enclosure (Ex db)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gb / Db",
+    "ambient": "−20 °C to +50 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "Flameproof Ex db enclosure (dust: Ex tb). Specific conditions (IECEx EPS 23.0033X): Ta −20 to +50 °C; no repair of flameproof joints; screws min. property class A4-70; original parts only; protect glass windows from impact > 2 J; do not open in hazardous location; battery charging only outside hazardous location."
+  },
+  "os": {
+    "name": "iOS",
+    "version": "iOS 27",
+    "atLaunch": "iOS 16",
+    "enterprise": "Apple Business Manager (ADE)"
+  },
+  "specs": {
+    "display": "6.1-inch OLED Super Retina XDR; Ceramic Shield",
+    "resolution": "2532 × 1170",
+    "refreshRate": "60 Hz",
+    "brightness": "1,200 nits peak (HDR); no outdoor figure",
+    "chip": "Apple A15 Bionic (5-core GPU)",
+    "ram": "6 GB",
+    "camera": "12 MP main + 12 MP ultra wide",
+    "frontCamera": "12 MP TrueDepth AF",
+    "video": "4K60; Action mode",
+    "battery": "3279 mAh",
+    "batteryLife": "Up to 20 hours of video playback",
+    "port": "Lightning (USB 2)",
+    "wirelessCharging": "MagSafe 15 W; Qi",
+    "network": "5G",
+    "wifi": "Wi-Fi 6",
+    "bluetooth": "Bluetooth 5.3",
+    "nfc": "Yes (Apple Pay + Core NFC tag reading)",
+    "gnss": "GPS, GLONASS, Galileo, QZSS, BeiDou",
+    "sim": "nano-SIM + eSIM (eSIM-only in US)",
+    "keys": "Side, volume, Ring/Silent switch (no Action Button)",
+    "accessories": "Lightning",
+    "biometrics": "Face ID",
+    "satellite": "Emergency SOS + Roadside Assistance via satellite (region-dependent)",
+    "uwb": "Yes (U1)",
+    "touch": "Standard capacitive",
+    "apps": "Apple apps; App Store",
+    "storage": "128 GB / 256 GB / 512 GB",
+    "replaceableBattery": false,
+    "gloveTouch": false,
+    "pttKey": false,
+    "mdm": [
+      "Apple Business Manager (ADE)"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 6",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 680,
+    "weightNote": "Including the phone",
+    "dimensionsMm": "180 × 120 × 26",
+    "cameraFree": false
+  },
+  "throughCase": [
+    {
+      "label": "Face ID / fingerprint",
+      "value": "Likely (reseller: all original features preserved)"
+    },
+    {
+      "label": "Side and volume buttons",
+      "value": "Functional push buttons"
+    },
+    {
+      "label": "NFC",
+      "value": "Yes"
+    },
+    {
+      "label": "Wireless charging",
+      "value": "Yes (safe area only)"
+    },
+    {
+      "label": "USB-C / Lightning port",
+      "value": "Wired charging in safe area (access method not stated)"
+    },
+    {
+      "label": "SIM card",
+      "value": "Self SIM installation + eSIM"
+    }
+  ],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Via app (Push to Talk framework)"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (iOS Emergency SOS)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Built in (QR via Camera) / Via app (1D/2D)"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in (Core NFC)"
+    },
+    {
+      "label": "3D scanning",
+      "value": "Via app (camera photogrammetry)"
+    },
+    {
+      "label": "Satellite SOS",
+      "value": "Built in on iPhone; not verified through enclosure"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "specs.ram": "Apple doesn't publish RAM. This is the widely reported figure.",
+    "specs.battery": "Apple doesn't publish battery capacity. Figure from regulatory filings and teardowns.",
+    "specs.satellite": "Listed on Apple's tech specs; availability depends on the country."
+  },
+  "features": [
+    "nfc",
+    "wireless-charging"
+  ],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "5G connectivity",
+    "A standard Apple iPhone 14 inside, with the same apps and Apple device management as other iPhones"
+  ],
+  "limitations": [
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "Heavy, at 680 g in use",
+    "No hardware push-to-talk key",
+    "Satellite SOS not confirmed to work through the enclosure",
+    "Not certified for Zone 0"
+  ],
+  "bestFor": [
+    "zone-1-phones",
+    "iphone",
+    "5g"
+  ],
+  "alternatives": [
+    "xciel-xcz1-iphone-14",
+    "xshielder-iphone-16-pro-max",
+    "isafe-is541-1"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "Atexxo: iPhone 14 Zone 1 EU-type examination certificate EPS 23 ATEX 1 127 X",
+      "url": "https://atexxo.com/wp-content/uploads/2025/03/eps_23_atex_1_127x_00_signed_scan-product-flyer-folleto-de-productonew.pdf"
+    },
+    {
+      "label": "IECEx (Bureau Veritas Consumer Products Services Germany GmbH): IECEx EPS 23.0033X issue 0 (2023-05-02, Current) - MOB-EXd-IPH-14",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/1645663/view"
+    },
+    {
+      "label": "Atexxo: iPhone 14 Zone 1 INMETRO certificate RBNA 24.0042X",
+      "url": "https://atexxo.com/wp-content/uploads/2025/04/rbna-240042x-mob-exd-iph-14new.pdf"
+    },
+    {
+      "label": "Atexxo: Explosion-proof phones & tablets overview (Oct 2026): iPhone 14 Z1, 15 Z1/Z2, 16 Z2, 16 Pro Max Z2, 16E Z2, 17 Z1/Z2, 17 Pro Max Z2, 17E Z2",
+      "url": "https://atexxo.com/explosion-proof-phones-tablets/"
+    },
+    {
+      "label": "Apple: iPhone 14 - Technical Specifications (Apple Support, UK)",
+      "url": "https://support.apple.com/en-gb/111850"
+    },
+    {
+      "label": "Atexxo (via DirectIndustry): iPhone 14 Ex Zone 1 flyer",
+      "url": "https://pdf.directindustry.com/pdf/atexxo-bv/product-flyer-explosion-proof-iphone-14-ex-zone-1/160752-1150484.html"
+    },
+    {
+      "label": "Apple: iPhone 14 / 14 Plus technical specifications (UK)",
+      "url": "https://apple.com/uk/iphone-14/specs"
+    }
+  ]
+}

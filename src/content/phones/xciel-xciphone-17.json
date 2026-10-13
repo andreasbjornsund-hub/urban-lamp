@@ -1,0 +1,185 @@
+{
+  "productId": "XC-Z2-IP17",
+  "name": "Xciel XCiPhone 17",
+  "brand": "Xciel",
+  "brandSlug": "xciel",
+  "manufacturer": {
+    "name": "Xciel Inc",
+    "country": "USA",
+    "website": "https://www.xciel.com"
+  },
+  "type": "ex-case",
+  "formFactor": "smartphone",
+  "hostDevice": "Apple iPhone 17",
+  "status": "current",
+  "summary": "The Xciel XCiPhone 17 is an intrinsically safe (Ex ic) case for the Apple iPhone 17, rated for Zone 2 under ATEX, and for Class I Division 2 in North America. The phone inside is a standard Apple iPhone 17 running iOS 27, so it works with the same apps and device management as other iPhones.",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "Ex ic IIC T6 Gc"
+    },
+    "northAmerica": "Class I Division 2 (separate part number XCiPhone17)",
+    "division": "Class I Division 2",
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [],
+    "protection": "Intrinsic safety (Ex ic)",
+    "epl": "Gc"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "Permanently sealed; iPhone cannot be removed without voiding certification. Charging and wired accessories only outside hazardous areas. Not for C1D1, Zone 0, 1, 20, 21 or 22."
+  },
+  "os": {
+    "name": "iOS",
+    "version": "iOS 27",
+    "atLaunch": "iOS 26",
+    "securityUntil": "2030-09-19",
+    "updates": "Security updates until September 2030",
+    "enterprise": "Apple Business Manager (ADE)"
+  },
+  "specs": {
+    "display": "6.3-inch OLED; ProMotion; Always-On; Ceramic Shield 2",
+    "resolution": "2622 × 1206",
+    "refreshRate": "Up to 120 Hz",
+    "brightness": "3,000 nits peak (outdoor)",
+    "chip": "Apple A19",
+    "ram": "8 GB",
+    "camera": "48 MP Fusion main + 48 MP Fusion ultra wide (2x optical-quality)",
+    "frontCamera": "18 MP Center Stage",
+    "video": "4K60 Dolby Vision; spatial video",
+    "battery": "3692 mAh",
+    "batteryLife": "Up to 30 hours of video playback",
+    "port": "USB-C (USB 2)",
+    "wirelessCharging": "MagSafe up to 25 W; Qi2",
+    "network": "5G",
+    "wifi": "Wi-Fi 7 (Apple N1)",
+    "bluetooth": "Bluetooth 6",
+    "nfc": "Yes (Apple Pay + Core NFC tag reading)",
+    "gnss": "GPS, GLONASS, Galileo, QZSS, BeiDou, NavIC",
+    "sim": "nano-SIM + eSIM (eSIM-only in US)",
+    "keys": "Action Button; Camera Control; side; volume",
+    "accessories": "USB-C",
+    "biometrics": "Face ID",
+    "satellite": "Emergency SOS + Roadside Assistance via satellite (region-dependent)",
+    "uwb": "Yes (2nd gen)",
+    "touch": "Standard capacitive",
+    "apps": "Apple apps; App Store",
+    "storage": "256 GB / 512 GB",
+    "replaceableBattery": false,
+    "gloveTouch": false,
+    "pttKey": false,
+    "mdm": [
+      "Apple Business Manager (ADE)"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 7",
+      "NFC",
+      "eSIM"
+    ],
+    "cameraFree": false
+  },
+  "throughCase": [
+    {
+      "label": "USB-C / Lightning port",
+      "value": "Wired accessories only outside hazardous areas"
+    }
+  ],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Via app (Push to Talk framework); Action Button mappable if accessible"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (iOS Emergency SOS)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Built in (QR via Camera) / Via app (1D/2D)"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in (Core NFC); through-case use not stated"
+    },
+    {
+      "label": "3D scanning",
+      "value": "Via app (camera photogrammetry)"
+    },
+    {
+      "label": "Satellite SOS",
+      "value": "Built in on iPhone; not verified through enclosure"
+    }
+  ],
+  "variants": [
+    {
+      "name": "XCiPhone17-A",
+      "description": "ATEX Zone 2 version."
+    },
+    {
+      "name": "XCiPhone17",
+      "description": "Class I Division 2 version for North America, installed by Xciel USA."
+    }
+  ],
+  "unconfirmed": {
+    "certification.atex.marking": "From an Xciel installer's listing; Xciel hasn't published a datasheet yet. Earlier XCiPhone models are rated T4.",
+    "os.securityUntil": "Estimated from Apple's minimum commitment of five years from first sale. Apple usually supports iPhones for longer.",
+    "specs.ram": "Apple doesn't publish RAM. This is the widely reported figure.",
+    "specs.battery": "Apple doesn't publish battery capacity. Figure from regulatory filings and teardowns.",
+    "specs.satellite": "Listed on Apple's tech specs; availability depends on the country."
+  },
+  "features": [
+    "updates-2030"
+  ],
+  "strengths": [
+    "Also certified for Class I Division 2 in North America",
+    "5G connectivity",
+    "Security updates expected until at least September 2030",
+    "A standard Apple iPhone 17 inside, with the same apps and Apple device management as other iPhones"
+  ],
+  "limitations": [
+    "Zone 2 only, so not for Zone 1 areas",
+    "Ex marking not yet confirmed against a published certificate",
+    "Temperature class not confirmed by a certificate we've seen",
+    "No dust zone rating",
+    "ATEX only: no IECEx certificate"
+  ],
+  "bestFor": [
+    "zone-2-phones",
+    "iphone",
+    "5g"
+  ],
+  "alternatives": [
+    "atexxo-zone-2-iphone-15",
+    "xshielder-iphone-16-pro-max",
+    "bartec-sp9ex2"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-12",
+  "sources": [
+    {
+      "label": "Cobic-Ex (reseller): Xciel XCiPhone 17 case only (price, part numbers)",
+      "url": "https://cobic-ex.com/xciphone-17-intrinsically-safe-case-only-for-iphone-17/"
+    },
+    {
+      "label": "Cobic-Ex (Xciel installer): XCiPhone 17 case - Ex ic IIC T6 Gc",
+      "url": "https://cobic-ex.com/xciphone-17-intrinsically-safe-case-only-for-iphone-17/"
+    },
+    {
+      "label": "Apple: iPhone 17 Tech Specs",
+      "url": "https://support.apple.com/en-gb/125089"
+    }
+  ]
+}

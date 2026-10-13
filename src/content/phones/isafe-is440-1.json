@@ -1,0 +1,209 @@
+{
+  "productId": "IS-440.1",
+  "name": "i.safe MOBILE IS440.1",
+  "brand": "i.safe MOBILE",
+  "brandSlug": "isafe",
+  "manufacturer": {
+    "name": "i.safe MOBILE GmbH",
+    "country": "Germany",
+    "website": "https://www.isafe-mobile.com"
+  },
+  "type": "dedicated",
+  "formFactor": "radio",
+  "status": "current",
+  "launchYear": 2023,
+  "summary": "The i.safe MOBILE IS440.1 is an intrinsically safe (Ex ib) 5G push-to-talk radio from i.safe MOBILE, certified for Zone 1/21 under ATEX and IECEx, and for Class I Division 1 in North America. It runs ISM-OS 14, with 5G and a user-replaceable battery.",
+  "certification": {
+    "otherSchemes": [
+      "INMETRO BRA 24.GE0012X Rev. 01 (Brazil)",
+      "KCs 25-KA4BO-0279X / 25-KA4BO-0280X (Korea)",
+      "PCEC CE25.5939X (China)",
+      "TIIS TC23133X (Japan)",
+      "IA MTEx-S/24.0347 X (South Africa)"
+    ],
+    "standards": [],
+    "atex": {
+      "marking": "II 2G Ex ib IIC T4 Gb / II 2D Ex ib IIIC T135°C Db",
+      "number": "EPS 23 ATEX 1 249 X"
+    },
+    "iecex": {
+      "marking": "Ex ib IIC T4 Gb / Ex ib IIIC T135°C Db",
+      "number": "IECEx EPS 23.0069X"
+    },
+    "northAmerica": "Class I, Division 1, Groups ABCD, T4; Class II, Division 1, Groups EFG, 135°C; Class III (QPS Certificate of Compliance LR3081-6R2, 30 Sep 2025; CSA C22.2 No. 60079-0/-11, UL 60079-0/-11)",
+    "division": "Class I Division 1",
+    "zonesGas": [
+      "1",
+      "2"
+    ],
+    "zonesDust": [
+      "21",
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ib)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gb / Db",
+    "ambient": "−20 °C to +55 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "batterySwap": "Outside the hazardous area only",
+    "conditions": "EPS 23 ATEX 1 249 X / IECEx EPS 23.0069X: battery may be charged and replaced outside hazardous areas only; protect from high-energy impacts, excessive UV light and high electrostatic charge processes; USB-C cover must be securely closed in hazardous areas; Ta −20 °C to +55 °C. QPS LR3081-6R2 (North America) adds: recharge only outside hazardous areas using the i.safe PROTECTOR 2.0 USB-C cable; nano-SIM cards meeting Uo 5.88 V, Co 40 µF, Lo 1 µH. Only approved accessories on the 8-pin ISM interface (IS-HS3A.1, IS-HDHS2x.1, IS-PTTB2A.1 with or without IS-HDHS1x.1)."
+  },
+  "os": {
+    "name": "Android",
+    "version": "ISM-OS 14",
+    "securityUntil": "2032-12-31",
+    "updates": "Security updates until December 2032"
+  },
+  "specs": {
+    "display": "2.4-inch Gorilla Glass 3",
+    "resolution": "240 × 320",
+    "chip": "Qualcomm QCM6490",
+    "ram": "4 GB",
+    "frontCamera": "8 MP AF (usable as bodycam)",
+    "battery": "2400 mAh",
+    "network": "5G",
+    "bands": "LTE-FDD B1/2/3/4/5/7/8/12/13/14/17/20/25/26/28/29/30/66/68/71; LTE-TDD B38/39/40/41/42/43/48 (CBRS); 5G NR n1/2/3/5/7/8/12/14/20/25/28/30/38/40/41/48/66/71/77/78/79",
+    "wifi": "Wi-Fi 6",
+    "bluetooth": "Bluetooth 5.2",
+    "nfc": "Yes",
+    "gnss": "GPS, A-GPS, GLONASS, A-GLONASS, BeiDou, Galileo (web page also lists NavIC, QZSS, SBAS)",
+    "sim": "nano-SIM + eSIM",
+    "keys": "Dedicated PTT; programmable red key (SOS/LWP); channel selector; M1/M2 keys",
+    "accessories": "8-pin ISM interface (audio accessories); USB-C; charging contacts",
+    "touch": "Glove + wet",
+    "apps": "App World (curated PTT and MDM apps)",
+    "storage": "64 GB",
+    "replaceableBattery": true,
+    "gloveTouch": true,
+    "pttKey": true,
+    "connectivity": [
+      "5G",
+      "Wi-Fi 6",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 307,
+    "dimensionsMm": "136.6 × 71.5 × 32",
+    "ipRating": "IP68",
+    "ruggedness": "MIL-STD-810H",
+    "operatingTemp": "−20 °C to +55 °C"
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Built in (dedicated PTT key + PoC apps)"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (red key)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app (red key)"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Not available"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in"
+    }
+  ],
+  "variants": [
+    {
+      "name": "IS440.M1",
+      "description": "Mining version, rated for Group I (Ex ia) as well as Zone 1/21 (Ex ib).",
+      "marking": "I M1 Ex ia I Ma",
+      "certificates": "EPS 24 ATEX 1 191 X; IECEx EPS 24.0066X"
+    },
+    {
+      "name": "EdgeOne",
+      "description": "The IS440.1 is also certified under the name EdgeOne, with the same certificates."
+    }
+  ],
+  "unconfirmed": {
+    "os.securityUntil": "i.safe MOBILE states Q4 2032.",
+    "specs.dimensionsMm": "From i.safe MOBILE's datasheet; its web page gives a width of 70 mm."
+  },
+  "features": [
+    "nfc",
+    "sos-key",
+    "programmable-key",
+    "updates-2030",
+    "mining-version"
+  ],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "Also certified for Class I Division 1 in North America",
+    "A mining version (Group I) is also available",
+    "Push-to-talk and SOS keys",
+    "5G connectivity"
+  ],
+  "limitations": [
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "Not certified for Zone 0"
+  ],
+  "bestFor": [
+    "zone-1-phones",
+    "division-1-phones",
+    "push-to-talk",
+    "5g"
+  ],
+  "alternatives": [
+    "ecom-smart-ex-03-dz1",
+    "bartec-sp9ex1",
+    "isafe-is380-1"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "i.safe MOBILE: Datasheet IS440.1 (04.2026) (2026-04)",
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/DOC/PRO/MD/DOC_PRO_MD_i.safe_MOBILE_IS440.1-A4-datasheet-1064MD01__SEN__AWEB__V9.pdf"
+    },
+    {
+      "label": "i.safe MOBILE: Operating Manual IS440.1 (1064MM01REV09) (2026-07-31)",
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/DOC/PRO/MM/DOC_PRO_MM_IS440.1_Operating_Manual_DINA6_1064MM01__SALL__AWEB__V10.pdf"
+    },
+    {
+      "label": "i.safe MOBILE: IS440.1 product page (Approvals and Downloads)",
+      "url": "https://www.isafe-mobile.com/en/products/product-range/zone-1/21/is4401"
+    },
+    {
+      "label": "i.safe MOBILE: News: First 5G radio for safe PoC communication in Ex Zone 1/21 (2023-11-27)",
+      "url": "https://www.isafe-mobile.com/en/company/news/detail/first-5g-radio-for-safe-poc-communication-in-ex-zone-1-21"
+    },
+    {
+      "label": "i.safe MOBILE: Security updates (security patch table) (2026-10-13)",
+      "url": "https://www.isafe-mobile.com/en/support/security-updates"
+    },
+    {
+      "label": "A2S ATEX (reseller): IS440.1 listing",
+      "url": "https://www.a2s-atex.com/en/accueil/1435-is4401-radio-5g-atex-zone-121.html"
+    },
+    {
+      "label": "Peak PTT (US reseller): IS440.1 listing (price, C1D1 claim)",
+      "url": "https://peakptt.com/products/i-safe-mobile-is440-1-intrinsically-safe-c1-d1-5g-radio"
+    },
+    {
+      "label": "i.safe MOBILE (via ManualsLib): IS440.1 operating manual 2024-06-07 - IECEx EPS 23.0069X",
+      "url": "https://www.manualslib.de/manual/1276372/I-Safe-Mobile-Is440-1.html"
+    },
+    {
+      "label": "Nokia DAC: Industrial handhelds overview (IS440.1 NEC500 'work in progress')",
+      "url": "https://dac.nokia.com/nokia-industrial-handhelds-and-nokia-smartphone"
+    },
+    {
+      "label": "Nokia: IS440.x EX-protected (NEC500 work in progress)",
+      "url": "https://dac.nokia.com/portfolio/is440x-ex-protected/"
+    }
+  ]
+}

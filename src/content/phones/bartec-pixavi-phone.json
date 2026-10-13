@@ -1,0 +1,224 @@
+{
+  "productId": "BT-PIXAVI",
+  "name": "BARTEC Pixavi Phone",
+  "brand": "BARTEC",
+  "brandSlug": "bartec",
+  "manufacturer": {
+    "name": "BARTEC GmbH",
+    "country": "Germany",
+    "website": "https://bartec.com"
+  },
+  "type": "dedicated",
+  "formFactor": "smartphone",
+  "status": "discontinued",
+  "statusNote": "Discontinued by BARTEC. The SP9EX1 replaces it.",
+  "successor": "bartec-sp9ex1",
+  "summary": "The BARTEC Pixavi Phone is an intrinsically safe (Ex ib) smartphone from BARTEC, certified for Zone 1/21 under ATEX and IECEx. It runs Android 11, with a user-replaceable battery. It has been discontinued; the BARTEC SP9EX1 replaces it.",
+  "certification": {
+    "otherSchemes": [
+      "INMETRO (Brazil) UL-BR 22.1400X, Ex ib IIC T4 Gb / Ex ib IIIC T135°C Db, valid to 2028-08-30",
+      "KCs (Korea) 21-AV4BO-0271",
+      "South Africa MTEx-S/21.0188 X (expired 2024-05-04)"
+    ],
+    "standards": [],
+    "atex": {
+      "marking": "II 2G Ex ib IIC T4 Gb / II 2D Ex ib IIIC T135°C Db",
+      "number": "CSANe 20ATEX4223X"
+    },
+    "iecex": {
+      "marking": "Ex ib IIC T4 Gb / Ex ib IIIC T135°C Db",
+      "number": "IECEx SIR 20.0036X"
+    },
+    "northAmerica": "NEC 505: Class I, Zone 0, AEx ia IIC T4 Ga (cert. 22CA80042090X); datasheet text also says NEC Class I Div 1; US version 17-S133-1211/11112000 only",
+    "division": "Class I Division 1",
+    "zonesGas": [
+      "1",
+      "2"
+    ],
+    "zonesDust": [
+      "21",
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ib)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gb / Db",
+    "ambient": "−20 °C to +60 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "batterySwap": "Outside the hazardous area only",
+    "conditions": "Specific conditions of use (CSANe 20ATEX4223X / IECEx SIR 20.0036X): USB port only for charging in the non-hazardous area, with BARTEC charger G7-S0Z0-0001 to -0004 or other BARTEC-approved accessories (Um 12 V); ambient temperature during charging 0 to 45 °C; USB data port assessed for Um 12 V (install per IEC/EN 60079-14); avoid drop and impact (aluminium in enclosure); no prolific charge-generating processes; check battery pack surfaces regularly and replace only with type 17-S1Z0-0001; do not remove the battery pack in the hazardous area. Original BARTEC accessories only."
+  },
+  "os": {
+    "name": "Android",
+    "version": "Android 11",
+    "atLaunch": "Android 9"
+  },
+  "specs": {
+    "display": "5.5-inch AMOLED; Gorilla Glass",
+    "resolution": "Full HD",
+    "chip": "Qualcomm Snapdragon 660 (2.2 GHz)",
+    "ram": "4 GB",
+    "camera": "12 MP PDAF",
+    "frontCamera": "8 MP",
+    "video": "4K UHD; 120 fps slow motion",
+    "battery": "3200 mAh",
+    "network": "4G",
+    "wifi": "Wi-Fi 5",
+    "bluetooth": "Bluetooth 5.0",
+    "nfc": "Yes",
+    "gnss": "GPS, Galileo, GLONASS, BeiDou",
+    "sim": "Dual-SIM or Single-SIM + SD",
+    "keys": "1 programmable function key",
+    "accessories": "Magnetic charging connector",
+    "touch": "Glove + stylus",
+    "storage": "64 GB",
+    "replaceableBattery": true,
+    "gloveTouch": true,
+    "pttKey": false,
+    "connectivity": [
+      "4G",
+      "Wi-Fi 5",
+      "NFC"
+    ],
+    "weightG": 293,
+    "dimensionsMm": "164 × 84 × 14.5",
+    "ipRating": "IP68",
+    "operatingTemp": "−20 °C to +60 °C",
+    "partNumbers": "17-S133-1111/11111000 (EU); -1211/11112000 (US); -1111/11113000 (AU); -1111/11114000 (UK)"
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Via app"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Via accessory (Zebra scan module)"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "certification.atex.marking": "As on the certificate. BARTEC's datasheet adds IP68.",
+    "certification.iecex.marking": "As on the certificate. BARTEC's datasheet adds IP68.",
+    "certification.northAmerica": "Only in an older BARTEC datasheet (2023); not in the current datasheet or certificate list.",
+    "certification.division": "Only in an older BARTEC datasheet (2023); not in the current datasheet or certificate list.",
+    "safety.conditions": "The certificate gives a charging range of 0 to +45 °C; BARTEC's datasheet and product page say 0 to +40 °C.",
+    "capabilities.Push-to-talk": "Not confirmed by the maker for this exact model.",
+    "capabilities.Lone worker": "Not confirmed by the maker for this exact model."
+  },
+  "features": [
+    "nfc",
+    "barcode",
+    "programmable-key"
+  ],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "Barcode scan module available as an accessory",
+    "User-replaceable battery",
+    "Among the lightest Zone 1 smartphones we list, at 293 g in use",
+    "Certified for ambient temperatures up to +60 °C"
+  ],
+  "limitations": [
+    "Discontinued; the BARTEC SP9EX1 replaces it",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "4G only, no 5G",
+    "No hardware push-to-talk key",
+    "Not certified for Zone 0"
+  ],
+  "bestFor": [],
+  "alternatives": [
+    "bartec-sp9ex1",
+    "isafe-is530-1",
+    "ecom-smart-ex-03-dz1"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "CSA Group Netherlands B.V. (hosted by BARTEC): EU-Type Examination Certificate CSANe 20ATEX4223X Issue 3 (2025-08-29)",
+      "url": "https://bartec.com/wp-content/uploads/2026/03/CSANe_20ATEX4223X_Iss_3.pdf"
+    },
+    {
+      "label": "IECEx / CSA Group Testing UK: IECEx SIR 20.0036X Issue 2 (2025-08-29)",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/1958663/view"
+    },
+    {
+      "label": "UL do Brasil Certificações (hosted by BARTEC): Certificate of Conformity UL-BR 22.1400X Rev. 0 (2022-08-31)",
+      "url": "https://bartec.com/wp-content/uploads/2026/03/br-ul-br-221400x.pdf"
+    },
+    {
+      "label": "MTEx Laboratories (hosted by BARTEC): Inspection Authority Certificate MTEx-S/21.0188 X (2021-05-04)",
+      "url": "https://bartec.com/wp-content/uploads/2026/03/mtex-s-21-0188-x.pdf"
+    },
+    {
+      "label": "BARTEC: EU Declaration of Conformity 11-S130-7C0001-B (2023-05-08)",
+      "url": "https://bartec.com/wp-content/uploads/2025/12/11-S130-7C0001-B_Pixavi_Thermal-Phone_EU.pdf"
+    },
+    {
+      "label": "BARTEC: UK Declaration of Conformity 11-S130-7CU001 (2023-05-23)",
+      "url": "https://bartec.com/wp-content/uploads/2025/12/11-S130-7CU001_Pixavi_Thermal-Phone_UK.pdf"
+    },
+    {
+      "label": "BARTEC (via Elkome): Pixavi Phone datasheet",
+      "url": "https://shop.elkome.com/en/mwdownloads/download/link/id/4233"
+    },
+    {
+      "label": "BARTEC: Pixavi Phone datasheet REV-A-09-2025 (2025-09)",
+      "url": "https://bartec.com/wp-content/uploads/2025/12/Pixavi_Phone_Datasheet_EN_2025-09.pdf"
+    },
+    {
+      "label": "BARTEC (copy hosted by Levata): Pixavi Phone datasheet REV-A-05-2023 (2023-05)",
+      "url": "https://dl346112f5pwo.cloudfront.net/media/documents/assets/b/e/be9c0798b1c647b18e958d977dcfdcf9.pdf"
+    },
+    {
+      "label": "BARTEC: Pixavi Phone/Cam accessories datasheet REV-A-09-2025 (2025-09)",
+      "url": "https://bartec.com/wp-content/uploads/2025/12/Pixavi_Phone_Cam_Accessories_EN_2025-09.pdf"
+    },
+    {
+      "label": "BARTEC (copy hosted by Levata): Pixavi Phone datasheet 04/2022 (2022-04)",
+      "url": "https://dl346112f5pwo.cloudfront.net/media/documents/assets/1/0/106e467567e9423c982ab914490b7d87.pdf"
+    },
+    {
+      "label": "BARTEC: Pixavi Phone product page",
+      "url": "https://www.bartec.com/products-solutions/product-finder/product-detail/pixavi-phone"
+    },
+    {
+      "label": "Levata (reseller): Pixavi Phone listing (RAM/storage/battery)",
+      "url": "https://www.levata.com/en-gb/bartec-pixavi-handheld-terminals"
+    },
+    {
+      "label": "Able Instruments (reseller): SP9EX1 listing (says it replaces Pixavi Phone and Impact X)",
+      "url": "https://ableinstruments.com/?p=110838"
+    },
+    {
+      "label": "BARTEC (via Elkome): Pixavi Phone datasheet REV-A-05-2023 - IECEx SIR 20.0036X",
+      "url": "https://shop.elkome.com/en/mwdownloads/download/link/id/4233"
+    },
+    {
+      "label": "BARTEC: Pixavi Phone/Cam accessories datasheet 2023-09 - CSANe 20ATEX4223X",
+      "url": "https://bartec.com/fileadmin/Products/Enterprise_Mobility/Smartphones___Cameras/EM-SC-1/450630_ds_PIXAVI-phone-cam-accessories_EN_2023-09.pdf"
+    },
+    {
+      "label": "TEquipment (BARTEC distributor, US): BARTEC discontinued products - Pixavi Phone EU/US",
+      "url": "https://www.tequipment.net/bartec/discontinued-products1/?pg=5"
+    },
+    {
+      "label": "Able Instruments (UK reseller): Pixavi Phone - obsolete, superseded by SP9EX1",
+      "url": "https://ableinstruments.com/?p=77395"
+    }
+  ]
+}

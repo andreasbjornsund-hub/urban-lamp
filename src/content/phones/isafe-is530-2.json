@@ -1,0 +1,195 @@
+{
+  "productId": "IS-530.2",
+  "name": "i.safe MOBILE IS530.2",
+  "brand": "i.safe MOBILE",
+  "brandSlug": "isafe",
+  "manufacturer": {
+    "name": "i.safe MOBILE GmbH",
+    "country": "Germany",
+    "website": "https://www.isafe-mobile.com"
+  },
+  "type": "dedicated",
+  "formFactor": "smartphone",
+  "status": "current",
+  "statusNote": "i.safe MOBILE has moved it to the archive section of its range, but distributors still list it. Check availability before ordering.",
+  "launchYear": 2019,
+  "summary": "The i.safe MOBILE IS530.2 is an intrinsically safe (Ex ic) smartphone from i.safe MOBILE, certified for Zone 2/22 under ATEX and IECEx, and for Class I Division 2 in North America. It runs Android 13, with a user-replaceable battery.",
+  "certification": {
+    "otherSchemes": [
+      "PCEC CE20.2418X",
+      "SANS MTEx-S/22.0568 X"
+    ],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ic IIC T4 Gc IP64 / II 3D Ex ic IIIC T135°C Dc IP64",
+      "number": "EPS 19 ATEX 1 070 X"
+    },
+    "iecex": {
+      "marking": "Ex ic IIC T4 Gc IP64 / Ex ic IIIC T135°C Dc IP64",
+      "number": "IECEx EPS 19.0033X"
+    },
+    "northAmerica": "NEC500 Class I, II, III Div 2, Groups A B C D F G, T4",
+    "division": "Class I Division 2",
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ic)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gc / Dc",
+    "ambient": "−20 °C to +60 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "See IS530.2 safety instructions (not reviewed)"
+  },
+  "os": {
+    "name": "Android",
+    "version": "Android 13",
+    "atLaunch": "Android 10",
+    "upgradeLimit": "Android 13",
+    "enterprise": "Android Enterprise Recommended"
+  },
+  "specs": {
+    "display": "4.5-inch Gorilla Glass 3",
+    "resolution": "FWVGA",
+    "chip": "Qualcomm SDM660",
+    "ram": "4 GB",
+    "camera": "13 MP AF",
+    "frontCamera": "5 MP",
+    "battery": "3600 mAh",
+    "network": "4G",
+    "wifi": "Wi-Fi 5 (802.11ac)",
+    "bluetooth": "Bluetooth 5",
+    "nfc": "Yes",
+    "gnss": "GPS, A-GPS, GLONASS, BeiDou, Galileo",
+    "sim": "Dual micro-SIM",
+    "keys": "Programmable key (PTT option); SOS key",
+    "accessories": "13-pin ISM interface",
+    "storage": "64 GB, microSD up to 128 GB",
+    "replaceableBattery": true,
+    "pttKey": true,
+    "mdm": [
+      "Android Enterprise Recommended"
+    ],
+    "connectivity": [
+      "4G",
+      "Wi-Fi 5",
+      "NFC"
+    ],
+    "weightG": 325,
+    "dimensionsMm": "155 × 80 × 25",
+    "ipRating": "IP68",
+    "exIp": "IP64",
+    "ruggedness": "MIL-STD-810H",
+    "operatingTemp": "−20 °C to +60 °C",
+    "cameraFree": true,
+    "partNumbers": "R. STAHL 305998 (EEA) / 305999 (ROW) / 317278-9 (no camera)"
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Key + third-party app"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (SOS key)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app (SOS key)"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Via accessory (IS-TH1xx.1)"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Via accessory (IS-TC1A.x)"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "os.version": "Resellers list Android 13; i.safe MOBILE's datasheet gives Android 10 at launch.",
+    "specs.sim": "From a single source.",
+    "capabilities.Thermal imaging": "Not confirmed by the maker for this exact model."
+  },
+  "features": [
+    "nfc",
+    "camera-free",
+    "thermal",
+    "barcode",
+    "sos-key",
+    "programmable-key"
+  ],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "Also certified for Class I Division 2 in North America",
+    "Push-to-talk and SOS keys",
+    "Barcode scan module available as an accessory",
+    "User-replaceable battery"
+  ],
+  "limitations": [
+    "May be near the end of its life: check availability before ordering",
+    "Zone 2 only, so not for Zone 1 areas",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "4G only, no 5G",
+    "No published end date for security updates"
+  ],
+  "bestFor": [
+    "zone-2-phones",
+    "push-to-talk"
+  ],
+  "alternatives": [
+    "bartec-sp9ex2",
+    "ecom-smart-ex-203",
+    "atexxo-zone-2-galaxy-s24"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "IECEx (Bureau Veritas Consumer Products Services Germany GmbH): IECEx EPS 19.0033X issue 0 (2019-08-08, Current) - IS530.2 Intrinsically safe and multifunctional industrial smartphone",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/16227/view"
+    },
+    {
+      "label": "i.safe MOBILE: IS530.1 safety instructions 1029MM11 (operating temperature -20 to +60 °C per EN/IEC 60079-0)",
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/DOC/PRO/MM/DOC_PRO_MM_IS530.1_Safety_Instructions_1029MM11__SALL__AWEB__V7.pdf"
+    },
+    {
+      "label": "i.safe MOBILE: Product range 'Archive' (lists IS530.M1, IS530.2, IS530.1, IS360.2, IS330.x, IS655.2)",
+      "url": "https://www.isafe-mobile.com/en/products/product-range/archive/is3301"
+    },
+    {
+      "label": "R. STAHL (distributor): IS530.2 EEA data sheet 305998",
+      "url": "https://r-stahl.com/fileadmin/tx_aimeos/Files/n_/gb/SDS_PV_2244170_en_GB/ex-einzeldatenblatt-smartphone-is530-2-smartphone-set-eea-305998-en-gb-rstahl.pdf"
+    },
+    {
+      "label": "i.safe MOBILE (via tester.co.uk): IS530.2 datasheet 11.2021",
+      "url": "https://www.tester.co.uk/files/get/download/id/112106/exloc-is530.2-atex-certified-android-smartphone-datasheet.pdf"
+    },
+    {
+      "label": "R. STAHL (distributor): IS530.1 ROW data sheet 305995 (2026-04-15)",
+      "url": "https://r-stahl.com/fileadmin/tx_aimeos/Files/n_/gb/SDS_PV_2244167_en_GB/ex-einzeldatenblatt-smartphone-is530-1-smartphone-set-row-305995-en-gb-rstahl.pdf"
+    },
+    {
+      "label": "R. STAHL (distributor): IS530.M1 mining EEA data sheet 307070",
+      "url": "https://r-stahl.com/fileadmin/tx_aimeos/Files/n_/gb/SDS_PV_2276235_en_GB/ex-einzeldatenblatt-smartphone-is530-m1-smartphone-set-mining-eea-307070-en-gb-rstahl.pdf"
+    },
+    {
+      "label": "i.safe MOBILE (via Rockall): IS530.1 datasheet 10.2021",
+      "url": "https://rockallsafety.co.uk/wp-content/uploads/2024/05/DOC_PRO_MD_IS530.1-A5-datasheet-1029MD01__SEN__AWEB__V3.pdf"
+    }
+  ]
+}

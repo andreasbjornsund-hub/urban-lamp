@@ -1,0 +1,122 @@
+{
+  "productId": "IS-541.1",
+  "name": "i.safe MOBILE IS541.1",
+  "brand": "i.safe MOBILE",
+  "brandSlug": "isafe",
+  "manufacturer": {
+    "name": "i.safe MOBILE GmbH",
+    "country": "Germany",
+    "website": "https://www.isafe-mobile.com"
+  },
+  "type": "dedicated",
+  "formFactor": "smartphone",
+  "status": "current",
+  "launchYear": 2026,
+  "summary": "The i.safe MOBILE IS541.1 is an intrinsically safe (Ex ia) smartphone from i.safe MOBILE, certified for Zone 1/21 under ATEX and IECEx. It runs Android 14, with 5G and a user-replaceable battery.",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 2G Ex ia IIC T4 Gb / II 2D Ex ia IIIC T135°C Db",
+      "number": "EPS 25 ATEX 1 256 X"
+    },
+    "iecex": {
+      "marking": "Ex ia IIC T4 Gb / Ex ia IIIC T135°C Db",
+      "number": "IECEx EPS 25.0059X"
+    },
+    "zonesGas": [
+      "1",
+      "2"
+    ],
+    "zonesDust": [
+      "21",
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ia)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gb / Db",
+    "ambient": "−20 °C to +55 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "batterySwap": "Outside the hazardous area only",
+    "conditions": "Battery charged and replaced only outside hazardous areas; USB connection (≤5 V SELV/PELV/ES1, Um ≤ 5.88 V) only outside hazardous areas; protect from high impact energy, UV and high electrostatic charge; USB-C and ISM covers closed in hazardous areas (IECEx EPS 25.0059X)."
+  },
+  "os": {
+    "name": "Android",
+    "version": "Android 14"
+  },
+  "specs": {
+    "display": "6-inch Gorilla Glass",
+    "resolution": "Full HD",
+    "chip": "Qualcomm QCM6490",
+    "battery": "4400 mAh",
+    "network": "5G",
+    "bands": "450 MHz",
+    "accessories": "16-pin ISM interface",
+    "replaceableBattery": true,
+    "connectivity": [
+      "5G"
+    ],
+    "weightG": 435,
+    "dimensionsMm": "180.0 × 84.9 × 20.6"
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Key + app (assumed)"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {},
+  "features": [],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "Supports 450 MHz LTE, used by private utility networks",
+    "5G connectivity",
+    "User-replaceable battery"
+  ],
+  "limitations": [
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "No published end date for security updates",
+    "Not certified for Zone 0"
+  ],
+  "bestFor": [
+    "zone-1-phones",
+    "5g"
+  ],
+  "alternatives": [
+    "ecom-smart-ex-03-dz1",
+    "bartec-sc9ex1",
+    "atexxo-zone-1-iphone-17"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "i.safe MOBILE: IS541.1 EU-type examination certificate EPS 25 ATEX 1 256 X (rev. 1)",
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/DOC/PRO/CER/DOC_PRO_CER_i.safe-25TH0421-Smartphone_IS541.1-EPS_25_ATEX_1_256_X-1-en-signed-scan__SALL__AWEB__V1.pdf"
+    },
+    {
+      "label": "IECEx (Bureau Veritas Consumer Products Services Germany GmbH): IECEx EPS 25.0059X issue 1 (2026-03-02, Current) - IS541.1 intrinsically safe Smartphone",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/2082804/view"
+    },
+    {
+      "label": "i.safe MOBILE: IS541.1 safety instructions 1099MM02 (ATEX EPS 25 ATEX 1 256 X, IECEx EPS 25.0059X, Ta)",
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/DOC/PRO/MM/DOC_PRO_MM_IS541.1_Safety_Instructions_DINA6_1099MM02__SALL__AWEB__V2.pdf"
+    },
+    {
+      "label": "i.safe MOBILE: IS541.1 product page (Android 14, QCM6490, 435.6 g, markings)",
+      "url": "https://www.isafe-mobile.com/en/products/product-range/zone-1/21/is5411"
+    },
+    {
+      "label": "Engineering News: IS541.1 launch article (2026-08-07)",
+      "url": "https://engineeringnews.co.za/article/world-first-explosion-proof-5g-450-mhz-smartphone-2026-08-07"
+    }
+  ]
+}

@@ -1,45 +1,210 @@
 {
+  "productId": "PF-SE03-DZ1",
   "name": "ecom Smart-Ex 03 DZ1",
   "brand": "ecom (Pepperl+Fuchs)",
   "brandSlug": "ecom",
-  "manufacturer": { "name": "ecom instruments (Pepperl+Fuchs)", "country": "Germany", "website": "https://www.ecom-ex.com" },
+  "manufacturer": {
+    "name": "ecom instruments (Pepperl+Fuchs)",
+    "country": "Germany",
+    "website": "https://www.ecom-ex.com"
+  },
   "type": "dedicated",
-  "summary": "A dedicated 5G Android smartphone, intrinsically safe (Ex ib) for Zone 1/21 and Division 1, from one of the longest-established hazardous-area mobile brands.",
+  "formFactor": "smartphone",
+  "status": "current",
+  "launchYear": 2024,
+  "summary": "The ecom Smart-Ex 03 DZ1 is an intrinsically safe (Ex ia) smartphone from ecom (Pepperl+Fuchs), certified for Zone 1/21 under ATEX, IECEx and UKEX, and for Class I Division 1 in North America. It runs Android 15, with 5G and a user-replaceable battery.",
   "image": "../../assets/phones/ecom-smart-ex-03.png",
   "imageAlt": "ecom Smart-Ex 03 DZ1 smartphone",
   "certification": {
-    "atex": { "marking": "II 2G Ex ib IIC T4 Gb" },
-    "iecex": { "marking": "Ex ib IIC T4 Gb" },
-    "zonesGas": ["1", "2"],
-    "zonesDust": ["21", "22"],
-    "division": "Division 1",
-    "protection": "Intrinsic safety (Ex ib)",
+    "otherSchemes": [
+      "INMETRO TÜV 24.0193 X",
+      "KC 24-KA4BO-0673X / 0672X",
+      "IA (South Africa) MASC S/24-8207X",
+      "CML (Japan) CML 24JPN2222X"
+    ],
+    "standards": [],
+    "atex": {
+      "marking": "II 2G Ex ia IIC T4 Gb / II 2D Ex ia IIIC T135°C Db",
+      "number": "EPS 23 ATEX 1 094 X"
+    },
+    "iecex": {
+      "marking": "Ex ia IIC T4 Gb / Ex ia IIIC T135°C Db",
+      "number": "IECEx EPS 23.0021X"
+    },
+    "ukex": "EPS 23 UKEX 1 095 X",
+    "northAmerica": "cMETus (Eurofins MET, E115956): Class I Div 1 Groups A-D T4; Class II Div 1 E-G T4; Class III Div 1; Class I Zone 1 AEx ia IIC T4 Gb; Zone 21 AEx ia IIIC T135°C Db",
+    "division": "Class I Division 1",
+    "zonesGas": [
+      "1",
+      "2"
+    ],
+    "zonesDust": [
+      "21",
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ia)",
     "gasGroup": "IIC",
+    "dustGroup": "IIIC",
     "tempClass": "T4",
-    "epl": "Gb"
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gb / Db",
+    "ambient": "−20 °C to +60 °C"
   },
-  "os": { "name": "Android", "version": "Android 14", "updates": "Security patches until October 2030" },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "batterySwap": "Outside the hazardous area only",
+    "conditions": "Charging, SIM-card and battery-pack replacement only in non-hazardous areas; charge only at 0 to 45 °C; battery cover must be fitted before entering the hazardous area (IECEx EPS 23.0021X)."
+  },
+  "os": {
+    "name": "Android",
+    "version": "Android 15",
+    "atLaunch": "Android 13",
+    "upgradeLimit": "Android 15",
+    "securityUntil": "2032-11-30",
+    "updates": "Security updates until November 2032",
+    "enterprise": "Android Enterprise Recommended"
+  },
   "specs": {
-    "display": "6.0-inch",
-    "connectivity": ["5G", "Wi-Fi 6"],
+    "display": "6-inch Gorilla Glass",
+    "resolution": "1080 × 2160",
+    "chip": "Qualcomm Dragonwing QCM6490",
+    "ram": "8 GB",
+    "camera": "13 MP PDAF, LED flash (optimised for scanning)",
+    "frontCamera": "5 MP",
+    "video": "1080p",
+    "battery": "4400 mAh",
+    "network": "5G",
+    "wifi": "Wi-Fi 6E",
+    "bluetooth": "Bluetooth 5.2",
+    "nfc": "Yes",
+    "gnss": "GPS, GLONASS, Galileo, QZSS, BeiDou",
+    "sim": "nano-SIM + eSIM",
+    "keys": "Programmable PTT, alarm (LWP) and multifunction keys; fingerprint in power key",
+    "accessories": "USB-C; docking charge pads; 3.5 mm audio with PTT accessory support",
+    "biometrics": "Fingerprint (power key)",
+    "touch": "Glove",
+    "apps": "PTT, eSentinel (LWP), eMDM, eBarcode, eDiagnostics, eConfig (2024 datasheet)",
+    "storage": "128 GB",
+    "replaceableBattery": true,
+    "gloveTouch": true,
+    "pttKey": true,
+    "mdm": [
+      "Android Enterprise Recommended"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 6E",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 400,
+    "dimensionsMm": "84 × 172 × 18/25",
     "ipRating": "IP68",
-    "weightG": 390,
-    "weightNote": "Approximate"
+    "ruggedness": "MIL-STD-810H",
+    "operatingTemp": "−20 °C to +60 °C",
+    "cameraFree": true,
+    "partNumbers": "SMART-EX03-DZ1-AIC-C128-000-.. (camera) / -AI-N128 (no camera)"
   },
-  "features": ["updates-2030"],
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Built in (PTT key + preinstalled app)"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (alarm key)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Built in (eSentinel app + LWP key)"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Built in (eBarcode, camera-based)"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in"
+    }
+  ],
+  "variants": [
+    {
+      "name": "Smart-Ex 03 DZ1M",
+      "description": "Mining version, certified for Group I (underground mining) only. It has no gas or dust zone rating.",
+      "certificates": "EPS 23 ATEX 1 100 X; IECEx EPS 23.0023X"
+    }
+  ],
+  "unconfirmed": {},
+  "features": [
+    "nfc",
+    "camera-free",
+    "sos-key",
+    "programmable-key",
+    "updates-2030",
+    "mining-version"
+  ],
   "strengths": [
-    "Widest global service network of the brands compared",
-    "Security patches guaranteed until October 2030",
-    "Certified for Division 1 as well as Zone 1/21",
-    "German Design Award 2024"
+    "ATEX, IECEx and UKEX certified, with published certificate numbers",
+    "Also certified for Class I Division 1 in North America",
+    "A mining version (Group I) is also available",
+    "Push-to-talk and SOS keys",
+    "5G connectivity"
   ],
   "limitations": [
-    "Android updates are controlled by the vendor",
     "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
-    "Not rated for Zone 0"
+    "Not certified for Zone 0"
   ],
-  "bestFor": ["zone-1-phones", "division-1-phones", "5g"],
-  "alternatives": ["isafe-is540-1", "bartec-sp9ex1", "xshielder-iphone-17"],
-  "lastVerified": "2026-09-30",
-  "sources": [{ "label": "ecom Smart-Ex 03 DZ1 product page", "url": "https://www.ecom-ex.com/products/communication/cell-phones/smart-ex-03-dz1/" }]
+  "bestFor": [
+    "zone-1-phones",
+    "division-1-phones",
+    "push-to-talk",
+    "5g"
+  ],
+  "alternatives": [
+    "isafe-is540-1",
+    "bartec-sc9ex1",
+    "xshielder-iphone-17-pro-max"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "Eurofins MET Labs: MET approval letter Smart-Ex 03 DZ1/DZ2 (cert7527)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/cert/cert7527.pdf"
+    },
+    {
+      "label": "MASC (South Africa): IA certificate MASC S/24-8207X Smart-Ex 03 DZ1/DZ2 (cert7419)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/cert/cert7419.pdf"
+    },
+    {
+      "label": "Bureau Veritas / MASC (via P+F): IECEx EPS 23.0021X Issue 1 with conditions of use (2024-02-26)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/cert/cert7419.pdf"
+    },
+    {
+      "label": "Pepperl+Fuchs: UK DoC DOC-7598 Smart-Ex 03 DZ1 (UKEX)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/doc/doc7598.pdf"
+    },
+    {
+      "label": "Pepperl+Fuchs: Smart-Ex 03 DZ1 datasheet 480994_eng (release 2026-09-01)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pds/480994_eng.pdf"
+    },
+    {
+      "label": "Pepperl+Fuchs: Smart-Ex 03 DZ1 datasheet t203555 (DE, release 2024-05-07)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pds/t203555_ger.pdf"
+    },
+    {
+      "label": "Pepperl+Fuchs: Smart-Ex 03 DZ1 product page (rockwell.pepperl-fuchs.com, says Oct 2029)",
+      "url": "https://rockwell.pepperl-fuchs.com/en/p118776"
+    },
+    {
+      "label": "Onedirect UK (reseller): Smart-Ex 03 DZ1 listing (price, Android 15)",
+      "url": "https://www.onedirect.co.uk/product/pepperl-fuchs-smart-ex-03-dz1"
+    },
+    {
+      "label": "Pepperl+Fuchs: Smart-Ex 03 DZ2 datasheet (released 2026-09-01)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pds/480994-100099_eng.pdf"
+    }
+  ]
 }

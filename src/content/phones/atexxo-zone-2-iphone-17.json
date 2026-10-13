@@ -1,0 +1,202 @@
+{
+  "productId": "AX-Z2-IP17",
+  "name": "Atexxo Zone 2 iPhone 17",
+  "brand": "Atexxo",
+  "brandSlug": "atexxo",
+  "manufacturer": {
+    "name": "Atexxo",
+    "country": "Netherlands",
+    "website": "https://atexxo.com"
+  },
+  "type": "conversion",
+  "formFactor": "smartphone",
+  "hostDevice": "Apple iPhone 17",
+  "status": "current",
+  "summary": "The Atexxo Zone 2 iPhone 17 is a standard Apple iPhone 17 converted by Atexxo for hazardous areas, certified for Zone 2/22 under ATEX. It combines increased safety and intrinsic safety (Ex ec ic). The phone runs iOS 27.",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ec ic IIC T4 Gc / II 3D Ex tc IIIB T85°C Dc",
+      "scope": "Unit assessment: each unit is checked by a notified body. No certificate number is published."
+    },
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [
+      "22"
+    ],
+    "protection": "Increased safety and intrinsic safety (Ex ec ic)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIB",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "85 °C",
+    "epl": "Gc / Dc"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "Charge in safe area (wired USB-C or wireless). Each unit spark-tested for intrinsically safe circuits (according to the maker's flyer)."
+  },
+  "os": {
+    "name": "iOS",
+    "version": "iOS 27",
+    "atLaunch": "iOS 26",
+    "securityUntil": "2030-09-19",
+    "updates": "Security updates until September 2030",
+    "enterprise": "Apple Business Manager (ADE)"
+  },
+  "specs": {
+    "display": "6.3-inch OLED; ProMotion; Always-On; Ceramic Shield 2",
+    "resolution": "2622 × 1206",
+    "refreshRate": "Up to 120 Hz",
+    "brightness": "3,000 nits peak (outdoor)",
+    "chip": "Apple A19",
+    "ram": "8 GB",
+    "camera": "48 MP Fusion main + 48 MP Fusion ultra wide (2x optical-quality)",
+    "frontCamera": "18 MP Center Stage",
+    "video": "4K60 Dolby Vision; spatial video",
+    "battery": "3692 mAh",
+    "batteryLife": "Up to 30 hours of video playback",
+    "port": "USB-C (USB 2)",
+    "wirelessCharging": "MagSafe up to 25 W; Qi2",
+    "network": "5G",
+    "wifi": "Wi-Fi 7 (Apple N1)",
+    "bluetooth": "Bluetooth 6",
+    "nfc": "Yes (Apple Pay + Core NFC tag reading)",
+    "gnss": "GPS, GLONASS, Galileo, QZSS, BeiDou, NavIC",
+    "sim": "nano-SIM + eSIM (eSIM-only in US)",
+    "keys": "Action Button; Camera Control; side; volume",
+    "accessories": "USB-C",
+    "biometrics": "Face ID",
+    "satellite": "Emergency SOS + Roadside Assistance via satellite (region-dependent)",
+    "uwb": "Yes (2nd gen)",
+    "touch": "Standard capacitive",
+    "apps": "Apple apps; App Store",
+    "storage": "256 GB / 512 GB",
+    "replaceableBattery": false,
+    "gloveTouch": false,
+    "pttKey": false,
+    "mdm": [
+      "Apple Business Manager (ADE)"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 7",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 285,
+    "weightNote": "Including the phone",
+    "dimensionsMm": "90 × 168 × 15",
+    "cameraFree": false,
+    "partNumbers": "MOB-EX-IPH series"
+  },
+  "throughCase": [
+    {
+      "label": "Face ID / fingerprint",
+      "value": "Likely (stated for iPhone 14 Zone 2)"
+    },
+    {
+      "label": "NFC",
+      "value": "Yes"
+    },
+    {
+      "label": "Wireless charging",
+      "value": "Yes (safe area only)"
+    },
+    {
+      "label": "USB-C / Lightning port",
+      "value": "Wired charging via housing (USB-C; Lightning on iPhone 14 models)"
+    },
+    {
+      "label": "SIM card",
+      "value": "Self SIM installation or eSIM"
+    }
+  ],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Via app (Push to Talk framework); Action Button mappable if accessible"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (iOS Emergency SOS)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Built in (QR via Camera) / Via app (1D/2D)"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in (Core NFC)"
+    },
+    {
+      "label": "3D scanning",
+      "value": "Via app (camera photogrammetry)"
+    },
+    {
+      "label": "Satellite SOS",
+      "value": "Built in on iPhone; not verified through enclosure"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "os.securityUntil": "Estimated from Apple's minimum commitment of five years from first sale. Apple usually supports iPhones for longer.",
+    "specs.ram": "Apple doesn't publish RAM. This is the widely reported figure.",
+    "specs.battery": "Apple doesn't publish battery capacity. Figure from regulatory filings and teardowns.",
+    "specs.satellite": "Listed on Apple's tech specs; availability depends on the country."
+  },
+  "features": [
+    "nfc",
+    "wireless-charging",
+    "updates-2030"
+  ],
+  "strengths": [
+    "5G connectivity",
+    "Security updates expected until at least September 2030",
+    "A standard Apple iPhone 17 inside, with the same apps and Apple device management as other iPhones",
+    "Among the lightest Zone 2 smartphones we list, at 285 g in use"
+  ],
+  "limitations": [
+    "Zone 2 only, so not for Zone 1 areas",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "Dust group IIIB: not rated for conductive dust",
+    "Certified by ATEX unit assessment; no certificate number is published",
+    "ATEX only: no IECEx certificate"
+  ],
+  "bestFor": [
+    "zone-2-phones",
+    "iphone",
+    "5g"
+  ],
+  "alternatives": [
+    "xciel-xciphone-14",
+    "xshielder-iphone-17",
+    "isafe-is880-2"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "Atexxo (via DirectIndustry): iPhone 17 Zone 2 flyer and MOB-EX-IPH-17 listing",
+      "url": "https://www.directindustry.com/prod/atexxo-bv/product-160752-2831890.html"
+    },
+    {
+      "label": "Atexxo (via DirectIndustry): iPhone 17 Zone 2 flyer (T85°C)",
+      "url": "https://pdf.directindustry.com/pdf/atexxo-bv/product-flyer-explosion-proof-iphone-17-ex-zone-2/160752-1150463.html"
+    },
+    {
+      "label": "Apple: iPhone 17 Tech Specs",
+      "url": "https://support.apple.com/en-gb/125089"
+    }
+  ]
+}

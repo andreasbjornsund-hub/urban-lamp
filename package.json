@@ -12,7 +12,8 @@
     "legacy:chrome": "python3 scripts/build_chrome.py",
     "legacy:links": "cd public && python3 ../scripts/hag_link_policy.py intrinsicallysafephones.com",
     "legacy:css": "bash scripts/build-css.sh",
-    "og:image": "bash scripts/build-og-image.sh"
+    "og:image": "bash scripts/build-og-image.sh",
+    "phones:import": "python3 scripts/import_phones.py"
   },
   "dependencies": {
     "astro": "7.3.8"

@@ -1,0 +1,225 @@
+{
+  "productId": "AX-Z2-S26",
+  "name": "Atexxo Zone 2 Galaxy S26",
+  "brand": "Atexxo",
+  "brandSlug": "atexxo",
+  "manufacturer": {
+    "name": "Atexxo",
+    "country": "Netherlands",
+    "website": "https://atexxo.com"
+  },
+  "type": "conversion",
+  "formFactor": "smartphone",
+  "hostDevice": "Samsung Galaxy S26",
+  "status": "current",
+  "summary": "The Atexxo Zone 2 Galaxy S26 is a standard Samsung Galaxy S26 converted by Atexxo for hazardous areas, certified for Zone 2/22 under ATEX. It combines increased safety and intrinsic safety (Ex ec ic). The phone runs Android 16 / One UI 8.x or later.",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ec ic IIC T4 Gc / II 3D Ex tc IIIB T85°C Dc",
+      "scope": "Unit assessment: each unit is checked by a notified body. No certificate number is published."
+    },
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [
+      "22"
+    ],
+    "protection": "Increased safety and intrinsic safety (Ex ec ic)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIB",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "85 °C",
+    "epl": "Gc / Dc"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "Charge in safe area. Each unit spark-tested for intrinsically safe circuits (per Atexxo)."
+  },
+  "os": {
+    "name": "Android",
+    "version": "Android 16 / One UI 8.x or later",
+    "atLaunch": "Android 16 (One UI 8.5)",
+    "upgradeLimit": "7 OS upgrades",
+    "securityUntil": "2033-03-11",
+    "updates": "Security updates until March 2033",
+    "enterprise": "Samsung Knox"
+  },
+  "specs": {
+    "display": "6.3-inch Dynamic LTPO AMOLED 2X; Gorilla Glass Victus 2 (front and back)",
+    "resolution": "2340 × 1080",
+    "refreshRate": "Up to 120 Hz",
+    "brightness": "2,600 nits peak",
+    "chip": "Exynos 2600 (UK/EU and most markets) / Snapdragon 8 Elite Gen 5 for Galaxy (US, Canada, China, Japan)",
+    "ram": "12 GB",
+    "camera": "50 MP main + 12 MP ultra wide + 10 MP 3x telephoto",
+    "frontCamera": "12 MP AF",
+    "video": "8K30; 4K60",
+    "battery": "4300 mAh",
+    "batteryLife": "Up to 30 hours of video playback",
+    "port": "USB-C (USB 3.2 Gen 1)",
+    "wirelessCharging": "15 W",
+    "network": "5G",
+    "wifi": "Wi-Fi 7",
+    "bluetooth": "Bluetooth 5.4",
+    "nfc": "Yes",
+    "gnss": "GPS, GLONASS, BeiDou, Galileo, QZSS",
+    "sim": "nano-SIM + eSIM",
+    "keys": "Side key; volume",
+    "accessories": "USB-C",
+    "biometrics": "Ultrasonic in-display fingerprint",
+    "satellite": "Carrier-dependent (US: Verizon, T-Mobile; UK: Virgin Media O2)",
+    "uwb": "No (not listed by Samsung)",
+    "apps": "Samsung Knox; Google Play",
+    "storage": "256 GB / 512 GB",
+    "replaceableBattery": false,
+    "pttKey": false,
+    "mdm": [
+      "Samsung Knox"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 7",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 335,
+    "weightNote": "Including the phone",
+    "dimensionsMm": "90 × 175 × 13",
+    "cameraFree": false,
+    "partNumbers": "MOB-EX-SAM-S26 series"
+  },
+  "throughCase": [
+    {
+      "label": "Rear cameras",
+      "value": "Camera use promoted by Atexxo"
+    },
+    {
+      "label": "Wireless charging",
+      "value": "Yes (stated; safe area only)"
+    },
+    {
+      "label": "USB-C / Lightning port",
+      "value": "USB-C"
+    },
+    {
+      "label": "SIM card",
+      "value": "Self SIM installation"
+    }
+  ],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Via app (side key remap); key access through housing not stated"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (Samsung Emergency SOS)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Via app (camera)"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in on phone; not verified through housing"
+    },
+    {
+      "label": "3D scanning",
+      "value": "Via app (camera photogrammetry)"
+    },
+    {
+      "label": "Satellite SOS",
+      "value": "Carrier-dependent on the phone (US, UK O2); not verified through housing"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "os.version": "Current One UI version not confirmed.",
+    "os.securityUntil": "Estimated from Samsung's commitment of seven years of security updates from launch.",
+    "throughCase.Rear cameras": "Inferred from related information; not stated by the maker for this exact model."
+  },
+  "features": [
+    "wireless-charging",
+    "updates-2030"
+  ],
+  "strengths": [
+    "5G connectivity",
+    "Security updates expected until at least March 2033",
+    "A standard Samsung Galaxy S26 inside, with Samsung Knox device management"
+  ],
+  "limitations": [
+    "Zone 2 only, so not for Zone 1 areas",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "Dust group IIIB: not rated for conductive dust",
+    "Certified by ATEX unit assessment; no certificate number is published",
+    "ATEX only: no IECEx certificate"
+  ],
+  "bestFor": [
+    "zone-2-phones",
+    "5g"
+  ],
+  "alternatives": [
+    "isafe-is530-2",
+    "bartec-sp9ex2",
+    "ecom-smart-ex-203"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "Atexxo: Galaxy S26 Ex Zone 2 product page (marking, 335 g, 90 x 175 x 13 mm)",
+      "url": "https://atexxo.com/product/explosion-proof-samsung-galaxy-s26-ex-zone-2/"
+    },
+    {
+      "label": "Samsung: Galaxy S26 specifications (Samsung UK)",
+      "url": "https://www.samsung.com/uk/smartphones/galaxy-s26/specs/"
+    },
+    {
+      "label": "Atexxo (via DirectIndustry): Galaxy S26 Zone 2 flyer",
+      "url": "https://pdf.directindustry.com/pdf/atexxo-bv/product-flyer-explosion-proof-samsung-galaxy-s26-ex-zone-2/160752-1150462.html"
+    },
+    {
+      "label": "Rockall Safety (reseller): Atexxo Zone 2 Galaxy S26 (dimensions, weight)",
+      "url": "https://www.rockallsafety.co.uk/product/zone-2-atex-samsung-galaxy-s26/"
+    },
+    {
+      "label": "PinoyTechnoGuide: Galaxy S26 full specs",
+      "url": "https://www.pinoytechnoguide.com/smartphones/samsung-galaxy-s26"
+    },
+    {
+      "label": "MobileMasr / GSMArena: Galaxy S26 review (chipset by region, availability)",
+      "url": "https://mobilemasr.com/en/blogs/samsung-galaxy-s26-review"
+    },
+    {
+      "label": "iFixit wiki mirror: Galaxy S26 technical specifications",
+      "url": "https://wikipedia.jakami.de/content/ifixit_de_all_2026-03/Device/Samsung_Galaxy_S26"
+    },
+    {
+      "label": "Google Fi (carrier): Galaxy S26 spec sheet",
+      "url": "https://fi.google.com/about/phones/samsung-galaxy-s26-specs?hl=pl"
+    },
+    {
+      "label": "GSMArena: Galaxy S26 specifications",
+      "url": "https://m.gsmarena.com/_galaxy_s26_5g-14456.php"
+    },
+    {
+      "label": "Samsung Newsroom: Satellite communication on Galaxy smartphones (27 Feb 2026)",
+      "url": "https://news.samsung.com/global/samsung-brings-satellite-communication-support-to-galaxy-smartphones-across-the-globe"
+    },
+    {
+      "label": "Stuff: Galaxy S26 satellite: UK Virgin Media O2 supports S25 and S26",
+      "url": "https://www.stuff.tv/?p=986758"
+    }
+  ]
+}

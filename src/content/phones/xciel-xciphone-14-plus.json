@@ -1,0 +1,169 @@
+{
+  "productId": "XC-Z2-IP14PL",
+  "name": "Xciel XCiPhone 14 Plus",
+  "brand": "Xciel",
+  "brandSlug": "xciel",
+  "manufacturer": {
+    "name": "Xciel Inc",
+    "country": "USA",
+    "website": "https://www.xciel.com"
+  },
+  "type": "ex-case",
+  "formFactor": "smartphone",
+  "hostDevice": "Apple iPhone 14 Plus",
+  "status": "current",
+  "statusNote": "Xciel publishes a datasheet, but we found no reseller listing. Check availability with Xciel.",
+  "summary": "The Xciel XCiPhone 14 Plus is an intrinsically safe (Ex ic) case for the Apple iPhone 14 Plus, rated for Zone 2 under ATEX, and for Class I Division 2 in North America. The phone inside is a standard Apple iPhone 14 Plus running iOS 27, so it works with the same apps and device management as other iPhones.",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ic IIC T4 Gc"
+    },
+    "northAmerica": "Class I Division 2, Groups A, B, C, D",
+    "division": "Class I Division 2",
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [],
+    "protection": "Intrinsic safety (Ex ic)",
+    "gasGroup": "IIC",
+    "epl": "Gc",
+    "ambient": "−20 °C to +50 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "As XCiPhone range (assumed)."
+  },
+  "os": {
+    "name": "iOS",
+    "version": "iOS 27",
+    "atLaunch": "iOS 16",
+    "enterprise": "Apple Business Manager (ADE)"
+  },
+  "specs": {
+    "display": "6.7-inch OLED Super Retina XDR; Ceramic Shield",
+    "resolution": "2778 × 1284",
+    "refreshRate": "60 Hz",
+    "brightness": "1,200 nits peak (HDR)",
+    "chip": "Apple A15 Bionic (5-core GPU)",
+    "ram": "6 GB",
+    "camera": "12 MP main + 12 MP ultra wide",
+    "frontCamera": "12 MP TrueDepth AF",
+    "video": "4K60; Action mode",
+    "battery": "4325 mAh",
+    "batteryLife": "Up to 26 hours of video playback",
+    "port": "Lightning (USB 2)",
+    "wirelessCharging": "MagSafe 15 W; Qi",
+    "network": "5G",
+    "wifi": "Wi-Fi 6",
+    "bluetooth": "Bluetooth 5.3",
+    "nfc": "Yes (Apple Pay + Core NFC tag reading)",
+    "gnss": "GPS, GLONASS, Galileo, QZSS, BeiDou",
+    "sim": "nano-SIM + eSIM (eSIM-only in US)",
+    "keys": "Side, volume, Ring/Silent switch",
+    "accessories": "Lightning",
+    "biometrics": "Face ID",
+    "satellite": "Emergency SOS + Roadside Assistance via satellite (region-dependent)",
+    "uwb": "Yes (U1)",
+    "touch": "Standard capacitive",
+    "apps": "Apple apps; App Store",
+    "storage": "128 GB / 256 GB / 512 GB",
+    "replaceableBattery": false,
+    "gloveTouch": false,
+    "pttKey": false,
+    "mdm": [
+      "Apple Business Manager (ADE)"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 6",
+      "NFC",
+      "eSIM"
+    ],
+    "dimensionsMm": "170 × 86 × 12.7",
+    "cameraFree": false
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Via app (Push to Talk framework)"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (iOS Emergency SOS)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Built in (QR via Camera) / Via app (1D/2D)"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in (Core NFC); through-case use not stated"
+    },
+    {
+      "label": "3D scanning",
+      "value": "Via app (camera photogrammetry)"
+    },
+    {
+      "label": "Satellite SOS",
+      "value": "Built in on iPhone; not verified through enclosure"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "certification.atex.marking": "From Xciel's datasheet, which doesn't print the ATEX category or a certificate number.",
+    "specs.ram": "Apple doesn't publish RAM. This is the widely reported figure.",
+    "specs.battery": "Apple doesn't publish battery capacity. Figure from regulatory filings and teardowns.",
+    "specs.satellite": "Listed on Apple's tech specs; availability depends on the country."
+  },
+  "features": [],
+  "strengths": [
+    "Also certified for Class I Division 2 in North America",
+    "5G connectivity",
+    "A standard Apple iPhone 14 Plus inside, with the same apps and Apple device management as other iPhones"
+  ],
+  "limitations": [
+    "May be near the end of its life: check availability before ordering",
+    "Zone 2 only, so not for Zone 1 areas",
+    "Ex marking not yet confirmed against a published certificate",
+    "Temperature class not confirmed by a certificate we've seen",
+    "No dust zone rating"
+  ],
+  "bestFor": [
+    "zone-2-phones",
+    "iphone",
+    "5g"
+  ],
+  "alternatives": [
+    "atexxo-zone-2-iphone-15",
+    "xshielder-iphone-16-pro-max",
+    "bartec-sp9ex2"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "Xciel: XCiPhone 14 Plus datasheet (01/2023)",
+      "url": "https://cdn.hibuwebsites.com/5a8aca1a55574b489d306f762b121113/files/uploaded/XCiPhone%2014%20Plus%20Data%20Sheet%20013123.pdf"
+    },
+    {
+      "label": "Apple: iPhone 14 Plus - Technical Specifications (Apple Support, UK)",
+      "url": "https://support.apple.com/en-gb/111854"
+    },
+    {
+      "label": "Apple: iPhone 14 / 14 Plus technical specifications (UK)",
+      "url": "https://apple.com/uk/iphone-14/specs"
+    }
+  ]
+}

@@ -1,55 +1,314 @@
 {
+  "productId": "XS-IP17",
   "name": "Xshielder iPhone 17",
   "brand": "Xshielder",
   "brandSlug": "xshielder",
-  "manufacturer": { "name": "Xshielder AS", "country": "Norway", "website": "https://xshielder.com" },
+  "manufacturer": {
+    "name": "Xshielder AS",
+    "country": "Norway",
+    "website": "https://xshielder.com"
+  },
   "type": "ex-case",
-  "hostDevice": "Apple iPhone 17 (A3520)",
-  "summary": "A flameproof (Ex db) cover that makes a standard Apple iPhone 17 ATEX and IECEx certified for Zone 1 and 21. At 330 g and 16.1 mm in total, Xshielder describes it as the lightest and thinnest Zone 1 smartphone solution on the market.",
+  "formFactor": "smartphone",
+  "hostDevice": "Apple iPhone 17",
+  "status": "current",
+  "launchYear": 2026,
+  "summary": "The Xshielder iPhone 17 is a flameproof (Ex db) case for the Apple iPhone 17, certified for Zone 1/21 under ATEX and IECEx. The phone inside is a standard Apple iPhone 17 running iOS 27, so it works with the same apps and device management as other iPhones.",
   "image": "../../assets/phones/xshielder-iphone-17.png",
   "imageAlt": "Apple iPhone 17 inside the Xshielder Ex case",
   "certification": {
-    "atex": { "marking": "II 2G Ex db IIC T6 Gb / II 2D Ex tb IIIC T80°C Db" },
-    "iecex": { "marking": "Ex db IIC T6 Gb / Ex tb IIIC T80°C Db" },
-    "zonesGas": ["1", "2"],
-    "zonesDust": ["21", "22"],
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 2G Ex db IIC T6 Gb / II 2D Ex tb IIIC T80°C Db",
+      "number": "FIDI 26 ATEX 0025X"
+    },
+    "iecex": {
+      "marking": "Ex db IIC T6 Gb / Ex tb IIIC T80°C Db",
+      "number": "IECEx FIDI 26.0019X",
+      "scope": "S02 cemented variant only"
+    },
+    "zonesGas": [
+      "1",
+      "2"
+    ],
+    "zonesDust": [
+      "21",
+      "22"
+    ],
     "protection": "Flameproof enclosure (Ex db)",
     "gasGroup": "IIC",
+    "dustGroup": "IIIC",
     "tempClass": "T6",
+    "maxSurfaceTemp": "80 °C",
     "epl": "Gb / Db",
-    "ambient": "−20 °C to +50 °C",
-    "standards": ["EN IEC 60079-0:2018", "EN 60079-1:2014", "EN 60079-31:2014", "IEC 60079-0:2017", "IEC 60079-1:2014", "IEC 60079-31:2013"]
+    "ambient": "−20 °C to +50 °C"
   },
-  "os": { "name": "iOS", "version": "iOS 27", "updates": "Apple-controlled" },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "Flameproof Ex db enclosure (dust: Ex tb). Specific conditions of use (FIDI 26 ATEX 0025X / IECEx FIDI 26.0019X): no repair of flameproof joints; fasteners only replaced with identical ones (min. tensile strength 500 MPa); tested for low impact energy, do not expose to high impact risk; enclosure must not be opened in hazardous area; S02 (cemented lid) must not be opened by the user; battery charging only outside hazardous area. Either variant may only be opened by Xshielder-authorised personnel. USB-C port not accessible: charge wirelessly (MagSafe) outside the hazardous area."
+  },
+  "os": {
+    "name": "iOS",
+    "version": "iOS 27",
+    "atLaunch": "iOS 26",
+    "securityUntil": "2030-09-19",
+    "updates": "Security updates until September 2030",
+    "enterprise": "Apple Business Manager (ADE)"
+  },
   "specs": {
-    "display": "6.3-inch Super Retina XDR OLED",
+    "display": "6.3-inch OLED; ProMotion; Always-On; Ceramic Shield 2",
+    "resolution": "2622 × 1206",
+    "refreshRate": "Up to 120 Hz",
+    "brightness": "3,000 nits peak (outdoor)",
     "chip": "Apple A19",
-    "battery": "3,692 mAh",
-    "charging": "Wireless, up to 25 W",
-    "camera": "48 MP Dual Fusion",
-    "connectivity": ["eSIM (physical SIM installable by Xshielder)"],
-    "storage": "256 GB or 512 GB",
+    "ram": "8 GB",
+    "camera": "48 MP Fusion main + 48 MP Fusion ultra wide (2x optical-quality)",
+    "frontCamera": "18 MP Center Stage",
+    "video": "4K60 Dolby Vision; spatial video",
+    "battery": "3692 mAh",
+    "batteryLife": "Up to 30 hours of video playback",
+    "port": "USB-C (USB 2)",
+    "wirelessCharging": "MagSafe up to 25 W; Qi2",
+    "network": "5G",
+    "wifi": "Wi-Fi 7 (Apple N1)",
+    "bluetooth": "Bluetooth 6",
+    "nfc": "Yes (Apple Pay + Core NFC tag reading)",
+    "gnss": "GPS, GLONASS, Galileo, QZSS, BeiDou, NavIC",
+    "sim": "nano-SIM + eSIM (eSIM-only in US)",
+    "keys": "Action Button; Camera Control; side; volume",
+    "accessories": "USB-C",
+    "biometrics": "Face ID",
+    "satellite": "Emergency SOS + Roadside Assistance via satellite (region-dependent)",
+    "uwb": "Yes (2nd gen)",
+    "touch": "Standard capacitive",
+    "apps": "Apple apps; App Store",
+    "storage": "256 GB / 512 GB",
+    "replaceableBattery": false,
+    "gloveTouch": false,
+    "pttKey": false,
+    "mdm": [
+      "Apple Business Manager (ADE)"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 7",
+      "NFC",
+      "eSIM"
+    ],
     "weightG": 330,
-    "weightNote": "Total, iPhone in case",
+    "weightNote": "Including the phone",
     "dimensionsMm": "170.5 × 83.3 × 16.1",
-    "mdm": ["Apple Business Manager", "Jamf", "Microsoft Intune"]
+    "ipRating": "IP6X (dust-tight; no water rating stated)",
+    "exIp": "IP6x",
+    "cameraFree": false
   },
-  "features": ["tripod-mount", "lanyard"],
+  "throughCase": [
+    {
+      "label": "Face ID / fingerprint",
+      "value": "Yes"
+    },
+    {
+      "label": "Action Button / programmable key",
+      "value": "Yes (programmable key on cover)"
+    },
+    {
+      "label": "Camera Control",
+      "value": "No (no dedicated Camera Control button on any Xshielder cover; Action button can open camera)"
+    },
+    {
+      "label": "Side and volume buttons",
+      "value": "Power and volume keys on cover"
+    },
+    {
+      "label": "Rear cameras",
+      "value": "Yes: 48 MP Dual Fusion"
+    },
+    {
+      "label": "Front camera",
+      "value": "Yes: 18MP Center Stage front camera with Face ID"
+    },
+    {
+      "label": "Touchscreen",
+      "value": "Usable through Gorilla Glass; keyboard haptics recommended"
+    },
+    {
+      "label": "Screen cover",
+      "value": "Gorilla Glass display window"
+    },
+    {
+      "label": "Wireless charging",
+      "value": "Yes: up to 25 W (outside Ex area only)"
+    },
+    {
+      "label": "MagSafe accessories",
+      "value": "Yes: designed for the Apple MagSafe charger through the rear glass window (charging outside Ex area only); MagSafe accessories not stated"
+    },
+    {
+      "label": "Speaker and microphone",
+      "value": "All 4 microphones and 2 speakers usable; output reduced vs bare iPhone (Voice Isolation or Ex Bluetooth headset recommended)"
+    },
+    {
+      "label": "Headset audio",
+      "value": "Bluetooth only (USB-C not accessible; Ex-certified Bluetooth headset recommended)"
+    },
+    {
+      "label": "USB-C / Lightning port",
+      "value": "Not accessible (charging and data wireless only)"
+    },
+    {
+      "label": "SIM card",
+      "value": "eSIM; physical SIM can be installed by Xshielder on request"
+    }
+  ],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Via app (Push to Talk framework); Action Button (programmable key on cover) mappable"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (iOS Emergency SOS)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Built in (QR via Camera) / Via app (1D/2D)"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in (Core NFC); not verified through metal enclosure"
+    },
+    {
+      "label": "3D scanning",
+      "value": "Via app (camera photogrammetry)"
+    },
+    {
+      "label": "Satellite SOS",
+      "value": "Built in on iPhone; not verified through enclosure"
+    }
+  ],
+  "variants": [
+    {
+      "name": "S01",
+      "description": "ATEX certified.",
+      "partNumber": "XS1-SP-G02-C01-S01"
+    },
+    {
+      "name": "S02",
+      "description": "Cemented lid. ATEX and IECEx certified.",
+      "partNumber": "XS1-SP-G02-C01-S02"
+    }
+  ],
+  "unconfirmed": {
+    "os.securityUntil": "Estimated from Apple's minimum commitment of five years from first sale. Apple usually supports iPhones for longer.",
+    "specs.ram": "Apple doesn't publish RAM. This is the widely reported figure.",
+    "specs.battery": "Apple doesn't publish battery capacity. Figure from regulatory filings and teardowns.",
+    "specs.satellite": "Listed on Apple's tech specs; availability depends on the country.",
+    "specs.ipRating": "The Ex certificate gives IP6X (dust-tight) only. We found no Xshielder document that states a water rating."
+  },
+  "features": [
+    "camera-48mp",
+    "programmable-key",
+    "tripod-mount",
+    "lanyard",
+    "wireless-charging",
+    "updates-2030"
+  ],
   "strengths": [
-    "Lightest and thinnest Zone 1 smartphone solution, according to Xshielder: 330 g and 16.1 mm",
+    "ATEX and IECEx certified, with published certificate numbers",
     "T6 temperature class, the strictest rating",
-    "A standard iPhone on iOS 27, so it fits an existing iPhone fleet, apps and MDM",
-    "Certified for gas and dust (Zone 1/21)"
+    "5G connectivity",
+    "Security updates expected until at least September 2030",
+    "A standard Apple iPhone 17 inside, with the same apps and Apple device management as other iPhones"
   ],
   "limitations": [
-    "The cover can only be opened by Xshielder-authorised personnel",
-    "Not rated for Zone 0",
-    "Ambient temperature rating of −20 °C to +50 °C",
-    "No hardware push-to-talk key"
+    "IECEx covers the S02 (cemented lid) version only",
+    "Only authorised personnel may open the case",
+    "No hardware push-to-talk key",
+    "NFC and satellite SOS not confirmed to work through the enclosure",
+    "Not certified for Zone 0"
   ],
-  "bestFor": ["iphone", "lightest", "zone-1-phones"],
-  "alternatives": ["xshielder-iphone-17-pro-max", "xciel-ex-case-iphone", "ecom-smart-ex-03-dz1"],
+  "bestFor": [
+    "zone-1-phones",
+    "iphone",
+    "5g"
+  ],
+  "alternatives": [
+    "xciel-xcz1-iphone-14",
+    "atexxo-zone-1-iphone-17",
+    "isafe-is530-1"
+  ],
   "sponsor": true,
-  "lastVerified": "2026-09-30",
-  "sources": [{ "label": "Xshielder ATEX iPhone product page", "url": "https://xshielder.com/products/smartphones/atex-iphone" }]
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "Fiditas Ltd, published by Xshielder: EU-Type Examination Certificate FIDI 26 ATEX 0025X issue 0 (2026-06-30)",
+      "url": "https://xshielder.com/hubfs/FIDI%2026%20ATEX%200025X%20Smartphone%20Xshieleder%20XS1-SP-G02%20sign.pdf"
+    },
+    {
+      "label": "Fiditas Ltd, published by Xshielder: IECEx FIDI 26.0019X issue 0 (2026-06-30)",
+      "url": "https://xshielder.com/hubfs/IECEx_FIDI_26.0019_signed.pdf"
+    },
+    {
+      "label": "IECEx: IECEx certificate search 'Xshielder' (4 current equipment certificates) (2026-10-13)",
+      "url": "https://www.iecex-certs.com/#/search"
+    },
+    {
+      "label": "H.M. Albretsen Verktøysikring AS, published by Xshielder: NS 9611 certificate HMAV-NS9611-0109-1 (2026-03-26)",
+      "url": "https://xshielder.com/hubfs/XS1-SP-G02-C01-S0%20HMAV-NS9611-0109-1%20CERTIFICATION.pdf"
+    },
+    {
+      "label": "Xshielder AS: EU DoC DOC-000032-Rev1 (Xshielder iPhone 17)",
+      "url": "https://xshielder.com/hubfs/EU%20DOC_Smartphone_A17_DOC-000032-Rev1.pdf"
+    },
+    {
+      "label": "Xshielder AS: Datasheet Xshielder iPhone 17 A17-000016-4",
+      "url": "https://xshielder.com/hubfs/Datasheet_Xshielder_A17_000016_4-1.pdf"
+    },
+    {
+      "label": "Xshielder AS: Quick Start Guide iPhone 17 DOC-000051 rev A (2026-05-22)",
+      "url": "https://xshielder.com/hubfs/DOC-000051_A17BM_Quick_Guide_A.pdf"
+    },
+    {
+      "label": "Xshielder AS: Downloads page (iPhone 17 section) (2026-10-13)",
+      "url": "https://xshielder.com/downloads"
+    },
+    {
+      "label": "Xshielder AS: iPhone 17 product page (2026-10-13)",
+      "url": "https://xshielder.com/products/smartphones/atex-iphone"
+    },
+    {
+      "label": "Xshielder AS: FAQ - Certification & Compliance (2026-10-13)",
+      "url": "https://xshielder.com/faq"
+    },
+    {
+      "label": "EIN Presswire: Xshielder iPhone 17 ATEX/IECEx Zone 1/21 certification release (6 July 2026)",
+      "url": "https://lifestyle.kbew98country.com/story/312333/xshielder-announces-atex-and-iecex-zone-1-certified-iphone-17-for-hazardous-industrial-areas/"
+    },
+    {
+      "label": "Xshielder (EIN Presswire): iPhone 17 achieves ATEX and IECEx Zone 1/21 (6 Jul 2026)",
+      "url": "https://lifestyle.kbew98country.com/story/312333/xshielder-announces-atex-and-iecex-zone-1-certified-iphone-17-for-hazardous-industrial-areas/"
+    },
+    {
+      "label": "Jenson ATEX Depot: Xshielder A17 ATEX Z1 - iPhone 17 256GB (2026-10-13)",
+      "url": "https://www.atexdepot.nl/en/xshielder-a17-atex-z1-iphone-17-256gb.html"
+    },
+    {
+      "label": "Exloc Instruments USA, Inc.: Xshielder ATEX & IECEx Zone 1/21 Cover for iPhone 17 (phone included) (2026-10-13)",
+      "url": "https://www.exloc.com/products/xshielder-atex-iecex-zone-1-21-cover-for-iphone-17"
+    },
+    {
+      "label": "Apple: iPhone 17 Tech Specs",
+      "url": "https://support.apple.com/en-gb/125089"
+    }
+  ]
 }
