@@ -125,9 +125,9 @@ const schema = [
   </section>
 
   <!-- Three-step strip -->
-  <section class="steps bg-ivory" aria-label="How we help">
+  <section class="block" aria-label="How we help">
     <div class="container">
-      <ul class="steps-grid">
+      <ul class="panel panel-white panel-flush steps-grid">
         {steps.map((s) => (
           <li class="step">
             <span class="icon-badge"><Icon name={s.icon} /></span>
@@ -140,56 +140,29 @@ const schema = [
   </section>
 
   <!-- Buying guides -->
-  <section class="section bg-ivory-deep" aria-labelledby="guides-title">
+  <section class="block" aria-labelledby="guides-title">
     <div class="container">
-      <div class="split-head">
-        <div>
-          <p class="eyebrow">Buying guides</p>
-          <h2 id="guides-title" class="h2">Clarity before comparison.</h2>
+      <div class="panel panel-warm">
+        <div class="split-head">
+          <div>
+            <p class="eyebrow">Buying guides</p>
+            <h2 id="guides-title" class="h2">Clarity before comparison.</h2>
+          </div>
+          <p class="split-head-text">
+            Choosing a phone for a hazardous environment involves more than device specs. Our guides help you
+            understand your needs, the key considerations and the steps to a successful deployment.
+          </p>
         </div>
-        <p class="split-head-text">
-          Choosing a phone for a hazardous environment involves more than device specs. Our guides help you
-          understand your needs, the key considerations and the steps to a successful deployment.
-        </p>
-      </div>
-      <ul class="guide-grid">
-        {guides.map((g) => (
-          <li class="guide-card">
-            <span class="icon-badge"><Icon name={g.icon} /></span>
-            <h3>{g.title}</h3>
-            <p>{g.text}</p>
-            <a class="arrow-link" href={g.href}>
-              Read the guide <span class="visually-hidden">on {g.title.toLowerCase()}</span>
-              <Icon name="arrow-right" />
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- Industries -->
-  <section class="section industries bg-ivory" aria-labelledby="industries-title">
-    <div class="container industries-grid">
-      <div class="industries-media">
-        <Image
-          src={industriesImg}
-          alt="A site worker in a hard hat and safety glasses on a phone call at a refinery"
-          widths={[362]}
-          sizes="(min-width: 56rem) 50vw, 100vw"
-        />
-      </div>
-      <div class="industries-copy">
-        <p class="eyebrow">Industries</p>
-        <h2 id="industries-title" class="h2">Built around your working environment.</h2>
-        <p class="industries-text">
-          Different environments bring different challenges. We provide tailored guidance to help you find suitable
-          phone options for your industry.
-        </p>
-        <ul class="industry-list">
-          {industries.map((i) => (
-            <li>
-              <a href={i.href}>{i.label} <Icon name="arrow-right" /></a>
+        <ul class="guide-grid">
+          {guides.map((g) => (
+            <li class="guide-card">
+              <span class="icon-badge"><Icon name={g.icon} /></span>
+              <h3>{g.title}</h3>
+              <p>{g.text}</p>
+              <a class="arrow-link" href={g.href}>
+                Read the guide <span class="visually-hidden">on {g.title.toLowerCase()}</span>
+                <Icon name="arrow-right" />
+              </a>
             </li>
           ))}
         </ul>
@@ -197,8 +170,39 @@ const schema = [
     </div>
   </section>
 
-  <!-- Approach -->
-  <section class="section bg-ivory-deep" aria-labelledby="approach-title">
+  <!-- Industries -->
+  <section class="block" aria-labelledby="industries-title">
+    <div class="container">
+      <div class="panel panel-white industries-grid">
+        <div class="industries-media">
+          <Image
+            src={industriesImg}
+            alt="A site worker in a hard hat and safety glasses on a phone call at a refinery"
+            widths={[362]}
+            sizes="(min-width: 56rem) 50vw, 100vw"
+          />
+        </div>
+        <div class="industries-copy">
+          <p class="eyebrow">Industries</p>
+          <h2 id="industries-title" class="h2">Built around your working environment.</h2>
+          <p class="industries-text">
+            Different environments bring different challenges. We provide tailored guidance to help you find
+            suitable phone options for your industry.
+          </p>
+          <ul class="industry-list">
+            {industries.map((i) => (
+              <li>
+                <a href={i.href}>{i.label} <Icon name="arrow-right" /></a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach: sits on the page background to break up the panels -->
+  <section class="section" aria-labelledby="approach-title">
     <div class="container">
       <p class="eyebrow">Our approach</p>
       <h2 id="approach-title" class="h2">A more informed way to choose.</h2>
@@ -217,55 +221,61 @@ const schema = [
   </section>
 
   <!-- Latest insights -->
-  <section class="section bg-ivory" aria-labelledby="insights-title">
+  <section class="block" aria-labelledby="insights-title">
     <div class="container">
-      <div class="insights-head">
-        <div>
-          <p class="eyebrow">Latest insights</p>
-          <h2 id="insights-title" class="h2">Practical guidance, at your pace.</h2>
+      <div class="panel panel-white">
+        <div class="insights-head">
+          <div>
+            <p class="eyebrow">Latest insights</p>
+            <h2 id="insights-title" class="h2">Practical guidance, at your pace.</h2>
+          </div>
+          <a class="arrow-link" href="/guides/">View all guides <Icon name="arrow-right" /></a>
         </div>
-        <a class="arrow-link" href="/guides/">View all guides <Icon name="arrow-right" /></a>
+        <ul class="insight-grid">
+          {insights.map((p) => (
+            <li class="insight">
+              <Image src={p.img} alt={p.alt} widths={[192]} sizes="(min-width: 56rem) 33vw, 100vw" />
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+              <a class="arrow-link" href={p.href}>
+                Read more <span class="visually-hidden">: {p.title}</span>
+                <Icon name="arrow-right" />
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul class="insight-grid">
-        {insights.map((p) => (
-          <li class="insight">
-            <Image src={p.img} alt={p.alt} widths={[192]} sizes="(min-width: 56rem) 33vw, 100vw" />
-            <h3>{p.title}</h3>
-            <p>{p.text}</p>
-            <a class="arrow-link" href={p.href}>
-              Read more <span class="visually-hidden">: {p.title}</span>
-              <Icon name="arrow-right" />
-            </a>
-          </li>
-        ))}
-      </ul>
     </div>
   </section>
 
   <!-- Call to action -->
-  <section class="cta" aria-labelledby="cta-title">
-    <svg class="cta-contours" viewBox="0 0 600 260" aria-hidden="true" focusable="false" preserveAspectRatio="xMaxYMid slice">
-      <g fill="none" stroke="currentColor" stroke-width="1">
-        <path d="M420 130c0-48 46-92 104-92s92 40 92 92-38 96-96 96-100-48-100-96Z" />
-        <path d="M380 132c0-70 64-128 146-128s126 58 126 128-54 134-136 134-136-64-136-134Z" />
-        <path d="M340 134c0-92 82-166 186-166s162 76 162 166-70 172-174 172-174-80-174-172Z" />
-        <path d="M300 136c0-114 100-204 226-204s198 94 198 204-86 210-212 210-212-96-212-210Z" />
-        <path d="M262 138c0-136 118-242 264-242s234 112 234 242-102 248-250 248-248-112-248-248Z" />
-        <path d="M462 128c0-24 28-48 62-48s54 22 54 48-22 52-56 52-60-26-60-52Z" />
-      </g>
-    </svg>
-    <div class="container cta-inner">
-      <div>
-        <p class="eyebrow">Get started</p>
-        <h2 id="cta-title" class="h2">Start with the right questions.</h2>
-        <p class="cta-text">
-          Filter every certified phone by zone, industry and feature, and compare models side by side. Or ask our
-          team for impartial advice.
-        </p>
-      </div>
-      <div class="cta-actions">
-        <a class="btn btn-light" href={FIND_PHONES.href}>{FIND_PHONES.label} <Icon name="arrow-right" /></a>
-        <a class="btn btn-outline-light" href={CONTACT.href}>{CONTACT.label}</a>
+  <section class="block block-last" aria-labelledby="cta-title">
+    <div class="container">
+      <div class="panel cta">
+        <svg class="cta-contours" viewBox="0 0 600 260" aria-hidden="true" focusable="false" preserveAspectRatio="xMaxYMid slice">
+          <g fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M420 130c0-48 46-92 104-92s92 40 92 92-38 96-96 96-100-48-100-96Z" />
+            <path d="M380 132c0-70 64-128 146-128s126 58 126 128-54 134-136 134-136-64-136-134Z" />
+            <path d="M340 134c0-92 82-166 186-166s162 76 162 166-70 172-174 172-174-80-174-172Z" />
+            <path d="M300 136c0-114 100-204 226-204s198 94 198 204-86 210-212 210-212-96-212-210Z" />
+            <path d="M262 138c0-136 118-242 264-242s234 112 234 242-102 248-250 248-248-112-248-248Z" />
+            <path d="M462 128c0-24 28-48 62-48s54 22 54 48-22 52-56 52-60-26-60-52Z" />
+          </g>
+        </svg>
+        <div class="cta-inner">
+          <div>
+            <p class="eyebrow">Get started</p>
+            <h2 id="cta-title" class="h2">Start with the right questions.</h2>
+            <p class="cta-text">
+              Filter every certified phone by zone, industry and feature, and compare models side by side. Or ask
+              our team for impartial advice.
+            </p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn btn-light" href={FIND_PHONES.href}>{FIND_PHONES.label} <Icon name="arrow-right" /></a>
+            <a class="btn btn-outline-light" href={CONTACT.href}>{CONTACT.label}</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -273,7 +283,12 @@ const schema = [
 
 <style>
   /* ---------- Hero ---------- */
-  .hero { padding-block: 2rem 4rem; }
+  .hero {
+    padding-block: 2rem 3.5rem;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgb(245 158 11 / 0.06), transparent 60%),
+      radial-gradient(1000px 500px at 10% 30%, rgb(34 197 94 / 0.05), transparent 55%);
+  }
 
   .hero-grid {
     display: grid;
@@ -308,9 +323,6 @@ const schema = [
   }
 
   /* ---------- Steps strip ---------- */
-  .steps {
-    border-block: 1px solid var(--color-border);
-  }
   .steps-grid { display: grid; }
   .step {
     display: grid;
@@ -486,8 +498,8 @@ const schema = [
   .cta {
     position: relative;
     overflow: hidden;
-    padding-block: clamp(3.5rem, 3rem + 2vw, 4.5rem);
     background: var(--color-forest);
+    border-color: var(--color-forest);
     color: var(--color-on-dark);
   }
   .cta-contours {
