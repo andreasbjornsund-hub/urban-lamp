@@ -34,6 +34,7 @@
     "dimensionsMm": "170.5 × 83.3 × 16.1",
     "mdm": ["Apple Business Manager", "Jamf", "Microsoft Intune"]
   },
+  "features": ["tripod-mount", "lanyard"],
   "strengths": [
     "Lightest and thinnest Zone 1 smartphone solution, according to Xshielder: 330 g and 16.1 mm",
     "T6 temperature class, the strictest rating",

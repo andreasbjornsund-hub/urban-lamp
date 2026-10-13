@@ -163,15 +163,71 @@ export function bestInRow(row: CompareRow, phones: Phone[]): Set<number> {
 
 export const GROUP_RANK: Record<string, number> = { IIA: 1, IIB: 2, IIC: 3 };
 
-export type Feature = '5g' | 'ptt' | 'battery' | 'glove' | 'ip68';
+/*
+ * Field-worker features. A phone has a feature when its specs show it (derive) or when its data file
+ * lists it in "features". Only verified facts count: no entry means "not verified", not "no".
+ */
+export const FEATURE_GROUPS = [
+  {
+    title: 'Connectivity',
+    features: [
+      { key: '5g', label: '5G', derive: (p: Phone) => !!p.data.specs.connectivity?.includes('5G') },
+      { key: 'wifi6', label: 'Wi-Fi 6 or newer', derive: (p: Phone) => !!p.data.specs.connectivity?.some((c) => /Wi-Fi [67]/.test(c)) },
+      { key: 'esim', label: 'eSIM', derive: (p: Phone) => !!p.data.specs.connectivity?.some((c) => c.includes('eSIM')) },
+      { key: 'dual-sim', label: 'Dual SIM' },
+      { key: 'nfc', label: 'NFC' },
+      { key: 'satellite', label: 'Satellite messaging / SOS' },
+    ],
+  },
+  {
+    title: 'Camera and sensors',
+    features: [
+      { key: 'camera-48mp', label: '48 MP camera or better', derive: (p: Phone) => /\b(4[89]|[5-9]\d|\d{3}) MP/.test(p.data.specs.camera ?? '') },
+      { key: 'lidar', label: 'LiDAR scanner' },
+      { key: 'thermal', label: 'Thermal camera' },
+      { key: 'barcode', label: 'Barcode scanner' },
+    ],
+  },
+  {
+    title: 'Controls and handling',
+    features: [
+      { key: 'ptt', label: 'Push-to-talk key', derive: (p: Phone) => !!p.data.specs.pttKey },
+      { key: 'programmable-key', label: 'Programmable key' },
+      { key: 'glove', label: 'Glove touch', derive: (p: Phone) => !!p.data.specs.gloveTouch },
+      { key: 'tripod-mount', label: 'Tripod mount' },
+      { key: 'lanyard', label: 'Lanyard point' },
+    ],
+  },
+  {
+    title: 'Durability and power',
+    features: [
+      { key: 'ip68', label: 'IP68', derive: (p: Phone) => !!p.data.specs.ipRating?.startsWith('IP68') },
+      { key: 'mil-std', label: 'MIL-STD-810 tested', derive: (p: Phone) => !!p.data.specs.ruggedness?.includes('MIL-STD-810') },
+      { key: 'replaceable-battery', label: 'Replaceable battery', derive: (p: Phone) => !!p.data.specs.replaceableBattery },
+      { key: 'wireless-charging', label: 'Wireless charging', derive: (p: Phone) => /wireless/i.test(p.data.specs.charging ?? '') },
+    ],
+  },
+  {
+    title: 'Fleet management',
+    features: [
+      { key: 'mdm', label: 'Works with Intune or Jamf', derive: (p: Phone) => !!p.data.specs.mdm?.some((m) => /Intune|Jamf/.test(m)) },
+      { key: 'updates-2030', label: 'Security updates to 2030+' },
+    ],
+  },
+] as const satisfies readonly { title: string; features: readonly { key: string; label: string; derive?: (p: Phone) => boolean }[] }[];
 
-export const FEATURE_LABEL: Record<Feature, string> = {
-  '5g': '5G',
-  ptt: 'Push-to-talk key',
-  battery: 'Replaceable battery',
-  glove: 'Glove touch',
-  ip68: 'IP68',
-};
+export type Feature = (typeof FEATURE_GROUPS)[number]['features'][number]['key'];
+export const FEATURE_KEYS = FEATURE_GROUPS.flatMap((g) => g.features.map((f) => f.key)) as Feature[];
+export const FEATURE_LABEL = Object.fromEntries(
+  FEATURE_GROUPS.flatMap((g) => g.features.map((f) => [f.key, f.label])),
+) as Record<Feature, string>;
+
+export function phoneFeatures(p: Phone): Feature[] {
+  const listed = new Set<string>(p.data.features);
+  return FEATURE_GROUPS.flatMap((g) =>
+    g.features.filter((f) => listed.has(f.key) || ('derive' in f && f.derive(p))).map((f) => f.key),
+  );
+}
 
 export interface PhoneFacts {
   id: string;
@@ -200,12 +256,7 @@ export interface PhoneFacts {
 export function phoneFacts(p: Phone, thumb?: string): PhoneFacts {
   const c = p.data.certification;
   const s = p.data.specs;
-  const features: Feature[] = [];
-  if (s.connectivity?.includes('5G')) features.push('5g');
-  if (s.pttKey) features.push('ptt');
-  if (s.replaceableBattery) features.push('battery');
-  if (s.gloveTouch) features.push('glove');
-  if (s.ipRating?.startsWith('IP68')) features.push('ip68');
+  const features = phoneFeatures(p);
 
   return {
     id: p.id,

@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { FEATURE_KEYS } from './lib/phones';
 
 /*
  * One JSON file per phone in src/content/phones/. The file name is the URL slug.
@@ -84,6 +85,8 @@ const phones = defineCollection({
         .partial()
         .default({}),
 
+      /** Verified features not already shown by the specs above (keys from FEATURE_GROUPS in src/lib/phones.ts) */
+      features: z.array(z.enum(FEATURE_KEYS as [string, ...string[]])).default([]),
       strengths: z.array(z.string()).min(1),
       limitations: z.array(z.string()).min(1),
       /** Slugs under /best/ */

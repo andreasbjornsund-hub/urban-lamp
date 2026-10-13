@@ -25,6 +25,7 @@
     "gloveTouch": true,
     "mdm": ["Apple Business Manager", "Jamf", "Microsoft Intune"]
   },
+  "features": ["updates-2030"],
   "strengths": [
     "Dual ATEX and IECEx certificates with published certificate numbers",
     "T6 temperature class, the strictest rating",
