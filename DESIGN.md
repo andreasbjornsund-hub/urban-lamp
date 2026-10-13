@@ -1,6 +1,6 @@
 # intrinsicallysafephones.com design system
 
-This file is the source of truth for how pages look and behave.
+This file is the source of truth for how the **legacy** pages in `public/` look and behave. The new Astro design system, project decisions and open work are in CLAUDE.md.
 
 ## Project layout (Astro migration, 2026-10)
 
