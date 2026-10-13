@@ -3,7 +3,6 @@ import { Font } from 'astro:assets';
 import { SITE } from '../config/site';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import LayoutSwitcher from '../components/dev/LayoutSwitcher.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -94,6 +93,5 @@ const graph = {
       <slot />
     </main>
     <Footer />
-    {import.meta.env.DEV && <LayoutSwitcher />}
   </body>
 </html>
