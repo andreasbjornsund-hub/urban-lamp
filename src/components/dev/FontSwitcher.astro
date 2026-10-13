@@ -1,30 +1,47 @@
 ---
 // Dev-only font comparison panel. BaseLayout renders it only when import.meta.env.DEV,
 // so neither this markup nor the Google Fonts request reaches the production build.
-const OPTIONS = [
-  { id: 'prata', label: 'A · Prata + Inter (current)' },
-  { id: 'source', label: 'B · Source Serif 4 + Inter' },
-  { id: 'plex', label: 'C · IBM Plex Sans + Plex Mono' },
-  { id: 'mix', label: 'Mix · Source Serif 4 + Plex Sans' },
-  { id: 'archivo', label: 'D · Archivo + Inter' },
+const GROUPS = [
+  {
+    heading: 'Shortlist',
+    options: [
+      { id: 'prata', label: 'Prata + Inter (current)' },
+      { id: 'source', label: 'Source Serif 4 + Inter' },
+      { id: 'plex', label: 'IBM Plex Sans + Plex Mono' },
+    ],
+  },
+  {
+    heading: 'Editorial sans + Inter',
+    options: [
+      { id: 'franklin', label: 'Libre Franklin' },
+      { id: 'schibsted', label: 'Schibsted Grotesk' },
+      { id: 'instrument', label: 'Instrument Sans' },
+      { id: 'fira', label: 'Fira Sans' },
+      { id: 'barlow', label: 'Barlow Semi Condensed' },
+      { id: 'bricolage', label: 'Bricolage Grotesque' },
+    ],
+  },
 ];
 ---
 
 <link
   rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Archivo:wdth,wght@100..125,400..700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Libre+Franklin:wght@400..800&family=Schibsted+Grotesk:wght@400..800&family=Instrument+Sans:wdth,wght@75..100,400..700&family=Fira+Sans:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap"
 />
 
 <form class="font-switcher" aria-label="Font preview">
-  <fieldset>
-    <legend>Font preview <span>(dev only)</span></legend>
-    {OPTIONS.map((o, i) => (
-      <label>
-        <input type="radio" name="font" value={o.id} checked={i === 0} />
-        {o.label}
-      </label>
-    ))}
-  </fieldset>
+  <p class="fs-title">Font preview <span>(dev only)</span></p>
+  {GROUPS.map((g, gi) => (
+    <fieldset>
+      <legend>{g.heading}</legend>
+      {g.options.map((o, i) => (
+        <label>
+          <input type="radio" name="font" value={o.id} checked={gi === 0 && i === 0} />
+          {o.label}
+        </label>
+      ))}
+    </fieldset>
+  ))}
 </form>
 
 <script is:inline>
@@ -32,10 +49,11 @@ const OPTIONS = [
     const KEY = 'isp-font-preview';
     const form = document.querySelector('.font-switcher');
     const apply = (id) => {
+      const input = form.querySelector(`input[value="${id}"]`);
+      if (!input) return;
+      input.checked = true;
       if (id === 'prata') delete document.documentElement.dataset.font;
       else document.documentElement.dataset.font = id;
-      const input = form.querySelector(`input[value="${id}"]`);
-      if (input) input.checked = true;
     };
     let saved = null;
     try { saved = localStorage.getItem(KEY); } catch {}
@@ -48,6 +66,7 @@ const OPTIONS = [
 </script>
 
 <style is:global>
+  /* ---- Shortlist ---- */
   html[data-font='source'] {
     --font-serif: 'Source Serif 4', Georgia, serif;
     --heading-weight: 500;
@@ -64,22 +83,49 @@ const OPTIONS = [
     --tracking-display: -0.025em;
     --tracking-heading: -0.01em;
   }
-  html[data-font='mix'] {
-    --font-serif: 'Source Serif 4', Georgia, serif;
-    --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
-    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
-    --heading-weight: 500;
-    --tracking-hero: -0.03em;
-    --tracking-display: -0.02em;
-    --tracking-heading: -0.01em;
-  }
-  html[data-font='archivo'] {
-    --font-serif: 'Archivo', system-ui, sans-serif;
+
+  /* ---- Editorial sans headings, Inter body ---- */
+  html[data-font='franklin'] {
+    --font-serif: 'Libre Franklin', system-ui, sans-serif;
     --heading-weight: 600;
-    --heading-stretch: 112%;
+    --tracking-hero: -0.035em;
+    --tracking-display: -0.03em;
+    --tracking-heading: -0.015em;
+  }
+  html[data-font='schibsted'] {
+    --font-serif: 'Schibsted Grotesk', system-ui, sans-serif;
+    --heading-weight: 600;
     --tracking-hero: -0.035em;
     --tracking-display: -0.03em;
     --tracking-heading: -0.01em;
+  }
+  html[data-font='instrument'] {
+    --font-serif: 'Instrument Sans', system-ui, sans-serif;
+    --heading-weight: 600;
+    --tracking-hero: -0.035em;
+    --tracking-display: -0.03em;
+    --tracking-heading: -0.01em;
+  }
+  html[data-font='fira'] {
+    --font-serif: 'Fira Sans', system-ui, sans-serif;
+    --heading-weight: 500;
+    --tracking-hero: -0.025em;
+    --tracking-display: -0.02em;
+    --tracking-heading: -0.005em;
+  }
+  html[data-font='barlow'] {
+    --font-serif: 'Barlow Semi Condensed', system-ui, sans-serif;
+    --heading-weight: 600;
+    --tracking-hero: -0.015em;
+    --tracking-display: -0.01em;
+    --tracking-heading: 0em;
+  }
+  html[data-font='bricolage'] {
+    --font-serif: 'Bricolage Grotesque', system-ui, sans-serif;
+    --heading-weight: 600;
+    --tracking-hero: -0.04em;
+    --tracking-display: -0.035em;
+    --tracking-heading: -0.015em;
   }
 
   .font-switcher {
@@ -87,6 +133,8 @@ const OPTIONS = [
     left: 1rem;
     bottom: 1rem;
     z-index: 1000;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
     padding: 0.75rem 1rem;
     background: #fff;
     border: 1px solid #c9c4b6;
@@ -95,14 +143,21 @@ const OPTIONS = [
     font: 13px/1.4 system-ui, sans-serif;
     color: #1f2723;
   }
-  .font-switcher fieldset { margin: 0; padding: 0; border: 0; }
-  .font-switcher legend { margin-bottom: 0.4rem; font-weight: 600; }
-  .font-switcher legend span { font-weight: 400; color: #555e58; }
+  .font-switcher .fs-title { margin: 0 0 0.25rem; font-weight: 600; }
+  .font-switcher .fs-title span { font-weight: 400; color: #555e58; }
+  .font-switcher fieldset { margin: 0.4rem 0 0; padding: 0; border: 0; }
+  .font-switcher legend {
+    margin-bottom: 0.1rem;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #555e58;
+  }
   .font-switcher label {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    min-height: 1.9rem;
+    min-height: 1.75rem;
     cursor: pointer;
   }
   .font-switcher input { accent-color: #1e3a2f; margin: 0; }
