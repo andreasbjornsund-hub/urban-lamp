@@ -1,8 +1,9 @@
 ---
 /*
- * Compare tray. Any button with data-compare-add="<phone id>" adds or removes that phone.
- * Phone facts come from <script type="application/json" id="phone-data"> and row labels from
- * #compare-rows on the page. The tray stays collapsed until the user asks to compare.
+ * Site-wide compare tray (rendered once in BaseLayout). Any button with data-compare-add="<phone id>"
+ * on any page adds or removes that phone. The selection lives in localStorage so it follows the user
+ * around the site; phone data comes from /compare-data.json, fetched only once the tray is used.
+ * The tray stays collapsed until the user asks to compare.
  */
 import Icon from '../Icon.astro';
 
@@ -51,21 +52,23 @@ const MAX_COMPARE = 4;
 </section>
 
 <script>
-  import type { PhoneFacts } from '../../lib/phones';
+  interface TrayPhone {
+    id: string;
+    name: string;
+    brand: string;
+    href: string;
+    thumb?: string;
+    compare: { values: string[]; ranks: (number | null)[] };
+  }
 
   const MAX = 4;
   const KEY = 'isp-compare';
+  // Only the finder page mirrors the selection into its URL (so a filtered comparison can be shared)
+  const SYNC_URL = location.pathname === '/phones/';
 
   const tray = document.querySelector<HTMLElement>('[data-tray]');
-  const dataEl = document.getElementById('phone-data');
-  const rowsEl = document.getElementById('compare-rows');
 
-  if (tray && dataEl && rowsEl) {
-    const phones = new Map<string, PhoneFacts>(
-      (JSON.parse(dataEl.textContent || '[]') as PhoneFacts[]).map((p) => [p.id, p]),
-    );
-    const rowLabels = JSON.parse(rowsEl.textContent || '[]') as string[];
-
+  if (tray) {
     const panel = tray.querySelector<HTMLElement>('[data-tray-panel]')!;
     const slots = tray.querySelector<HTMLOListElement>('[data-tray-slots]')!;
     const toggle = tray.querySelector<HTMLButtonElement>('[data-tray-toggle]')!;
@@ -75,15 +78,34 @@ const MAX_COMPARE = 4;
     const diff = tray.querySelector<HTMLInputElement>('[data-tray-diff]')!;
     const count = tray.querySelector<HTMLElement>('[data-tray-count]')!;
 
-    const fromUrl = new URLSearchParams(location.search).get('compare');
-    let stored: string[] = [];
-    try { stored = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch {}
-    let selected = (fromUrl ? fromUrl.split(',') : stored).filter((id) => phones.has(id)).slice(0, MAX);
+    let phones: Map<string, TrayPhone> | null = null;
+    let rowLabels: string[] = [];
+    let loading: Promise<void> | null = null;
+
+    /** Fetch the comparison data once, the first time the tray is needed */
+    function ensureData() {
+      loading ??= fetch('/compare-data.json')
+        .then((r) => r.json())
+        .then((d: { rows: string[]; phones: TrayPhone[] }) => {
+          rowLabels = d.rows;
+          phones = new Map(d.phones.map((p) => [p.id, p]));
+        });
+      return loading;
+    }
+
+    function loadSelection(): string[] {
+      const fromUrl = SYNC_URL ? new URLSearchParams(location.search).get('compare') : null;
+      if (fromUrl) return fromUrl.split(',');
+      try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { return []; }
+    }
+
+    let selected = loadSelection().slice(0, MAX);
 
     const esc = (s: string) => s.replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]!);
 
     function save() {
       try { localStorage.setItem(KEY, JSON.stringify(selected)); } catch {}
+      if (!SYNC_URL) return;
       const url = new URL(location.href);
       if (selected.length) url.searchParams.set('compare', selected.join(','));
       else url.searchParams.delete('compare');
@@ -104,15 +126,15 @@ const MAX_COMPARE = 4;
 
     function renderSlots() {
       const filled = selected.map((id) => {
-        const p = phones.get(id)!;
+        const p = phones!.get(id)!;
         return `<li class="slot slot-filled">
           ${p.thumb ? `<img src="${p.thumb}" alt="" width="40" height="40" loading="lazy">` : '<span class="slot-noimg"></span>'}
-          <span class="slot-name">${esc(p.name)}</span>
+          <a class="slot-name" href="${p.href}">${esc(p.name)}</a>
           <button type="button" class="slot-remove" data-tray-remove="${p.id}" aria-label="Remove ${esc(p.name)} from comparison">×</button>
         </li>`;
       });
       const empty = Array.from({ length: MAX - selected.length }, (_, i) =>
-        `<li class="slot slot-empty"${i > 0 ? ' data-extra' : ''}><span>Add a phone</span></li>`,
+        `<li class="slot slot-empty"${i > 0 ? ' data-extra' : ''}><a href="/phones/">Add a phone</a></li>`,
       );
       slots.innerHTML = [...filled, ...empty].join('');
       count.textContent = String(selected.length);
@@ -121,7 +143,7 @@ const MAX_COMPARE = 4;
     }
 
     function renderTable() {
-      const list = selected.map((id) => phones.get(id)!);
+      const list = selected.map((id) => phones!.get(id)!);
       const head = list
         .map(
           (p) => `<th scope="col">
@@ -159,21 +181,24 @@ const MAX_COMPARE = 4;
       });
     }
 
-    function update(message?: string) {
+    function update(message?: string, persist = true) {
+      syncButtons();
       tray.hidden = selected.length === 0;
       document.documentElement.classList.toggle('has-tray', selected.length > 0);
-      renderSlots();
-      syncButtons();
-      if (!panel.hidden) {
-        if (selected.length < 2) setExpanded(false);
-        else renderTable();
+      if (phones) {
+        renderSlots();
+        if (!panel.hidden) {
+          if (selected.length < 2) setExpanded(false);
+          else renderTable();
+        }
       }
       if (message) live.textContent = message;
-      save();
+      if (persist) save();
     }
 
-    function toggleId(id: string) {
-      const p = phones.get(id);
+    async function toggleId(id: string) {
+      await ensureData();
+      const p = phones!.get(id);
       if (!p) return;
       if (selected.includes(id)) {
         selected = selected.filter((x) => x !== id);
@@ -192,9 +217,9 @@ const MAX_COMPARE = 4;
     document.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
       const add = target.closest<HTMLElement>('[data-compare-add]');
-      if (add) return toggleId(add.dataset.compareAdd!);
+      if (add) return void toggleId(add.dataset.compareAdd!);
       const remove = target.closest<HTMLElement>('[data-tray-remove]');
-      if (remove) return toggleId(remove.dataset.trayRemove!);
+      if (remove) return void toggleId(remove.dataset.trayRemove!);
     });
 
     toggle.addEventListener('click', () => setExpanded(panel.hidden));
@@ -214,7 +239,22 @@ const MAX_COMPARE = 4;
       }
     });
 
-    update();
+    // Keep tabs in step: adding a phone in one tab updates the tray in the others
+    window.addEventListener('storage', async (e) => {
+      if (e.key !== KEY) return;
+      try { selected = JSON.parse(e.newValue || '[]'); } catch { selected = []; }
+      if (selected.length) await ensureData();
+      update(undefined, false);
+    });
+
+    // Show buttons in the right state straight away; fetch data only if something is already selected
+    syncButtons();
+    if (selected.length) {
+      ensureData().then(() => {
+        selected = selected.filter((id) => phones!.has(id));
+        update(undefined, SYNC_URL);
+      });
+    }
   }
 </script>
 
@@ -311,6 +351,10 @@ const MAX_COMPARE = 4;
     border: 1px dashed var(--color-border-strong);
     color: var(--color-muted);
   }
+  .tray-slots :global(.slot-empty a) { color: inherit; text-decoration: none; }
+  .tray-slots :global(.slot-empty a:hover) { color: var(--color-forest); text-decoration: underline; }
+  .tray-slots :global(a.slot-name) { text-decoration: none; }
+  .tray-slots :global(a.slot-name:hover) { text-decoration: underline; }
 
   .tray-actions {
     display: flex;
@@ -472,7 +516,8 @@ const MAX_COMPARE = 4;
     .tray-slots { gap: 0.375rem; }
     .tray-slots :global(.slot) { flex: 0 0 auto; width: 2.75rem; height: 2.75rem; padding: 0.25rem; justify-content: center; }
     .tray-slots :global(.slot-filled img), .tray-slots :global(.slot-noimg) { width: 2.125rem; height: 2.125rem; }
-    .tray-slots :global(.slot-empty span) { display: none; }
+    .tray-slots :global(.slot-empty a) { display: grid; place-items: center; width: 100%; height: 100%; font-size: 0; }
+    .tray-slots :global(.slot-empty a)::before { content: '+'; font-size: 1.25rem; }
     .tray-slots :global(.slot-empty[data-extra]) { display: none; }
     .tray-slots :global(.slot-remove) {
       position: absolute;

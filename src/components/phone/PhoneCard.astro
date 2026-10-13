@@ -181,9 +181,6 @@ const certs = f.schemes.map((s) => (s === 'atex' ? 'ATEX' : 'IECEx')).join(' + '
     cursor: pointer;
   }
   .compare-btn:hover { background: var(--color-icon-bg); }
-  .compare-btn .when-on,
-  .compare-btn[aria-pressed='true'] .when-off { display: none; }
-  .compare-btn[aria-pressed='true'] .when-on { display: inline; }
   .compare-btn[aria-pressed='true'] { background: var(--color-forest); color: var(--color-on-dark); }
 
   /* Shown dimmed when "show phones that don't meet requirements" is on */

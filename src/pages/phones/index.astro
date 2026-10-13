@@ -5,9 +5,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Icon from '../../components/Icon.astro';
 import PhoneCard from '../../components/phone/PhoneCard.astro';
-import CompareTray from '../../components/phone/CompareTray.astro';
 import { SITE } from '../../config/site';
-import { COMPARE_ROWS, FEATURE_GROUPS, phoneFacts, protectionScore } from '../../lib/phones';
+import { FEATURE_GROUPS, phoneFacts, protectionScore } from '../../lib/phones';
 
 const phones = await getCollection('phones');
 const items = await Promise.all(
@@ -264,8 +263,6 @@ const schema = [
   </section>
 
   <script type="application/json" id="phone-data" set:html={JSON.stringify(facts)} />
-  <script type="application/json" id="compare-rows" set:html={JSON.stringify(COMPARE_ROWS.map((r) => r.label))} />
-  <CompareTray />
 </BaseLayout>
 
 <script>

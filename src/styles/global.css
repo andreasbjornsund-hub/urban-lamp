@@ -190,6 +190,12 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 .btn-sm { min-height: 2.5rem; padding: 0.55rem 1rem; font-size: 0.8125rem; }
 
+/* Compare buttons anywhere on the site (the tray keeps aria-pressed in sync) */
+[data-compare-add] .when-on,
+[data-compare-add][aria-pressed='true'] .when-off { display: none; }
+[data-compare-add][aria-pressed='true'] .when-on { display: inline; }
+.btn-secondary[aria-pressed='true'] { background: var(--color-forest); color: var(--color-on-dark); }
+
 /* Text link with arrow, used for "Read the guide" and similar */
 .arrow-link {
   display: inline-flex;

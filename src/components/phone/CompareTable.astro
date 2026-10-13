@@ -52,6 +52,11 @@ const rows = COMPARE_ROWS.map((row) => {
                     Full comparison<span class="visually-hidden">: {current.data.name} vs {p.data.name}</span>
                   </a>
                 )}
+                <button class="col-add" type="button" data-compare-add={p.id} aria-pressed="false">
+                  <span class="when-off">+ Compare</span>
+                  <span class="when-on">✓ Comparing</span>
+                  <span class="visually-hidden">{p.data.name}</span>
+                </button>
               </div>
             </th>
           ))}
@@ -182,6 +187,19 @@ const rows = COMPARE_ROWS.map((row) => {
     font-size: var(--text-xs);
     font-weight: 500;
   }
+
+  .col-add {
+    margin-top: 0.35rem;
+    min-height: 2rem;
+    padding: 0 0.6rem;
+    border: 1px solid var(--color-forest);
+    border-radius: var(--radius-sm);
+    background: var(--color-panel);
+    color: var(--color-forest);
+    font: 500 var(--text-xs) / 1 var(--font-sans);
+    cursor: pointer;
+  }
+  .col-add[aria-pressed='true'] { background: var(--color-forest); color: var(--color-on-dark); }
 
   td { color: var(--color-ink); }
   .current { background: #f6faf7; }

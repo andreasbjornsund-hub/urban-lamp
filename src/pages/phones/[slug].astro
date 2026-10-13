@@ -251,8 +251,14 @@ const sections = [
             <a class="btn btn-primary" href={`${CONTACT.href}?phone=${phone.id}`}>
               Request a price <Icon name="arrow-right" />
             </a>
-            {alternatives.length > 0 && <a class="btn btn-secondary" href="#compare">Compare alternatives</a>}
+            <button class="btn btn-secondary" type="button" data-compare-add={phone.id} aria-pressed="false">
+              <span class="when-off">+ Add to compare</span>
+              <span class="when-on">✓ In your comparison</span>
+            </button>
           </div>
+          {alternatives.length > 0 && (
+            <a class="arrow-link hero-alt" href="#compare">See how it compares to alternatives <Icon name="arrow-right" /></a>
+          )}
 
           {d.sponsor && (
             <p class="sponsor-note">
@@ -518,6 +524,8 @@ const sections = [
     gap: 1rem;
     margin-top: 1.75rem;
   }
+
+  .hero-alt { margin-top: 0.75rem; }
 
   .sponsor-note {
     margin-top: 1.25rem;
