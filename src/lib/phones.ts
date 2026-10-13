@@ -158,3 +158,83 @@ export function bestInRow(row: CompareRow, phones: Phone[]): Set<number> {
   const max = Math.max(...known);
   return new Set(scores.flatMap((s, i) => (s === max ? [i] : [])));
 }
+
+/* ---------- Find phones: facts used by the filters, cards and compare tray ---------- */
+
+export const GROUP_RANK: Record<string, number> = { IIA: 1, IIB: 2, IIC: 3 };
+
+export type Feature = '5g' | 'ptt' | 'battery' | 'glove' | 'ip68';
+
+export const FEATURE_LABEL: Record<Feature, string> = {
+  '5g': '5G',
+  ptt: 'Push-to-talk key',
+  battery: 'Replaceable battery',
+  glove: 'Glove touch',
+  ip68: 'IP68',
+};
+
+export interface PhoneFacts {
+  id: string;
+  name: string;
+  brand: string;
+  href: string;
+  thumb?: string;
+  sponsor: boolean;
+  zonesGas: string[];
+  zonesDust: string[];
+  zoneLabel: string;
+  /** 1 or 2 when a North American Division rating is listed */
+  division?: number;
+  gasGroup?: string;
+  tempClass?: string;
+  schemes: ('atex' | 'iecex')[];
+  os: 'iOS' | 'Android';
+  type: Phone['data']['type'];
+  protection?: 'intrinsic' | 'flameproof';
+  weightG?: number;
+  features: Feature[];
+  /** Values and ranks for each row of COMPARE_ROWS, in order */
+  compare: { values: string[]; ranks: (number | null)[] };
+}
+
+export function phoneFacts(p: Phone, thumb?: string): PhoneFacts {
+  const c = p.data.certification;
+  const s = p.data.specs;
+  const features: Feature[] = [];
+  if (s.connectivity?.includes('5G')) features.push('5g');
+  if (s.pttKey) features.push('ptt');
+  if (s.replaceableBattery) features.push('battery');
+  if (s.gloveTouch) features.push('glove');
+  if (s.ipRating?.startsWith('IP68')) features.push('ip68');
+
+  return {
+    id: p.id,
+    name: p.data.name,
+    brand: p.data.brand,
+    href: `/phones/${p.id}/`,
+    thumb,
+    sponsor: p.data.sponsor,
+    zonesGas: [...c.zonesGas],
+    zonesDust: [...c.zonesDust],
+    zoneLabel: zoneLabel(p),
+    division: c.division ? Number(c.division.match(/Division (\d)/)?.[1]) || undefined : undefined,
+    gasGroup: c.gasGroup,
+    tempClass: c.tempClass,
+    schemes: [...(c.atex ? (['atex'] as const) : []), ...(c.iecex ? (['iecex'] as const) : [])],
+    os: p.data.os.name,
+    type: p.data.type,
+    protection: c.protection?.startsWith('Intrinsic') ? 'intrinsic' : c.protection?.startsWith('Flameproof') ? 'flameproof' : undefined,
+    weightG: s.weightG,
+    features,
+    compare: {
+      values: COMPARE_ROWS.map((r) => r.value(p)),
+      ranks: COMPARE_ROWS.map((r) => r.rank?.(p) ?? null),
+    },
+  };
+}
+
+/** Default "Highest protection" order: Zone 0 first, then stricter temperature class, more schemes, lighter */
+export function protectionScore(f: PhoneFacts): number {
+  const minZone = Math.min(...f.zonesGas.map(Number));
+  return (3 - minZone) * 1000 + (f.tempClass ? Number(f.tempClass.slice(1)) : 0) * 100 + f.schemes.length * 10;
+}

@@ -1,0 +1,224 @@
+---
+import { Image } from 'astro:assets';
+import Icon from '../Icon.astro';
+import { TYPE_LABEL, FEATURE_LABEL, type Phone, type PhoneFacts } from '../../lib/phones';
+
+interface Props {
+  phone: Phone;
+  facts: PhoneFacts;
+}
+
+const { phone, facts: f } = Astro.props;
+const d = phone.data;
+const certs = f.schemes.map((s) => s.toUpperCase().replace('IECEX', 'IECEx')).join(' + ') || d.certification.note || '—';
+const features = f.features.filter((x) => x !== 'ip68');
+---
+
+<li class="phone-card" data-phone={f.id}>
+  <article aria-labelledby={`card-${f.id}`}>
+    <a class="card-media" href={f.href} tabindex="-1" aria-hidden="true">
+      {d.image ? (
+        <Image src={d.image} alt="" widths={[280, 440]} sizes="(min-width: 64rem) 22vw, (min-width: 40rem) 45vw, 90vw" />
+      ) : (
+        <span class="card-media-empty">No image yet</span>
+      )}
+    </a>
+    {d.sponsor && <span class="card-sponsor">Sponsor</span>}
+
+    <div class="card-body">
+      <p class="card-brand">{d.brand} · {TYPE_LABEL[d.type]}</p>
+      <h3 id={`card-${f.id}`} class="card-name"><a href={f.href}>{d.name}</a></h3>
+
+      <ul class="card-badges" aria-label="Certification">
+        <li class="badge badge-strong">{f.zoneLabel}</li>
+        {f.gasGroup && <li class="badge">{f.gasGroup}</li>}
+        {f.tempClass && <li class="badge">{f.tempClass}</li>}
+        {f.division && <li class="badge">Div {f.division}</li>}
+      </ul>
+
+      <dl class="card-facts">
+        <div><dt>Certification</dt><dd>{certs}</dd></div>
+        <div><dt>OS</dt><dd>{d.os.version}</dd></div>
+        <div><dt>Weight</dt><dd>{f.weightG ? `${f.weightG} g` : '—'}</dd></div>
+      </dl>
+
+      {features.length > 0 && (
+        <ul class="card-features" aria-label="Features">
+          {features.map((x) => <li>{FEATURE_LABEL[x]}</li>)}
+        </ul>
+      )}
+
+      <!-- Filled in by the requirements check when zone, gas group or temperature filters are set -->
+      <ul class="card-req" data-req hidden></ul>
+
+      <div class="card-actions">
+        <a class="arrow-link" href={f.href}>
+          View details<span class="visually-hidden">: {d.name}</span> <Icon name="arrow-right" />
+        </a>
+        <button class="compare-btn" type="button" data-compare-add={f.id} aria-pressed="false">
+          <span class="when-off">+ Compare</span>
+          <span class="when-on">✓ Comparing</span>
+          <span class="visually-hidden">{d.name}</span>
+        </button>
+      </div>
+    </div>
+  </article>
+</li>
+
+<style>
+  .phone-card { display: flex; }
+  .phone-card article {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: var(--color-panel);
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+  }
+  .phone-card article:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: 0 10px 28px -16px rgb(40 35 25 / 0.25);
+  }
+
+  .card-media {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    background: #fff;
+    border-bottom: 1px solid var(--color-panel-border);
+  }
+  .card-media img {
+    position: absolute;
+    inset: 1rem;
+    width: calc(100% - 2rem);
+    height: calc(100% - 2rem);
+    object-fit: contain;
+  }
+  .card-media-empty {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+  }
+  .card-sponsor {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-panel);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+  }
+
+  .card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 1.25rem;
+  }
+  .card-brand { font-size: var(--text-xs); color: var(--color-muted); }
+  .card-name {
+    margin-top: 0.25rem;
+    font-size: 1.1875rem;
+    line-height: 1.2;
+  }
+  .card-name a { color: inherit; text-decoration: none; }
+  .card-name a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  .card-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-top: 0.875rem;
+  }
+  .badge {
+    padding: 0.2rem 0.6rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+  .badge-strong { background: var(--color-forest); border-color: var(--color-forest); color: var(--color-on-dark); }
+
+  .card-facts { margin: 1rem 0 0; font-size: var(--text-sm); }
+  .card-facts div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0;
+    border-top: 1px solid var(--color-panel-border);
+  }
+  .card-facts dt { color: var(--color-muted); }
+  .card-facts dd { margin: 0; color: var(--color-ink); font-weight: 500; text-align: right; }
+
+  .card-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-top: 0.75rem;
+  }
+  .card-features li {
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-panel-warm);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+  }
+
+  .card-req {
+    display: grid;
+    gap: 0.3rem;
+    margin-top: 0.875rem;
+    padding: 0.75rem;
+    border-radius: var(--radius-sm);
+    background: #f3f7f4;
+    font-size: 0.8125rem;
+  }
+  .card-req:global(.has-fail) { background: #fbf3ee; }
+  .card-req :global(li) { display: flex; gap: 0.5rem; color: var(--color-ink); }
+  .card-req :global(.ok)::before { content: '✓'; color: #2f7d55; font-weight: 700; }
+  .card-req :global(.fail)::before { content: '✕'; color: #b4532a; font-weight: 700; }
+  .card-req :global(.unknown)::before { content: '?'; color: var(--color-muted); font-weight: 700; }
+
+  .card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+
+  .compare-btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: 0 0.9rem;
+    border: 1px solid var(--color-forest);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-forest);
+    font: 500 var(--text-sm) / 1 var(--font-sans);
+    cursor: pointer;
+  }
+  .compare-btn:hover { background: var(--color-icon-bg); }
+  .compare-btn .when-on,
+  .compare-btn[aria-pressed='true'] .when-off { display: none; }
+  .compare-btn[aria-pressed='true'] .when-on { display: inline; }
+  .compare-btn[aria-pressed='true'] { background: var(--color-forest); color: var(--color-on-dark); }
+
+  /* Shown dimmed when "show phones that don't meet requirements" is on */
+  .phone-card:global(.is-unmet) article { opacity: 0.62; }
+  .phone-card:global(.is-unmet) article:hover { opacity: 1; }
+</style>
