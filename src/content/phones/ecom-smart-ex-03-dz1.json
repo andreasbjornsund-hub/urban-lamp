@@ -13,8 +13,8 @@
   "status": "current",
   "launchYear": 2024,
   "summary": "The ecom Smart-Ex 03 DZ1 is an intrinsically safe (Ex ia) smartphone from ecom (Pepperl+Fuchs), certified for Zone 1/21 under ATEX, IECEx and UKEX, and for Class I Division 1 in North America. It runs Android 15, with 5G and a user-replaceable battery.",
-  "image": "../../assets/phones/ecom-smart-ex-03.png",
-  "imageAlt": "ecom Smart-Ex 03 DZ1 smartphone",
+  "image": "../../assets/phones/ecom-smart-ex-03-dz1.webp",
+  "imageAlt": "ecom Smart-Ex 03 DZ1, front view",
   "certification": {
     "otherSchemes": [
       "INMETRO TÜV 24.0193 X",

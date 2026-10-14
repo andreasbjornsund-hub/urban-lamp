@@ -13,6 +13,8 @@
   "hostDevice": "Apple iPhone 16 Pro Max",
   "status": "current",
   "summary": "The Atexxo Zone 2 iPhone 16 Pro Max is a standard Apple iPhone 16 Pro Max converted by Atexxo for hazardous areas, certified for Zone 2/22 under ATEX. It combines increased safety and intrinsic safety (Ex ec ic). The phone runs iOS 27.",
+  "image": "../../assets/phones/atexxo-zone-2-iphone-16-pro-max.webp",
+  "imageAlt": "Atexxo Zone 2 iPhone 16 Pro Max, front view",
   "certification": {
     "otherSchemes": [],
     "standards": [],
@@ -42,8 +44,9 @@
     "name": "iOS",
     "version": "iOS 27",
     "atLaunch": "iOS 18",
-    "securityUntil": "2029-09-20",
-    "updates": "Security updates until September 2029",
+    "securityUntil": "2031-09-20",
+    "updates": "Security updates for 7+ years (based on previous model support)",
+    "supportYears": 7,
     "enterprise": "Apple Business Manager (ADE)"
   },
   "specs": {
@@ -147,17 +150,17 @@
   ],
   "variants": [],
   "unconfirmed": {
-    "os.securityUntil": "Estimated from Apple's minimum commitment of five years from first sale. Apple usually supports iPhones for longer.",
-    "specs.ram": "Apple doesn't publish RAM. This is the widely reported figure.",
-    "specs.battery": "Apple doesn't publish battery capacity. Figure from regulatory filings and teardowns.",
+    "os.securityUntil": "Apple doesn't publish an end date; its legal minimum is five years from first sale. Previous iPhone models have had security updates for seven years or more.",
     "specs.wirelessCharging": "As listed on Apple's tech specs, which don't mention Qi2.",
     "specs.satellite": "Listed on Apple's tech specs; availability depends on the country."
   },
   "features": [
-    "wireless-charging"
+    "wireless-charging",
+    "updates-2030"
   ],
   "strengths": [
     "5G connectivity",
+    "Security updates for 7+ years (based on previous model support)",
     "A standard Apple iPhone 16 Pro Max inside, with the same apps and Apple device management as other iPhones"
   ],
   "limitations": [

@@ -1,0 +1,259 @@
+{
+  "$comment": "Product photo per phone slug, processed by `npm run phones:images` (scripts/phone_images.mjs). Official packshots only: front-on, plain background, one device.",
+  "phones": {
+    "atexxo-zone-1-iphone-14": {
+      "url": "https://atexxo.com/wp-content/uploads/2025/02/explosion-proof-iphone-14-ex-zone-1-front.webp",
+      "sourcePage": "https://atexxo.com/product/explosion-proof-iphone-14-ex-zone-1/",
+      "note": "front shot, high confidence; Main gallery image on the Atexxo product page (aluminium Ex d enclosure render). Atexxo's renders carry a yellow Ex hexagon badge in the bottom-right corner (on all its product images; no clean version exists)."
+    },
+    "atexxo-zone-1-iphone-15": {
+      "url": "https://atexxo.com/wp-content/uploads/2025/02/a-prova-di-esplosione-iphone-15-ex-zona-1.webp",
+      "sourcePage": "https://atexxo.com/product/explosion-proof-iphone-15-ex-zone-1/",
+      "note": "front shot, high confidence; Front render, also the page's og:image (filename is Italian; Atexxo names gallery files in different languages). Atexxo's renders carry a yellow Ex hexagon badge in the bottom-right corner (on all its product images; no clean version exists)."
+    },
+    "atexxo-zone-1-iphone-17": {
+      "url": "https://atexxo.com/wp-content/uploads/2025/10/eksplosjonssikker-iphone-17-ex-sone-1.png",
+      "sourcePage": "https://atexxo.com/product/explosion-proof-iphone-17-ex-zone-1/",
+      "note": "front shot, high confidence; Front render from the product gallery (Norwegian filename). Atexxo's renders carry a yellow Ex hexagon badge in the bottom-right corner (on all its product images; no clean version exists)."
+    },
+    "atexxo-zone-2-galaxy-s24": {
+      "url": "https://atexxo.com/wp-content/uploads/2025/02/explosion-proof-samsung-galaxy-s24-ex-zone-2-front.webp",
+      "sourcePage": "https://atexxo.com/product/explosion-proof-samsung-galaxy-s24-ex-zone-2/",
+      "note": "front shot, medium confidence; Front render from the product gallery. The case render looks generic (back image has a large S2x-Ultra-style camera block), so it is not distinctly an S24. Atexxo's renders carry a yellow Ex hexagon badge in the bottom-right corner (on all its product images; no clean version exists)."
+    },
+    "atexxo-zone-2-galaxy-s25": {
+      "url": "https://atexxo.com/wp-content/uploads/2025/06/%D0%B2%D0%B7%D1%80%D1%8B%D0%B2%D0%BE%D0%B7%D0%B0%D1%89%D0%B8%D1%89%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-samsung-galaxy-s25-%D0%B2%D0%B7%D1%80%D1%8B%D0%B2%D0%BE%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%B0%D1%8F-%D0%B7%D0%BE%D0%BD%D0%B0-2.png",
+      "sourcePage": "https://atexxo.com/product/explosion-proof-samsung-galaxy-s25-ex-zone-2/",
+      "note": "front shot, medium confidence; Front render from the product gallery (Cyrillic filename, percent-encoded in the URL). The S25 and S26 front renders are near-identical generic rugged-case renders (only the wallpaper colour differs). Atexxo's renders carry a yellow Ex hexagon badge in the bottom-right corner (on all its product images; no clean version exists)."
+    },
+    "atexxo-zone-2-galaxy-s26": {
+      "url": "https://atexxo.com/wp-content/uploads/2026/07/%D0%B2%D0%B7%D1%80%D1%8B%D0%B2%D0%BE%D0%B7%D0%B0%D1%89%D0%B8%D1%89%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-samsung-galaxy-s26-ex-zone-2.png",
+      "sourcePage": "https://atexxo.com/product/explosion-proof-samsung-galaxy-s26-ex-zone-2/",
+      "note": "front shot, medium confidence; Front render from the product gallery (Cyrillic filename, percent-encoded). This is the same generic case render as the S25, and the back render is identical to the S24/S25 back. Atexxo's renders carry a yellow Ex hexagon badge in the bottom-right corner (on all its product images; no clean version exists)."
+    },
+    "atexxo-zone-2-galaxy-xcover7-pro": {
+      "url": "https://atexxo.com/wp-content/uploads/2026/07/eksplosjonssikker-samsung-xcover7-pro-ex-sone-2.png",
+      "sourcePage": "https://atexxo.com/product/explosion-proof-samsung-xcover7-pro-ex-zone-2/",
+      "note": "front shot, high confidence; Front render of the grey Ex enclosure. The on-screen wallpaper is an Ex logo, which is part of the render rather than an overlay. Atexxo's renders carry a yellow Ex hexagon badge in the bottom-right corner (on all its product images; no clean version exists)."
+    },
+    "atexxo-zone-2-iphone-14": {
+      "url": "https://www.rockallsafety.co.uk/wp-content/uploads/2022/10/MOB-EX-IPH-14-128-a.png",
+      "sourcePage": "https://www.rockallsafety.co.uk/product/zone-2-atex-iphone-14/",
+      "note": "front+back shot, low confidence; DISCONTINUED: atexxo.com/product/explosion-proof-iphone-14-ex-zone-2/ now redirects to the Zone 1 iPhone 14 page. Do NOT use those Zone 1 images: the Zone 1 model is a different, aluminium Ex d enclosure. No Zone 2 iPhone 14 image remains on Atexxo's site or in the Wayback Machine. This fallback is from reseller Rockall Safety (product 'Zone 2 ATEX iPhone 14', SKU MOB-EX-IPH-14-128). It is a three-quarter front+back composite with text overlays, only 600x600, and it shows a generic black rugged case."
+    },
+    "atexxo-zone-2-iphone-14-pro": {
+      "url": null,
+      "note": "Atexxo page gone; only reseller image is for the iPhone 14, not the 14 Pro"
+    },
+    "atexxo-zone-2-iphone-15": {
+      "url": "https://atexxo.com/wp-content/uploads/2025/02/explosion-proof-iphone-15-ex-zone-2-front.webp",
+      "sourcePage": "https://atexxo.com/product/explosion-proof-iphone-15-ex-zone-2/",
+      "note": "front shot, high confidence; Front render from the product gallery (black rugged Ex case). Atexxo's renders carry a yellow Ex hexagon badge in the bottom-right corner (on all its product images; no clean version exists)."
+    },
+    "atexxo-zone-2-iphone-16": {
+      "url": "https://atexxo.com/wp-content/uploads/2025/06/%D0%B2%D0%B7%D1%80%D1%8B%D0%B2%D0%BE%D0%B7%D0%B0%D1%89%D0%B8%D1%89%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-iphone-16-pro-max-%D0%B2%D0%B7%D1%80%D1%8B%D0%B2%D0%BE%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%B0%D1%8F-%D0%B7%D0%BE%D0%BD%D0%B0-2.png",
+      "sourcePage": "https://atexxo.com/product/explosion-proof-iphone-16-ex-zone-2/",
+      "note": "front shot, medium confidence; Reused: the front image on Atexxo's iPhone 16 Zone 2 page is this file, even though the filename and alt text say 'iPhone 16 Pro Max'. An iPhone 16-named copy of the same render exists at https://atexxo.com/wp-content/uploads/2025/02/explosion-proof-iphone-16-ex-zone-2-899x1536.webp (899x1536; the full-size original now 404s), if a reviewer prefers the matching filename. Atexxo's renders carry a yellow Ex hexagon badge in the bottom-right corner (on all its product images; no clean version exists)."
+    },
+    "atexxo-zone-2-iphone-16-pro-max": {
+      "url": "https://atexxo.com/wp-content/uploads/2025/06/%D0%B2%D0%B7%D1%80%D1%8B%D0%B2%D0%BE%D0%B7%D0%B0%D1%89%D0%B8%D1%89%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-iphone-16-pro-max-%D0%B2%D0%B7%D1%80%D1%8B%D0%B2%D0%BE%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%B0%D1%8F-%D0%B7%D0%BE%D0%BD%D0%B0-2.png",
+      "sourcePage": "https://atexxo.com/product/explosion-proof-iphone-16-pro-max-ex-zone-2/",
+      "note": "front shot, high confidence; Front render from the product gallery (Cyrillic filename, percent-encoded). Atexxo also uses this same render on its iPhone 16 and iPhone 17 Pro Max pages. Atexxo's renders carry a yellow Ex hexagon badge in the bottom-right corner (on all its product images; no clean version exists)."
+    },
+    "atexxo-zone-2-iphone-16e": {
+      "url": "https://atexxo.com/wp-content/uploads/2025/12/a-prova-de-explosao-iphone-16e-zona-ex-2.png",
+      "sourcePage": "https://atexxo.com/product/explosion-proof-iphone-16e-ex-zone-2/",
+      "note": "front shot, high confidence; Front render from the product gallery (screen shows a notch, which matches the 16e). Atexxo's renders carry a yellow Ex hexagon badge in the bottom-right corner (on all its product images; no clean version exists)."
+    },
+    "atexxo-zone-2-iphone-17": {
+      "url": "https://atexxo.com/wp-content/uploads/2026/01/%D0%B2%D0%B7%D1%80%D1%8B%D0%B2%D0%BE%D0%B7%D0%B0%D1%89%D0%B8%D1%89%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-iphone-17-%D0%B2%D0%B7%D1%80%D1%8B%D0%B2%D0%BE%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%B0%D1%8F-%D0%B7%D0%BE%D0%BD%D0%B0-2.png",
+      "sourcePage": "https://atexxo.com/product/explosion-proof-iphone-17-ex-zone-2/",
+      "note": "front shot, high confidence; Front render from the product gallery (Cyrillic filename, percent-encoded). It is byte-identical to the iPhone 17e Zone 2 front render. Atexxo's renders carry a yellow Ex hexagon badge in the bottom-right corner (on all its product images; no clean version exists)."
+    },
+    "atexxo-zone-2-iphone-17-pro-max": {
+      "url": "https://atexxo.com/wp-content/uploads/2025/06/%D0%B2%D0%B7%D1%80%D1%8B%D0%B2%D0%BE%D0%B7%D0%B0%D1%89%D0%B8%D1%89%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-iphone-16-pro-max-%D0%B2%D0%B7%D1%80%D1%8B%D0%B2%D0%BE%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%B0%D1%8F-%D0%B7%D0%BE%D0%BD%D0%B0-2.png",
+      "sourcePage": "https://atexxo.com/product/explosion-proof-iphone-17-pro-max-ex-zone-2/",
+      "note": "front shot, low confidence; Reused: Atexxo's iPhone 17 Pro Max page has no 17 Pro Max-specific images. Its gallery uses iPhone 16 Pro Max files: a front at https://atexxo.com/wp-content/uploads/2026/03/iphone-16-pro-max-a-prueba-de-explosiones-zona-ex-2.png (916x918, white background, the same render as chosen here), a 16 Pro Max side, and an iPhone 16 back. The higher-resolution copy of that same render was chosen. Atexxo shows it for this model, but the render was made for the 16 Pro Max. Atexxo's renders carry a yellow Ex hexagon badge in the bottom-right corner (on all its product images; no clean version exists)."
+    },
+    "atexxo-zone-2-iphone-17e": {
+      "url": "https://atexxo.com/wp-content/uploads/2026/06/%D0%B2%D0%B7%D1%80%D1%8B%D0%B2%D0%BE%D0%B7%D0%B0%D1%89%D0%B8%D1%89%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-iphone-17e-%D0%B7%D0%BE%D0%BD%D0%B0-ex-2.png",
+      "sourcePage": "https://atexxo.com/product/explosion-proof-iphone-17e-ex-zone-2/",
+      "note": "front shot, medium confidence; Reused: this file is byte-identical to the iPhone 17 Zone 2 front render (same case, Dynamic Island screen). Only the back render ('iPhone 17e' label, single camera) is 17e-specific. Atexxo's renders carry a yellow Ex hexagon badge in the bottom-right corner (on all its product images; no clean version exists)."
+    },
+    "bartec-pixavi-phone": {
+      "url": "https://bartec.com/wp-content/uploads/2025/09/Pixavi_Phone.png",
+      "sourcePage": "https://bartec.com/products-solutions/product-finder/product-detail/pixavi-phone/",
+      "note": "front+back shot, medium confidence; Official BARTEC image: two devices, an angled front view plus an angled back view, transparent PNG. No official front-on packshot found on bartec.com (current or archived) or pixavi.com archives. A front-on render exists at distributor Able Instruments (https://ableinstruments.com/uploads/2021/04/bartec-pixavi-phone-intrinsically-safe-smartphone.png, 1000x1000), but a large yellow Ex badge covers the lower-right of the phone, so it is not usable as-is. The same official pair image was also on the old site at bartec.com/fileadmin/Products/Enterprise_Mobility/Smartphones___Cameras/EM-SC-1/Pixavi_Phone.png (now gone)."
+    },
+    "bartec-sc9ex1": {
+      "url": "https://bartec.com/wp-content/uploads/2025/09/BARTEC_SC9_Promo_without_background.png",
+      "sourcePage": "https://bartec.com/products-solutions/product-finder/product-detail/bartec-sc9ex1-smartscanner/",
+      "note": "front+back shot, medium confidence; Official BARTEC image: angled front view plus angled back view showing the scan engine, transparent PNG. No front-on packshot of the SC9EX1 exists on bartec.com, the archived old site, or the distributors checked (Able Instruments, Globos). Because the front of the SC9EX1 looks almost identical to the SP9EX1, the pair with the scanner back is the only image that identifies the model. Other official options all have a grey background: BARTEC_SC9_Promo_2.webp (3840x2769) and csm_BARTEC_SC9EX1_Smartscanner_fdf47703b7-4.webp (768x768)."
+    },
+    "bartec-sp9ex1": {
+      "url": "https://web.archive.org/web/20241005020614id_/https://bartec.com/fileadmin/_processed_/e/0/csm_BARTEC_SP9_Front_without_background_cropped_70388f7219.png",
+      "sourcePage": "https://bartec.com/products-solutions/product-finder/product-detail/bartec-sp9ex1-smartphone/",
+      "note": "three-quarter shot, medium confidence; No front-on SP9EX1 packshot exists on bartec.com. This is the best official option: a single device in three-quarter front view on a transparent background. The URL is a Wayback Machine copy of BARTEC's old TYPO3 site (captured 2024-10-05). The live product page uses the same render, but only at 398x530: https://bartec.com/wp-content/uploads/2025/11/csm_BARTEC_SP9_Front_without_background_cropped_fbfcad6e73.webp (use this if a non-archive URL is required). Live alternatives: BARTEC_SP9_Front.webp (3840x2769, three-quarter, opaque grey gradient background) and BARTEC_SP9_Promo_with_background.png (front+back pair, 7680x5538)."
+    },
+    "bartec-sp9ex2": {
+      "url": "https://bartec.com/wp-content/uploads/2025/09/BARTEC_SP9EX2_01.png",
+      "sourcePage": "https://bartec.com/products-solutions/product-finder/product-detail/bartec-sp9ex2-smartphone/",
+      "note": "front+back shot, medium confidence; Official SP9EX2 image: angled front view plus back view, transparent PNG. No front-on packshot exists. The SP9EX2 is visibly different from the SP9EX1 (orange side key and green/blue wallpaper versus a yellow key and orange/red wallpaper), so SP9EX1 images were not reused. Single-device alternative: https://bartec.com/wp-content/uploads/2025/09/BARTEC_SP92_Front_with_background.webp (3840x2769, three-quarter view, opaque grey gradient background)."
+    },
+    "ecom-ex-handy-10-dz1": {
+      "url": "https://www.ecom-ex.com/fileadmin/_processed_/b/a/csm_ex-handy_10_dz1_teaser_1_e90a8ed2ec.png",
+      "sourcePage": "https://www.ecom-ex.com/products/archive/communication/ex-handy-10/",
+      "note": "front shot, high confidence; Clean front-on packshot of the DZ1 version (blue top bezel; the DZ2 version is orange), no overlays. Taken from ecom's own archive product page, which is still live. This is the full-size gallery file (the page's lightbox href). The unprocessed TYPO3 original is not exposed. No P+F product page found for this model."
+    },
+    "ecom-smart-ex-02-dz1": {
+      "url": "https://www.ecom-ex.com/fileadmin/user_upload/images/products/one-pager/360/smart-ex_02/Smart-Ex_02_360_175.jpg",
+      "sourcePage": "https://www.ecom-ex.com/products/archive/communication/smart-ex-02/",
+      "crop": [
+        180,
+        0,
+        320,
+        624
+      ],
+      "note": "front shot, medium confidence; Frame 175 of the 200-frame 360-degree viewer on ecom's archive page for the Smart-Ex 02 DZ1 (blue top bezel). It is essentially front-on, with a sliver of the left edge visible, on a white background with a faint floor reflection below the device. No badges. Higher-resolution alternative: https://www.ecom-ex.com/fileadmin/_processed_/6/3/csm_smart-ex_02_teaser_00_09441ef80d.png (800x800, front-on, transparent) has a '5\" DISPLAY' badge overlaid on the left side, so it was not chosen."
+    },
+    "ecom-smart-ex-02-dz2": {
+      "url": "https://www.ecom-ex.com/fileadmin/user_upload/images/products/one-pager/360/smart-ex_02_dz2/Smart-Ex_02_DZ2_360_175.jpg",
+      "sourcePage": "https://www.ecom-ex.com/products/archive/communication/smart-ex-02-dz2/",
+      "crop": [
+        180,
+        0,
+        320,
+        624
+      ],
+      "note": "front shot, medium confidence; DZ2-specific image (orange top bezel; the DZ1 is blue, so the two must not be swapped). This is frame 175 of ecom's DZ2 360-degree sequence on ecom-ex.com. The archive page does not link it directly: the URL was found by following the same path pattern as the DZ1 viewer, and it is confirmed live and visually checked. White background with a faint floor reflection, no badges. Higher-resolution alternative on the page: https://www.ecom-ex.com/fileadmin/_processed_/1/7/csm_smart-ex_02_dz2_teaser_00_79559b1fd9.png (800x800, front-on, transparent, but with a '5\" DISPLAY' badge overlay)."
+    },
+    "ecom-smart-ex-03-dz1": {
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pd/d454268b_hd.jpg",
+      "sourcePage": "https://www.pepperl-fuchs.com/en/products-gp25581/118776",
+      "note": "front shot, high confidence; Official Pepperl+Fuchs product image for SMART-EX03-DZ1: front-on, clean white background, single device, no overlays. The ecom-ex.com gallery images (800x800) carry '5G' and German Design Award badges, so P+F's version is cleaner and larger. Larger P+F variants (_xl, _4k, _orig) return 403."
+    },
+    "ecom-smart-ex-03-dz2": {
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pd/d454268b_hd.jpg",
+      "sourcePage": "https://www.pepperl-fuchs.com/en/products-gp25581/133376",
+      "note": "front shot, high confidence; Same image as the DZ1. Pepperl+Fuchs uses this one image (d454268b) for both SMART-EX03-DZ1 and SMART-EX03-DZ2, and ecom-ex.com's DZ2 page also reuses the DZ1 gallery and 360 set. The two versions look identical. The source page is the P+F SMART-EX03-DZ2-AIC-C128-COM variant page, the DZ2 page found."
+    },
+    "ecom-smart-ex-203": {
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pd/d461381a_hd.jpg",
+      "sourcePage": "https://www.pepperl-fuchs.com/en/products-gp25581/136931",
+      "note": "front shot, high confidence; Official Pepperl+Fuchs product image for SMART-EX203: front-on, clean white background, no overlays. The ecom-ex.com gallery image (800x800) has a '5G' badge."
+    },
+    "isafe-is120-1": {
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/360/PHO_PRO_360_IS120-1-360Grad-31__SALL__AIN__V2.png",
+      "sourcePage": "https://www.isafe-mobile.com/en/products/product-range/zone-1/21/is1201",
+      "note": "front shot, medium confidence; Zone 1 variant (red navigation ring); .2 differs (yellow ring), so this is the .1-specific set. Frame 31 of the official 36-frame 360-degree turntable set on the i.safe product page (original from /fileadmin/pim/PHO/PRO/360/). Screen faces the camera but the device has a slight lean/perspective tilt, and the PNG includes a soft floating drop shadow below the device; adjacent frames 29-32 are near-identical alternatives. i.safe's own 'Front' packshot (https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/FRO/PHO_PRO_FRO_IS120.1-Front__SALL__AIN__V2.png, 2077x2500) is higher-res but clearly three-quarter angled. Older 360 set: 1100x1080 canvas, device roughly 750-850px tall."
+    },
+    "isafe-is120-2": {
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/360/PHO_PRO_360_IS120.2-360Grad-31__SALL__AIN__V2.png",
+      "sourcePage": "https://www.isafe-mobile.com/en/products/product-range/zone-2/22/is1202",
+      "note": "front shot, medium confidence; Zone 2 variant (yellow/orange navigation ring), distinct .2-specific set. Frame 31 of the official 36-frame 360-degree turntable set on the i.safe product page (original from /fileadmin/pim/PHO/PRO/360/). Screen faces the camera but the device has a slight lean/perspective tilt, and the PNG includes a soft floating drop shadow below the device; adjacent frames 29-32 are near-identical alternatives. i.safe's own 'Front' packshot (https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/FRO/PHO_PRO_FRO_IS120.2_Front__SALL__AIN__V1.png, 2077x2500) is higher-res but clearly three-quarter angled. Older 360 set: 1100x1080 canvas, device roughly 750-850px tall."
+    },
+    "isafe-is330-1": {
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/360/PHO_PRO_360_201218-IS330-1-360Grad-31__SALL__AIN__V3.png",
+      "sourcePage": "https://www.isafe-mobile.com/en/products/product-range/archive/is3301",
+      "note": "front shot, medium confidence; Zone 1 variant (red navigation key surround), .1-specific set. Frame 31 of the official 36-frame 360-degree turntable set on the i.safe product page (original from /fileadmin/pim/PHO/PRO/360/). Screen faces the camera but the device has a slight lean/perspective tilt, and the PNG includes a soft floating drop shadow below the device; adjacent frames 29-32 are near-identical alternatives. i.safe's own 'Front' packshot (https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/FRO/PHO_PRO_FRO_IS330.1-Front__SALL__AIN__V5.png, 2077x2500) is higher-res but clearly three-quarter angled. The FRO image also carries an 'Android Enterprise' badge. NOTE: i.safe lists this model under its product ARCHIVE (discontinued). Older 360 set: 1100x1080 canvas, device roughly 750-850px tall."
+    },
+    "isafe-is330-2": {
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/360/PHO_PRO_360_201218-IS330-360Grad-31__SALL__AIN__V4.png",
+      "sourcePage": "https://www.isafe-mobile.com/en/products/product-range/archive/is3302",
+      "note": "front shot, medium confidence; Zone 2 variant (yellow navigation key surround), .2-specific set. Frame 31 of the official 36-frame 360-degree turntable set on the i.safe product page (original from /fileadmin/pim/PHO/PRO/360/). Screen faces the camera but the device has a slight lean/perspective tilt, and the PNG includes a soft floating drop shadow below the device; adjacent frames 29-32 are near-identical alternatives. i.safe's own 'Front' packshot (https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/FRO/PHO_PRO_FRO_IS330.2-Front__SALL__AIN__V6.png, 2077x2500) is higher-res but clearly three-quarter angled. The FRO image also carries an 'Android Enterprise' badge. NOTE: i.safe lists this model under its product ARCHIVE (discontinued). Older 360 set: 1100x1080 canvas, device roughly 750-850px tall."
+    },
+    "isafe-is360-2": {
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/360/PHO_PRO_360_IS360-2-360Grad-31__SALL__AIN__V2.png",
+      "sourcePage": "https://www.isafe-mobile.com/en/products/product-range/archive/is3602",
+      "note": "front shot, medium confidence; Only a Zone 2 version exists. Frame 31 of the official 36-frame 360-degree turntable set on the i.safe product page (original from /fileadmin/pim/PHO/PRO/360/). Screen faces the camera but the device has a slight lean/perspective tilt, and the PNG includes a soft floating drop shadow below the device; adjacent frames 29-32 are near-identical alternatives. i.safe's own 'Front' packshot (https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/FRO/PHO_PRO_FRO_IS360.2_Front__SALL__AIN__V1.png, 2077x2500) is higher-res but clearly three-quarter angled. NOTE: i.safe lists this model under its product ARCHIVE (discontinued). Older 360 set: 1100x1080 canvas, device roughly 750-850px tall."
+    },
+    "isafe-is380-1": {
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/360/PHO_PRO_360_IS380-1-360-Grad-30__SALL__AIN__V2.png",
+      "sourcePage": "https://www.isafe-mobile.com/en/products/product-range/zone-1/21/is3801",
+      "note": "front shot, high confidence; Zone 1 version (red trim). Frame 30 of the official 36-frame 360-degree turntable set on the i.safe product page (original from /fileadmin/pim/PHO/PRO/360/). Screen faces the camera but the device has a slight lean/perspective tilt, and the PNG includes a soft floating drop shadow below the device; adjacent frames 29-32 are near-identical alternatives. i.safe's own 'Front' packshot (https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/FRO/PHO_PRO_FRO_IS380.1_Front__SALL__AIN__V1.png, 2308x2500) is higher-res but clearly three-quarter angled."
+    },
+    "isafe-is440-1": {
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/360/PHO_PRO_360_231018-IS440-360-Grad-31__SALL__AIN__V4.png",
+      "sourcePage": "https://www.isafe-mobile.com/en/products/product-range/zone-1/21/is4401",
+      "note": "front shot, high confidence; Zone 1 variant (red trim), .1-specific set. Frame 31 of the official 36-frame 360-degree turntable set on the i.safe product page (original from /fileadmin/pim/PHO/PRO/360/). Screen faces the camera but the device has a slight lean/perspective tilt, and the PNG includes a soft floating drop shadow below the device; adjacent frames 29-32 are near-identical alternatives. i.safe's own 'Front' packshot (https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/FRO/PHO_PRO_FRO_IS440.1_front__SALL__AIN__V4.png, 2077x2500) is higher-res but clearly three-quarter angled."
+    },
+    "isafe-is440-2": {
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/360/PHO_PRO_360_241014-IS440-2-360-Grad-31__SALL__AIN__V1.png",
+      "sourcePage": "https://www.isafe-mobile.com/en/products/product-range/zone-2/22/is4402",
+      "note": "front shot, high confidence; Zone 2 variant (yellow trim), .2-specific set. Frame 31 of the official 36-frame 360-degree turntable set on the i.safe product page (original from /fileadmin/pim/PHO/PRO/360/). Screen faces the camera but the device has a slight lean/perspective tilt, and the PNG includes a soft floating drop shadow below the device; adjacent frames 29-32 are near-identical alternatives. i.safe's own 'Front' packshot (https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/FRO/PHO_PRO_FRO_IS440.2_front__SALL__AIN__V1.png, 2077x2500) is higher-res but clearly three-quarter angled."
+    },
+    "isafe-is530-1": {
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/360/PHO_PRO_360_IS530-1-360Grad-31__SALL__AIN__V1.png",
+      "sourcePage": "https://www.isafe-mobile.com/en/products/product-range/zone-1/21/is5301",
+      "note": "front shot, medium confidence; Zone 1 variant (red/orange trim), .1-specific set. Frame 31 of the official 36-frame 360-degree turntable set on the i.safe product page (original from /fileadmin/pim/PHO/PRO/360/). Screen faces the camera but the device has a slight lean/perspective tilt, and the PNG includes a soft floating drop shadow below the device; adjacent frames 29-32 are near-identical alternatives. i.safe's own 'Front' packshot (https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/FRO/PHO_PRO_FRO_IS530.1-Front__SALL__AIN__V8.png, 2077x2500) is higher-res but clearly three-quarter angled. Older 360 set: 1100x1080 canvas, device roughly 750-850px tall."
+    },
+    "isafe-is530-2": {
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/360/PHO_PRO_360_IS530-2-360Grad-31__SALL__AIN__V1.png",
+      "sourcePage": "https://www.isafe-mobile.com/en/products/product-range/zone-2/22/is5302",
+      "note": "front shot, medium confidence; Zone 2 variant (yellow trim), .2-specific set. Frame 31 of the official 36-frame 360-degree turntable set on the i.safe product page (original from /fileadmin/pim/PHO/PRO/360/). Screen faces the camera but the device has a slight lean/perspective tilt, and the PNG includes a soft floating drop shadow below the device; adjacent frames 29-32 are near-identical alternatives. i.safe's own 'Front' packshot (https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/FRO/PHO_PRO_FRO_IS530.2-Front__SALL__AIN__V7.png, 2077x2500) is higher-res but clearly three-quarter angled. Older 360 set: 1100x1080 canvas, device roughly 750-850px tall."
+    },
+    "isafe-is540-1": {
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/360/PHO_PRO_360_IS540-1-360Grad-30__SALL__AIN__V1.png",
+      "sourcePage": "https://www.isafe-mobile.com/en/products/product-range/zone-1/21/is5401",
+      "note": "front shot, high confidence; Zone 1 variant (red trim), .1-specific set. Frame 30 of the official 36-frame 360-degree turntable set on the i.safe product page (original from /fileadmin/pim/PHO/PRO/360/). Screen faces the camera but the device has a slight lean/perspective tilt, and the PNG includes a soft floating drop shadow below the device; adjacent frames 29-32 are near-identical alternatives. i.safe's own 'Front' packshot (https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/FRO/PHO_PRO_FRO_IS540.1_front-red-dot__SALL__AIN__V1.png, 2077x2500) is higher-res but clearly three-quarter angled. The FRO image also carries a 'reddot winner 2023' badge."
+    },
+    "isafe-is540-2": {
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/360/PHO_PRO_360_IS540-2-360Grad-30__SALL__AIN__V1.png",
+      "sourcePage": "https://www.isafe-mobile.com/en/products/product-range/zone-2/22/is5402",
+      "note": "front shot, high confidence; Zone 2 variant (yellow trim), .2-specific set. Frame 30 of the official 36-frame 360-degree turntable set on the i.safe product page (original from /fileadmin/pim/PHO/PRO/360/). Screen faces the camera but the device has a slight lean/perspective tilt, and the PNG includes a soft floating drop shadow below the device; adjacent frames 29-32 are near-identical alternatives. i.safe's own 'Front' packshot (https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/FRO/PHO_PRO_FRO_IS540.2_front-red-dot__SALL__AIN__V1.png, 2077x2500) is higher-res but clearly three-quarter angled. The FRO image also carries a 'reddot winner 2023' badge."
+    },
+    "isafe-is541-1": {
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/360/PHO_PRO_360_251014-IS541-360-Grad-30__SALL__AIN__V2.png",
+      "sourcePage": "https://www.isafe-mobile.com/en/products/product-range/zone-1/21/is5411",
+      "note": "front shot, high confidence; Zone 1 version (red trim, external antenna). Frame 30 of the official 36-frame 360-degree turntable set on the i.safe product page (original from /fileadmin/pim/PHO/PRO/360/). Screen faces the camera but the device has a slight lean/perspective tilt, and the PNG includes a soft floating drop shadow below the device; adjacent frames 29-32 are near-identical alternatives. i.safe's own 'Front' packshot (https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/FRO/PHO_PRO_FRO_IS541.1_Front__SALL__AIN__V1.png, 1636x2500) is higher-res but clearly three-quarter angled."
+    },
+    "isafe-is655-2": {
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/360/PHO_PRO_360_IS655-2-360Grad-31__SALL__AIN__V1.png",
+      "sourcePage": "https://www.isafe-mobile.com/en/products/product-range/archive/is6552",
+      "note": "front shot, medium confidence; Zone 2 version. Frame 31 of the official 36-frame 360-degree turntable set on the i.safe product page (original from /fileadmin/pim/PHO/PRO/360/). Screen faces the camera but the device has a slight lean/perspective tilt, and the PNG includes a soft floating drop shadow below the device; adjacent frames 29-32 are near-identical alternatives. i.safe's own 'Front' packshot (https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/FRO/PHO_PRO_FRO_IS655-2-Front__SALL__AIN__V5.png, 2077x2500) is higher-res but clearly three-quarter angled. The FRO image also carries an 'Android Enterprise' badge. NOTE: i.safe lists this model under its product ARCHIVE (discontinued). Older 360 set: 1100x1080 canvas, device roughly 750-850px tall."
+    },
+    "isafe-is880-2": {
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/360/PHO_PRO_360_IS880-2-360Grad-30__SALL__AIN__V2.png",
+      "sourcePage": "https://www.isafe-mobile.com/en/products/product-range/zone-2/22/is8802",
+      "note": "front shot, high confidence; Zone 2 version (yellow frame). Frame 30 of the official 36-frame 360-degree turntable set on the i.safe product page (original from /fileadmin/pim/PHO/PRO/360/). Screen faces the camera but the device has a slight lean/perspective tilt, and the PNG includes a soft floating drop shadow below the device; adjacent frames 29-32 are near-identical alternatives. i.safe's own 'Front' packshot (https://www.isafe-mobile.com/fileadmin/pim/PHO/PRO/FRO/PHO_PRO_FRO_IS880.2_front__SALL__AIN__V1.png, 2077x2500) is higher-res but clearly three-quarter angled."
+    },
+    "xciel-xciphone-14": {
+      "url": null,
+      "note": "Xciel's only photo is a generic ~100 px case on an older iPhone; ask Xciel for a packshot"
+    },
+    "xciel-xciphone-14-plus": {
+      "url": null,
+      "note": "Xciel's only photo is a generic ~100 px case on an older iPhone; ask Xciel for a packshot"
+    },
+    "xciel-xciphone-17": {
+      "url": null,
+      "note": "Xciel's only photo is a generic ~100 px case on an older iPhone; ask Xciel for a packshot"
+    },
+    "xciel-xcz1-iphone-14": {
+      "url": "https://cdn.hibuwebsites.com/5a8aca1a55574b489d306f762b121113/dms3rep/multi/PhotoRoom_20220928_140004.png",
+      "sourcePage": "https://www.xciel.com/rugged-iphones",
+      "note": "front shot, medium confidence; This is the actual XCZ1 Zone 1 enclosure (orange aluminium frame, black corner bumpers) with a notched iPhone, shown front-on with a transparent PNG background. Xciel uses this one image for the XCZ1 iPhone 14, 13 and 12/12 Pro listings on xciel.com, so the phone pictured may be an iPhone 13 rather than a 14. The XCZ1 iPhone 14 has no webstore product (its 'Buy Now' link on xciel.com is empty). The resolution is modest (480x640); the 1920w 'opt' variant on le-cdn.hibuwebsites.com is just an upscale. The webstore's XCZ1 iPhone 12 listing has a similar 480x640 shot of the same enclosure (cdn11.bigcommerce.com/.../products/157/448/ea353eb3-...png)."
+    },
+    "xshielder-iphone-16-pro-max": {
+      "url": "https://xshielder.com/hubfs/A16PM_2_Hero1_NEW.webp",
+      "sourcePage": "https://xshielder.com/products/smartphones/explosion-proof-smartphone",
+      "crop": [
+        1540,
+        40,
+        1460,
+        2330
+      ],
+      "note": "front+back shot, medium confidence; This is the official Xshielder 16 Pro Max render, high-res with a transparent background. It shows two units: the front one angled (three-quarter, screen visible) and the back one showing the rear. The page also references it via the hubspotusercontent-eu1 CDN. The only front-on official image is https://143752800.fs1.hubspotusercontent-eu1.net/hub/143752800/hubfs/A16PM_4_Front_Screen_Size-1.webp (1000x1000), but it has a '6.9\" OLED' text and arrow overlay on a dark background, so I rejected it as unsuitable for a packshot. Swap it in if strict front-on matters more than a clean image. The other 16PM images are back-only, angled, cropped or lifestyle."
+    },
+    "xshielder-iphone-17": {
+      "url": "https://xshielder.com/hubfs/17BM.webp",
+      "sourcePage": "https://xshielder.com/products",
+      "note": "front+back shot, medium confidence; This is the official Xshielder iPhone 17 (base model, '17BM') render with a transparent background. It shows the front unit at a slight three-quarter angle plus the back unit (dual camera, '17' on the label). I found no front-on-only render of the iPhone 17 case on xshielder.com; the other 17BM images are lifestyle, side profiles (17bm-end-frame.png) or a 1500x1500 copy of this composition (17BM PSS Image 3 Transparent.webp on /products/smartphones/atex-iphone). On the site it is used as a CSS background-image on /products and the homepage."
+    },
+    "xshielder-iphone-17-pro-max": {
+      "url": "https://143752800.fs1.hubspotusercontent-eu1.net/hub/143752800/hubfs/17PM%20PSS%20Image.webp",
+      "sourcePage": "https://xshielder.com",
+      "note": "front shot, high confidence; This is the official front-on render of the Xshielder iPhone 17 Pro Max case with a transparent background (alt text: 'Xshielder iPhone 17 Pro Max intrinsically safe protective case'). It is also served at https://xshielder.com/hubfs/17PM%20PSS%20Image.webp. For a front+back variant, see https://xshielder.com/hubfs/17PM%20PSS%20Image%203%20-%20Transparent.png (2566x3325)."
+    }
+  }
+}

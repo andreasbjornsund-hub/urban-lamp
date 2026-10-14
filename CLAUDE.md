@@ -31,6 +31,7 @@ npm run build          # full site into dist/
 npm run preview        # serves dist/ like GitHub Pages
 npm run og:image       # re-render public/og-image.png from scripts/og-image.html (headless Chrome)
 npm run phones:import -- /path/to/IS_phones_master_data.xlsx   # regenerate src/content/phones/ (needs openpyxl)
+npm run phones:images  # download + normalise product photos from scripts/phone-images.json (add slugs to limit)
 npm run legacy:chrome  # legacy pages only: header/footer rebuild (see DESIGN.md)
 npm run legacy:css     # legacy pages only: Tailwind rebuild
 npm run legacy:links   # legacy pages only: HAG link policy
@@ -90,14 +91,23 @@ links (`/?inquire=…#contact`) relied on the old homepage form, which is gone.
 - Field-worker features: derived from specs where possible (`derive` in `FEATURE_GROUPS`), otherwise set by the
   import in `"features"` (e.g. whether a camera or key works through a case). Keys live in
   `src/lib/feature-keys.ts`. Features with no verified data anywhere are shown on the dev server only.
-- `"sponsor": true` (Xshielder) shows a labelled Sponsor disclosure on cards and pages. Prices are always
+- `"sponsor": true` (Xshielder) shows a labelled Sponsor disclosure on its phone pages (not on Find phones
+  cards; the footer sponsor line covers the grid). Prices are always
   "on request", even though the workbook has indicative prices.
 - Legacy pages, `public/llms-full.txt` and `reasoning.json` still carry the older data and need updating from
   the workbook.
-- Images: only 5 phones have one (Xshielder iPhone 17 and 17 Pro Max, Smart-Ex 03 DZ1, IS540.1, SP9EX1); the
-  BARTEC one is a low-res crop. `src/assets/phones/atexxo.png` and `xciel.png` are unused (the Xciel image shows
-  an iPad case). Rory is sourcing product photos.
+- **Images:** every phone photo goes through `npm run phones:images` so the grid looks uniform: sources are
+  listed in `scripts/phone-images.json` (official packshot URL + source page per slug; front-on, plain
+  background, one device). The script removes the background, drops detached badges/text/shadows, trims to the
+  device, scales it to 1080 px tall and centres it on a transparent 1200×1200 WebP at
+  `src/assets/phones/<slug>.webp`, then sets `image`/`imageAlt` in the phone's JSON. It refuses busy/lifestyle
+  backgrounds and warns on low resolution or wide (front+back) shots; check `.cache/phone-images/review.html`
+  after each run. Don't hand-place images in `src/assets/phones/`; add a manifest entry (`file` for a local
+  photo, `crop` to cut one device out of a multi-device shot).
 - Not verified by any maker: NFC and satellite features through metal Ex enclosures.
+- Apple security updates are shown as "7+ years (based on previous model support)" (`os.supportYears`, set by the
+  import for every `B-AP-*` base). The workbook holds Apple's 5-year legal minimum; the import adds 2 years to
+  that date so sorting and the "updates to 2030+" filter match.
 
 ## HAG network link policy (`src/lib/links.ts`)
 
@@ -111,15 +121,39 @@ tags; competitors (list mirrors `scripts/hag_link_policy.py` and `public/assets/
   (zones, Division, gas group, temperature class, ATEX/IECEx/UKEX, mining version; protection method last and
   deliberately low priority) and "Features" (availability, OS, device type, phone type, brand, weight, then
   field-worker features). Requirements check: phones failing the Ex rating filters are hidden, or shown dimmed
-  with a reason per requirement. Filter state is in the URL. Cards show only brand, model, zones,
-  certification, OS, weight, plus a Discontinued tag.
+  with a reason per requirement. Filter state is in the URL. Cards show only brand (plus its logo
+  top-right, from `src/lib/brand-logos.ts`), model, zones, certification, OS,
+  weight, plus a Discontinued tag. The photo area has a radial glow and the phone lifts on hover. `CARD_THEME`
+  in the page picks light (warm white, black logos) or dark (forest green, white logos; Xshielder's own yellow
+  logo via `ON_DARK` in `PhoneCard.astro`); `?cards=light|dark` overrides it in the browser for review.
 - **Compare tray** (`src/components/phone/CompareTray.astro`): site-wide, up to 4 phones, collapsed bar that
   expands on demand. Any `[data-compare-add="<slug>"]` button works. Selection in localStorage; data
-  lazy-loaded from `/compare-data.json`.
+  lazy-loaded from `/compare-data.json`. Users can hide the bar to a small "Compare (n)" tab in the corner
+  (inline button on desktop, pull-tab on the bar's top edge on phones); that choice is remembered across pages
+  and resets when the selection is cleared.
 - **Phone pages** (`src/pages/phones/[slug].astro`): availability notice, zone coverage grid, Ex marking decoder,
   versions, "Safe use" (ambient temperature, charging and battery swap rules, the certificate's conditions of
   use), grouped specs incl. what works through the case and field capabilities, closest-alternatives table,
   generated FAQ, notes on unconfirmed values, sources. Product/WebPage/Breadcrumb/FAQ JSON-LD.
+  The marking decoder (`MarkingTabs` → `MarkingDecoder`) puts ATEX and IECEx in tabs when a phone has both,
+  and splits each marking into labelled gas / dust / mining blocks (atmosphere and zones come from the EPL).
+  Codes already explained in an earlier block are listed as "as above" instead of repeated.
+- **Home hero strips** (`src/components/home/HeroMarquee.astro`): no box; three strips in alternating
+  directions that fade out at the container edges (aligned with the header CTA): brand logos, certification
+  marks, and real (confirmed) ATEX markings from the phone collection. Brands are alphabetical (fairness).
+  Brand logos are single-colour black files at `src/assets/brands/<brandSlug>.{svg,png,webp}` (a brand without
+  one falls back to typeset text); heights are balanced by aspect ratio plus an `OPTICAL` override. Sources
+  (2026-10-14): each brand's own site header (ecom uses the Pepperl+Fuchs logo its site now shows; Xciel's
+  taglines and swoosh are cropped off), Xshielder's black logo and all marks (Ex hexagon, CE, UKCA, yellow EX
+  warning sign) from Wikimedia Commons. ATEX is shown as CE + Ex, UKEX as UKCA + Ex. `tone="colour"` (the
+  default, used on the home page) prefers full-colour files in `colour/` subfolders: yellow Ex hexagon, the IECEx
+  logo (supplied by Rory, shown in the colour version only; IECEx marks are normally licensed to certified
+  products), colour Atexxo, P+F and i.safe logos, and outline marking pills (black text and border). The brand
+  order stays alphabetical, but a small inline script starts the strip part-way along so the sponsor's logo (Xshielder) slides in about
+  1 s after load (`SPONSOR`, `SPONSOR_DELAY_S`). In the colour version its yellow logo sits on a `#171B25`
+  badge (`BADGE`); the logo is the brand kit SVG with `#FFED00` set as its fill (the kit file had lost its colour).
+  `tone="mono"` is the all-black version. UL/CSA marks stay out, so Class/Division is text. On desktop the
+  strips fill the square the old hero image took, so the hero keeps its height.
 - `sitemap.xml` is generated (`src/pages/sitemap.xml.ts`): Astro pages plus legacy entries from
   `src/data/legacy-sitemap.xml`.
 

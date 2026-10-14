@@ -2,10 +2,10 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon, { type IconName } from '../components/Icon.astro';
+import HeroMarquee from '../components/home/HeroMarquee.astro';
 import { SITE, FIND_PHONES, BUYING_GUIDE, CONTACT } from '../config/site';
 
 // Placeholder images cropped from the design mockup. Replace with full-resolution originals.
-import heroImg from '../assets/home/hero-phone.png';
 import industriesImg from '../assets/home/industries-worker.png';
 import insightStart from '../assets/home/insight-starting-point.png';
 import insightQuestions from '../assets/home/insight-questions.png';
@@ -91,7 +91,7 @@ const schema = [
       { '@type': 'Thing', name: 'Intrinsically safe phone' },
       { '@type': 'Thing', name: 'Explosion-proof phone' },
     ],
-    primaryImageOfPage: { '@type': 'ImageObject', url: `${SITE.url}${heroImg.src}` },
+    primaryImageOfPage: { '@type': 'ImageObject', url: `${SITE.url}/og-image.png` },
   },
 ];
 ---
@@ -112,14 +112,7 @@ const schema = [
         </div>
       </div>
       <div class="hero-media">
-        <Image
-          src={heroImg}
-          alt="A rugged explosion-proof smartphone resting on concrete in front of a refinery"
-          widths={[324]}
-          sizes="(min-width: 56rem) 50vw, 100vw"
-          loading="eager"
-          fetchpriority="high"
-        />
+        <HeroMarquee tone="colour" />
       </div>
     </div>
   </section>
@@ -307,12 +300,7 @@ const schema = [
     margin-top: 2.25rem;
   }
 
-  .hero-media img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: var(--radius);
-  }
+  .hero-media { min-width: 0; }
 
   /* ---------- Steps strip ---------- */
   .steps-grid { display: grid; }
@@ -564,6 +552,8 @@ const schema = [
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
     }
+    /* Same footprint as the square hero image it replaced */
+    .hero-media { aspect-ratio: 1 / 1; }
 
     .split-head {
       grid-template-columns: 1fr minmax(0, 24rem);

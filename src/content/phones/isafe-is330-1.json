@@ -13,6 +13,8 @@
   "status": "current",
   "statusNote": "i.safe MOBILE has moved it to the archive section of its range, but distributors still list it. Check availability before ordering.",
   "summary": "The i.safe MOBILE IS330.1 is an intrinsically safe (Ex ib) feature phone from i.safe MOBILE, certified for Zone 1/21 under ATEX and IECEx, and for Class I Division 1 in North America. It runs Android 10, with a user-replaceable battery.",
+  "image": "../../assets/phones/isafe-is330-1.webp",
+  "imageAlt": "i.safe MOBILE IS330.1, front view",
   "certification": {
     "otherSchemes": [
       "JNIOSH CSAUK 21JPN007X / 008X"

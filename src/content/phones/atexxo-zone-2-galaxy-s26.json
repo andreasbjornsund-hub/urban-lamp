@@ -13,6 +13,8 @@
   "hostDevice": "Samsung Galaxy S26",
   "status": "current",
   "summary": "The Atexxo Zone 2 Galaxy S26 is a standard Samsung Galaxy S26 converted by Atexxo for hazardous areas, certified for Zone 2/22 under ATEX. It combines increased safety and intrinsic safety (Ex ec ic). The phone runs Android 16 / One UI 8.x or later.",
+  "image": "../../assets/phones/atexxo-zone-2-galaxy-s26.webp",
+  "imageAlt": "Atexxo Zone 2 Galaxy S26, front view",
   "certification": {
     "otherSchemes": [],
     "standards": [],

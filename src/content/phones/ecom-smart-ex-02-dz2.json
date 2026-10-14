@@ -15,6 +15,8 @@
   "successor": "ecom-smart-ex-03-dz2",
   "launchYear": 2019,
   "summary": "The ecom Smart-Ex 02 DZ2 is an intrinsically safe (Ex ic) smartphone from ecom (Pepperl+Fuchs), certified for Zone 2/22 under ATEX and IECEx, and for Class I Division 2 in North America. It runs Android 11, with a user-replaceable battery. It has been discontinued; the ecom Smart-Ex 03 DZ2 replaces it.",
+  "image": "../../assets/phones/ecom-smart-ex-02-dz2.webp",
+  "imageAlt": "ecom Smart-Ex 02 DZ2, front view",
   "certification": {
     "otherSchemes": [],
     "standards": [],

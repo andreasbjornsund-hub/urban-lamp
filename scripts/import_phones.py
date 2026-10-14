@@ -210,9 +210,7 @@ NOTES = {
     ("XC-Z2-IP14PL", "ATEX/IECEx marking - gas"): "From Xciel's datasheet, which doesn't print the ATEX category or a certificate number.",
     ("XC-Z2-IP17", "ATEX/IECEx marking - gas"): "From an Xciel installer's listing; Xciel hasn't published a datasheet yet. Earlier XCiPhone models are rated T4.",
     # Base devices
-    ("B-AP-*", "RAM (GB)"): "Apple doesn't publish RAM. This is the widely reported figure.",
-    ("B-AP-*", "Battery (mAh)"): "Apple doesn't publish battery capacity. Figure from regulatory filings and teardowns.",
-    ("B-AP-*", "Security updates until"): "Estimated from Apple's minimum commitment of five years from first sale. Apple usually supports iPhones for longer.",
+    ("B-AP-*", "Security updates until"): "Apple doesn't publish an end date; its legal minimum is five years from first sale. Previous iPhone models have had security updates for seven years or more.",
     ("B-AP-*", "Satellite features"): "Listed on Apple's tech specs; availability depends on the country.",
     ("B-AP-17PM", "Video playback (h, maker figure)"): "UK model (nano-SIM and eSIM). The US eSIM-only model has a larger battery.",
     ("B-AP-15", "Wireless charging"): "As listed on Apple's tech specs, which don't mention Qi2.",
@@ -427,6 +425,9 @@ def tidy(text):
     return t.strip()
 
 
+APPLE_SUPPORT_YEARS = 7
+
+
 def month_year(iso):
     return datetime.date.fromisoformat(iso).strftime("%B %Y")
 
@@ -625,6 +626,15 @@ def build(p, base, through, caps, sources, folded, existing):
     if until and re.match(r"\d{4}-\d{2}-\d{2}", str(until)):
         os_info["securityUntil"] = str(until)[:10]
         os_info["updates"] = f"Security updates until {month_year(os_info['securityUntil'])}"
+    if base.id.startswith("B-AP-"):
+        # The workbook holds Apple's legal minimum (first sale + 5 years). Earlier iPhones got
+        # 7+ years, so publish that and move the date on 2 years for sorting and filters.
+        if "securityUntil" in os_info:
+            d = datetime.date.fromisoformat(os_info["securityUntil"])
+            d = d.replace(day=28) if (d.month, d.day) == (2, 29) else d
+            os_info["securityUntil"] = d.replace(year=d.year + 2).isoformat()
+        os_info["supportYears"] = APPLE_SUPPORT_YEARS
+        os_info["updates"] = f"Security updates for {APPLE_SUPPORT_YEARS}+ years (based on previous model support)"
     # Read raw: "N/A (Apple Business Manager / ADE)" carries the iPhone answer
     aer = base.raw("Android Enterprise Recommended")
     enterprise = None
@@ -649,7 +659,7 @@ def build(p, base, through, caps, sources, folded, existing):
         ("camera", "Rear camera", str),
         ("frontCamera", "Front camera", str),
         ("video", "Video", str),
-        ("battery", "Battery (mAh)", lambda v: f"{v} mAh"),
+        ("battery", "Battery (mAh)", lambda v: v if isinstance(v, str) else f"{v} mAh"),
         ("batteryLife", "Video playback (h, maker figure)", lambda v: f"Up to {v} hours of video playback"),
         ("port", "Port", str),
         ("wirelessCharging", "Wireless charging", str),
@@ -949,7 +959,9 @@ def strengths(ph, lighter):
         out.append("5G connectivity")
     if o.get("securityUntil", "") >= "2030" and ph["status"] == "current":
         when = month_year(o["securityUntil"])
-        out.append(f"Security updates expected until at least {when}" if "os.securityUntil" in u else f"Security updates until {when}")
+        out.append(o["updates"] if o.get("supportYears")
+                   else f"Security updates expected until at least {when}" if "os.securityUntil" in u
+                   else f"Security updates until {when}")
     if ph["type"] == "dedicated" and s.get("replaceableBattery"):
         out.append("User-replaceable battery")
     if specs_has(s, "cameraFree"):

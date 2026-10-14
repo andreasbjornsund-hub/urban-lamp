@@ -9,39 +9,74 @@ interface Props {
   scope?: string;
   /** Number of the note explaining why the marking is unconfirmed */
   flag?: number;
+  /** The scheme name is already on the tab above */
+  inTab?: boolean;
 }
 
-const { scheme, marking, number, scope, flag } = Astro.props;
-// "II 2G Ex db IIC T6 Gb / II 2D Ex tb IIIC T80°C Db" -> one decoded line per atmosphere
-const lines = marking.split(' / ').map(decodeMarking);
+const { scheme, marking, number, scope, flag, inTab } = Astro.props;
+
+const ATMOSPHERE = { G: 'Gas atmospheres', D: 'Dust atmospheres', M: 'Underground mining' } as const;
+const EPL_ZONES: Record<string, string> = {
+  Ga: 'Zones 0, 1 and 2', Gb: 'Zones 1 and 2', Gc: 'Zone 2',
+  Da: 'Zones 20, 21 and 22', Db: 'Zones 21 and 22', Dc: 'Zone 22',
+};
+
+// "II 2G Ex db IIC T6 Gb / II 2D Ex tb IIIC T80°C Db" -> one decoded line per atmosphere.
+// The protection level (EPL) names the atmosphere and zones; IECEx markings have no ATEX category.
+const seen = new Set<string>();
+const lines = marking.split(' / ').map((m) => {
+  const parts = decodeMarking(m);
+  const epl = parts.find((p) => /^[GDM][abc]$/.test(p.token))?.token;
+  const category = parts.find((p) => /^([123][GD]|M[12])$/.test(p.token))?.token;
+  const medium = (epl?.[0] ?? (category?.startsWith('M') ? 'M' : category?.[1])) as keyof typeof ATMOSPHERE | undefined;
+  // Codes such as "II", "Ex" and "ia" mean the same in every line: explain them once
+  const explained = parts.filter((p) => p.meaning);
+  const fresh = explained.filter((p) => !seen.has(`${p.token}|${p.meaning}`));
+  const repeated = explained.filter((p) => seen.has(`${p.token}|${p.meaning}`));
+  explained.forEach((p) => seen.add(`${p.token}|${p.meaning}`));
+  return {
+    parts,
+    fresh,
+    repeated,
+    title: medium ? ATMOSPHERE[medium] : 'Marking',
+    zones: epl ? EPL_ZONES[epl] : undefined,
+  };
+});
 ---
 
 <div class="decoder">
   <div class="decoder-head">
     <span class="scheme">
-      {scheme}
+      <span class:list={{ 'visually-hidden': inTab }}>{scheme}</span>
       {flag && <a class="flag" href={`#note-${flag}`}>Unconfirmed<span class="visually-hidden">: see note</span> {flag}</a>}
     </span>
     {number && <span class="cert-no">Certificate {number}</span>}
     {scope && <span class="cert-scope">{scope}</span>}
   </div>
-  {lines.map((parts) => (
+  {lines.map(({ parts, fresh, repeated, title, zones }) => (
     <div class="decoder-line">
+      <h4 class="line-title">
+        {title}
+        {zones && <span class="line-zones">{zones}</span>}
+      </h4>
       <p class="marking" aria-label={`Marking: ${parts.map((p) => p.token).join(' ')}`}>
         {parts.map((p) => (
           <span class="token" title={p.meaning || undefined}>{p.token}</span>
         ))}
       </p>
       <dl class="parts">
-        {parts
-          .filter((p) => p.meaning)
-          .map((p) => (
-            <div>
-              <dt><code>{p.token}</code> <span>{p.label}</span></dt>
-              <dd>{p.meaning}</dd>
-            </div>
-          ))}
+        {fresh.map((p) => (
+          <div>
+            <dt><code>{p.token}</code> <span>{p.label}</span></dt>
+            <dd>{p.meaning}</dd>
+          </div>
+        ))}
       </dl>
+      {repeated.length > 0 && (
+        <p class="as-above">
+          {repeated.map((p) => <code>{p.token}</code>)} as above.
+        </p>
+      )}
     </div>
   ))}
 </div>
@@ -69,6 +104,24 @@ const lines = marking.split(' / ').map(decodeMarking);
 
   .decoder-line { padding: 1.25rem; }
   .decoder-line + .decoder-line { border-top: 1px dashed var(--color-panel-border); }
+
+  .line-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.75rem;
+    margin-bottom: 0.75rem;
+    font: 600 var(--text-sm) / 1.3 var(--font-sans);
+    color: var(--color-ink);
+  }
+  .line-zones { font-weight: 500; color: var(--color-muted); }
+
+  .as-above { margin-top: 0.75rem; font-size: var(--text-sm); color: var(--color-muted); }
+  .as-above code {
+    margin-right: 0.3rem;
+    font-family: var(--font-mono);
+    color: var(--color-forest);
+  }
 
   .marking {
     display: flex;

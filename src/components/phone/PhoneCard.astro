@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Icon from '../Icon.astro';
+import { logo, logoScale } from '../../lib/brand-logos';
 import type { Phone, PhoneFacts } from '../../lib/phones';
 
 interface Props {
@@ -12,20 +13,47 @@ const { phone, facts: f } = Astro.props;
 const d = phone.data;
 const SCHEME = { atex: 'ATEX', iecex: 'IECEx', ukex: 'UKEX' } as const;
 const certs = f.schemes.map((s) => SCHEME[s]).join(' + ') || d.certification.note || '—';
+// Black logo for every brand, so none stands out; the brand name stays in text below.
+// Card-size tweaks: i.safe's thin "MOBILE" type reads small, and Bartec's heavy type reads large; both are kept
+// clear of the taller phone photos.
+const brandLogo = logo('brands', d.brandSlug);
+const CARD_OPTICAL: Record<string, number> = { isafe: 1.05, bartec: 0.85 };
+const logoH = brandLogo ? logoScale(d.brandSlug, brandLogo) * (CARD_OPTICAL[d.brandSlug] ?? 1) : 1;
+// Dark photo area: logos turn white, except brands whose colour logo is made for dark surfaces (Xshielder's yellow)
+const ON_DARK = new Set(['xshielder']);
+const darkLogo = ON_DARK.has(d.brandSlug) ? logo('brands', d.brandSlug, 'colour') : undefined;
+const darkLogoH = darkLogo ? logoScale(d.brandSlug, darkLogo) * (CARD_OPTICAL[d.brandSlug] ?? 1) : 1;
 ---
 
-<!-- Discontinued phones start hidden; Find phones shows them on request -->
-<li class="phone-card" data-phone={f.id} hidden={f.status === 'discontinued'}>
+<li class="phone-card" data-phone={f.id}>
   <article aria-labelledby={`card-${f.id}`}>
     <a class="card-media" href={f.href} tabindex="-1" aria-hidden="true">
-      {d.image ? (
+      {d.image && (
         <Image src={d.image} alt="" widths={[280, 440]} sizes="(min-width: 64rem) 22vw, (min-width: 40rem) 45vw, 90vw" />
-      ) : (
-        <span class="card-media-empty">No image yet</span>
       )}
     </a>
-    {d.sponsor && <span class="card-sponsor">Sponsor</span>}
-    {f.status === 'discontinued' && <span class="card-status">Discontinued</span>}
+    {brandLogo && (
+      <img
+        class:list={['card-logo', 'logo-light', { 'has-dark': darkLogo, 'is-hero': !d.image }]}
+        src={brandLogo.src}
+        width={brandLogo.width}
+        height={brandLogo.height}
+        alt=""
+        style={`--scale: ${logoH.toFixed(2)}`}
+      />
+    )}
+    {darkLogo && (
+      <img
+        class:list={['card-logo', 'logo-dark', { 'is-hero': !d.image }]}
+        src={darkLogo.src}
+        width={darkLogo.width}
+        height={darkLogo.height}
+        alt=""
+        loading="lazy"
+        style={`--scale: ${darkLogoH.toFixed(2)}`}
+      />
+    )}
+    {f.status === 'discontinued' && <span class="card-status" style={`--scale: ${logoH.toFixed(2)}`}>Discontinued</span>}
 
     <div class="card-body">
       <p class="card-brand">{d.brand}</p>
@@ -62,6 +90,7 @@ const certs = f.schemes.map((s) => SCHEME[s]).join(' + ') || d.certification.not
     display: flex;
     flex-direction: column;
     width: 100%;
+    container-type: inline-size;
     background: var(--color-panel);
     border: 1px solid var(--color-panel-border);
     border-radius: var(--radius);
@@ -77,49 +106,87 @@ const certs = f.schemes.map((s) => SCHEME[s]).join(' + ') || d.certification.not
     position: relative;
     display: block;
     aspect-ratio: 4 / 3;
-    background: #fff;
+    /* Soft warm pool of light behind the phone, fading to white at the edges */
+    background:
+      radial-gradient(ellipse 60% 70% at 50% 58%, #f1eee7 0%, #f7f5f0 45%, #fff 80%);
     border-bottom: 1px solid var(--color-panel-border);
   }
   .card-media img {
     position: absolute;
-    inset: 1rem;
+    /* Extra room at the top keeps tall phones clear of the brand logo, even when lifted on hover */
+    inset: 1.75rem 1rem 1rem;
     width: calc(100% - 2rem);
-    height: calc(100% - 2rem);
+    height: calc(100% - 2.75rem);
     object-fit: contain;
+    filter: drop-shadow(0 6px 8px rgb(40 35 25 / 0.12));
+    transition: transform 0.3s ease, filter 0.3s ease;
   }
-  .card-media-empty {
+  /* The phone lifts a little when the card is hovered or a link in it has keyboard focus */
+  .phone-card article:hover .card-media img,
+  .phone-card article:focus-within .card-media img {
+    transform: translateY(-4px) scale(1.02);
+    filter: drop-shadow(0 14px 14px rgb(40 35 25 / 0.18));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .phone-card article:hover .card-media img,
+    .phone-card article:focus-within .card-media img { transform: none; }
+  }
+  .card-logo {
     position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    color: var(--color-muted);
-    font-size: var(--text-sm);
+    top: 0.875rem;
+    right: 0.875rem;
+    width: auto;
+    height: calc(1rem * var(--scale));
+    max-width: 40%;
+    object-fit: contain;
+    object-position: right center;
+    opacity: 0.7;
+    pointer-events: none;
   }
-  .card-sponsor {
-    position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
-    padding: 0.15rem 0.5rem;
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-sm);
-    background: var(--color-panel);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--color-ink);
+  /* No photo yet: a larger logo sits in the middle of the photo area (4:3, so its centre is 37.5% of the width down) */
+  .card-logo.is-hero {
+    top: 37.5cqw;
+    right: auto;
+    left: 50%;
+    height: calc(2.25rem * var(--scale));
+    max-width: 60%;
+    object-position: center;
+    transform: translate(-50%, -50%);
   }
+  .logo-dark { display: none; }
+
+  /* Dark photo area: deep forest green with a brighter pool of light so black phones still stand out */
+  :global([data-card-theme='dark']) .card-media {
+    background:
+      radial-gradient(ellipse 52% 58% at 50% 55%, #7fa08e 0%, #5a7e6b 22%, #34584a 48%, #1d382d 75%, #132620 100%);
+    border-bottom-color: #132620;
+  }
+  :global([data-card-theme='dark']) .card-media img {
+    filter: drop-shadow(0 8px 10px rgb(0 0 0 / 0.35));
+  }
+  :global([data-card-theme='dark']) .phone-card article:hover .card-media img,
+  :global([data-card-theme='dark']) .phone-card article:focus-within .card-media img {
+    filter: drop-shadow(0 16px 16px rgb(0 0 0 / 0.45));
+  }
+  :global([data-card-theme='dark']) .logo-light { filter: brightness(0) invert(1); opacity: 0.85; }
+  :global([data-card-theme='dark']) .logo-light.has-dark { display: none; }
+  :global([data-card-theme='dark']) .logo-dark { display: block; opacity: 1; }
+
   .card-status {
     position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    padding: 0.15rem 0.5rem;
-    border: 1px solid var(--color-caution-border);
-    border-radius: var(--radius-sm);
-    background: var(--color-caution-bg);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    color: var(--color-caution-ink);
+    /* Same height and top line as the brand logo opposite (--scale is the logo's) */
+    top: 0.875rem;
+    left: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    height: calc(1rem * var(--scale, 1));
+    padding: 0 0.4rem;
+    border-radius: 3px;
+    background: #e6e6e6;
+    font-size: max(0.625rem, calc(0.6875rem * var(--scale, 1)));
+    font-weight: 500;
+    line-height: 1;
+    color: #000;
   }
 
   .card-body {

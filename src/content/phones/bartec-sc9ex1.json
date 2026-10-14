@@ -13,6 +13,8 @@
   "status": "current",
   "launchYear": 2024,
   "summary": "The BARTEC SC9EX1 Smartscanner is an intrinsically safe (Ex ia) smartphone with a built-in Zebra scan engine from BARTEC, certified for Zone 0/1/21 under ATEX and IECEx, and for Class I Division 1 in North America. It runs Android 15, with 5G and a user-replaceable battery.",
+  "image": "../../assets/phones/bartec-sc9ex1.webp",
+  "imageAlt": "BARTEC SC9EX1 Smartscanner, front view",
   "certification": {
     "otherSchemes": [
       "KCs (Korea): 26-KA4BO-0420X (gas, Ex ia op is IIC T4 Ga) and 26-KA4BO-0421X (dust)"

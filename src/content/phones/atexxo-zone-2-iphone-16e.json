@@ -13,6 +13,8 @@
   "hostDevice": "Apple iPhone 16e",
   "status": "current",
   "summary": "The Atexxo Zone 2 iPhone 16e is a standard Apple iPhone 16e converted by Atexxo for hazardous areas, certified for Zone 2/22 under ATEX. It combines increased safety and intrinsic safety (Ex ec ic). The phone runs iOS 27.",
+  "image": "../../assets/phones/atexxo-zone-2-iphone-16e.webp",
+  "imageAlt": "Atexxo Zone 2 iPhone 16e, front view",
   "certification": {
     "otherSchemes": [],
     "standards": [],
@@ -42,8 +44,9 @@
     "name": "iOS",
     "version": "iOS 27",
     "atLaunch": "iOS 18",
-    "securityUntil": "2030-02-28",
-    "updates": "Security updates until February 2030",
+    "securityUntil": "2032-02-28",
+    "updates": "Security updates for 7+ years (based on previous model support)",
+    "supportYears": 7,
     "enterprise": "Apple Business Manager (ADE)"
   },
   "specs": {
@@ -56,7 +59,7 @@
     "camera": "48 MP Fusion (2x optical-quality)",
     "frontCamera": "12 MP TrueDepth AF",
     "video": "4K60",
-    "battery": "3961 mAh",
+    "battery": "4005 mAh",
     "batteryLife": "Up to 26 hours of video playback",
     "port": "USB-C (USB 2)",
     "wirelessCharging": "Qi 7.5 W (no MagSafe)",
@@ -146,9 +149,7 @@
   ],
   "variants": [],
   "unconfirmed": {
-    "os.securityUntil": "Estimated from Apple's minimum commitment of five years from first sale. Apple usually supports iPhones for longer.",
-    "specs.ram": "Apple doesn't publish RAM. This is the widely reported figure.",
-    "specs.battery": "Apple doesn't publish battery capacity. Figure from regulatory filings and teardowns.",
+    "os.securityUntil": "Apple doesn't publish an end date; its legal minimum is five years from first sale. Previous iPhone models have had security updates for seven years or more.",
     "specs.wirelessCharging": "Apple doesn't state a wattage; 7.5 W is the Qi baseline.",
     "specs.satellite": "Listed on Apple's tech specs; availability depends on the country."
   },
@@ -158,7 +159,7 @@
   ],
   "strengths": [
     "5G connectivity",
-    "Security updates expected until at least February 2030",
+    "Security updates for 7+ years (based on previous model support)",
     "A standard Apple iPhone 16e inside, with the same apps and Apple device management as other iPhones",
     "Among the lightest Zone 2 smartphones we list, at 275 g in use"
   ],
@@ -193,6 +194,10 @@
     {
       "label": "Apple: iPhone 16e Tech Specs",
       "url": "https://support.apple.com/en-gb/122208"
+    },
+    {
+      "label": "MacRumors: iPhone 16e's battery capacity revealed (updated: teardown shows 4,005 mAh)",
+      "url": "https://www.macrumors.com/2025/02/26/iphone-16e-battery-capacity/"
     }
   ]
 }

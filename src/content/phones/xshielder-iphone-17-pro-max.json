@@ -14,8 +14,8 @@
   "status": "current",
   "launchYear": 2026,
   "summary": "The Xshielder iPhone 17 Pro Max is a flameproof (Ex db) case for the Apple iPhone 17 Pro Max, certified for Zone 1/21 under ATEX and IECEx. The phone inside is a standard Apple iPhone 17 Pro Max running iOS 27, so it works with the same apps and device management as other iPhones.",
-  "image": "../../assets/phones/xshielder.jpg",
-  "imageAlt": "Worker in a high-visibility jacket holding an iPhone in an Xshielder Ex case",
+  "image": "../../assets/phones/xshielder-iphone-17-pro-max.webp",
+  "imageAlt": "Xshielder iPhone 17 Pro Max, front view",
   "certification": {
     "otherSchemes": [],
     "standards": [],
@@ -53,8 +53,9 @@
     "name": "iOS",
     "version": "iOS 27",
     "atLaunch": "iOS 26",
-    "securityUntil": "2030-09-19",
-    "updates": "Security updates until September 2030",
+    "securityUntil": "2032-09-19",
+    "updates": "Security updates for 7+ years (based on previous model support)",
+    "supportYears": 7,
     "enterprise": "Apple Business Manager (ADE)"
   },
   "specs": {
@@ -67,7 +68,7 @@
     "camera": "48 MP Fusion main + 48 MP ultra wide + 48 MP telephoto (4x; 8x optical-quality)",
     "frontCamera": "18 MP Center Stage",
     "video": "4K120 Dolby Vision; ProRes RAW; Apple Log 2",
-    "battery": "5088 mAh",
+    "battery": "4823 mAh (nano-SIM + eSIM model); 5088 mAh (eSIM-only model)",
     "batteryLife": "Up to 37 hours of video playback",
     "port": "USB-C (USB 3)",
     "wirelessCharging": "MagSafe up to 25 W; Qi2",
@@ -214,9 +215,7 @@
     }
   ],
   "unconfirmed": {
-    "os.securityUntil": "Estimated from Apple's minimum commitment of five years from first sale. Apple usually supports iPhones for longer.",
-    "specs.ram": "Apple doesn't publish RAM. This is the widely reported figure.",
-    "specs.battery": "Apple doesn't publish battery capacity. Figure from regulatory filings and teardowns.",
+    "os.securityUntil": "Apple doesn't publish an end date; its legal minimum is five years from first sale. Previous iPhone models have had security updates for seven years or more.",
     "specs.batteryLife": "UK model (nano-SIM and eSIM). The US eSIM-only model has a larger battery.",
     "specs.satellite": "Listed on Apple's tech specs; availability depends on the country."
   },
@@ -233,7 +232,7 @@
     "ATEX and IECEx certified, with published certificate numbers",
     "T6 temperature class, the strictest rating",
     "5G connectivity",
-    "Security updates expected until at least September 2030",
+    "Security updates for 7+ years (based on previous model support)",
     "LiDAR scanner usable through the case"
   ],
   "limitations": [
@@ -323,6 +322,10 @@
     {
       "label": "Apple: iPhone 17 Pro Max Tech Specs (eSIM-only model)",
       "url": "https://support.apple.com/125091"
+    },
+    {
+      "label": "GSMArena: Apple iPhone 17 Pro Max - full specifications (4,823 mAh; eSIM-only 5,088 mAh)",
+      "url": "https://www.gsmarena.com/apple_iphone_17_pro_max-13964.php"
     }
   ]
 }

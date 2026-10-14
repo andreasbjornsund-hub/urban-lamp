@@ -13,8 +13,8 @@
   "status": "current",
   "launchYear": 2024,
   "summary": "The BARTEC SP9EX1 is an intrinsically safe (Ex ia) smartphone from BARTEC, certified for Zone 0/1/21 under ATEX and IECEx, and for Class I Division 1 in North America. It runs Android 15, with 5G and a user-replaceable battery.",
-  "image": "../../assets/phones/bartec-sp9.webp",
-  "imageAlt": "Bartec SP9EX1 smartphone",
+  "image": "../../assets/phones/bartec-sp9ex1.webp",
+  "imageAlt": "BARTEC SP9EX1, front view",
   "certification": {
     "otherSchemes": [
       "KCs (Korea): 26-KA4BO-0418X (gas, Ex ia IIC T4 Ga) and 26-KA4BO-0419X (dust, Ex ia IIIC T135°C Db), issued 2026-07-15. Australia: ACMA supplier's DoC only (radio/EMC, not an Ex approval)."

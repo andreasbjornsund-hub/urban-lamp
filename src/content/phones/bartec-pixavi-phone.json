@@ -14,6 +14,8 @@
   "statusNote": "Discontinued by BARTEC. The SP9EX1 replaces it.",
   "successor": "bartec-sp9ex1",
   "summary": "The BARTEC Pixavi Phone is an intrinsically safe (Ex ib) smartphone from BARTEC, certified for Zone 1/21 under ATEX and IECEx. It runs Android 11, with a user-replaceable battery. It has been discontinued; the BARTEC SP9EX1 replaces it.",
+  "image": "../../assets/phones/bartec-pixavi-phone.webp",
+  "imageAlt": "BARTEC Pixavi Phone, front view",
   "certification": {
     "otherSchemes": [
       "INMETRO (Brazil) UL-BR 22.1400X, Ex ib IIC T4 Gb / Ex ib IIIC T135°C Db, valid to 2028-08-30",

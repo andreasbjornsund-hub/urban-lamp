@@ -39,6 +39,8 @@
     "name": "iOS",
     "version": "iOS 27",
     "atLaunch": "iOS 16",
+    "supportYears": 7,
+    "updates": "Security updates for 7+ years (based on previous model support)",
     "enterprise": "Apple Business Manager (ADE)"
   },
   "specs": {
@@ -138,10 +140,7 @@
     }
   ],
   "variants": [],
-  "unconfirmed": {
-    "specs.ram": "Apple doesn't publish RAM. This is the widely reported figure.",
-    "specs.battery": "Apple doesn't publish battery capacity. Figure from regulatory filings and teardowns."
-  },
+  "unconfirmed": {},
   "features": [
     "wireless-charging"
   ],

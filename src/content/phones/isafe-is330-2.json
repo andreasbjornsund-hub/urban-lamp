@@ -14,6 +14,8 @@
   "statusNote": "i.safe MOBILE has moved it to the archive section of its range, but distributors still list it. Check availability before ordering.",
   "launchYear": 2019,
   "summary": "The i.safe MOBILE IS330.2 is an intrinsically safe (Ex ic) feature phone from i.safe MOBILE, certified for Zone 2/22 under ATEX and IECEx, and for Class I Division 2 in North America. It runs Android 10, with a user-replaceable battery.",
+  "image": "../../assets/phones/isafe-is330-2.webp",
+  "imageAlt": "i.safe MOBILE IS330.2, front view",
   "certification": {
     "otherSchemes": [],
     "standards": [],

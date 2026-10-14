@@ -37,8 +37,9 @@
     "name": "iOS",
     "version": "iOS 27",
     "atLaunch": "iOS 26",
-    "securityUntil": "2030-09-19",
-    "updates": "Security updates until September 2030",
+    "securityUntil": "2032-09-19",
+    "updates": "Security updates for 7+ years (based on previous model support)",
+    "supportYears": 7,
     "enterprise": "Apple Business Manager (ADE)"
   },
   "specs": {
@@ -135,9 +136,7 @@
   ],
   "unconfirmed": {
     "certification.atex.marking": "From an Xciel installer's listing; Xciel hasn't published a datasheet yet. Earlier XCiPhone models are rated T4.",
-    "os.securityUntil": "Estimated from Apple's minimum commitment of five years from first sale. Apple usually supports iPhones for longer.",
-    "specs.ram": "Apple doesn't publish RAM. This is the widely reported figure.",
-    "specs.battery": "Apple doesn't publish battery capacity. Figure from regulatory filings and teardowns.",
+    "os.securityUntil": "Apple doesn't publish an end date; its legal minimum is five years from first sale. Previous iPhone models have had security updates for seven years or more.",
     "specs.satellite": "Listed on Apple's tech specs; availability depends on the country."
   },
   "features": [
@@ -146,7 +145,7 @@
   "strengths": [
     "Also certified for Class I Division 2 in North America",
     "5G connectivity",
-    "Security updates expected until at least September 2030",
+    "Security updates for 7+ years (based on previous model support)",
     "A standard Apple iPhone 17 inside, with the same apps and Apple device management as other iPhones"
   ],
   "limitations": [

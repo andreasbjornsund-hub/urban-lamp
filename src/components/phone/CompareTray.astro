@@ -45,10 +45,19 @@ const MAX_COMPARE = 4;
           <span data-tray-toggle-label>Compare</span>
           <Icon name="chevron-down" class="tray-chevron" />
         </button>
+        <button class="tray-icon-btn tray-hide" type="button" data-tray-hide aria-label="Hide compare bar" title="Hide compare bar">
+          <Icon name="chevron-down" />
+        </button>
       </div>
     </div>
     <p class="visually-hidden" aria-live="polite" data-tray-live></p>
   </div>
+
+  <!-- Hidden state: a small tab that brings the bar back -->
+  <button class="tray-tab" type="button" data-tray-show aria-label="Show compare bar">
+    <span>Compare <span class="tray-tab-count" data-tray-tab-count>0</span></span>
+    <Icon name="chevron-up" />
+  </button>
 </section>
 
 <script>
@@ -63,6 +72,7 @@ const MAX_COMPARE = 4;
 
   const MAX = 4;
   const KEY = 'isp-compare';
+  const MIN_KEY = 'isp-compare-hidden';
   // Only the finder page mirrors the selection into its URL (so a filtered comparison can be shared)
   const SYNC_URL = location.pathname === '/phones/';
 
@@ -77,6 +87,9 @@ const MAX_COMPARE = 4;
     const tableWrap = tray.querySelector<HTMLElement>('[data-tray-table]')!;
     const diff = tray.querySelector<HTMLInputElement>('[data-tray-diff]')!;
     const count = tray.querySelector<HTMLElement>('[data-tray-count]')!;
+    const hideBtn = tray.querySelector<HTMLButtonElement>('[data-tray-hide]')!;
+    const showBtn = tray.querySelector<HTMLButtonElement>('[data-tray-show]')!;
+    const tabCount = tray.querySelector<HTMLElement>('[data-tray-tab-count]')!;
 
     let phones: Map<string, TrayPhone> | null = null;
     let rowLabels: string[] = [];
@@ -100,6 +113,8 @@ const MAX_COMPARE = 4;
     }
 
     let selected = loadSelection().slice(0, MAX);
+    // Whether the user has tucked the bar away; remembered across pages until they show it again
+    let minimized = (() => { try { return localStorage.getItem(MIN_KEY) === '1'; } catch { return false; } })();
 
     const esc = (s: string) => s.replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]!);
 
@@ -112,8 +127,17 @@ const MAX_COMPARE = 4;
       history.replaceState(null, '', url);
     }
 
+    function setMinimized(min: boolean, focus = false) {
+      minimized = min;
+      try { localStorage.setItem(MIN_KEY, min ? '1' : '0'); } catch {}
+      if (min) setExpanded(false);
+      tray.classList.toggle('is-min', min);
+      document.documentElement.classList.toggle('tray-min', min);
+      if (focus) (min ? showBtn : hideBtn).focus();
+    }
+
     function setExpanded(open: boolean) {
-      if (open && selected.length < 2) open = false;
+      if (open && (selected.length < 2 || minimized)) open = false;
       panel.hidden = !open;
       toggle.setAttribute('aria-expanded', String(open));
       tray.classList.toggle('is-open', open);
@@ -138,6 +162,7 @@ const MAX_COMPARE = 4;
       );
       slots.innerHTML = [...filled, ...empty].join('');
       count.textContent = String(selected.length);
+      tabCount.textContent = String(selected.length);
       toggleLabel.textContent = selected.length < 2 ? 'Add one more to compare' : `Compare ${selected.length}`;
       toggle.disabled = selected.length < 2;
     }
@@ -184,6 +209,8 @@ const MAX_COMPARE = 4;
     function update(message?: string, persist = true) {
       syncButtons();
       tray.hidden = selected.length === 0;
+      // Starting a new comparison brings the bar back
+      if (!selected.length && minimized) setMinimized(false);
       document.documentElement.classList.toggle('has-tray', selected.length > 0);
       if (phones) {
         renderSlots();
@@ -211,6 +238,12 @@ const MAX_COMPARE = 4;
       } else {
         selected = [...selected, id];
         update(`${p.name} added to comparison. ${selected.length} of ${MAX} selected.`);
+        if (minimized) {
+          // Stay out of the way, but show that the tab picked it up
+          showBtn.classList.remove('is-bump');
+          void showBtn.offsetWidth;
+          showBtn.classList.add('is-bump');
+        }
       }
     }
 
@@ -227,6 +260,8 @@ const MAX_COMPARE = 4;
       setExpanded(false);
       toggle.focus();
     });
+    hideBtn.addEventListener('click', () => setMinimized(true, true));
+    showBtn.addEventListener('click', () => setMinimized(false, true));
     tray.querySelector('[data-tray-clear]')!.addEventListener('click', () => {
       selected = [];
       update('Comparison cleared.');
@@ -249,6 +284,7 @@ const MAX_COMPARE = 4;
 
     // Show buttons in the right state straight away; fetch data only if something is already selected
     syncButtons();
+    if (minimized) setMinimized(selected.length > 0);
     if (selected.length) {
       ensureData().then(() => {
         selected = selected.filter((id) => phones!.has(id));
@@ -271,6 +307,7 @@ const MAX_COMPARE = 4;
 
   /* ---------- Collapsed bar ---------- */
   .tray-bar {
+    position: relative;
     background: var(--color-panel);
     border-top: 1px solid var(--color-border-strong);
     box-shadow: 0 -10px 30px -12px rgb(40 35 25 / 0.25);
@@ -378,8 +415,56 @@ const MAX_COMPARE = 4;
     color: var(--color-muted);
     cursor: default;
   }
+  .tray-hide { flex: none; }
   .tray-actions :global(.tray-chevron) { transform: rotate(180deg); transition: transform 0.2s ease; }
   .tray.is-open .tray-actions :global(.tray-chevron) { transform: none; }
+
+  /* ---------- Hidden: just a small tab in the corner ---------- */
+  .tray-tab { display: none; }
+  .tray.is-min {
+    inset: auto max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) auto;
+  }
+  .tray.is-min .tray-bar,
+  .tray.is-min .tray-panel { display: none; }
+  .tray.is-min .tray-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0 0.875rem 0 1rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--color-forest);
+    color: var(--color-on-dark);
+    font: 600 var(--text-sm) / 1 var(--font-sans);
+    box-shadow: 0 8px 24px -8px rgb(20 25 22 / 0.45);
+    cursor: pointer;
+    animation: tab-in 0.2s ease;
+  }
+  .tray-tab:hover { background: var(--color-forest-hover); }
+  .tray-tab :global(svg) { width: 1.125rem; height: 1.125rem; }
+  .tray-tab-count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.375rem;
+    height: 1.375rem;
+    margin-left: 0.25rem;
+    padding: 0 0.3rem;
+    border-radius: 999px;
+    background: var(--color-on-dark);
+    color: var(--color-forest);
+    font-size: var(--text-xs);
+  }
+  .tray-tab.is-bump { animation: tab-bump 0.4s ease; }
+  @keyframes tab-in {
+    from { opacity: 0; transform: translateY(0.5rem); }
+  }
+  @keyframes tab-bump {
+    40% { transform: scale(1.08); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tray.is-min .tray-tab, .tray-tab.is-bump { animation: none; }
+  }
 
   /* Gentle shake when the tray is full */
   .tray.is-full .tray-slots { animation: nudge 0.35s ease; }
@@ -500,7 +585,7 @@ const MAX_COMPARE = 4;
   .tray-table-wrap:global(.only-diff) :global(tr.same) { display: none; }
 
   /* Keep page content clear of the bar */
-  :global(html.has-tray) :global(body) { padding-bottom: 5rem; }
+  :global(html.has-tray:not(.tray-min)) :global(body) { padding-bottom: 5rem; }
   /* Dim the page behind the expanded panel */
   :global(html.tray-open)::after {
     content: '';
@@ -530,6 +615,31 @@ const MAX_COMPARE = 4;
       font-size: 0.875rem;
     }
     .tray-clear { display: none; }
+    /* No room in the bar, so the hide button becomes a pull-tab on its top edge.
+       The button keeps a 44px tap target; only the bottom part is drawn. */
+    .tray-hide {
+      position: absolute;
+      right: 1rem;
+      bottom: 100%;
+      width: 3.25rem;
+      height: 2.75rem;
+      align-items: end;
+      padding-bottom: 0.125rem;
+      background: none;
+      border-radius: 0;
+    }
+    .tray-hide::before {
+      content: '';
+      position: absolute;
+      inset: auto 0 -1px;
+      height: 1.625rem;
+      background: var(--color-panel);
+      border: 1px solid var(--color-border-strong);
+      border-bottom: 0;
+      border-radius: var(--radius) var(--radius) 0 0;
+      box-shadow: 0 -6px 14px -8px rgb(40 35 25 / 0.3);
+    }
+    .tray-hide :global(svg) { position: relative; }
   }
 
   @media (min-width: 40rem) {

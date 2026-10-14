@@ -13,6 +13,8 @@
   "status": "current",
   "launchYear": 2025,
   "summary": "The BARTEC SP9EX2 is an intrinsically safe (Ex ic) smartphone from BARTEC, certified for Zone 2/22 under ATEX and IECEx, and for Class I Division 2 in North America. It runs Android 15, with 5G and a user-replaceable battery.",
+  "image": "../../assets/phones/bartec-sp9ex2.webp",
+  "imageAlt": "BARTEC SP9EX2, front view",
   "certification": {
     "otherSchemes": [
       "ACMA supplier's DoC (Australia): radio/EMC only, not an Ex approval"

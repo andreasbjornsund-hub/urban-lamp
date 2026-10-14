@@ -64,6 +64,13 @@ export function monthYear(iso?: string): string | undefined {
   return iso ? new Date(iso).toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }) : undefined;
 }
 
+/** Security update support as shown on pages and in comparisons */
+export function securityUpdates(os: { securityUntil?: string; supportYears?: number }): string | undefined {
+  if (os.supportYears) return `${os.supportYears}+ years (based on previous model support)`;
+  const until = monthYear(os.securityUntil);
+  return until ? `Until ${until}` : undefined;
+}
+
 /* ---------- Ex marking decoder ---------- */
 
 export interface MarkingPart {
@@ -193,8 +200,8 @@ export const COMPARE_ROWS: CompareRow[] = [
   { label: 'Charging in the Ex area', value: (p) => (p.data.safety.chargingInZone === undefined ? '—' : p.data.safety.chargingInZone ? 'Allowed (see conditions)' : 'Not allowed') },
   { label: 'Operating system', value: (p) => p.data.os.version },
   {
-    label: 'Security updates until',
-    value: (p) => monthYear(p.data.os.securityUntil) ?? '—',
+    label: 'Security updates',
+    value: (p) => securityUpdates(p.data.os) ?? '—',
     rank: (p) => (p.data.os.securityUntil ? Date.parse(p.data.os.securityUntil) : undefined),
   },
   {

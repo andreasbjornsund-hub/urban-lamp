@@ -15,6 +15,8 @@
   "successor": "ecom-smart-ex-03-dz1",
   "launchYear": 2019,
   "summary": "The ecom Ex-Handy 10 DZ1 is an intrinsically safe (Ex ib) feature phone from ecom (Pepperl+Fuchs), certified for Zone 1/21 under ATEX and IECEx, and for Class I Division 1 in North America. It runs Android 9. It has been discontinued; the ecom Smart-Ex 03 DZ1 replaces it.",
+  "image": "../../assets/phones/ecom-ex-handy-10-dz1.webp",
+  "imageAlt": "ecom Ex-Handy 10 DZ1, front view",
   "certification": {
     "otherSchemes": [
       "INMETRO marking on Brazil version (cert no. not captured)"

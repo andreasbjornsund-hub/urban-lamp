@@ -13,6 +13,8 @@
   "hostDevice": "Apple iPhone 15",
   "status": "current",
   "summary": "The Atexxo Zone 1 iPhone 15 is a standard Apple iPhone 15 converted by Atexxo for hazardous areas, certified for Zone 1/21 under ATEX and IECEx. It uses a flameproof (Ex db) housing. The phone runs iOS 27.",
+  "image": "../../assets/phones/atexxo-zone-1-iphone-15.webp",
+  "imageAlt": "Atexxo Zone 1 iPhone 15, front view",
   "certification": {
     "otherSchemes": [
       "INMETRO DNV 25.0038 X"
@@ -51,8 +53,9 @@
     "name": "iOS",
     "version": "iOS 27",
     "atLaunch": "iOS 17",
-    "securityUntil": "2028-09-22",
-    "updates": "Security updates until September 2028",
+    "securityUntil": "2030-09-22",
+    "updates": "Security updates for 7+ years (based on previous model support)",
+    "supportYears": 7,
     "enterprise": "Apple Business Manager (ADE)"
   },
   "specs": {
@@ -159,20 +162,20 @@
   ],
   "variants": [],
   "unconfirmed": {
-    "os.securityUntil": "Estimated from Apple's minimum commitment of five years from first sale. Apple usually supports iPhones for longer.",
-    "specs.ram": "Apple doesn't publish RAM. This is the widely reported figure.",
-    "specs.battery": "Apple doesn't publish battery capacity. Figure from regulatory filings and teardowns.",
+    "os.securityUntil": "Apple doesn't publish an end date; its legal minimum is five years from first sale. Previous iPhone models have had security updates for seven years or more.",
     "specs.wirelessCharging": "As listed on Apple's tech specs, which don't mention Qi2.",
     "specs.weightG": "Atexxo gives 525 g in its flyer and 528 g in a product listing."
   },
   "features": [
     "nfc",
     "lanyard",
-    "wireless-charging"
+    "wireless-charging",
+    "updates-2030"
   ],
   "strengths": [
     "ATEX and IECEx certified, with published certificate numbers",
     "5G connectivity",
+    "Security updates for 7+ years (based on previous model support)",
     "A standard Apple iPhone 15 inside, with the same apps and Apple device management as other iPhones"
   ],
   "limitations": [

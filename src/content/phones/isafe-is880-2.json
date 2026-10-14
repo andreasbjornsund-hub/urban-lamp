@@ -13,6 +13,8 @@
   "status": "current",
   "launchYear": 2025,
   "summary": "The i.safe MOBILE IS880.2 is an intrinsically safe (Ex ic) smartphone from i.safe MOBILE, certified for Zone 2/22 under ATEX and IECEx. It runs Android 14, with a user-replaceable battery.",
+  "image": "../../assets/phones/isafe-is880-2.webp",
+  "imageAlt": "i.safe MOBILE IS880.2, front view",
   "certification": {
     "otherSchemes": [],
     "standards": [],

@@ -14,6 +14,8 @@
   "statusNote": "Discontinued by i.safe MOBILE. The IS880.2 is its successor.",
   "successor": "isafe-is880-2",
   "summary": "The i.safe MOBILE IS655.2 is an intrinsically safe (Ex ic) smartphone from i.safe MOBILE, certified for Zone 2/22 under ATEX and IECEx, and for Class I Division 2 in North America. It runs Android 10. It has been discontinued; the i.safe MOBILE IS880.2 replaces it.",
+  "image": "../../assets/phones/isafe-is655-2.webp",
+  "imageAlt": "i.safe MOBILE IS655.2, front view",
   "certification": {
     "otherSchemes": [
       "KCs: Ex ic IIC T4 / Ex ic IIIB T135°C"

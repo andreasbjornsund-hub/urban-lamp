@@ -14,6 +14,8 @@
   "status": "current",
   "launchYear": 2023,
   "summary": "The Atexxo Zone 1 iPhone 14 is a standard Apple iPhone 14 converted by Atexxo for hazardous areas, certified for Zone 1/21 under ATEX and IECEx. It uses a flameproof (Ex db) housing. The phone runs iOS 27.",
+  "image": "../../assets/phones/atexxo-zone-1-iphone-14.webp",
+  "imageAlt": "Atexxo Zone 1 iPhone 14, front view",
   "certification": {
     "otherSchemes": [
       "INMETRO RBNA 24.0042X"
@@ -52,6 +54,8 @@
     "name": "iOS",
     "version": "iOS 27",
     "atLaunch": "iOS 16",
+    "supportYears": 7,
+    "updates": "Security updates for 7+ years (based on previous model support)",
     "enterprise": "Apple Business Manager (ADE)"
   },
   "specs": {
@@ -161,8 +165,6 @@
   ],
   "variants": [],
   "unconfirmed": {
-    "specs.ram": "Apple doesn't publish RAM. This is the widely reported figure.",
-    "specs.battery": "Apple doesn't publish battery capacity. Figure from regulatory filings and teardowns.",
     "specs.satellite": "Listed on Apple's tech specs; availability depends on the country."
   },
   "features": [

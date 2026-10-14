@@ -12,6 +12,8 @@
   "formFactor": "smartphone",
   "status": "current",
   "summary": "The ecom Smart-Ex 203 is an intrinsically safe (Ex ic) smartphone from ecom (Pepperl+Fuchs), certified for Zone 2/22 under ATEX and IECEx, and for Class I Division 2 in North America. It runs Android 14, with 5G and a user-replaceable battery.",
+  "image": "../../assets/phones/ecom-smart-ex-203.webp",
+  "imageAlt": "ecom Smart-Ex 203, front view",
   "certification": {
     "otherSchemes": [
       "KC 26-KA4BO-0339X (gas) / 0340X (dust)",

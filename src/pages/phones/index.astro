@@ -9,6 +9,8 @@ import { SITE } from '../../config/site';
 import { EX_FEATURES, FEATURE_GROUPS, FORM_LABEL, phoneFacts, protectionScore } from '../../lib/phones';
 
 const phones = await getCollection('phones');
+// Photo area style on the cards. Review: ?cards=light or ?cards=dark overrides it in the browser.
+const CARD_THEME: 'light' | 'dark' = 'dark';
 const items = await Promise.all(
   phones.map(async (phone) => {
     const thumb = phone.data.image
@@ -26,7 +28,7 @@ items.sort(
     a.facts.name.localeCompare(b.facts.name),
 );
 const facts = items.map((i) => i.facts);
-const currentCount = facts.filter((f) => f.status === 'current').length;
+const totalCount = facts.length;
 
 const title = 'Find Intrinsically Safe Phones: Filter & Compare Models';
 const description =
@@ -73,7 +75,7 @@ const showUnverified = import.meta.env.DEV;
 const available = new Set(facts.flatMap((f) => f.features));
 const brands = [...new Map(facts.map((f) => [f.brandSlug, f.brand])).entries()].sort((a, b) => a[1].localeCompare(b[1]));
 const featureFilters: Filter[] = [
-  checks('avail', 'Availability', [{ value: 'discontinued', label: 'Include discontinued models' }]),
+  checks('avail', 'Availability', [{ value: 'current', label: 'Hide discontinued models' }]),
   checks('os', 'Operating system', [
     { value: 'iOS', label: 'iOS (iPhone)' },
     { value: 'Android', label: 'Android' },
@@ -198,7 +200,7 @@ const schema = [
               <div class="dd-foot">
                 <button class="dd-clear" type="button" data-dd-clear>Clear</button>
                 <button class="btn btn-primary btn-sm" type="button" data-dd-close>
-                  Show <span data-result-count>{currentCount}</span> phones
+                  Show <span data-result-count>{totalCount}</span> phones
                 </button>
               </div>
             </div>
@@ -207,7 +209,7 @@ const schema = [
       </form>
 
       <p class="results-count" aria-live="polite">
-        <strong data-result-count>{currentCount}</strong> <span data-result-noun>phones</span>
+        <strong data-result-count>{totalCount}</strong> <span data-result-noun>phones</span>
       </p>
 
       <label class="sort">
@@ -224,7 +226,7 @@ const schema = [
 
   <section class="band band-white finder" aria-label="Phones">
     <div class="container">
-      <p class="results-line" aria-live="polite"><strong data-result-count>{currentCount}</strong> <span data-result-noun>phones</span></p>
+      <p class="results-line" aria-live="polite"><strong data-result-count>{totalCount}</strong> <span data-result-noun>phones</span></p>
       <ul class="chips" data-chips aria-label="Active filters" hidden></ul>
 
       <div class="unmet-note" data-unmet-note hidden>
@@ -235,9 +237,15 @@ const schema = [
         </label>
       </div>
 
-      <ul class="card-grid" data-grid>
+      <ul class="card-grid" data-grid data-card-theme={CARD_THEME}>
         {items.map(({ phone, facts: f }) => <PhoneCard phone={phone} facts={f} />)}
       </ul>
+      <script is:inline>
+        {
+          const t = new URLSearchParams(location.search).get('cards');
+          if (t === 'light' || t === 'dark') document.querySelector('[data-grid]').dataset.cardTheme = t;
+        }
+      </script>
 
       <div class="empty" data-empty hidden>
         <h2>No phones match all of these filters</h2>
@@ -297,7 +305,7 @@ const schema = [
   const LABELS: Record<string, string> = {
     ...FEATURE_LABEL, ...FORM_LABEL, atex: 'ATEX', iecex: 'IECEx', ukex: 'UKEX', iOS: 'iOS', Android: 'Android',
     Other: 'Other OS', dedicated: 'Dedicated Ex phone', 'ex-case': 'Ex case', conversion: 'Conversion',
-    intrinsic: 'Intrinsic safety', flameproof: 'Flameproof', combined: 'Ex ec ic', discontinued: 'Including discontinued',
+    intrinsic: 'Intrinsic safety', flameproof: 'Flameproof', combined: 'Ex ec ic', current: 'Current models only',
     ...Object.fromEntries(phones.map((p) => [p.brandSlug, p.brand])),
   };
 
@@ -365,7 +373,7 @@ const schema = [
   }
 
   function meetsPreferences(p: PhoneFacts, s: State): boolean {
-    if (p.status === 'discontinued' && !s.avail.includes('discontinued')) return false;
+    if (p.status === 'discontinued' && s.avail.includes('current')) return false;
     if (s.os.length && !s.os.includes(p.os)) return false;
     if (s.form.length && !s.form.includes(p.formFactor)) return false;
     if (s.brand.length && !s.brand.includes(p.brandSlug)) return false;

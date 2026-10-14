@@ -5,7 +5,7 @@ import { Image, getImage } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Icon from '../../components/Icon.astro';
-import MarkingDecoder from '../../components/phone/MarkingDecoder.astro';
+import MarkingTabs from '../../components/phone/MarkingTabs.astro';
 import ZoneCoverage from '../../components/phone/ZoneCoverage.astro';
 import CompareTable from '../../components/phone/CompareTable.astro';
 import { SITE, MAIN_NAV, CONTACT } from '../../config/site';
@@ -19,6 +19,7 @@ import {
   confirmedDivision,
   schemeList,
   monthYear,
+  securityUpdates,
   type Phone,
 } from '../../lib/phones';
 
@@ -63,6 +64,7 @@ const zones = zoneLabel(phone);
 const division = confirmedDivision(phone);
 const schemes = schemeList(phone);
 const updates = monthYear(os.securityUntil);
+const updatesText = securityUpdates(os);
 const updatesEstimated = Boolean(d.unconfirmed['os.securityUntil']);
 const markingConfirmed = !(d.unconfirmed['certification.atex.marking'] && !c.atex?.number && !c.iecex?.number);
 // Only a marking backed by a certificate is quoted in the description and FAQ
@@ -87,7 +89,7 @@ const atAGlance = [
   row('Temperature class', c.tempClass ? `${c.tempClass} (≤ ${TEMP_CLASS_MAX[c.tempClass]} °C)` : undefined),
   row('Ambient temperature', c.ambient, 'certification.ambient'),
   row('Operating system', os.version, 'os.version'),
-  row('Security updates', updates ? `Until ${updates}` : undefined, 'os.securityUntil'),
+  row('Security updates', updatesText, 'os.securityUntil'),
   row('Weight', s.weightG ? `${s.weightG} g` : undefined, 'specs.weightG'),
   row('Price', 'On request'),
 ].filter((g) => g.value);
@@ -137,7 +139,7 @@ const specGroups = [
       row('Operating system', os.version, 'os.version'),
       row('OS at launch', os.atLaunch),
       row('OS upgrades', os.upgradeLimit),
-      row('Security updates', updates ? `Until ${updates}` : undefined, 'os.securityUntil'),
+      row('Security updates', updatesText, 'os.securityUntil'),
       ...specRows(['chip', 'ram', 'storage'], { chip: 'Processor', ram: 'Memory (RAM)', storage: 'Storage' }),
     ],
   },
@@ -155,9 +157,9 @@ const specGroups = [
     : []),
   {
     title: 'Display and camera',
-    rows: specRows(['display', 'resolution', 'refreshRate', 'brightness', 'touch', 'camera', 'frontCamera', 'video'], {
+    rows: specRows(['display', 'resolution', 'refreshRate', 'brightness', 'touch', 'camera', 'frontCamera', 'video', 'depthSensing'], {
       display: 'Display', resolution: 'Resolution', refreshRate: 'Refresh rate', brightness: 'Brightness', touch: 'Touch',
-      camera: 'Rear camera', frontCamera: 'Front camera', video: 'Video',
+      camera: 'Rear camera', frontCamera: 'Front camera', video: 'Video', depthSensing: 'Depth sensing',
     }),
   },
   {
@@ -180,14 +182,12 @@ const specGroups = [
     ],
   },
   {
-    title: 'Controls',
+    title: 'Controls & Accessibility',
     rows: [
       ...specRows(['keys'], { keys: 'Keys' }),
       row('Push-to-talk key', yn(s.pttKey)),
       row('Glove touch', yn(s.gloveTouch)),
-      ...specRows(['biometrics', 'depthSensing', 'accessories'], {
-        biometrics: 'Biometrics', depthSensing: 'Depth sensing', accessories: 'Accessory interface',
-      }),
+      ...specRows(['biometrics', 'accessories'], { biometrics: 'Biometrics', accessories: 'Accessory interface' }),
     ],
   },
   {
@@ -253,7 +253,7 @@ const faqs = [
     : []),
   {
     q: `What operating system does the ${d.name} run?`,
-    a: `${os.version}.${updates ? ` Security updates ${updatesEstimated ? 'are expected until at least' : 'until'} ${updates}.` : ''}`,
+    a: `${os.version}.${os.supportYears ? ` Security updates are expected for ${os.supportYears}+ years from launch, based on previous model support.` : updates ? ` Security updates ${updatesEstimated ? 'are expected until at least' : 'until'} ${updates}.` : ''}`,
   },
   ...(discontinued || d.statusNote
     ? [{
@@ -481,8 +481,12 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
       {(c.atex || c.iecex) ? (
         <div class="markings">
           <h3>The Ex marking, decoded</h3>
-          {c.atex && <MarkingDecoder scheme="ATEX" marking={c.atex.marking} number={c.atex.number} scope={c.atex.scope} flag={atexFlag} />}
-          {c.iecex && <MarkingDecoder scheme="IECEx" marking={c.iecex.marking} number={c.iecex.number} scope={c.iecex.scope} flag={iecexFlag} />}
+          <MarkingTabs
+            schemes={[
+              ...(c.atex ? [{ scheme: 'ATEX', ...c.atex, flag: atexFlag }] : []),
+              ...(c.iecex ? [{ scheme: 'IECEx', ...c.iecex, flag: iecexFlag }] : []),
+            ]}
+          />
         </div>
       ) : (
         <p class="marking-missing">

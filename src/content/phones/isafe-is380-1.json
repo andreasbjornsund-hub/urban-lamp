@@ -13,6 +13,8 @@
   "status": "current",
   "launchYear": 2026,
   "summary": "The i.safe MOBILE IS380.1 is an intrinsically safe (Ex ia) 4G push-to-talk radio from i.safe MOBILE, certified for Zone 1/21 under ATEX and IECEx. It runs ISM-OS 16, with a user-replaceable battery.",
+  "image": "../../assets/phones/isafe-is380-1.webp",
+  "imageAlt": "i.safe MOBILE IS380.1, front view",
   "certification": {
     "otherSchemes": [],
     "standards": [],

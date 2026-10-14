@@ -95,6 +95,8 @@ const phones = defineCollection({
         upgradeLimit: z.string().optional(),
         /** ISO date of the last promised security update */
         securityUntil: z.string().optional(),
+        /** Years of security updates from launch, when that's shown instead of an end date (Apple) */
+        supportYears: z.number().optional(),
         updates: z.string().optional(),
         enterprise: z.string().optional(),
       }),

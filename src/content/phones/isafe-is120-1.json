@@ -12,6 +12,8 @@
   "formFactor": "feature-phone",
   "status": "current",
   "summary": "The i.safe MOBILE IS120.1 is an intrinsically safe (Ex ib) feature phone from i.safe MOBILE, certified for Zone 1/21 under ATEX and IECEx. It runs ISM-OS 11.",
+  "image": "../../assets/phones/isafe-is120-1.webp",
+  "imageAlt": "i.safe MOBILE IS120.1, front view",
   "certification": {
     "otherSchemes": [
       "INMETRO BRA 21.GE0033X"

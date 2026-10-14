@@ -14,6 +14,8 @@
   "status": "current",
   "launchYear": 2024,
   "summary": "The Xshielder iPhone 16 Pro Max is a flameproof (Ex db) case for the Apple iPhone 16 Pro Max, certified for Zone 1/21 under ATEX and IECEx. The phone inside is a standard Apple iPhone 16 Pro Max running iOS 27, so it works with the same apps and device management as other iPhones.",
+  "image": "../../assets/phones/xshielder-iphone-16-pro-max.webp",
+  "imageAlt": "Xshielder iPhone 16 Pro Max, front view",
   "certification": {
     "otherSchemes": [],
     "standards": [],
@@ -52,8 +54,9 @@
     "name": "iOS",
     "version": "iOS 27",
     "atLaunch": "iOS 18",
-    "securityUntil": "2029-09-20",
-    "updates": "Security updates until September 2029",
+    "securityUntil": "2031-09-20",
+    "updates": "Security updates for 7+ years (based on previous model support)",
+    "supportYears": 7,
     "enterprise": "Apple Business Manager (ADE)"
   },
   "specs": {
@@ -213,9 +216,7 @@
     }
   ],
   "unconfirmed": {
-    "os.securityUntil": "Estimated from Apple's minimum commitment of five years from first sale. Apple usually supports iPhones for longer.",
-    "specs.ram": "Apple doesn't publish RAM. This is the widely reported figure.",
-    "specs.battery": "Apple doesn't publish battery capacity. Figure from regulatory filings and teardowns.",
+    "os.securityUntil": "Apple doesn't publish an end date; its legal minimum is five years from first sale. Previous iPhone models have had security updates for seven years or more.",
     "specs.wirelessCharging": "As listed on Apple's tech specs, which don't mention Qi2.",
     "specs.satellite": "Listed on Apple's tech specs; availability depends on the country.",
     "throughCase.Front camera": "Inferred from related information; not stated by the maker for this exact model."
@@ -226,14 +227,15 @@
     "programmable-key",
     "tripod-mount",
     "lanyard",
-    "wireless-charging"
+    "wireless-charging",
+    "updates-2030"
   ],
   "strengths": [
     "ATEX and IECEx certified, with published certificate numbers",
     "T6 temperature class, the strictest rating",
     "5G connectivity",
-    "LiDAR scanner usable through the case",
-    "A standard Apple iPhone 16 Pro Max inside, with the same apps and Apple device management as other iPhones"
+    "Security updates for 7+ years (based on previous model support)",
+    "LiDAR scanner usable through the case"
   ],
   "limitations": [
     "IECEx covers the S02 (cemented lid) version only",

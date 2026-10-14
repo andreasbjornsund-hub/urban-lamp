@@ -13,6 +13,8 @@
   "hostDevice": "Samsung Galaxy XCover7 Pro",
   "status": "current",
   "summary": "The Atexxo Zone 2 Galaxy XCover7 Pro is a standard Samsung Galaxy XCover7 Pro converted by Atexxo for hazardous areas, certified for Zone 2/22 under ATEX. It combines increased safety and intrinsic safety (Ex ec ic). The phone runs Android 16 / One UI 8.x or later.",
+  "image": "../../assets/phones/atexxo-zone-2-galaxy-xcover7-pro.webp",
+  "imageAlt": "Atexxo Zone 2 Galaxy XCover7 Pro, front view",
   "certification": {
     "otherSchemes": [],
     "standards": [],

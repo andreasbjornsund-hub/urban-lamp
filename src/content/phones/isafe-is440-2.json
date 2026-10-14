@@ -12,6 +12,8 @@
   "formFactor": "radio",
   "status": "current",
   "summary": "The i.safe MOBILE IS440.2 is an intrinsically safe (Ex ic) 5G push-to-talk radio from i.safe MOBILE, certified for Zone 2/22 under ATEX and IECEx, and for Class I Division 2 in North America. It runs ISM-OS 14, with 5G and a user-replaceable battery.",
+  "image": "../../assets/phones/isafe-is440-2.webp",
+  "imageAlt": "i.safe MOBILE IS440.2, front view",
   "certification": {
     "otherSchemes": [],
     "standards": [],

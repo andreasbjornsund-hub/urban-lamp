@@ -13,6 +13,8 @@
   "status": "current",
   "launchYear": 2023,
   "summary": "The i.safe MOBILE IS540.2 is an intrinsically safe (Ex ic) smartphone from i.safe MOBILE, certified for Zone 2/22 under ATEX and IECEx. It runs Android 14, with 5G and a user-replaceable battery.",
+  "image": "../../assets/phones/isafe-is540-2.webp",
+  "imageAlt": "i.safe MOBILE IS540.2, front view",
   "certification": {
     "otherSchemes": [
       "RCM (Australia)",
