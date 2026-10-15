@@ -6,6 +6,7 @@ import HeroMarquee from '../components/home/HeroMarquee.astro';
 import { SITE, FIND_PHONES, BUYING_GUIDE, CONTACT } from '../config/site';
 
 // Placeholder images cropped from the design mockup. Replace with full-resolution originals.
+import rigImg from '../assets/home/hero-rig.png';
 import industriesImg from '../assets/home/industries-worker.png';
 import insightStart from '../assets/home/insight-starting-point.png';
 import insightQuestions from '../assets/home/insight-questions.png';
@@ -112,6 +113,10 @@ const schema = [
         </div>
       </div>
       <div class="hero-media">
+        <!-- Line drawing of an offshore rig behind the strips (decorative) -->
+        <div class="hero-art" aria-hidden="true">
+          <Image src={rigImg} alt="" widths={[600, 900, 1200]} sizes="(min-width: 56rem) 50vw, 100vw" loading="eager" />
+        </div>
         <HeroMarquee tone="colour" />
       </div>
     </div>
@@ -300,7 +305,23 @@ const schema = [
     margin-top: 2.25rem;
   }
 
-  .hero-media { min-width: 0; }
+  .hero-media { position: relative; min-width: 0; }
+
+  .hero-art {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero-art img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+  .hero-media :global(.marquees) { position: relative; z-index: 1; }
 
   /* ---------- Steps strip ---------- */
   .steps-grid { display: grid; }
@@ -548,12 +569,59 @@ const schema = [
   /* ---------- Desktop ---------- */
   @media (min-width: 56rem) {
     .hero { padding-block: 1rem 3rem; }
+    /*
+     * One grid for copy and strips, so each strip shares a row with the text it lines up with:
+     * brand logos with the H1 (centred on its first line), certification marks with the lead,
+     * marking pills with the buttons. The wrappers step aside with display: contents.
+     */
     .hero-grid {
       grid-template-columns: 1fr 1fr;
-      gap: 3rem;
+      column-gap: 3rem;
+      row-gap: 0;
+      align-items: start;
     }
-    /* Same footprint as the square hero image it replaced */
-    .hero-media { aspect-ratio: 1 / 1; }
+    .hero-copy,
+    .hero-media,
+    .hero-media :global(.marquees) { display: contents; }
+
+    .hero .eyebrow { grid-area: 1 / 1; }
+    .hero h1 { grid-area: 2 / 1; }
+    .hero .lead { grid-area: 3 / 1; }
+    .hero-actions { grid-area: 4 / 1; }
+
+    /* The drawing fills the right-hand column and runs into the hero's padding */
+    .hero-art {
+      position: relative;
+      inset: auto;
+      grid-area: 1 / 2 / 5 / 3;
+      align-self: stretch;
+      margin-block: -1rem -3rem;
+    }
+
+    .hero-media :global(.marquee) {
+      position: relative;
+      z-index: 1;
+      grid-column: 2;
+      min-width: 0;
+    }
+    .hero-media :global(.marquees > .visually-hidden) { grid-area: 1 / 2; }
+    /* Top of the strip at the middle of the H1's first line, then pulled up by half its own height */
+    .hero-media :global(.marquee-brands) {
+      grid-row: 2;
+      margin-top: calc(var(--text-h1) * 1.08 / 2);
+      translate: 0 -50%;
+    }
+    /* Same top margin as the text in the row, so both centre on the same line */
+    .hero-media :global(.marquee-marks) {
+      grid-row: 3;
+      align-self: center;
+      margin-top: 1.5rem;
+    }
+    .hero-media :global(.marquee-markings) {
+      grid-row: 4;
+      align-self: center;
+      margin-top: 2.25rem;
+    }
 
     .split-head {
       grid-template-columns: 1fr minmax(0, 24rem);
