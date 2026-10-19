@@ -56,7 +56,7 @@
     "securityUntil": "2032-09-19",
     "updates": "Security updates for 7+ years (based on previous model support)",
     "supportYears": 7,
-    "enterprise": "Apple Business Manager (ADE)"
+    "enterprise": "Apple Business (formerly Apple Business Manager)"
   },
   "specs": {
     "display": "6.9-inch OLED; ProMotion; Always-On; Ceramic Shield 2",
@@ -89,9 +89,9 @@
     "storage": "256 GB / 512 GB / 1 TB / 2 TB",
     "replaceableBattery": false,
     "gloveTouch": false,
-    "pttKey": false,
+    "pttKey": true,
     "mdm": [
-      "Apple Business Manager (ADE)"
+      "Apple Business (formerly Apple Business Manager)"
     ],
     "connectivity": [
       "5G",
@@ -171,7 +171,7 @@
   "capabilities": [
     {
       "label": "Push-to-talk",
-      "value": "Via app (Push to Talk framework); Action Button (programmable key on cover) mappable"
+      "value": "Built in (PTT via the programmable Action Button on the cover; Push to Talk framework)"
     },
     {
       "label": "Emergency / SOS",
@@ -231,20 +231,20 @@
   "strengths": [
     "ATEX and IECEx certified, with published certificate numbers",
     "T6 temperature class, the strictest rating",
+    "Push-to-talk key",
     "5G connectivity",
-    "Security updates for 7+ years (based on previous model support)",
-    "LiDAR scanner usable through the case"
+    "Security updates for 7+ years (based on previous model support)"
   ],
   "limitations": [
     "IECEx covers the S02 (cemented lid) version only",
     "Only authorised personnel may open the case",
-    "No hardware push-to-talk key",
     "NFC and satellite SOS not confirmed to work through the enclosure",
     "Not certified for Zone 0"
   ],
   "bestFor": [
     "zone-1-phones",
     "iphone",
+    "push-to-talk",
     "5g"
   ],
   "alternatives": [
@@ -298,6 +298,10 @@
     {
       "label": "Apple: iPhone 17 Pro Max - Technical Specifications (Apple Support, UK)",
       "url": "https://support.apple.com/en-gb/125091"
+    },
+    {
+      "label": "Apple: Apple Business (formerly Apple Business Manager) user guide",
+      "url": "https://support.apple.com/guide/apple-business-manager/welcome/web"
     },
     {
       "label": "Arktake (Japan distributor): Xshielder iPhone 17 Pro Max listing (marking + Ta)",

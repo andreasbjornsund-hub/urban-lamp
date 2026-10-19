@@ -56,7 +56,7 @@
     "securityUntil": "2030-09-22",
     "updates": "Security updates for 7+ years (based on previous model support)",
     "supportYears": 7,
-    "enterprise": "Apple Business Manager (ADE)"
+    "enterprise": "Apple Business (formerly Apple Business Manager)"
   },
   "specs": {
     "display": "6.1-inch OLED; Dynamic Island; Ceramic Shield",
@@ -90,7 +90,7 @@
     "gloveTouch": false,
     "pttKey": false,
     "mdm": [
-      "Apple Business Manager (ADE)"
+      "Apple Business (formerly Apple Business Manager)"
     ],
     "connectivity": [
       "5G",
@@ -213,6 +213,10 @@
     {
       "label": "Apple: iPhone 15 - Technical Specifications (Apple Support, UK)",
       "url": "https://support.apple.com/en-gb/111831"
+    },
+    {
+      "label": "Apple: Apple Business (formerly Apple Business Manager) user guide",
+      "url": "https://support.apple.com/guide/apple-business-manager/welcome/web"
     },
     {
       "label": "Atexxo (via DirectIndustry): iPhone 15 Zone 1 listing MOB-EXd-IPH-15 (528 g)",

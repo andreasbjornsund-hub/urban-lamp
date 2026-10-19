@@ -42,7 +42,7 @@
     "atLaunch": "iOS 16",
     "supportYears": 7,
     "updates": "Security updates for 7+ years (based on previous model support)",
-    "enterprise": "Apple Business Manager (ADE)"
+    "enterprise": "Apple Business (formerly Apple Business Manager)"
   },
   "specs": {
     "display": "6.7-inch OLED Super Retina XDR; Ceramic Shield",
@@ -76,7 +76,7 @@
     "gloveTouch": false,
     "pttKey": false,
     "mdm": [
-      "Apple Business Manager (ADE)"
+      "Apple Business (formerly Apple Business Manager)"
     ],
     "connectivity": [
       "5G",
@@ -160,6 +160,10 @@
     {
       "label": "Apple: iPhone 14 Plus - Technical Specifications (Apple Support, UK)",
       "url": "https://support.apple.com/en-gb/111854"
+    },
+    {
+      "label": "Apple: Apple Business (formerly Apple Business Manager) user guide",
+      "url": "https://support.apple.com/guide/apple-business-manager/welcome/web"
     },
     {
       "label": "Apple: iPhone 14 / 14 Plus technical specifications (UK)",

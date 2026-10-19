@@ -47,7 +47,7 @@
     "securityUntil": "2032-09-19",
     "updates": "Security updates for 7+ years (based on previous model support)",
     "supportYears": 7,
-    "enterprise": "Apple Business Manager (ADE)"
+    "enterprise": "Apple Business (formerly Apple Business Manager)"
   },
   "specs": {
     "display": "6.9-inch OLED; ProMotion; Always-On; Ceramic Shield 2",
@@ -82,7 +82,7 @@
     "gloveTouch": false,
     "pttKey": false,
     "mdm": [
-      "Apple Business Manager (ADE)"
+      "Apple Business (formerly Apple Business Manager)"
     ],
     "connectivity": [
       "5G",
@@ -191,6 +191,10 @@
     {
       "label": "Apple: iPhone 17 Pro Max - Technical Specifications (Apple Support, UK)",
       "url": "https://support.apple.com/en-gb/125091"
+    },
+    {
+      "label": "Apple: Apple Business (formerly Apple Business Manager) user guide",
+      "url": "https://support.apple.com/guide/apple-business-manager/welcome/web"
     },
     {
       "label": "Atexxo (via DirectIndustry): iPhone 17 Pro Max Zone 2 listing",

@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { SITE } from '../config/site';
+import { BEST_PAGES } from '../data/best-pages';
+import { COMPARE_PAGES } from '../data/compare-pages';
 // Legacy pages in public/ keep their hand-maintained entries until they are rebuilt in Astro
 import legacy from '../data/legacy-sitemap.xml?raw';
 
@@ -15,10 +17,20 @@ const day = (d: Date) => d.toISOString().slice(0, 10);
 export const GET: APIRoute = async () => {
   const phones = await getCollection('phones');
 
+  const comparePages = COMPARE_PAGES.map((c) => {
+    const verified = phones.filter((p) => c.phones.includes(p.id)).map((p) => p.data.lastVerified.getTime());
+    return { loc: `${SITE.url}/compare/${c.slug}/`, lastmod: day(new Date(Math.max(...verified))), priority: '0.8' };
+  });
+
   const astroPages: Entry[] = [
     { loc: `${SITE.url}/`, lastmod: day(new Date()), priority: '1.0' },
     { loc: `${SITE.url}/phones/`, lastmod: day(new Date()), priority: '0.9' },
+    { loc: `${SITE.url}/disclosure/`, lastmod: day(new Date()), priority: '0.3' },
+    ...BEST_PAGES.map((b) => ({ loc: `${SITE.url}/best/${b.slug}/`, lastmod: day(new Date()), priority: '0.9' })),
     ...phones.map((p) => ({ loc: `${SITE.url}/phones/${p.id}/`, lastmod: day(p.data.lastVerified), priority: '0.8' })),
+    // The /compare/ index changes whenever one of its head-to-heads does
+    { loc: `${SITE.url}/compare/`, lastmod: comparePages.map((c) => c.lastmod).sort().at(-1), priority: '0.8' },
+    ...comparePages,
   ];
   const astroLocs = new Set(astroPages.map((e) => e.loc));
 

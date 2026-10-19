@@ -55,7 +55,7 @@
     "securityUntil": "2032-09-19",
     "updates": "Security updates for 7+ years (based on previous model support)",
     "supportYears": 7,
-    "enterprise": "Apple Business Manager (ADE)"
+    "enterprise": "Apple Business (formerly Apple Business Manager)"
   },
   "specs": {
     "display": "6.3-inch OLED; ProMotion; Always-On; Ceramic Shield 2",
@@ -89,7 +89,7 @@
     "gloveTouch": false,
     "pttKey": false,
     "mdm": [
-      "Apple Business Manager (ADE)"
+      "Apple Business (formerly Apple Business Manager)"
     ],
     "connectivity": [
       "5G",
@@ -97,7 +97,7 @@
       "NFC",
       "eSIM"
     ],
-    "weightG": 450,
+    "weightG": 470,
     "weightNote": "Including the phone",
     "dimensionsMm": "170 × 90 × 20",
     "cameraFree": false
@@ -172,7 +172,7 @@
   ],
   "limitations": [
     "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
-    "Heavy, at 450 g in use",
+    "Heavy, at 470 g in use",
     "No hardware push-to-talk key",
     "NFC and satellite SOS not confirmed to work through the enclosure",
     "Not certified for Zone 0"
@@ -188,7 +188,7 @@
     "isafe-is541-1"
   ],
   "sponsor": false,
-  "lastVerified": "2026-10-13",
+  "lastVerified": "2026-10-14",
   "sources": [
     {
       "label": "Atexxo: iPhone 17 Zone 1 EU-type examination certificate EPS 26 ATEX 1 043 X (2026-03-26)",
@@ -197,6 +197,18 @@
     {
       "label": "IECEx (Bureau Veritas Consumer Products Services Germany GmbH): IECEx EPS 26.0046X issue 0 (2026-09-09, Current) - iPhone 17 in an Ex-d enclosure, Type: MOB-EXd-IPH-17",
       "url": "https://www.iecex-certs.com/#/deliverables/CERT/2179422/view"
+    },
+    {
+      "label": "Atexxo: ATEX/IECEx iPhone 17 Zone 1/21 datasheet ('Weight: 450 grams')",
+      "url": "https://atexxo.com/wp-content/uploads/2026/04/ATEX_IECEx_iphone_17_Zone_1_21_explosion_proof_Ex.pdf"
+    },
+    {
+      "label": "Atexxo: Ex Zone 1 iPhone 17 product page ('Weight: 470 grams')",
+      "url": "https://atexxo.com/product/explosion-proof-iphone-17-ex-zone-1/"
+    },
+    {
+      "label": "Apple: Apple Business (formerly Apple Business Manager) user guide",
+      "url": "https://support.apple.com/guide/apple-business-manager/welcome/web"
     },
     {
       "label": "Atexxo (via DirectIndustry): iPhone 17 Ex Zone 1 flyer",

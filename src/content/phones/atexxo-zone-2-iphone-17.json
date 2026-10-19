@@ -47,7 +47,7 @@
     "securityUntil": "2032-09-19",
     "updates": "Security updates for 7+ years (based on previous model support)",
     "supportYears": 7,
-    "enterprise": "Apple Business Manager (ADE)"
+    "enterprise": "Apple Business (formerly Apple Business Manager)"
   },
   "specs": {
     "display": "6.3-inch OLED; ProMotion; Always-On; Ceramic Shield 2",
@@ -81,7 +81,7 @@
     "gloveTouch": false,
     "pttKey": false,
     "mdm": [
-      "Apple Business Manager (ADE)"
+      "Apple Business (formerly Apple Business Manager)"
     ],
     "connectivity": [
       "5G",
@@ -187,6 +187,10 @@
   "sponsor": false,
   "lastVerified": "2026-10-13",
   "sources": [
+    {
+      "label": "Apple: Apple Business (formerly Apple Business Manager) user guide",
+      "url": "https://support.apple.com/guide/apple-business-manager/welcome/web"
+    },
     {
       "label": "Atexxo (via DirectIndustry): iPhone 17 Zone 2 flyer and MOB-EX-IPH-17 listing",
       "url": "https://www.directindustry.com/prod/atexxo-bv/product-160752-2831890.html"

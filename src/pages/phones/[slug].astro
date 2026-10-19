@@ -8,12 +8,12 @@ import Icon from '../../components/Icon.astro';
 import MarkingTabs from '../../components/phone/MarkingTabs.astro';
 import ZoneCoverage from '../../components/phone/ZoneCoverage.astro';
 import CompareTable from '../../components/phone/CompareTable.astro';
+import { safetyRows as safetyRowsFor, specGroups as specGroupsFor, caseWord as caseWordFor } from '../../lib/spec-groups';
 import { SITE, MAIN_NAV, CONTACT } from '../../config/site';
 import { externalLink, pageSlug } from '../../lib/links';
 import {
   TYPE_LABEL,
   TYPE_EXPLAINER,
-  FORM_LABEL,
   TEMP_CLASS_MAX,
   zoneLabel,
   confirmedDivision,
@@ -57,7 +57,6 @@ const row = (label: string, value: string | undefined, ...keys: string[]): Row =
   value,
   flag: value ? flag(...keys) : undefined,
 });
-const yn = (v: boolean | undefined) => (v === undefined ? undefined : v ? 'Yes' : 'No');
 
 /* ---------- Copy built from the data ---------- */
 const zones = zoneLabel(phone);
@@ -97,109 +96,13 @@ const atAGlance = [
 const atexFlag = c.atex ? flag('certification.atex.marking') : undefined;
 const iecexFlag = c.iecex ? flag('certification.iecex.marking') : undefined;
 
-const safetyRows = [
-  row('Ambient temperature (Ta)', c.ambient, 'certification.ambient'),
-  row('Charging', safety.charging),
-  row('Battery swap', safety.batterySwap),
-  row('IP code in the Ex certificate', s.exIp, 'specs.exIp'),
-  row('Operating temperature', s.operatingTemp, 'specs.operatingTemp'),
-].filter((r) => r.value);
+const safetyRows = safetyRowsFor(phone).map((r) => row(r.label, r.value, ...r.keys)).filter((r) => r.value);
 const conditionsFlag = safety.conditions ? flag('safety.conditions') : undefined;
 const hasSafety = safetyRows.length > 0 || Boolean(safety.conditions);
 
-const caseWord = d.type === 'ex-case' ? 'case' : 'housing';
-const specRows = (keys: (keyof typeof s)[], labels: Record<string, string>) =>
-  keys.map((k) => row(labels[k], typeof s[k] === 'string' ? (s[k] as string) : undefined, `specs.${k}`));
-
-const specGroups = [
-  {
-    title: 'Certification',
-    rows: [
-      row('ATEX marking', c.atex?.marking, 'certification.atex.marking'),
-      row('ATEX certificate', c.atex?.number ?? c.atex?.scope),
-      row('IECEx marking', c.iecex?.marking, 'certification.iecex.marking'),
-      row('IECEx certificate', c.iecex ? [c.iecex.number, c.iecex.scope && `(${c.iecex.scope})`].filter(Boolean).join(' ') : undefined),
-      row('UKEX certificate', c.ukex),
-      row('Other approvals', c.otherSchemes.join('; ') || undefined, 'certification.otherSchemes'),
-      row('North America', c.northAmerica, 'certification.northAmerica'),
-      row('Protection level (EPL)', c.epl),
-      row('Dust group', c.dustGroup),
-      row('Max surface temperature (dust)', c.maxSurfaceTemp),
-      row('Standards', c.standards.join(', ') || undefined),
-    ],
-  },
-  {
-    title: 'Device',
-    rows: [
-      row('Type', TYPE_LABEL[d.type]),
-      row('Device type', FORM_LABEL[d.formFactor]),
-      row('Phone inside', d.hostDevice),
-      row('Launched', d.launchYear?.toString()),
-      row('Part numbers', s.partNumbers),
-      row('Operating system', os.version, 'os.version'),
-      row('OS at launch', os.atLaunch),
-      row('OS upgrades', os.upgradeLimit),
-      row('Security updates', updatesText, 'os.securityUntil'),
-      ...specRows(['chip', 'ram', 'storage'], { chip: 'Processor', ram: 'Memory (RAM)', storage: 'Storage' }),
-    ],
-  },
-  ...(d.throughCase.length
-    ? [{
-        title: `What works through the ${caseWord}`,
-        rows: d.throughCase.map((t) => row(t.label, t.value, `throughCase.${t.label}`)),
-      }]
-    : []),
-  ...(d.capabilities.length
-    ? [{
-        title: 'Field capabilities',
-        rows: d.capabilities.map((t) => row(t.label, t.value, `capabilities.${t.label}`)),
-      }]
-    : []),
-  {
-    title: 'Display and camera',
-    rows: specRows(['display', 'resolution', 'refreshRate', 'brightness', 'touch', 'camera', 'frontCamera', 'video', 'depthSensing'], {
-      display: 'Display', resolution: 'Resolution', refreshRate: 'Refresh rate', brightness: 'Brightness', touch: 'Touch',
-      camera: 'Rear camera', frontCamera: 'Front camera', video: 'Video', depthSensing: 'Depth sensing',
-    }),
-  },
-  {
-    title: 'Connectivity',
-    rows: specRows(['network', 'bands', 'wifi', 'bluetooth', 'nfc', 'gnss', 'sim', 'uwb', 'satellite'], {
-      network: 'Network', bands: 'Bands', wifi: 'Wi-Fi', bluetooth: 'Bluetooth', nfc: 'NFC', gnss: 'Satellite positioning',
-      sim: 'SIM', uwb: 'Ultra Wideband', satellite: 'Satellite features',
-    }),
-  },
-  {
-    title: 'Physical and power',
-    rows: [
-      row('Weight', s.weightG ? `${s.weightG} g${s.weightNote ? ` (${s.weightNote.toLowerCase()})` : ''}` : undefined, 'specs.weightG'),
-      row('Dimensions', s.dimensionsMm ? `${s.dimensionsMm} mm` : undefined, 'specs.dimensionsMm'),
-      ...specRows(['ipRating', 'ruggedness', 'battery', 'batteryLife'], {
-        ipRating: 'Ingress protection', ruggedness: 'Ruggedness', battery: 'Battery', batteryLife: 'Battery life',
-      }),
-      row('Replaceable battery', yn(s.replaceableBattery)),
-      ...specRows(['port', 'wirelessCharging'], { port: 'Port', wirelessCharging: 'Wireless charging' }),
-    ],
-  },
-  {
-    title: 'Controls & Accessibility',
-    rows: [
-      ...specRows(['keys'], { keys: 'Keys' }),
-      row('Push-to-talk key', yn(s.pttKey)),
-      row('Glove touch', yn(s.gloveTouch)),
-      ...specRows(['biometrics', 'accessories'], { biometrics: 'Biometrics', accessories: 'Accessory interface' }),
-    ],
-  },
-  {
-    title: 'Fleet and support',
-    rows: [
-      row('Device management', os.enterprise),
-      row('Preinstalled apps', s.apps, 'specs.apps'),
-      row('Manufacturer', `${d.manufacturer.name}, ${d.manufacturer.country}`),
-    ],
-  },
-]
-  .map((g) => ({ ...g, rows: g.rows.filter((r) => r.value) }))
+const caseWord = caseWordFor(phone);
+const specGroups = specGroupsFor(phone)
+  .map((g) => ({ ...g, rows: g.rows.map((r) => row(r.label, r.value, ...r.keys)).filter((r) => r.value) }))
   .filter((g) => g.rows.length);
 
 const useCaseLabel = new Map(
@@ -391,7 +294,7 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
                 <dt>{g.label}</dt>
                 <dd>
                   {g.value}
-                  {g.flag && <a class="flag" href={`#note-${g.flag}`}>Unconfirmed<span class="visually-hidden">: see note</span> {g.flag}</a>}
+                  {g.flag && <a class="flag" href={`#note-${g.flag}`}><span class="visually-hidden">Unconfirmed, see note </span>{g.flag}</a>}
                 </dd>
               </div>
             ))}
@@ -416,13 +319,6 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
             <a class="arrow-link hero-alt" href="#compare">See how it compares to alternatives <Icon name="arrow-right" /></a>
           )}
 
-          {d.sponsor && (
-            <p class="sponsor-note">
-              <span class="sponsor-tag">Sponsor</span>
-              {d.brand} sponsors this site. Facts and comparisons follow the same rules for every phone.{' '}
-              <a href="/how-we-rate/">How we rate</a>
-            </p>
-          )}
         </div>
       </div>
     </div>
@@ -470,10 +366,6 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
           <p class="eyebrow">Certification</p>
           <h2 id="cert-title" class="h2">Where you can use it</h2>
         </div>
-        <p class="split-head-text">
-          {TYPE_EXPLAINER[d.type]}
-          {c.protection && ` Protection method: ${c.protection.charAt(0).toLowerCase()}${c.protection.slice(1)}.`}
-        </p>
       </div>
 
       <ZoneCoverage phone={phone} />
@@ -526,10 +418,6 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
             <p class="eyebrow">Safe use</p>
             <h2 id="safety-title" class="h2">Rules for the hazardous area</h2>
           </div>
-          <p class="split-head-text">
-            What the certificate allows, and where. Always follow the certificate and the manufacturer's safety
-            instructions for your exact model.
-          </p>
         </div>
 
         {safetyRows.length > 0 && (
@@ -539,7 +427,7 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
                 <dt>{r.label}</dt>
                 <dd>
                   {r.value}
-                  {r.flag && <a class="flag" href={`#note-${r.flag}`}>Unconfirmed<span class="visually-hidden">: see note</span> {r.flag}</a>}
+                  {r.flag && <a class="flag" href={`#note-${r.flag}`}><span class="visually-hidden">Unconfirmed, see note </span>{r.flag}</a>}
                 </dd>
               </div>
             ))}
@@ -550,7 +438,7 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
           <div class="conditions">
             <h3>
               Conditions of use
-              {conditionsFlag && <a class="flag" href={`#note-${conditionsFlag}`}>Unconfirmed<span class="visually-hidden">: see note</span> {conditionsFlag}</a>}
+              {conditionsFlag && <a class="flag" href={`#note-${conditionsFlag}`}><span class="visually-hidden">Unconfirmed, see note </span>{conditionsFlag}</a>}
             </h3>
             <p>{safety.conditions}</p>
           </div>
@@ -580,7 +468,7 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
                   <dt>{r.label}</dt>
                   <dd>
                     {r.value}
-                    {r.flag && <a class="flag" href={`#note-${r.flag}`}>Unconfirmed<span class="visually-hidden">: see note</span> {r.flag}</a>}
+                    {r.flag && <a class="flag" href={`#note-${r.flag}`}><span class="visually-hidden">Unconfirmed, see note </span>{r.flag}</a>}
                   </dd>
                 </div>
               ))}
@@ -589,8 +477,8 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
         ))}
       </div>
       <p class="spec-note">
-        Only specifications we could check are listed. Values marked “Unconfirmed” come from a single or secondary
-        source, or sources disagree; the notes at the foot of the page explain each one. See the{' '}
+        Only specifications we could check are listed. A numbered marker next to a value means it is unconfirmed: it comes from a single or
+        secondary source, or sources disagree. The matching note at the foot of the page explains each one. See the{' '}
         <a href={mfr.href} rel={mfr.rel} target={mfr.target}>{d.manufacturer.name} website</a> for the full data sheet.
       </p>
     </div>
@@ -605,9 +493,6 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
             <p class="eyebrow">Compare</p>
             <h2 id="compare-title" class="h2">How it compares</h2>
           </div>
-          <p class="split-head-text">
-            The closest alternatives to the {d.name}, side by side. Turn on “Show differences only” to see what sets them apart.
-          </p>
         </div>
         <CompareTable phones={[phone, ...alternatives]} caption={`${d.name} compared with its closest alternatives`} />
       </div>
@@ -639,24 +524,30 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
         <div class="notes" id="notes">
           <h2 class="sources-title">Notes on unconfirmed values</h2>
           <ol>
-            {notes.map((n, i) => <li id={`note-${i + 1}`}>{n}</li>)}
+            {notes.map((n, i) => (
+              <li id={`note-${i + 1}`}>
+                {n} <a class="note-return" href={`#note-${i + 1}`} data-note-return={i + 1} hidden>Return to note<span class="visually-hidden"> {i + 1}</span></a>
+              </li>
+            ))}
           </ol>
         </div>
       )}
 
-      <h2 id="sources-title" class="sources-title">Sources and verification</h2>
-      <p>
-        Facts last verified on <time datetime={d.lastVerified.toISOString().slice(0, 10)}>{verified}</time> against:
-      </p>
-      <ul>
-        {sources.map((src) => (
-          <li><a href={src.href} rel={src.rel} target={src.target}>{src.label}</a></li>
-        ))}
-      </ul>
-      <p class="sources-note">
-        Always check the certificate for your exact model before use. Spotted an error?{' '}
-        <a href={CONTACT.href}>Tell us</a>.
-      </p>
+      <details class="sources-details">
+        <summary><h2 id="sources-title" class="sources-title">Sources and verification</h2></summary>
+        <p>
+          Facts last verified on <time datetime={d.lastVerified.toISOString().slice(0, 10)}>{verified}</time> against:
+        </p>
+        <ul>
+          {sources.map((src) => (
+            <li><a href={src.href} rel={src.rel} target={src.target}>{src.label}</a></li>
+          ))}
+        </ul>
+        <p class="sources-note">
+          Always check the certificate for your exact model before use. Spotted an error?{' '}
+          <a href={CONTACT.href}>Tell us</a>.
+        </p>
+      </details>
     </div>
   </section>
 </BaseLayout>
@@ -682,6 +573,31 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
   });
 </script>
 
+<script>
+  // "Return to note": each footnote links back to the marker you came from (or the first marker for that note)
+  const markers = new Map<string, HTMLAnchorElement[]>();
+  document.querySelectorAll<HTMLAnchorElement>('a.flag[href^="#note-"]').forEach((m) => {
+    const n = m.getAttribute('href')!.slice(6);
+    markers.set(n, [...(markers.get(n) ?? []), m]);
+  });
+  document.querySelectorAll<HTMLAnchorElement>('[data-note-return]').forEach((back) => {
+    const n = back.dataset.noteReturn!;
+    const list = markers.get(n);
+    if (!list) return;
+    let target = list[0];
+    back.hidden = false;
+    list.forEach((m) => m.addEventListener('click', () => { target = m; }));
+    back.addEventListener('click', (e) => {
+      e.preventDefault();
+      // A marker inside an inactive ATEX / IECEx tab is hidden: switch to its tab first
+      const panel = target.closest<HTMLElement>('[role="tabpanel"]');
+      if (panel?.hidden) document.getElementById(panel.getAttribute('aria-labelledby')!)?.click();
+      target.scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      target.focus({ preventScroll: true });
+    });
+  });
+</script>
+
 <style>
   /* Jump links clear the sticky header and in-page nav */
   :global(html) { scroll-padding-top: calc(var(--header-h) + 4rem); }
@@ -698,8 +614,10 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
   .hero-media {
     position: relative;
     aspect-ratio: 4 / 3;
-    background: var(--color-panel);
-    border: 1px solid var(--color-panel-border);
+    /* Same deep forest green with a brighter pool of light as the dark Find phones cards */
+    background:
+      radial-gradient(ellipse 52% 58% at 50% 55%, #7fa08e 0%, #5a7e6b 22%, #34584a 48%, #1d382d 75%, #132620 100%);
+    border: 1px solid #132620;
     border-radius: var(--radius);
     overflow: hidden;
   }
@@ -711,10 +629,11 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
     height: calc(100% - 2.5rem);
     object-fit: contain;
   }
+  .hero-media img { filter: drop-shadow(0 8px 10px rgb(0 0 0 / 0.35)); }
   .media-placeholder {
     display: grid;
     place-items: center;
-    color: var(--color-muted);
+    color: rgb(255 255 255 / 0.7);
     font-size: var(--text-sm);
   }
 
@@ -725,31 +644,34 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
     letter-spacing: var(--tracking-hero);
   }
 
+  /* Plain text line, not pills: filled/outlined pills read as buttons */
   .badges {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 0.25rem 0.5rem;
     margin-top: 1.25rem;
+    font-size: 0.9375rem;
   }
   .badge {
-    padding: 0.3rem 0.7rem;
-    border: 1px solid var(--color-border-strong);
-    border-radius: 999px;
-    font-size: 0.8125rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--color-ink);
   }
-  .badge-strong {
-    background: var(--color-forest);
-    border-color: var(--color-forest);
-    color: var(--color-on-dark);
+  .badge + .badge::before {
+    content: '·';
+    margin-right: 0.5rem;
+    color: var(--color-muted);
   }
   .badge-caution {
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
     background: var(--color-caution-bg);
-    border-color: var(--color-caution-border);
     color: var(--color-caution-ink);
+    font-size: 0.8125rem;
     font-weight: 600;
   }
+  .badge-caution + .badge::before { content: none; }
+  .badge-caution + .badge { margin-left: 0.25rem; }
 
   .status-note {
     margin-top: 1rem;
@@ -777,7 +699,7 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
   }
   .glance dt { font-size: var(--text-xs); color: var(--color-muted); }
   .glance dd { margin: 0.15rem 0 0; font-weight: 600; color: var(--color-ink); font-size: var(--text-sm); }
-  .glance dd .flag { margin-left: 0; }
+  .glance dd .flag { margin-left: 0; align-self: flex-start; }
   .glance dd { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.4rem; }
 
   .hero-actions {
@@ -789,24 +711,6 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
 
   .hero-alt { margin-top: 0.75rem; }
 
-  .sponsor-note {
-    margin-top: 1.25rem;
-    font-size: 0.8125rem;
-    color: var(--color-muted);
-  }
-  .sponsor-note a { color: var(--color-forest); }
-  .sponsor-tag {
-    display: inline-block;
-    margin-right: 0.5rem;
-    padding: 0.1rem 0.45rem;
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-sm);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--color-ink);
-  }
 
   /* ---------- Sticky in-page nav ---------- */
   .subnav {
@@ -844,7 +748,6 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
     gap: 1.25rem;
     margin-bottom: 2.25rem;
   }
-  .split-head-text { max-width: 30rem; font-size: var(--text-sm); }
 
   /* ---------- Overview ---------- */
   .procon {
@@ -1007,8 +910,33 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
     color: var(--color-ink);
   }
   .notes { margin-bottom: 2rem; }
+  .note-return { margin-left: 0.5rem; font-size: var(--text-xs); white-space: nowrap; }
   .notes ol { margin: 0.5rem 0 0; padding-left: 1.5rem; display: grid; gap: 0.35rem; list-style: decimal; }
   .notes li:target { background: var(--color-caution-bg); outline: 4px solid var(--color-caution-bg); }
+  .sources-details summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  .sources-details summary::-webkit-details-marker { display: none; }
+  /* Chevron sits right after the title; points down when closed, up when open */
+  .sources-details summary::after {
+    content: '';
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-top: -0.2rem;
+    border-right: 2px solid var(--color-forest);
+    border-bottom: 2px solid var(--color-forest);
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+  }
+  .sources-details[open] summary::after { transform: rotate(-135deg); margin-top: 0.2rem; }
+  .sources-details .sources-title { margin-bottom: 0; }
+  .sources-details[open] summary { margin-bottom: 0.5rem; }
   .sources ul { margin: 0.5rem 0 0; display: grid; gap: 0.25rem; }
   .sources ul a, .sources-note a { color: var(--color-forest); }
   .sources-note { margin-top: 1rem; color: var(--color-muted); }

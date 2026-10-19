@@ -1,0 +1,828 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Icon from '../../components/Icon.astro';
+import { SITE, CONTACT, FIND_PHONES } from '../../config/site';
+import { COMPARE_PAGES, comparePagesFor, type ComparePage } from '../../data/compare-pages';
+import { bestPage } from '../../data/best-pages';
+import { externalLink, pageSlug } from '../../lib/links';
+import { TEMP_CLASS_MAX, zoneLabel, schemeList, confirmedDivision, type Phone } from '../../lib/phones';
+import { safetyRows, specGroups, caseWord, type SpecGroup, type SpecRow } from '../../lib/spec-groups';
+
+export const getStaticPaths = (() => COMPARE_PAGES.map((page) => ({ params: { pair: page.slug }, props: { page } }))) satisfies GetStaticPaths;
+
+const { page } = Astro.props as { page: ComparePage & { slug: string } };
+const where = `/compare/${page.slug}/`;
+if (page.title.length > 60) throw new Error(`${where}: title is ${page.title.length} characters (max 60)`);
+if (page.description.length > 160) throw new Error(`${where}: description is ${page.description.length} characters (max 160)`);
+
+const url = `${SITE.url}${where}`;
+const utmContent = pageSlug(Astro.url.pathname);
+
+const all = await getCollection('phones');
+const phones = page.phones.map((id) => {
+  const phone = all.find((p) => p.id === id);
+  if (!phone) throw new Error(`${where}: no phone called "${id}"`);
+  return phone;
+}) as [Phone, Phone];
+const byId = (id: string) => {
+  const phone = phones.find((p) => p.id === id);
+  if (!phone) throw new Error(`${where}: "${id}" is not one of the two phones on this page`);
+  return phone;
+};
+
+/* ---------- Unconfirmed values: each distinct note is numbered in page order, across both phones ---------- */
+const notes: { phone: Phone; text: string }[] = [];
+function flag(p: Phone, keys: string[]): number | undefined {
+  const text = keys.map((k) => p.data.unconfirmed[k]).find(Boolean);
+  if (!text) return undefined;
+  let i = notes.findIndex((n) => n.phone === p && n.text === text);
+  if (i < 0) i = notes.push({ phone: p, text }) - 1;
+  return i + 1;
+}
+
+/* ---------- Rows: the phone pages' specification rows, plus an Ex rating summary and the safe-use rules ---------- */
+const NOT_IN_DATA = 'Not in our data';
+const row = (label: string, value: string | undefined, ...keys: string[]): SpecRow => ({ label, value, keys });
+
+/** "i.safe MOBILE IS540.M1: rated for Group I as well as Zone 1/21". Variant names get the brand, as phone names have */
+const miningVersion = (p: Phone) => {
+  const v = p.data.variants.find((x) => /mining/i.test(x.description));
+  if (!v) return undefined;
+  const maker = p.data.brand.replace(/\s*\(.*\)$/, '');
+  const name = v.name.startsWith(maker) ? v.name : `${maker} ${v.name}`;
+  return `${name}: ${v.description.replace(/^Mining version,\s*/i, '').split(/\.\s/)[0].replace(/\.$/, '')}`;
+};
+
+function groupsFor(p: Phone): SpecGroup[] {
+  const c = p.data.certification;
+  const [certification, ...rest] = specGroups(p);
+  return [
+    {
+      title: 'Ex rating',
+      rows: [
+        row('Certified for', zoneLabel(p)),
+        row('Protection', c.protection ?? c.note),
+        row('Gas group', c.gasGroup),
+        row('Temperature class', c.tempClass && `${c.tempClass} (≤ ${TEMP_CLASS_MAX[c.tempClass]} °C)`),
+        row('Mining version', miningVersion(p)),
+      ],
+    },
+    certification,
+    { title: 'Safe use', rows: [...safetyRows(p), row('Conditions of use', p.data.safety.conditions, 'safety.conditions')] },
+    ...rest,
+  ];
+}
+
+/** Merges two ordered lists, keeping each list's order: items only in the second list follow their predecessor there */
+function mergeOrder(lists: string[][]): string[] {
+  const out: string[] = [];
+  for (const list of lists) {
+    let prev = -1;
+    for (const item of list) {
+      let i = out.indexOf(item);
+      if (i < 0) out.splice((i = prev + 1), 0, item);
+      prev = i;
+    }
+  }
+  return out;
+}
+
+// A case and a housing list the same through-case rows, so both phones share one group title
+const words = [...new Set(phones.map(caseWord))];
+const throughTitle = `What works through the ${words.join(' or ')}`;
+const groups = phones.map((p) => groupsFor(p).map((g) => (g.title.startsWith('What works through the') ? { ...g, title: throughTitle } : g)));
+const merged = mergeOrder(groups.map((gs) => gs.map((g) => g.title))).map((title) => {
+  const sides = groups.map((gs) => gs.find((g) => g.title === title)?.rows ?? []);
+  const labels = mergeOrder(sides.map((rows) => rows.map((r) => r.label)));
+  return {
+    title,
+    rows: labels
+      .map((label) => ({ label, cells: sides.map((rows) => rows.find((r) => r.label === label)) }))
+      .filter((r) => r.cells.some((c) => c?.value)),
+  };
+});
+
+interface Cell { value: string; known: boolean; flag?: number }
+const cellsFor = (cells: (SpecRow | undefined)[]): Cell[] =>
+  cells.map((c, i) => (c?.value ? { value: c.value, known: true, flag: flag(phones[i], c.keys) } : { value: NOT_IN_DATA, known: false }));
+
+// Built in page order, so the note numbers run in sequence down the page
+const differences = page.differences.map((d) => {
+  const found = merged.flatMap((g) => g.rows).find((r) => r.label === d.row);
+  if (!found) throw new Error(`${where}: no specification row called "${d.row}"`);
+  return { ...d, title: d.title ?? d.row, cells: cellsFor(found.cells) };
+});
+
+const table = merged.map((g) => ({
+  title: g.title,
+  rows: g.rows.map((r) => {
+    const cells = cellsFor(r.cells);
+    return { label: r.label, cells, differs: cells[0].value !== cells[1].value };
+  }),
+}));
+
+/* ---------- Hero facts and copy checks ---------- */
+const facts = (p: Phone) => {
+  const c = p.data.certification;
+  return [zoneLabel(p), [c.gasGroup, c.tempClass].filter(Boolean).join(' '), schemeList(p).join(' + '), confirmedDivision(p)].filter(Boolean);
+};
+const choose = page.verdict.choose.map((ch) => ({ ...ch, phone: byId(ch.id) }));
+const sections = page.sections.map((s) => ({ ...s, edgeLabel: s.edge === 'even' ? 'Even' : `Edge: ${byId(s.edge).data.name}` }));
+
+/* ---------- Keep researching: shared Best for pages and other head-to-heads ---------- */
+const sharedBest = phones[0].data.bestFor
+  .filter((slug) => phones[1].data.bestFor.includes(slug))
+  .flatMap((slug) => {
+    const best = bestPage(slug);
+    return best ? [{ href: `/best/${slug}/`, label: best.h1 }] : [];
+  });
+const otherPairs = [...new Set(phones.flatMap((p) => comparePagesFor(p.id)))]
+  .filter((p) => p.slug !== page.slug)
+  .map((p) => ({ href: `/compare/${p.slug}/`, label: p.h1 }));
+
+const cta = page.cta;
+const quote = externalLink('https://xshielder.com/get-a-quote', utmContent);
+const ctaLink = cta.kind === 'xshielder' && cta.link ? { label: cta.link.label, ...externalLink(cta.link.href, utmContent) } : undefined;
+
+const verifiedDate = new Date(Math.max(...phones.map((p) => p.data.lastVerified.getTime())));
+const verified = verifiedDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const verifiedIso = verifiedDate.toISOString().slice(0, 10);
+
+const nav = [
+  { id: 'verdict', label: 'Verdict' },
+  { id: 'differences', label: 'Key differences' },
+  { id: 'field', label: 'In the field' },
+  { id: 'specs', label: 'Specifications' },
+  { id: 'faq', label: 'FAQ' },
+];
+
+/* ---------- Structured data ---------- */
+const img = phones[0].data.image ? await getImage({ src: phones[0].data.image, width: 800, format: 'webp' }) : undefined;
+const schema = [
+  {
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: page.title,
+    description: page.description,
+    isPartOf: { '@id': `${SITE.url}/#website` },
+    dateModified: verifiedIso,
+    ...(img && { primaryImageOfPage: { '@type': 'ImageObject', url: new URL(img.src, SITE.url).href } }),
+    about: phones.map((p) => ({
+      '@type': 'Product',
+      name: p.data.name,
+      brand: { '@type': 'Brand', name: p.data.brand },
+      url: `${SITE.url}/phones/${p.id}/`,
+    })),
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { name: 'Home', item: `${SITE.url}/` },
+      { name: 'Compare', item: `${SITE.url}/compare/` },
+      { name: page.h1, item: url },
+    ].map((b, i) => ({ '@type': 'ListItem', position: i + 1, ...b })),
+  },
+  {
+    '@type': 'FAQPage',
+    mainEntity: page.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+
+<BaseLayout title={page.title} description={page.description} schema={schema}>
+  <!-- Hero -->
+  <section class="vs-hero" aria-labelledby="vs-title">
+    <div class="container">
+      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Compare', href: '/compare/' }, { label: page.h1, href: '' }]} />
+
+      <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">{page.eyebrow}</p>
+        <h1 id="vs-title">{page.h1}</h1>
+        <p class="lead">{page.lead}</p>
+      </div>
+
+      <div class="matchup">
+        {phones.map((p, i) => (
+          <>
+            {i === 1 && <span class="vs-mark" aria-hidden="true">vs</span>}
+            <article class="contender" aria-labelledby={`contender-${i}`}>
+              <a class="contender-media" href={`/phones/${p.id}/`} tabindex="-1" aria-hidden="true">
+                {p.data.image && (
+                  <Image src={p.data.image} alt="" widths={[240, 400]} sizes="(min-width: 56rem) 20rem, 40vw" loading="eager" fetchpriority={i === 0 ? 'high' : undefined} />
+                )}
+              </a>
+              <p class="contender-brand">{p.data.brand}</p>
+              <h2 id={`contender-${i}`} class="contender-name"><a href={`/phones/${p.id}/`}>{p.data.name}</a></h2>
+              <ul class="contender-facts" aria-label={`Certification of the ${p.data.name}`}>
+                {facts(p).map((f) => <li>{f}</li>)}
+              </ul>
+              <a class="btn btn-secondary btn-sm contender-btn" href={`/phones/${p.id}/`}>
+                Full details<span class="visually-hidden">: {p.data.name}</span> <Icon name="arrow-right" />
+              </a>
+            </article>
+          </>
+        ))}
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- In-page navigation -->
+  <nav class="subnav" aria-label="On this page">
+    <div class="container">
+      <ul>
+        {nav.map((n) => <li><a href={`#${n.id}`}>{n.label}</a></li>)}
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Verdict -->
+  <section id="verdict" class="band band-white" aria-labelledby="verdict-title">
+    <div class="container">
+      <p class="eyebrow">Our verdict</p>
+      <h2 id="verdict-title" class="h2">Which should you choose?</h2>
+      <div class="verdict-text">
+        {page.verdict.summary.map((t) => <p>{t}</p>)}
+      </div>
+
+      <div class="choose">
+        {choose.map((ch) => (
+          <div class="choose-card">
+            <h3>Choose the {ch.phone.data.name} if…</h3>
+            <ul>{ch.reasons.map((r) => <li>{r}</li>)}</ul>
+            <a class="arrow-link" href={`/phones/${ch.id}/`}>{ch.phone.data.name} in full <Icon name="arrow-right" /></a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Key differences -->
+  <section id="differences" class="band band-warm" aria-labelledby="differences-title">
+    <div class="container">
+      <p class="eyebrow">Key differences</p>
+      <h2 id="differences-title" class="h2">Where they differ</h2>
+      <ul class="diffs">
+        {differences.map((d) => (
+          <li class="diff">
+            <h3>{d.title}</h3>
+            <dl>
+              {d.cells.map((c, i) => (
+                <div>
+                  <dt>{phones[i].data.name}</dt>
+                  <dd class:list={{ unknown: !c.known }}>
+                    {c.value}
+                    {c.flag && <a class="flag" href={`#note-${c.flag}`}><span class="visually-hidden">Unconfirmed, see note </span>{c.flag}</a>}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <p>{d.note}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- In the field -->
+  <section id="field" class="band band-white" aria-labelledby="field-title">
+    <div class="container">
+      <p class="eyebrow">In the field</p>
+      <h2 id="field-title" class="h2">Head to head, by kind of work</h2>
+      <div class="topics">
+        {sections.map((s, i) => (
+          <article class="topic" aria-labelledby={`topic-${i}`}>
+            <div class="topic-head">
+              <h3 id={`topic-${i}`}>{s.title}</h3>
+              <p class:list={['edge', { 'edge-even': s.edge === 'even' }]}>{s.edgeLabel}</p>
+            </div>
+            <div class="topic-text">
+              {s.text.map((t) => <p>{t}</p>)}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Specifications -->
+  <section id="specs" class="band band-warm" aria-labelledby="specs-title">
+    <div class="container">
+      <p class="eyebrow">Specifications</p>
+      <h2 id="specs-title" class="h2">Full specifications side by side</h2>
+
+      <div class="specs" data-specs>
+        <label class="diff-toggle">
+          <input type="checkbox" data-only-diff />
+          Show differences only
+        </label>
+
+        <div class="spec-table-wrap">
+          <table class="spec-table">
+            <caption class="visually-hidden">{page.h1}: full specifications</caption>
+            <colgroup><col class="col-label" /><col /><col /></colgroup>
+            <thead>
+              <tr>
+                <td></td>
+                {phones.map((p) => (
+                  <th scope="col">
+                    {p.data.image && <Image src={p.data.image} alt="" widths={[96]} sizes="48px" class="spec-thumb" />}
+                    <a href={`/phones/${p.id}/`}>{p.data.name}</a>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            {table.map((g) => (
+              <tbody class:list={{ 'all-same': g.rows.every((r) => !r.differs) }}>
+                <tr class="group-row"><th scope="colgroup" colspan="3">{g.title}</th></tr>
+                {g.rows.map((r) => (
+                  <tr class:list={{ same: !r.differs }}>
+                    <th scope="row">{r.label}</th>
+                    {r.cells.map((c) => (
+                      <td class:list={{ unknown: !c.known }}>
+                        {c.value}
+                        {c.flag && <a class="flag" href={`#note-${c.flag}`}><span class="visually-hidden">Unconfirmed, see note </span>{c.flag}</a>}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            ))}
+          </table>
+        </div>
+        <p class="table-note">
+          Only values we could check are listed; “{NOT_IN_DATA}” means we have not verified it, not that the phone lacks it. A numbered marker means a
+          value is unconfirmed, and the matching note at the foot of the page explains why. Prices are on request for both.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keep researching -->
+  <section class="band band-white" aria-labelledby="more-title">
+    <div class="container">
+      <p class="eyebrow">Keep researching</p>
+      <h2 id="more-title" class="h2">More on these phones</h2>
+      <div class="more">
+        <div>
+          <h3>Each phone in full</h3>
+          <ul>
+            {phones.map((p) => <li><a href={`/phones/${p.id}/`}>{p.data.name}</a></li>)}
+          </ul>
+        </div>
+        {sharedBest.length > 0 && (
+          <div>
+            <h3>Where both make our lists</h3>
+            <ul>{sharedBest.map((b) => <li><a href={b.href}>{b.label}</a></li>)}</ul>
+          </div>
+        )}
+        <div>
+          <h3>Other comparisons</h3>
+          <ul>
+            {otherPairs.map((o) => <li><a href={o.href}>{o.label}</a></li>)}
+            <li><a href={FIND_PHONES.href}>Compare any phones in Find phones</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to action -->
+  <section class="band cta" aria-labelledby="cta-title">
+    <svg class="cta-contours" viewBox="0 0 600 260" aria-hidden="true" focusable="false" preserveAspectRatio="xMaxYMid slice">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M420 130c0-48 46-92 104-92s92 40 92 92-38 96-96 96-100-48-100-96Z" />
+        <path d="M380 132c0-70 64-128 146-128s126 58 126 128-54 134-136 134-136-64-136-134Z" />
+        <path d="M340 134c0-92 82-166 186-166s162 76 162 166-70 172-174 172-174-80-174-172Z" />
+        <path d="M300 136c0-114 100-204 226-204s198 94 198 204-86 210-212 210-212-96-212-210Z" />
+      </g>
+    </svg>
+    <div class="container cta-inner">
+      <div>
+        <p class="eyebrow">{cta.kind === 'xshielder' ? 'Xshielder' : 'Impartial advice'}</p>
+        <h2 id="cta-title" class="h2">{cta.heading}</h2>
+        <p class="cta-text">
+          {cta.text}
+          {ctaLink && (
+            <>
+              {' '}
+              <a href={ctaLink.href} rel={ctaLink.rel} target={ctaLink.target}>{ctaLink.label}</a>.
+            </>
+          )}
+        </p>
+      </div>
+      <div class="cta-actions">
+        {cta.kind === 'xshielder' ? (
+          <>
+            <a class="btn btn-light" href={quote.href} rel={quote.rel} target={quote.target}>Get a quote <Icon name="arrow-right" /></a>
+            <a class="btn btn-outline-light" href={CONTACT.href}>Ask us for impartial advice</a>
+          </>
+        ) : (
+          <>
+            <a class="btn btn-light" href={CONTACT.href}>Ask us for impartial advice <Icon name="arrow-right" /></a>
+            <a class="btn btn-outline-light" href={FIND_PHONES.href}>Find phones</a>
+          </>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="band band-white" aria-labelledby="faq-title">
+    <div class="container faq-wrap">
+      <div>
+        <p class="eyebrow">FAQ</p>
+        <h2 id="faq-title" class="h2">Common questions</h2>
+      </div>
+      <div class="faq">
+        {page.faq.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Notes and verification -->
+  <section class="band sources" aria-label="Notes and verification">
+    <div class="container">
+      {notes.length > 0 && (
+        <div class="notes">
+          <h2 class="notes-title">Notes on unconfirmed values</h2>
+          <ol>
+            {notes.map((n, i) => (
+              <li id={`note-${i + 1}`}><strong>{n.phone.data.name}:</strong> {n.text}</li>
+            ))}
+          </ol>
+        </div>
+      )}
+      <p>
+        Facts last verified on <time datetime={verifiedIso}>{verified}</time> against certificates, declarations of conformity and manufacturer
+        data. The sources for each phone are listed on its page:{' '}
+        {phones.map((p, i) => (
+          <>
+            {i > 0 && ' and '}
+            <a href={`/phones/${p.id}/#sources-title`}>{p.data.name}</a>
+          </>
+        ))}. Always check the certificate for your exact model before use. Spotted an error? <a href={CONTACT.href}>Tell us</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-specs]').forEach((el) => {
+    const toggle = el.querySelector<HTMLInputElement>('[data-only-diff]');
+    toggle?.addEventListener('change', () => el.classList.toggle('only-diff', toggle.checked));
+  });
+
+  // Highlight the in-page nav link for the section in view
+  const links = new Map([...document.querySelectorAll<HTMLAnchorElement>('.subnav a')].map((a) => [a.hash.slice(1), a]));
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        links.forEach((a) => a.removeAttribute('aria-current'));
+        links.get(e.target.id)?.setAttribute('aria-current', 'true');
+      });
+    },
+    { rootMargin: '-30% 0px -60% 0px' },
+  );
+  links.forEach((_, id) => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+</script>
+
+<style>
+  /* ---------- Hero ---------- */
+  .vs-hero {
+    padding-block: 0.5rem 3rem;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgb(245 158 11 / 0.06), transparent 60%),
+      radial-gradient(1000px 500px at 10% 30%, rgb(34 197 94 / 0.05), transparent 55%),
+      var(--paper-grain);
+    background-size: auto, auto, 3px 3px;
+  }
+  .hero-grid { display: grid; gap: 2.5rem; margin-top: 1rem; align-items: center; }
+  .hero-copy { max-width: 48rem; }
+  .hero-copy h1 {
+    font-size: clamp(2rem, 1.5rem + 2.4vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: var(--tracking-hero);
+  }
+  .hero-copy .lead { margin-top: 1.25rem; }
+
+  /* Two contenders with a "vs" mark between them */
+  .matchup {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+  .contender {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+    box-shadow: var(--shadow-card);
+  }
+  .contender-media {
+    display: block;
+    aspect-ratio: 1;
+    background: radial-gradient(ellipse 60% 70% at 50% 58%, #f1eee7 0%, #f7f5f0 45%, #fff 80%);
+    border-radius: var(--radius-sm);
+  }
+  .contender-media :global(img) { width: 100%; height: 100%; object-fit: contain; padding: 0.75rem; }
+  .contender-brand { margin-top: 0.9rem; font-size: var(--text-xs); color: var(--color-muted); }
+  .contender-name { margin-top: 0.15rem; font-size: clamp(1.0625rem, 0.95rem + 0.6vw, 1.375rem); line-height: 1.2; }
+  .contender-name a { text-decoration: none; }
+  .contender-name a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .contender-facts { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.75rem; }
+  .contender-facts li {
+    padding: 0.15rem 0.5rem;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-panel-warm);
+    color: var(--color-ink);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+  .contender-btn { align-self: flex-start; margin-top: auto; padding-inline: 0.75rem; white-space: nowrap; }
+  .contender-facts + .contender-btn { margin-top: 1rem; }
+  .vs-mark {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 3px solid var(--color-bg);
+    border-radius: 50%;
+    background: var(--color-forest);
+    color: var(--color-on-dark);
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    transform: translateX(-50%);
+  }
+
+  /* ---------- Sticky in-page nav (as on phone pages) ---------- */
+  .subnav {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 40;
+    background: rgb(250 248 244 / 0.92);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--color-panel-border);
+  }
+  .subnav ul { display: flex; gap: 1.75rem; overflow-x: auto; scrollbar-width: none; }
+  .subnav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3rem;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+  }
+  .subnav a:hover { color: var(--color-ink); }
+  .subnav a[aria-current] { color: var(--color-forest); border-bottom-color: var(--color-forest); }
+  section[id] { scroll-margin-top: calc(var(--header-h) + 3rem); }
+
+  /* ---------- Verdict ---------- */
+  .verdict-text { display: grid; gap: 1rem; max-width: 46rem; margin-top: 1.25rem; font-size: var(--text-lg); line-height: 1.6; }
+  .choose { display: grid; gap: 1rem; margin-top: 2rem; }
+  .choose-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel-warm);
+  }
+  .choose-card h3 { font-size: var(--text-h3); }
+  .choose-card ul { display: grid; gap: 0.75rem; margin: 1rem 0 1.25rem; }
+  .choose-card li { position: relative; padding-left: 1.75rem; font-size: var(--text-sm); color: var(--color-ink); }
+  .choose-card li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0.05rem;
+    display: grid;
+    place-items: center;
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 50%;
+    background: var(--color-forest);
+    color: var(--color-on-dark);
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+  .choose-card .arrow-link { margin-top: auto; }
+
+  /* ---------- Key differences ---------- */
+  .diffs { display: grid; gap: 1rem; margin-top: 2rem; }
+  .diff {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+  }
+  .diff h3 { font-size: var(--text-h3); }
+  .diff dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; margin: 0.9rem 0 0; }
+  .diff dl div { padding: 0.65rem 0.75rem; border-radius: var(--radius-sm); background: var(--color-panel-warm); }
+  .diff dt { font-size: var(--text-xs); color: var(--color-muted); }
+  .diff dd { margin: 0.15rem 0 0; font-size: var(--text-sm); font-weight: 600; color: var(--color-ink); overflow-wrap: anywhere; }
+  .diff dd.unknown, td.unknown { font-weight: 400; color: var(--color-muted); font-style: italic; }
+  .diff > p { margin-top: 0.9rem; font-size: var(--text-sm); }
+
+  /* ---------- In the field ---------- */
+  .topics { display: grid; margin-top: 2rem; border-top: 1px solid var(--color-panel-border); }
+  .topic { display: grid; gap: 0.75rem; padding-block: 1.75rem; border-bottom: 1px solid var(--color-panel-border); }
+  .topic-head h3 { font-size: var(--text-h3); }
+  .edge {
+    display: inline-block;
+    margin-top: 0.6rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-forest);
+    color: var(--color-on-dark);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+  .edge-even { background: var(--color-panel-warm); color: var(--color-ink); border: 1px solid var(--color-panel-border); }
+  .topic-text { display: grid; gap: 1rem; max-width: 44rem; }
+
+  /* ---------- Specifications ---------- */
+  .specs { margin-top: 1.5rem; }
+  .diff-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.75rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-ink);
+    font-size: var(--text-sm);
+    cursor: pointer;
+  }
+  .diff-toggle input { width: 1.125rem; height: 1.125rem; accent-color: var(--color-forest); }
+  .spec-table-wrap {
+    position: relative;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+    /* clip, not hidden, so the sticky header row still sticks to the viewport */
+    overflow: clip;
+  }
+  .spec-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: var(--text-sm); }
+  .col-label { width: 32%; }
+  .spec-table th,
+  .spec-table td { padding: 0.7rem 0.75rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--color-panel-border); overflow-wrap: anywhere; }
+  .spec-table thead th,
+  .spec-table thead td {
+    position: sticky;
+    top: calc(var(--header-h) + 3rem);
+    z-index: 2;
+    background: var(--color-panel);
+    vertical-align: bottom;
+    border-bottom-color: var(--color-border);
+  }
+  .spec-table thead a {
+    display: block;
+    color: var(--color-heading);
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.25;
+    text-decoration: none;
+  }
+  .spec-table thead a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .spec-thumb { display: block; width: 2.5rem; height: 2.5rem; margin-bottom: 0.4rem; object-fit: contain; }
+  .group-row th {
+    padding-top: 1rem;
+    background: var(--color-panel-warm);
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .spec-table tbody th[scope='row'] { color: var(--color-muted); font-weight: 500; }
+  .spec-table td { color: var(--color-ink); font-weight: 500; }
+  .spec-table tr.same td { color: var(--color-muted); font-weight: 400; }
+  .spec-table tbody:last-child tr:last-child > * { border-bottom: 0; }
+  .only-diff tr.same,
+  .only-diff tbody.all-same { display: none; }
+  .table-note { max-width: 46rem; margin-top: 1rem; font-size: var(--text-sm); color: var(--color-muted); }
+
+  /* ---------- Keep researching ---------- */
+  .more { display: grid; gap: 1.5rem; margin-top: 1.75rem; }
+  .more h3 {
+    margin-bottom: 0.6rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .more ul { display: grid; gap: 0.25rem; }
+  .more a { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--color-forest); font-weight: 500; text-underline-offset: 3px; }
+
+  /* ---------- CTA panel (as on Best for pages) ---------- */
+  .cta {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(3.5rem, 3rem + 2vw, 4.5rem);
+    background: var(--color-forest);
+    border-color: var(--color-forest);
+    color: var(--color-on-dark);
+  }
+  .cta-contours {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(60%, 40rem);
+    height: 100%;
+    color: var(--color-on-dark);
+    opacity: 0.09;
+    pointer-events: none;
+  }
+  .cta-inner { position: relative; display: grid; gap: 2rem; align-items: center; }
+  .cta .eyebrow { color: var(--color-on-dark-muted); }
+  .cta h2 { color: var(--color-on-dark); }
+  .cta-text { max-width: 38rem; margin-top: 1rem; color: var(--color-on-dark-muted); }
+  .cta-text a { color: var(--color-on-dark); text-underline-offset: 3px; }
+  .cta-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .cta :global(:focus-visible) { outline-color: var(--color-on-dark); }
+
+  /* ---------- FAQ ---------- */
+  .faq-wrap { display: grid; gap: 2rem; }
+  .faq details { border-bottom: 1px solid var(--color-panel-border); }
+  .faq details:first-child { border-top: 1px solid var(--color-panel-border); }
+  .faq summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    min-height: 3.5rem;
+    padding-block: 0.75rem;
+    color: var(--color-ink);
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; flex: none; font-size: 1.25rem; color: var(--color-forest); transition: transform 0.2s ease; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p { padding-bottom: 1.25rem; max-width: 42rem; font-size: var(--text-sm); }
+
+  /* ---------- Notes and verification ---------- */
+  .sources { padding-block: 2.5rem; font-size: var(--text-sm); color: var(--color-muted); }
+  .sources a { color: var(--color-forest); }
+  .notes { margin-bottom: 1.5rem; }
+  .notes-title { margin-bottom: 0.75rem; font-size: 1rem; }
+  .notes ol { display: grid; gap: 0.4rem; padding-left: 1.25rem; list-style: decimal; }
+  .notes li { scroll-margin-top: calc(var(--header-h) + 4rem); }
+  .notes li:target { background: var(--color-caution-bg); }
+  .notes strong { color: var(--color-ink); font-weight: 600; }
+
+  /* ---------- Tablet and up ---------- */
+  @media (min-width: 48rem) {
+    .matchup { gap: 1.5rem; }
+    .contender { padding: 1.5rem; }
+    .contender-btn { padding-inline: 1rem; }
+    .vs-mark { top: 42%; width: 3.25rem; height: 3.25rem; font-size: 1.0625rem; }
+    .choose { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .diffs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .col-label { width: 24%; }
+    .spec-table th,
+    .spec-table td { padding: 0.8rem 1rem; }
+    .more { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (min-width: 64rem) {
+    .hero-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 3.5rem; }
+    .contender { padding: 1.25rem; }
+  }
+  @media (min-width: 56rem) {
+    .topic { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 3rem; }
+    .cta-inner { grid-template-columns: minmax(0, 8fr) auto; }
+    .faq-wrap { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 3rem; }
+  }
+</style>

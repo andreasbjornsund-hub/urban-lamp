@@ -12,26 +12,28 @@
   "formFactor": "smartphone",
   "hostDevice": "Apple iPhone 17",
   "status": "current",
-  "summary": "The Xciel XCiPhone 17 is an intrinsically safe (Ex ic) case for the Apple iPhone 17, rated for Zone 2 under ATEX, and for Class I Division 2 in North America. The phone inside is a standard Apple iPhone 17 running iOS 27, so it works with the same apps and device management as other iPhones.",
+  "summary": "The Xciel XCiPhone 17 is an intrinsically safe (Ex ic) case for the Apple iPhone 17, certified for Zone 2 under ATEX, and for Class I Division 2 in North America. The phone inside is a standard Apple iPhone 17 running iOS 27, so it works with the same apps and device management as other iPhones.",
   "certification": {
     "otherSchemes": [],
     "standards": [],
     "atex": {
-      "marking": "Ex ic IIC T6 Gc"
+      "marking": "II 3G Ex ic IIC T4 Gc"
     },
-    "northAmerica": "Class I Division 2 (separate part number XCiPhone17)",
+    "northAmerica": "LabTest LC25-5610-1 (2026-03-06): Class I Division 2 Groups A-D T6; IP54; Ta −20 to +50 °C (CSA C22.2 No. 213-17, UL 121201). XCiPhone17 version only",
     "division": "Class I Division 2",
     "zonesGas": [
       "2"
     ],
     "zonesDust": [],
     "protection": "Intrinsic safety (Ex ic)",
-    "epl": "Gc"
+    "tempClass": "T4",
+    "epl": "Gc",
+    "ambient": "−20 °C to +50 °C"
   },
   "safety": {
     "chargingInZone": false,
     "charging": "Outside the hazardous area only",
-    "conditions": "Permanently sealed; iPhone cannot be removed without voiding certification. Charging and wired accessories only outside hazardous areas. Not for C1D1, Zone 0, 1, 20, 21 or 22."
+    "conditions": "Charging and wired accessories only outside hazardous areas. Not for C1D1, Zone 0, 1, 20, 21 or 22. The XCiPhone17 (Class I Division 2 and ATEX Zone 2) is installed by Xciel; the XCiPhone17-A (ATEX Zone 2 only) can be installed by the customer following Xciel's procedure."
   },
   "os": {
     "name": "iOS",
@@ -40,7 +42,7 @@
     "securityUntil": "2032-09-19",
     "updates": "Security updates for 7+ years (based on previous model support)",
     "supportYears": 7,
-    "enterprise": "Apple Business Manager (ADE)"
+    "enterprise": "Apple Business (formerly Apple Business Manager)"
   },
   "specs": {
     "display": "6.3-inch OLED; ProMotion; Always-On; Ceramic Shield 2",
@@ -74,7 +76,7 @@
     "gloveTouch": false,
     "pttKey": false,
     "mdm": [
-      "Apple Business Manager (ADE)"
+      "Apple Business (formerly Apple Business Manager)"
     ],
     "connectivity": [
       "5G",
@@ -127,15 +129,14 @@
   "variants": [
     {
       "name": "XCiPhone17-A",
-      "description": "ATEX Zone 2 version."
+      "description": "ATEX Zone 2 version. The customer can install the iPhone, following Xciel's procedure."
     },
     {
       "name": "XCiPhone17",
-      "description": "Class I Division 2 version for North America, installed by Xciel USA."
+      "description": "Class I Division 2 and ATEX Zone 2 version for North America, installed by Xciel."
     }
   ],
   "unconfirmed": {
-    "certification.atex.marking": "From an Xciel installer's listing; Xciel hasn't published a datasheet yet. Earlier XCiPhone models are rated T4.",
     "os.securityUntil": "Apple doesn't publish an end date; its legal minimum is five years from first sale. Previous iPhone models have had security updates for seven years or more.",
     "specs.satellite": "Listed on Apple's tech specs; availability depends on the country."
   },
@@ -150,10 +151,10 @@
   ],
   "limitations": [
     "Zone 2 only, so not for Zone 1 areas",
-    "Ex marking not yet confirmed against a published certificate",
-    "Temperature class not confirmed by a certificate we've seen",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
     "No dust zone rating",
-    "ATEX only: no IECEx certificate"
+    "ATEX only: no IECEx certificate",
+    "No hardware push-to-talk key"
   ],
   "bestFor": [
     "zone-2-phones",
@@ -166,8 +167,36 @@
     "bartec-sp9ex2"
   ],
   "sponsor": false,
-  "lastVerified": "2026-10-12",
+  "lastVerified": "2026-10-14",
   "sources": [
+    {
+      "label": "Xciel Inc. (hosted by Cobic-Ex): Listing confirmation XC26 EX 021X, XCiPhone 17 (2026-03-12)",
+      "url": "https://cobic-ex.com/wp-content/uploads/2026/10/xciel-xciphone17-atex-certificate.pdf"
+    },
+    {
+      "label": "LabTest Certification Inc.: LC Listing Directory: certificate LC25-5610-1, Xciel XCiPhone 17 (2026-03-06)",
+      "url": "https://labtestcert.com/listing-directory/?action=viewCertificate&certId=1530"
+    },
+    {
+      "label": "LabTest Certification Inc. (hosted by Cobic-Ex): Certificate LC25-5610-1, XCiPhone 17: Class I Division 2 Groups A-D T6",
+      "url": "https://cobic-ex.com/wp-content/uploads/2026/10/xciel-xciphone17-nec-certificate.pdf"
+    },
+    {
+      "label": "Xciel Inc. (hosted by Cobic-Ex): EU Declaration of Conformity, XCiPhone 17 (2026-03-12)",
+      "url": "https://cobic-ex.com/wp-content/uploads/2026/10/xciel-xciphone17-declaration-of-conformity.pdf"
+    },
+    {
+      "label": "Xciel Inc.: XCiPhone 17 store listing: C1D2 + ATEX Zone 2 model and ATEX Zone 2-only model (2026-10-14)",
+      "url": "https://xciel-inc-1.mybigcommerce.com/xciphone-17/"
+    },
+    {
+      "label": "Xciel Inc.: Rugged iPhones page, 'XCiPhone 17 - NOW AVAILABLE' (2026-10-14)",
+      "url": "https://www.xciel.com/rugged-iphones"
+    },
+    {
+      "label": "Apple: Apple Business (formerly Apple Business Manager) user guide",
+      "url": "https://support.apple.com/guide/apple-business-manager/welcome/web"
+    },
     {
       "label": "Cobic-Ex (reseller): Xciel XCiPhone 17 case only (price, part numbers)",
       "url": "https://cobic-ex.com/xciphone-17-intrinsically-safe-case-only-for-iphone-17/"

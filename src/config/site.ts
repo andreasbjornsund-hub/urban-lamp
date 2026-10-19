@@ -58,7 +58,7 @@ const BEST_BY_NEED: NavGroup = {
     { label: '5G', href: '/best/5g/' },
     { label: 'Best camera', href: '/best/camera/' },
     { label: 'Lightest', href: '/best/lightest/' },
-    { label: 'Budget', href: '/best/budget/' },
+    { label: 'Long-term value', href: '/best/long-term-value/' },
   ],
 };
 

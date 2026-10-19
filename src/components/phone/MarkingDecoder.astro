@@ -48,7 +48,7 @@ const lines = marking.split(' / ').map((m) => {
   <div class="decoder-head">
     <span class="scheme">
       <span class:list={{ 'visually-hidden': inTab }}>{scheme}</span>
-      {flag && <a class="flag" href={`#note-${flag}`}>Unconfirmed<span class="visually-hidden">: see note</span> {flag}</a>}
+      {flag && <a class="flag" href={`#note-${flag}`}><span class="visually-hidden">Unconfirmed, see note </span>{flag}</a>}
     </span>
     {number && <span class="cert-no">Certificate {number}</span>}
     {scope && <span class="cert-scope">{scope}</span>}

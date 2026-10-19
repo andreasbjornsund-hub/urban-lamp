@@ -22,7 +22,7 @@
     ],
     "standards": [],
     "atex": {
-      "marking": "Ex ic IIC T4 Gc / Ex ic IIIC T135°C Dc",
+      "marking": "II 3G Ex ic IIC T4 Gc / II 3D Ex ic IIIC T135°C Dc",
       "number": "EPS 25 ATEX 1 131 X"
     },
     "iecex": {
@@ -122,7 +122,6 @@
   ],
   "variants": [],
   "unconfirmed": {
-    "certification.atex.marking": "The datasheet leaves out the ATEX category; protection level Gc corresponds to category 3G.",
     "capabilities.Lone worker": "Not confirmed by the maker for this exact model."
   },
   "features": [
@@ -173,6 +172,10 @@
     {
       "label": "Onedirect (reseller): Smart-Ex 203 listing, part 480998-100000",
       "url": "https://www.onedirect.co.uk/product/pepperl-fuchs-smart-exr-203-zone-2/22"
+    },
+    {
+      "label": "officeeasy (reseller, France): Smart-Ex 203 listing: II 3G Ex ic IIC T4 Gc / II 3D Ex ic IIIC T135°C Dc",
+      "url": "https://www.officeeasy.fr/ecom-smart-ex-203.html"
     },
     {
       "label": "Pepperl+Fuchs Japan: Smart-Ex 03 / 203 overview (user-replaceable batteries)",

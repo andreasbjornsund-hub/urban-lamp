@@ -47,7 +47,7 @@
     "securityUntil": "2033-03-31",
     "updates": "Security updates for 7+ years (based on previous model support)",
     "supportYears": 7,
-    "enterprise": "Apple Business Manager (ADE)"
+    "enterprise": "Apple Business (formerly Apple Business Manager)"
   },
   "specs": {
     "display": "6.1-inch OLED (notch); Ceramic Shield 2",
@@ -80,7 +80,7 @@
     "gloveTouch": false,
     "pttKey": false,
     "mdm": [
-      "Apple Business Manager (ADE)"
+      "Apple Business (formerly Apple Business Manager)"
     ],
     "connectivity": [
       "5G",
@@ -184,6 +184,10 @@
     {
       "label": "Apple: iPhone 17e technical specifications (UK)",
       "url": "https://www.apple.com/uk/iphone-17e/specs/"
+    },
+    {
+      "label": "Apple: Apple Business (formerly Apple Business Manager) user guide",
+      "url": "https://support.apple.com/guide/apple-business-manager/welcome/web"
     },
     {
       "label": "Atexxo (via DirectIndustry): iPhone 17E Zone 2 listing MOB-EX-IPH-17E",

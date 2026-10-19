@@ -84,7 +84,7 @@ const id = (kind: 'tab' | 'panel', s: { scheme: string }) => `marking-${kind}-${
     position: relative;
     z-index: 1;
     border-color: var(--color-panel-border);
-    background: var(--color-panel-warm);
+    background: var(--color-panel);
     color: var(--color-ink);
   }
   .tablist button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -2px; }
@@ -92,4 +92,6 @@ const id = (kind: 'tab' | 'panel', s: { scheme: string }) => `marking-${kind}-${
 
   /* The tabs sit on the card's top edge */
   [role='tabpanel'] :global(.decoder) { border-top-left-radius: 0; }
+  /* White header so the selected tab flows into it; the line below is the only separator before the gas atmospheres block */
+  [role='tabpanel'] :global(.decoder-head) { background: var(--color-panel); }
 </style>

@@ -1,0 +1,741 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Icon from '../../components/Icon.astro';
+import { SITE, CONTACT, FIND_PHONES } from '../../config/site';
+import { BEST_PAGES, type BestPage, type BestColumn } from '../../data/best-pages';
+import { externalLink, pageSlug } from '../../lib/links';
+import {
+  TYPE_LABEL,
+  TEMP_CLASS_MAX,
+  zoneLabel,
+  schemeList,
+  confirmedDivision,
+  securityUpdates,
+  monthYear,
+  type Phone,
+} from '../../lib/phones';
+
+export const getStaticPaths = (() => BEST_PAGES.map((page) => ({ params: { slug: page.slug }, props: { page } }))) satisfies GetStaticPaths;
+
+const { page } = Astro.props as { page: BestPage };
+const url = `${SITE.url}/best/${page.slug}/`;
+const utmContent = pageSlug(Astro.url.pathname);
+
+const all = await getCollection('phones');
+const byId = new Map(all.map((p) => [p.id, p]));
+const picks = page.picks.map((pick, i) => {
+  const phone = byId.get(pick.id);
+  if (!phone) throw new Error(`/best/${page.slug}/: no phone called "${pick.id}"`);
+  return { ...pick, phone, rank: i + 1 };
+});
+const [top] = picks;
+const pickedIds = new Set(picks.map((p) => p.id));
+
+/* Other phones on sale in this page's pool. Alphabetical unless the page is about weight, so no brand is favoured */
+const others = all
+  .filter((p) => p.data.status === 'current' && page.pool(p) && !pickedIds.has(p.id))
+  .sort((a, b) =>
+    page.others.sort === 'weight'
+      ? (a.data.specs.weightG ?? Infinity) - (b.data.specs.weightG ?? Infinity) || a.data.name.localeCompare(b.data.name)
+      : a.data.brand.localeCompare(b.data.brand) || a.data.name.localeCompare(b.data.name),
+  );
+
+const verifiedDate = new Date(Math.max(...picks.map((p) => p.phone.data.lastVerified.getTime())));
+const verified = verifiedDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const verifiedIso = verifiedDate.toISOString().slice(0, 10);
+
+/* ---------- Values from the phone data. Unknown is "Not verified", never "no"; single-source values say so ---------- */
+const NOT_VERIFIED = 'Not verified';
+const flagged = (p: Phone, path: string, text: string) => (p.data.unconfirmed[path] ? `${text} (unconfirmed)` : text);
+
+const marking = (p: Phone) => {
+  const c = p.data.certification;
+  if (c.atex) return flagged(p, 'certification.atex.marking', c.atex.marking.split(' / ')[0]);
+  if (c.iecex) return flagged(p, 'certification.iecex.marking', c.iecex.marking.split(' / ')[0]);
+  return c.note ?? '';
+};
+const tempLabel = (p: Phone) => {
+  const t = p.data.certification.tempClass;
+  return t ? `${t} (≤ ${TEMP_CLASS_MAX[t]} °C)` : NOT_VERIFIED;
+};
+/** Security update support. An end date we couldn't confirm is worded the way its source puts it */
+const updatesText = (d: Phone['data']) => {
+  const text = securityUpdates(d.os);
+  if (!text) return 'No end date published';
+  const note = d.unconfirmed['os.securityUntil'];
+  if (!note || d.os.supportYears) return text;
+  const quarter = note.match(/\bQ([1-4]) (\d{4})\b/);
+  if (quarter) return `Q${quarter[1]} ${quarter[2]} (maker’s statement)`;
+  if (/^estimated/i.test(note)) return `About ${monthYear(d.os.securityUntil)} (estimate)`;
+  if (/at least/i.test(note)) return text.replace(/^Until/, 'At least');
+  return `${text} (unconfirmed)`;
+};
+const weight = (p: Phone) => (p.data.specs.weightG ? flagged(p, 'specs.weightG', `${p.data.specs.weightG} g`) : '—');
+const protectionShort = (p: Phone) => p.data.certification.protection?.replace(/ with inherently safe optical radiation \(op is\)/, '') ?? '—';
+const capability = (p: Phone, label: string) => p.data.capabilities.find((c) => c.label === label)?.value;
+
+/** National Ex approvals named in a short form; radio-only approvals and expired certificates are left out */
+const NATIONAL: [RegExp, string][] = [
+  [/^INMETRO/, 'INMETRO (Brazil)'],
+  [/^KCs?\b/, 'KCs (Korea)'],
+  [/^(IA|SANS|SABS|South Africa)\b/, 'South Africa'],
+  [/^PCEC/, 'PCEC (China)'],
+  [/^(TIIS|JNIOSH|CML)/, 'Japan'],
+  [/^UAE/, 'UAE'],
+];
+const nationalSchemes = (p: Phone) => [
+  ...new Set(
+    (p.data.certification.otherSchemes ?? [])
+      .filter((s) => !/expired/i.test(s))
+      .flatMap((s) => NATIONAL.filter(([re]) => re.test(s)).map(([, name]) => name)),
+  ),
+];
+
+const COLUMNS: Record<BestColumn, { label: string; value: (p: Phone) => string }> = {
+  protection: { label: 'Protection', value: protectionShort },
+  gasGroup: { label: 'Gas group', value: (p) => p.data.certification.gasGroup ?? '—' },
+  tempClass: { label: 'Temperature class', value: tempLabel },
+  certification: { label: 'Certification', value: (p) => schemeList(p).join(' + ') || p.data.certification.note || '—' },
+  weight: { label: 'Weight', value: weight },
+  type: { label: 'Type', value: (p) => TYPE_LABEL[p.data.type] },
+  zones: { label: 'Certified for', value: zoneLabel },
+  dust: {
+    label: 'Dust',
+    value: (p) => {
+      const c = p.data.certification;
+      const zone = [...c.zonesDust].sort()[0];
+      return zone ? [c.dustGroup, `Zone ${zone}`].filter(Boolean).join(', ') : 'Not in our data';
+    },
+  },
+  division: { label: 'North America', value: (p) => confirmedDivision(p) ?? 'Not in our data' },
+  schemes: {
+    label: 'Certification',
+    value: (p) => {
+      const division = confirmedDivision(p);
+      return [...schemeList(p), division && division.replace('Division', 'Div'), ...nationalSchemes(p)].filter(Boolean).join(', ') || '—';
+    },
+  },
+  os: { label: 'OS', value: (p) => p.data.os.version },
+  updates: { label: 'Security updates', value: (p) => updatesText(p.data) },
+  ambient: { label: 'Ambient temperature', value: (p) => p.data.certification.ambient ?? NOT_VERIFIED },
+  camera: { label: 'Camera', value: (p) => (p.data.specs.camera ? flagged(p, 'specs.camera', p.data.specs.camera) : NOT_VERIFIED) },
+  keys: { label: 'Keys', value: (p) => p.data.specs.keys ?? NOT_VERIFIED },
+  network: { label: 'Network', value: (p) => p.data.specs.network ?? NOT_VERIFIED },
+  wifi: { label: 'Wi-Fi', value: (p) => p.data.specs.wifi ?? NOT_VERIFIED },
+  ptt: { label: 'Push-to-talk', value: (p) => capability(p, 'Push-to-talk') ?? (p.data.specs.pttKey ? 'Key' : NOT_VERIFIED) },
+  barcode: { label: 'Barcode scanning', value: (p) => capability(p, 'Barcode scanning') ?? NOT_VERIFIED },
+  loneWorker: { label: 'Lone worker', value: (p) => capability(p, 'Lone worker') ?? NOT_VERIFIED },
+  cameraFree: {
+    label: 'Camera-free version',
+    value: (p) => (p.data.specs.cameraFree === true ? 'Available' : p.data.specs.cameraFree === false ? 'Not offered' : NOT_VERIFIED),
+  },
+};
+const glanceColumns = (page.glanceColumns ?? ['protection', 'gasGroup', 'tempClass', 'certification', 'weight']).map((k) => COLUMNS[k]);
+const otherColumns = (page.others.columns ?? ['type', 'zones', 'gasGroup', 'tempClass', 'certification', 'os', 'weight']).map((k) => COLUMNS[k]);
+
+const topFacts = [zoneLabel(top.phone), [top.phone.data.certification.gasGroup, top.phone.data.certification.tempClass].filter(Boolean).join(' '), schemeList(top.phone).join(' + ')]
+  .filter(Boolean)
+  .join(' · ');
+
+const cta = page.cta;
+const quote = externalLink('https://xshielder.com/get-a-quote', utmContent);
+const ctaLink = cta.kind === 'xshielder' && cta.link ? { label: cta.link.label, ...externalLink(cta.link.href, utmContent) } : undefined;
+
+/* ---------- Structured data ---------- */
+const topImg = top.phone.data.image ? await getImage({ src: top.phone.data.image, width: 800, format: 'webp' }) : undefined;
+const schema = [
+  {
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: page.title,
+    description: page.description,
+    isPartOf: { '@id': `${SITE.url}/#website` },
+    dateModified: verifiedIso,
+    ...(topImg && { primaryImageOfPage: { '@type': 'ImageObject', url: new URL(topImg.src, SITE.url).href } }),
+  },
+  {
+    '@type': 'ItemList',
+    name: page.h1,
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    numberOfItems: picks.length,
+    itemListElement: picks.map((p) => ({
+      '@type': 'ListItem',
+      position: p.rank,
+      name: p.phone.data.name,
+      url: `${SITE.url}/phones/${p.id}/`,
+    })),
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { name: 'Home', item: `${SITE.url}/` },
+      { name: 'Best for', item: `${SITE.url}/best/` },
+      { name: page.h1, item: url },
+    ].map((b, i) => ({ '@type': 'ListItem', position: i + 1, ...b })),
+  },
+  {
+    '@type': 'FAQPage',
+    mainEntity: page.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+
+<BaseLayout title={page.title} description={page.description} schema={schema}>
+  <!-- Hero -->
+  <section class="best-hero" aria-labelledby="best-title">
+    <div class="container">
+      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Best for', href: '/best/' }, { label: page.h1, href: '' }]} />
+
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">{page.eyebrow}</p>
+          <h1 id="best-title">{page.h1}</h1>
+          <p class="lead">{page.lead}</p>
+        </div>
+
+        <aside class="top-card" aria-labelledby="top-card-title">
+          <p class="top-card-label">
+            <span class="rank rank-lg" aria-hidden="true">1</span> {top.label}
+            {page.labelNote && (
+              <span class="tip">
+                <button class="tip-btn" type="button" aria-label="Why this is an estimate" aria-describedby="tip-top">i</button>
+                <span class="tip-text" role="tooltip" id="tip-top">{page.labelNote}</span>
+              </span>
+            )}
+          </p>
+          <a class="top-card-media" href={`/phones/${top.id}/`} tabindex="-1" aria-hidden="true">
+            {top.phone.data.image && (
+              <Image src={top.phone.data.image} alt="" widths={[360, 560]} sizes="(min-width: 56rem) 30vw, 80vw" loading="eager" fetchpriority="high" />
+            )}
+          </a>
+          <h2 id="top-card-title" class="top-card-name"><a href={`/phones/${top.id}/`}>{top.phone.data.name}</a></h2>
+          <p class="top-card-facts">{topFacts}</p>
+          <div class="top-card-actions">
+            <a class="btn btn-primary" href={`/phones/${top.id}/`}>View full details <Icon name="arrow-right" /></a>
+            <a class="btn btn-secondary" href="#pick-1">Why it ranks first</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- At a glance -->
+  <section class="band band-white" aria-labelledby="glance-title">
+    <div class="container">
+      <p class="eyebrow">At a glance</p>
+      <h2 id="glance-title" class="h2">The top {picks.length} compared</h2>
+
+      <div class="table-scroll" tabindex="0" role="region" aria-label={`The top ${picks.length} compared: ${page.h1}`}>
+        <table class="glance-table">
+          <caption class="visually-hidden">The top {picks.length} compared: {page.h1}</caption>
+          <thead>
+            <tr>
+              <th scope="col">Rank</th>
+              <th scope="col">Phone</th>
+              <th scope="col">
+                <span class="th-tip">
+                  Best for
+                  {page.labelNote && (
+                    <span class="tip">
+                      <button class="tip-btn" type="button" aria-label="Why this is an estimate" aria-describedby="tip-glance">i</button>
+                      <span class="tip-text tip-below" role="tooltip" id="tip-glance">{page.labelNote}</span>
+                    </span>
+                  )}
+                </span>
+              </th>
+              {glanceColumns.map((c) => <th scope="col">{c.label}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {picks.map((p) => (
+              <tr class:list={{ 'is-top': p.rank === 1 }}>
+                <td><span class="rank" aria-label={`Rank ${p.rank}`}>{p.rank}</span></td>
+                <th scope="row"><a href={`#pick-${p.rank}`}>{p.phone.data.name}</a></th>
+                <td>{p.label}</td>
+                {glanceColumns.map((c) => <td>{c.value(p.phone)}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">{page.glanceNote}</p>
+    </div>
+  </section>
+
+  <!-- The ranking -->
+  <section id="ranking" class="band band-warm" aria-labelledby="ranking-title">
+    <div class="container">
+      <p class="eyebrow">The ranking</p>
+      <h2 id="ranking-title" class="h2">{page.headings.ranking}</h2>
+
+      <ol class="picks">
+        {picks.map((p) => {
+          const d = p.phone.data;
+          const division = confirmedDivision(p.phone);
+          return (
+            <li class:list={['pick', { 'pick-top': p.rank === 1 }]} id={`pick-${p.rank}`}>
+              <article aria-labelledby={`pick-${p.rank}-name`}>
+                <a class="pick-media" href={`/phones/${p.id}/`} tabindex="-1" aria-hidden="true">
+                  {d.image && <Image src={d.image} alt="" widths={[320, 480]} sizes="(min-width: 56rem) 22rem, 80vw" />}
+                </a>
+
+                <div class="pick-body">
+                  <p class="pick-label">
+                    <span class="rank" aria-hidden="true">{p.rank}</span> {p.label}
+                    {page.labelNote && (
+                      <span class="tip">
+                        <button class="tip-btn" type="button" aria-label="Why this is an estimate" aria-describedby={`tip-pick-${p.rank}`}>i</button>
+                        <span class="tip-text" role="tooltip" id={`tip-pick-${p.rank}`}>{page.labelNote}</span>
+                      </span>
+                    )}
+                  </p>
+                  <h3 id={`pick-${p.rank}-name`} class="pick-name">
+                    <a href={`/phones/${p.id}/`}>{d.name}</a>
+                  </h3>
+                  <p class="pick-type">{d.brand} · {TYPE_LABEL[d.type]}{d.hostDevice ? ` for the ${d.hostDevice}` : ''}</p>
+
+                  <dl class="pick-facts">
+                    <div><dt>Certified for</dt><dd>{zoneLabel(p.phone)}</dd></div>
+                    <div><dt>Marking</dt><dd><code>{marking(p.phone)}</code></dd></div>
+                    <div><dt>Certification</dt><dd>{schemeList(p.phone).join(' + ')}{division ? `, ${division}` : ''}</dd></div>
+                    <div><dt>Operating system</dt><dd>{d.os.version}</dd></div>
+                    <div><dt>Security updates</dt><dd>{updatesText(d)}</dd></div>
+                    <div><dt>Weight</dt><dd>{weight(p.phone)}{d.specs.weightNote ? ` (${d.specs.weightNote.toLowerCase()})` : ''}</dd></div>
+                  </dl>
+
+                  <div class="pick-text">
+                    {p.why.map((t) => <p>{t}</p>)}
+                  </div>
+
+                  <div class="pick-actions">
+                    <a class="btn btn-primary" href={`/phones/${p.id}/`}>View full details <Icon name="arrow-right" /></a>
+                    <button class="btn btn-secondary" type="button" data-compare-add={p.id} aria-pressed="false">
+                      <span class="when-off">+ Add to compare</span>
+                      <span class="when-on">✓ In your comparison</span>
+                      <span class="visually-hidden"> {d.name}</span>
+                    </button>
+                    {d.sponsor && <a class="arrow-link" href={`${CONTACT.href}?phone=${p.id}`}>Request a price <Icon name="arrow-right" /></a>}
+                  </div>
+                </div>
+              </article>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  </section>
+
+  <!-- How we ranked -->
+  <section id="method" class="band band-white" aria-labelledby="method-title">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">Method</p>
+        <h2 id="method-title" class="h2">How we ranked them</h2>
+      </div>
+      <div class="prose">
+        {page.method.map((t) => <p>{t}</p>)}
+        <p>
+          Every figure comes from certificates, declarations of conformity and manufacturer datasheets, and the same rules apply to every brand.{' '}
+          <a href="/how-we-rate/">Read how we rate</a> or see the <a href="/disclosure/">disclosure</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What to check -->
+  <section id="checklist" class="band band-warm" aria-labelledby="checklist-title">
+    <div class="container">
+      <p class="eyebrow">Before you buy</p>
+      <h2 id="checklist-title" class="h2">{page.headings.checklist}</h2>
+      <p class="section-lead">{page.checklist.lead}</p>
+      <ul class="criteria">
+        {page.checklist.items.map((c) => (
+          <li>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Other phones in this page's pool (hidden when every one is ranked) -->
+  {others.length > 0 && (
+    <section id="others" class="band band-white" aria-labelledby="others-title">
+      <div class="container">
+        <div class="split-head">
+          <div>
+            <p class="eyebrow">More choice</p>
+            <h2 id="others-title" class="h2">{page.headings.others}</h2>
+          </div>
+          <a class="btn btn-secondary" href={page.others.filterHref}>{page.others.filterLabel} <Icon name="arrow-right" /></a>
+        </div>
+
+        <div class="table-scroll" tabindex="0" role="region" aria-label={page.others.tableLabel}>
+          <table class="glance-table">
+            <caption class="visually-hidden">
+              {page.others.tableLabel}, {page.others.sort === 'weight' ? 'lightest first' : 'in alphabetical order'}
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Phone</th>
+                {otherColumns.map((c) => <th scope="col">{c.label}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {others.map((p) => (
+                <tr>
+                  <th scope="row">
+                    <a href={`/phones/${p.id}/`}>{p.data.name}</a>
+                    {p.data.statusNote && <span class="row-note">Check availability</span>}
+                  </th>
+                  {otherColumns.map((c) => <td>{c.value(p)}</td>)}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">{page.others.note}</p>
+      </div>
+    </section>
+  )}
+
+  <!-- Call to action -->
+  <section class="band cta" aria-labelledby="cta-title">
+    <svg class="cta-contours" viewBox="0 0 600 260" aria-hidden="true" focusable="false" preserveAspectRatio="xMaxYMid slice">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M420 130c0-48 46-92 104-92s92 40 92 92-38 96-96 96-100-48-100-96Z" />
+        <path d="M380 132c0-70 64-128 146-128s126 58 126 128-54 134-136 134-136-64-136-134Z" />
+        <path d="M340 134c0-92 82-166 186-166s162 76 162 166-70 172-174 172-174-80-174-172Z" />
+        <path d="M300 136c0-114 100-204 226-204s198 94 198 204-86 210-212 210-212-96-212-210Z" />
+      </g>
+    </svg>
+    <div class="container cta-inner">
+      <div>
+        <p class="eyebrow">{cta.kind === 'xshielder' ? 'Xshielder' : 'Impartial advice'}</p>
+        <h2 id="cta-title" class="h2">{cta.heading}</h2>
+        <p class="cta-text">
+          {cta.text}
+          {ctaLink && (
+            <>
+              {' '}
+              <a href={ctaLink.href} rel={ctaLink.rel} target={ctaLink.target}>{ctaLink.label}</a>.
+            </>
+          )}
+        </p>
+      </div>
+      <div class="cta-actions">
+        {cta.kind === 'xshielder' ? (
+          <>
+            <a class="btn btn-light" href={quote.href} rel={quote.rel} target={quote.target}>Get a quote <Icon name="arrow-right" /></a>
+            <a class="btn btn-outline-light" href={CONTACT.href}>Ask us for impartial advice</a>
+          </>
+        ) : (
+          <>
+            <a class="btn btn-light" href={CONTACT.href}>Ask us for impartial advice <Icon name="arrow-right" /></a>
+            <a class="btn btn-outline-light" href={FIND_PHONES.href}>Find phones</a>
+          </>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="band band-white" aria-labelledby="faq-title">
+    <div class="container faq-wrap">
+      <div>
+        <p class="eyebrow">FAQ</p>
+        <h2 id="faq-title" class="h2">{page.headings.faq}</h2>
+      </div>
+      <div class="faq">
+        {page.faq.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band sources" aria-label="Verification">
+    <div class="container">
+      <p>
+        Facts last verified on <time datetime={verifiedIso}>{verified}</time> against certificates, declarations of conformity and manufacturer data. Always check the certificate for your exact model before use. Spotted an error? <a href={CONTACT.href}>Tell us</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .best-hero {
+    padding-block: 0.5rem 3.5rem;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgb(245 158 11 / 0.06), transparent 60%),
+      radial-gradient(1000px 500px at 10% 30%, rgb(34 197 94 / 0.05), transparent 55%),
+      var(--paper-grain);
+    background-size: auto, auto, 3px 3px;
+  }
+  .hero-grid { display: grid; gap: 2.5rem; margin-top: 1rem; align-items: center; }
+  .hero-copy h1 {
+    font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: var(--tracking-hero);
+  }
+  .hero-copy .lead { margin-top: 1.25rem; max-width: 40rem; }
+  /* Top pick card */
+  .top-card {
+    padding: 1.5rem;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+    box-shadow: var(--shadow-card);
+  }
+  .top-card-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .top-card-media {
+    display: block;
+    aspect-ratio: 4 / 3;
+    margin-top: 1rem;
+    background: radial-gradient(ellipse 60% 70% at 50% 58%, #f1eee7 0%, #f7f5f0 45%, #fff 80%);
+    border-radius: var(--radius-sm);
+  }
+  .top-card-media :global(img) { width: 100%; height: 100%; object-fit: contain; padding: 0.75rem; }
+  .top-card-name { margin-top: 1rem; font-size: var(--text-xl); }
+  .top-card-name a { text-decoration: none; }
+  .top-card-name a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .top-card-facts { margin-top: 0.4rem; font-size: var(--text-sm); color: var(--color-muted); }
+  .top-card-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+
+  /* Rank marker */
+  .rank {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--color-forest);
+    color: var(--color-on-dark);
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .rank-lg { width: 2rem; height: 2rem; font-size: 1.0625rem; }
+
+  /* ---------- Tables ---------- */
+  .band h2 + .table-scroll { margin-top: 2rem; }
+  .split-head + .table-scroll { margin-top: 2rem; }
+  .table-scroll {
+    position: relative;
+    overflow-x: auto;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+  }
+  .glance-table { width: 100%; min-width: 52rem; border-collapse: collapse; font-size: var(--text-sm); }
+  .glance-table th,
+  .glance-table td { padding: 0.85rem 1rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--color-panel-border); }
+  .glance-table thead th {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    background: var(--color-panel-warm);
+    white-space: nowrap;
+  }
+  .glance-table tbody th { font-weight: 600; color: var(--color-ink); }
+  .glance-table tbody tr:last-child > * { border-bottom: 0; }
+  .glance-table a { color: var(--color-ink); text-underline-offset: 3px; }
+  .glance-table a:hover { color: var(--color-forest); }
+  .glance-table tr.is-top > * { background: #f3f6f1; }
+  .row-note { display: block; margin-top: 0.15rem; font-size: var(--text-xs); font-weight: 500; color: var(--color-caution-ink); }
+  .table-scroll:focus-visible { outline-offset: 2px; }
+  .table-note { max-width: 46rem; margin-top: 1rem; font-size: var(--text-sm); color: var(--color-muted); }
+
+  /* ---------- Picks ---------- */
+  .picks { display: grid; gap: 1.5rem; margin-top: 2.5rem; counter-reset: pick; }
+  .pick article {
+    display: grid;
+    overflow: hidden;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+  }
+  .pick-top article { border-color: var(--color-forest); box-shadow: 0 0 0 1px var(--color-forest); }
+  .pick { scroll-margin-top: calc(var(--header-h) + 1rem); }
+
+  .pick-media {
+    display: block;
+    aspect-ratio: 4 / 3;
+    background: radial-gradient(ellipse 60% 70% at 50% 58%, #f1eee7 0%, #f7f5f0 45%, #fff 80%);
+    border-bottom: 1px solid var(--color-panel-border);
+  }
+  .pick-media :global(img) { width: 100%; height: 100%; object-fit: contain; padding: 1.25rem; }
+
+  .pick-body { padding: 1.5rem; }
+  .pick-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-forest);
+  }
+  .pick-name { margin-top: 0.6rem; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem); }
+  .pick-name a { text-decoration: none; }
+  .pick-name a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .pick-type { margin-top: 0.3rem; font-size: var(--text-sm); color: var(--color-muted); }
+
+  .pick-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 1.25rem 0 0;
+    border-top: 1px solid var(--color-panel-border);
+  }
+  .pick-facts div { padding: 0.7rem 0.75rem 0.7rem 0; border-bottom: 1px solid var(--color-panel-border); }
+  .pick-facts dt { font-size: var(--text-xs); color: var(--color-muted); }
+  .pick-facts dd { margin: 0.1rem 0 0; font-size: var(--text-sm); font-weight: 600; color: var(--color-ink); overflow-wrap: anywhere; }
+  .pick-facts code { font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 500; }
+
+  .pick-text { display: grid; gap: 0.9rem; margin-top: 1.25rem; max-width: 44rem; }
+
+  .pick-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; margin-top: 1.5rem; }
+
+  /* ---------- Method, checklist ---------- */
+  .split { display: grid; gap: 1.5rem; }
+  .prose { display: grid; gap: 1rem; max-width: 42rem; }
+  .prose a { color: var(--color-forest); }
+  .section-lead { max-width: 42rem; margin-top: 1rem; }
+  .criteria { display: grid; gap: 1rem; margin-top: 2rem; }
+  .criteria li { padding: 1.25rem 1.5rem; border: 1px solid var(--color-panel-border); border-radius: var(--radius); background: var(--color-panel); }
+  .criteria h3 { font-size: var(--text-h3); }
+  .criteria p { margin-top: 0.5rem; font-size: var(--text-sm); }
+  .split-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+
+  /* ---------- CTA panel ---------- */
+  .cta {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(3.5rem, 3rem + 2vw, 4.5rem);
+    background: var(--color-forest);
+    border-color: var(--color-forest);
+    color: var(--color-on-dark);
+  }
+  .cta-contours {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(60%, 40rem);
+    height: 100%;
+    color: var(--color-on-dark);
+    opacity: 0.09;
+    pointer-events: none;
+  }
+  .cta-inner { position: relative; display: grid; gap: 2rem; align-items: center; }
+  .cta .eyebrow { color: var(--color-on-dark-muted); }
+  .cta h2 { color: var(--color-on-dark); }
+  .cta-text { max-width: 38rem; margin-top: 1rem; color: var(--color-on-dark-muted); }
+  .cta-text a { color: var(--color-on-dark); text-underline-offset: 3px; }
+  .cta-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .cta :global(:focus-visible) { outline-color: var(--color-on-dark); }
+
+  /* ---------- FAQ ---------- */
+  .faq-wrap { display: grid; gap: 2rem; }
+  .faq details { border-bottom: 1px solid var(--color-panel-border); }
+  .faq details:first-child { border-top: 1px solid var(--color-panel-border); }
+  .faq summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    min-height: 3.5rem;
+    padding-block: 0.75rem;
+    color: var(--color-ink);
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; flex: none; font-size: 1.25rem; color: var(--color-forest); transition: transform 0.2s ease; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p { padding-bottom: 1.25rem; max-width: 42rem; font-size: var(--text-sm); }
+
+  /* ---------- ⓘ tooltip on estimated labels (same look as on Find phones) ---------- */
+  .th-tip { display: inline-flex; align-items: center; gap: 0.375rem; }
+  .tip { position: relative; display: inline-flex; font-weight: 400; text-transform: none; letter-spacing: normal; }
+  .tip-btn {
+    display: grid;
+    place-items: center;
+    width: 1.125rem;
+    height: 1.125rem;
+    padding: 0;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 50%;
+    background: var(--color-panel);
+    color: var(--color-muted);
+    font: 600 0.6875rem / 1 var(--font-display);
+    cursor: help;
+  }
+  /* A bigger invisible hit area for touch */
+  .tip-btn::before { content: ''; position: absolute; inset: -0.75rem; }
+  .tip-text {
+    position: absolute;
+    bottom: calc(100% + 0.5rem);
+    left: 50%;
+    z-index: 3;
+    width: max-content;
+    max-width: min(18rem, 70vw);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-ink);
+    color: var(--color-on-dark);
+    font-size: var(--text-xs);
+    font-weight: 400;
+    line-height: 1.4;
+    white-space: normal;
+    transform: translateX(-50%);
+    /* display (not visibility) so a closed tip takes no space and can't widen the page */
+    display: none;
+    pointer-events: none;
+  }
+  /* Next to a label the button sits at the line's end, so the tip opens leftwards, and downwards so the sticky
+     header can't cover it */
+  .top-card-label .tip-text,
+  .pick-label .tip-text { top: calc(100% + 0.5rem); bottom: auto; left: auto; right: -0.5rem; transform: none; }
+  /* Inside a scrolling table the tip opens downwards so the scroll box doesn't clip it */
+  .tip-text.tip-below { top: calc(100% + 0.5rem); bottom: auto; }
+  .tip:hover .tip-text,
+  .tip-btn:focus-visible + .tip-text,
+  .tip-btn:focus + .tip-text { display: block; }
+
+  .sources { padding-block: 2.5rem; font-size: var(--text-sm); color: var(--color-muted); }
+  .sources a { color: var(--color-forest); }
+
+  /* ---------- Tablet and up ---------- */
+  @media (min-width: 48rem) {
+    .criteria { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pick-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (min-width: 56rem) {
+    .hero-grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 4rem; }
+    .pick article { grid-template-columns: 22rem minmax(0, 1fr); }
+    .pick-media { aspect-ratio: auto; min-height: 100%; border-bottom: 0; border-right: 1px solid var(--color-panel-border); }
+    .split { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 3rem; }
+    .cta-inner { grid-template-columns: minmax(0, 8fr) auto; }
+    .faq-wrap { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 3rem; }
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { COMPARE_ROWS, bestInRow, type Phone } from '../../lib/phones';
+import { comparePage } from '../../data/compare-pages';
 
 interface Props {
   /** The first phone is the one the page is about; it is pinned and highlighted */
@@ -10,7 +11,11 @@ interface Props {
 
 const { phones, caption } = Astro.props;
 const [current] = phones;
-const vsHref = (a: string, b: string) => `/compare/${[a, b].sort().join('-vs-')}/`;
+/** Link to the head-to-head page, only for pairs that have one */
+const vsHref = (a: string, b: string) => {
+  const page = comparePage(a, b);
+  return page && `/compare/${page.slug}/`;
+};
 
 const rows = COMPARE_ROWS.map((row) => {
   const values = phones.map(row.value);
@@ -48,9 +53,11 @@ const rows = COMPARE_ROWS.map((row) => {
                 {i === 0 ? (
                   <span class="col-tag">This phone</span>
                 ) : (
-                  <a class="col-vs" href={vsHref(current.id, p.id)}>
-                    Full comparison<span class="visually-hidden">: {current.data.name} vs {p.data.name}</span>
-                  </a>
+                  vsHref(current.id, p.id) && (
+                    <a class="col-vs" href={vsHref(current.id, p.id)}>
+                      Full comparison<span class="visually-hidden">: {current.data.name} vs {p.data.name}</span>
+                    </a>
+                  )
                 )}
                 <button class="col-add" type="button" data-compare-add={p.id} aria-pressed="false">
                   <span class="when-off">+ Compare</span>

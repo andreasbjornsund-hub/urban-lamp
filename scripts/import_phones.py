@@ -132,9 +132,9 @@ FOLD = {
                   "Mining version with Group I approval. i.safe's safety instructions and IECEx certificate also list the "
                   "Zone 1/21 rating, but its datasheet shows the mining approval only."),
     "IS-540.M1": ("IS-540.1", "IS540.M1", "Mining version, rated for Group I as well as Zone 1/21."),
-    "NOKIA-IS540.1": ("IS-540.1", "Nokia IS540.1",
-                      "Sold by Nokia as part of its private wireless offer, with Nokia apps such as Team Comms. Same device "
-                      "and certificates as the IS540.1."),
+    "NOKIA-IS540.1": ("IS-540.1", "Sold by Nokia",
+                      "Nokia offers the IS540.1 (as 'IS540.1 by i.safe MOBILE') in its private wireless portfolio, alongside "
+                      "apps such as Nokia Team Comms. Same device and certificates."),
     "IS-380.M1": ("IS-380.1", "IS380.M1", "Mining version, rated for Group I as well as Zone 1/21."),
     "IS-440.M1": ("IS-440.1", "IS440.M1", "Mining version, rated for Group I (Ex ia) as well as Zone 1/21 (Ex ib)."),
     "BT-SP9EX1-CAM": ("BT-SP9EX1", "SP9EX1 Cam version",
@@ -161,8 +161,8 @@ EXTRA_VARIANTS = {
     "IS-440.1": [{"name": "EdgeOne", "description": "The IS440.1 is also certified under the name EdgeOne, with the same certificates."}],
     "IS-440.2": [{"name": "EdgeTwo", "description": "The IS440.2 is also certified under the name EdgeTwo, with the same certificates."}],
     "XC-Z2-IP17": [
-        {"name": "XCiPhone17-A", "description": "ATEX Zone 2 version."},
-        {"name": "XCiPhone17", "description": "Class I Division 2 version for North America, installed by Xciel USA."},
+        {"name": "XCiPhone17-A", "description": "ATEX Zone 2 version. The customer can install the iPhone, following Xciel's procedure."},
+        {"name": "XCiPhone17", "description": "Class I Division 2 and ATEX Zone 2 version for North America, installed by Xciel."},
     ],
 }
 
@@ -189,7 +189,6 @@ STATUS = {
 NOTES = {
     # Ex products
     ("PF-SE02-DZ2", "ATEX/IECEx marking - gas"): "The current datasheet prints 'op is'; the IECEx certificate (issue 1, 2023) gives the marking without it.",
-    ("PF-SE203", "ATEX/IECEx marking - gas"): "The datasheet leaves out the ATEX category; protection level Gc corresponds to category 3G.",
     ("PF-SE02-DZ2", "In-use weight (g)"): "Taken from the Smart-Ex 02 DZ1; not published separately for the DZ2.",
     ("PF-SE02-DZ2", "Dimensions (mm)"): "Taken from the Smart-Ex 02 DZ1; not published separately for the DZ2.",
     ("IS-540.2", "In-use weight (g)"): "Taken from the IS540.1; not published separately for the IS540.2.",
@@ -208,7 +207,6 @@ NOTES = {
     ("XC-Z1-IP14", "Ex ambient Ta"): "From the IECEx certificate. Xciel's datasheet says −20 °C to +45 °C.",
     ("XC-Z2-IP14", "ATEX/IECEx marking - gas"): "From current listings. An older Xciel safety instruction, which cites a superseded directive, gives different temperature classes.",
     ("XC-Z2-IP14PL", "ATEX/IECEx marking - gas"): "From Xciel's datasheet, which doesn't print the ATEX category or a certificate number.",
-    ("XC-Z2-IP17", "ATEX/IECEx marking - gas"): "From an Xciel installer's listing; Xciel hasn't published a datasheet yet. Earlier XCiPhone models are rated T4.",
     # Base devices
     ("B-AP-*", "Security updates until"): "Apple doesn't publish an end date; its legal minimum is five years from first sale. Previous iPhone models have had security updates for seven years or more.",
     ("B-AP-*", "Satellite features"): "Listed on Apple's tech specs; availability depends on the country.",
@@ -227,6 +225,7 @@ NOTES = {
     ("B-IS-655", "Front camera"): "From a single reseller listing.",
     ("B-IS-120", "Current OS"): "Proprietary ISM-OS, according to distributor data.",
     ("B-IS-440", "Security updates until"): "i.safe MOBILE states Q4 2032.",
+    ("B-IS-540", "Security updates until"): "i.safe MOBILE states Q4 2032. Google's Android Enterprise directory lists 30 January 2032.",
     ("B-BT-SP9", "Security updates until"): "BARTEC states 'at least May 2030'.",
 }
 THROUGH_NOTE = "Inferred from related information; not stated by the maker for this exact model."
@@ -238,7 +237,7 @@ SKIP_CELLS = {
     ("BT-PIXAVI", "Ex IP (cert)"),  # neither certificate states an IP code
 }
 # NOT FOUND cells whose value is real but incomplete; published with their note
-PUBLISH_NOT_FOUND = {("PF-SE203", "ATEX/IECEx marking - gas")}
+PUBLISH_NOT_FOUND: set[tuple[str, str]] = set()
 # Entries removed from "Other approvals" (with the reason the cell was flagged)
 DROP_APPROVALS = {"PF-SE03-DZ1": "ANZEx"}  # the ANZEx mining marking belongs to the DZ1M variant only
 VALUE_OVERRIDES = {("XS-IP17", "IP rating"): "IP6X (dust-tight; no water rating stated)"}
@@ -531,6 +530,8 @@ def build(p, base, through, caps, sources, folded, existing):
         iecex_marking = strip_atex_prefix(marking)
         if pid == "PF-SE02-DZ2":  # the IECEx certificate omits 'op is'
             iecex_marking = iecex_marking.replace(" op is", "")
+        if pid == "BT-SP9EX1":  # IECEx UL 24.0004X issue 2 has no IP code; IP64 is in the ATEX marking only
+            iecex_marking = iecex_marking.replace(" IP64", "")
         cert["iecex"] = {"marking": iecex_marking, "number": iecex_number}
         if iecex_scope:
             cert["iecex"]["scope"] = iecex_scope[0].upper() + iecex_scope[1:]
@@ -635,12 +636,12 @@ def build(p, base, through, caps, sources, folded, existing):
             os_info["securityUntil"] = d.replace(year=d.year + 2).isoformat()
         os_info["supportYears"] = APPLE_SUPPORT_YEARS
         os_info["updates"] = f"Security updates for {APPLE_SUPPORT_YEARS}+ years (based on previous model support)"
-    # Read raw: "N/A (Apple Business Manager / ADE)" carries the iPhone answer
+    # Read raw: "N/A (Apple Business, formerly Apple Business Manager / ADE)" carries the iPhone answer
     aer = base.raw("Android Enterprise Recommended")
     enterprise = None
     if aer and not str(aer).startswith("No"):
         a = str(aer)
-        enterprise = ("Apple Business Manager (ADE)" if "Apple Business Manager" in a
+        enterprise = ("Apple Business (formerly Apple Business Manager)" if "Apple Business" in a
                       else "Samsung Knox" if a.startswith("Samsung Knox")
                       else "Android Enterprise Recommended (zero-touch)" if "zero-touch" in a
                       else "Android Enterprise Recommended" if a.startswith("Yes") else a)
@@ -757,7 +758,7 @@ def build(p, base, through, caps, sources, folded, existing):
                 continue
             cap_rows.append({"label": label, "value": tidy(v)})
             if c.flagged(col) and not HEDGED.search(str(v)):
-                notes[f"capabilities.{label}"] = CAPABILITY_NOTE
+                notes[f"capabilities.{label}"] = note_for(pid, col) or CAPABILITY_NOTE
     cap = lambda label: next((r["value"] for r in cap_rows if r["label"] == label), "")
     thru = lambda label: next((r["value"] for r in through_rows if r["label"] == label), "")
     hedged = lambda text: bool(HEDGED.search(text))
@@ -804,6 +805,8 @@ def build(p, base, through, caps, sources, folded, existing):
         features.append("programmable-key")
     if ptype != "dedicated" and specs.get("pttKey") and not key_usable:
         specs.pop("pttKey")  # the key may not be reachable through the housing
+    if ptype != "dedicated" and key_usable and cap("Push-to-talk").startswith("Built in"):
+        specs["pttKey"] = True  # the maker states a reachable key works as the PTT key (Xshielder's Action Button)
     if re.search(r'1/4"', notes_text):
         features.append("tripod-mount")
     if re.search(r"lanyard|tether", notes_text, re.I):

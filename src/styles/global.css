@@ -240,23 +240,26 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   border: 0;
 }
 
-/* "Unconfirmed" marker on a phone page value; links to its note at the foot of the page */
+/* Numbered marker (raised, top right of the value) for an unconfirmed value on a phone page; links to its note at the foot of the page */
 .flag {
   display: inline-block;
-  margin-left: 0.4rem;
-  padding: 0.05rem 0.45rem;
+  position: relative;
+  top: -0.5em;
+  min-width: 1.3rem;
+  margin-left: 0.15rem;
+  padding: 0 0.3rem;
+  text-align: center;
   border: 1px solid var(--color-caution-border);
-  border-radius: 999px;
+  border-radius: 4px;
   background: var(--color-caution-bg);
   color: var(--color-caution-ink);
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  line-height: 1.5;
+  line-height: 1.4;
   text-decoration: none;
   white-space: nowrap;
-  vertical-align: 0.1em;
 }
 .flag:hover { border-color: var(--color-caution-ink); }
 

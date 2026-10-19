@@ -47,7 +47,7 @@
     "securityUntil": "2031-09-20",
     "updates": "Security updates for 7+ years (based on previous model support)",
     "supportYears": 7,
-    "enterprise": "Apple Business Manager (ADE)"
+    "enterprise": "Apple Business (formerly Apple Business Manager)"
   },
   "specs": {
     "display": "6.9-inch OLED; ProMotion; Always-On; Ceramic Shield",
@@ -82,7 +82,7 @@
     "gloveTouch": false,
     "pttKey": false,
     "mdm": [
-      "Apple Business Manager (ADE)"
+      "Apple Business (formerly Apple Business Manager)"
     ],
     "connectivity": [
       "5G",
@@ -186,6 +186,10 @@
     {
       "label": "Atexxo: iPhone 16 Pro Max Zone 2 flyer (dust marking, 93 x 175 x 14 mm)",
       "url": "https://atexxo.com/wp-content/uploads/2025/06/atex_iphone_16_pro_max_explosion_proof_ex-product-flyer-brochure-produit-produkt-flyer-volantino-prodotto-listovka-produkta-folleto-de-productonew.pdf"
+    },
+    {
+      "label": "Apple: Apple Business (formerly Apple Business Manager) user guide",
+      "url": "https://support.apple.com/guide/apple-business-manager/welcome/web"
     },
     {
       "label": "Atexxo (via DirectIndustry): iPhone 16 Pro Max Zone 2 flyer",

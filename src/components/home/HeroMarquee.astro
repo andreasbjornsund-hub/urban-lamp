@@ -291,10 +291,11 @@ const SPONSOR_DELAY_S = 1;
 
   /* Desktop: the strips share the square the old hero image filled */
   @media (min-width: 56rem) {
+    /* First strip on the top edge, last on the bottom edge, the middle one halfway between */
     .marquees {
-      justify-content: space-evenly;
-      gap: 2rem;
-      padding-block: 1.5rem;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding-block: 0;
     }
     .marquee-brands { --logo-h: 3rem; }
     .mark img { height: 2.75rem; }

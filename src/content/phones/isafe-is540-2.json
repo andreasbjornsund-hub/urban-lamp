@@ -55,6 +55,8 @@
     "name": "Android",
     "version": "Android 14",
     "atLaunch": "Android 12",
+    "securityUntil": "2032-12-31",
+    "updates": "Security updates until December 2032",
     "enterprise": "Android Enterprise Recommended"
   },
   "specs": {
@@ -126,6 +128,7 @@
   "unconfirmed": {
     "certification.northAmerica": "From Nokia's product page; we haven't found the certificate number.",
     "certification.division": "From Nokia's product page; we haven't found the certificate number.",
+    "os.securityUntil": "i.safe MOBILE states Q4 2032. Google's Android Enterprise directory lists 30 January 2032.",
     "specs.camera": "From i.safe MOBILE's datasheet; a distributor sheet lists 40 MP.",
     "specs.sim": "From i.safe MOBILE; a distributor sheet lists dual micro-SIM.",
     "specs.weightG": "Taken from the IS540.1; not published separately for the IS540.2.",
@@ -138,19 +141,19 @@
     "thermal",
     "barcode",
     "sos-key",
-    "programmable-key"
+    "programmable-key",
+    "updates-2030"
   ],
   "strengths": [
     "ATEX and IECEx certified, with published certificate numbers",
     "Push-to-talk and SOS keys",
     "Barcode scan module available as an accessory",
     "5G connectivity",
-    "User-replaceable battery"
+    "Security updates expected until at least December 2032"
   ],
   "limitations": [
     "Zone 2 only, so not for Zone 1 areas",
-    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
-    "No published end date for security updates"
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C"
   ],
   "bestFor": [
     "zone-2-phones",
@@ -178,6 +181,10 @@
       "url": "https://www.manualslib.de/manual/1019904/I-Safe-Mobile-Is540-2.html"
     },
     {
+      "label": "i.safe MOBILE: Security updates table (IS540.x: 'Security Patches until 2032-Q4')",
+      "url": "https://www.isafe-mobile.com/en/support/security-updates"
+    },
+    {
       "label": "R. STAHL (distributor): IS540.2 data sheet 317431 (2026-04-28)",
       "url": "https://r-stahl.com/fileadmin/tx_aimeos/Files/n_/gb/SDS_PV_2698955_en_GB/ex-scheda-tecnica-individuale-smartphone-is540-2-smartphone-set-317431-en-gb-rstahl.pdf"
     },
@@ -188,6 +195,10 @@
     {
       "label": "R. STAHL (distributor): IS540.M1 single data sheet 319872 (2026-07-27)",
       "url": "https://r-stahl.com/fileadmin/tx_aimeos/Files/n_/gb/SDS_PV_2761968_en_GB/single-data-sheet-smartphone-is540-m1-smartphone-set-319872-en-gb-rstahl.pdf"
+    },
+    {
+      "label": "Google: Android Enterprise Recommended directory, i.safe MOBILE IS540 ('Security updates until 01/30/2032')",
+      "url": "https://androidenterprisepartners.withgoogle.com/devices/?search=IS540&view=grid"
     }
   ]
 }

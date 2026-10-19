@@ -60,7 +60,7 @@ const darkLogoH = darkLogo ? logoScale(d.brandSlug, darkLogo) * (CARD_OPTICAL[d.
       <h3 id={`card-${f.id}`} class="card-name"><a href={f.href}>{d.name}</a></h3>
 
       <dl class="card-facts">
-        <div><dt>Zones</dt><dd><span class="zone-pill">{f.zoneLabel}</span></dd></div>
+        <div><dt>Zones</dt><dd>{f.zoneLabel}</dd></div>
         <div><dt>Certification</dt><dd>{certs}</dd></div>
         <div><dt>OS</dt><dd>{d.os.version}</dd></div>
         <div><dt>Weight</dt><dd>{f.weightG ? `${f.weightG} g` : '—'}</dd></div>
@@ -216,15 +216,6 @@ const darkLogoH = darkLogo ? logoScale(d.brandSlug, darkLogo) * (CARD_OPTICAL[d.
   }
   .card-facts dt { color: var(--color-muted); }
   .card-facts dd { margin: 0; color: var(--color-ink); font-weight: 500; text-align: right; }
-  .zone-pill {
-    display: inline-block;
-    padding: 0.15rem 0.6rem;
-    border-radius: 999px;
-    background: var(--color-forest);
-    color: var(--color-on-dark);
-    font-size: var(--text-xs);
-    font-weight: 500;
-  }
 
   .card-req {
     display: grid;

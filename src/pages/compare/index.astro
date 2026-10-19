@@ -1,0 +1,545 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Icon from '../../components/Icon.astro';
+import { SITE, CONTACT, FIND_PHONES } from '../../config/site';
+import { COMPARE_PAGES } from '../../data/compare-pages';
+import { logo } from '../../lib/brand-logos';
+import { zoneLabel, type Phone } from '../../lib/phones';
+
+/*
+ * Hub for the head-to-head pages. Every page in src/data/compare/ is listed, grouped by its eyebrow (the kind of pair).
+ * Order is neutral so no brand is favoured: groups with the most comparisons first (alphabetical on a tie), and
+ * comparisons alphabetical within a group, by the names as each page gives them (the URL order).
+ */
+const title = 'Compare Intrinsically Safe & Explosion-Proof Phones';
+const description =
+  'Head-to-head comparisons of intrinsically safe and explosion-proof phones for Zone 1 and 2, with our pick for each team, plus a tool to compare any models.';
+if (title.length > 60) throw new Error(`/compare/: title is ${title.length} characters (max 60)`);
+if (description.length > 160) throw new Error(`/compare/: description is ${description.length} characters (max 160)`);
+
+const url = `${SITE.url}/compare/`;
+const all = await getCollection('phones');
+const byId = new Map(all.map((p) => [p.id, p]));
+const phone = (id: string, slug: string) => {
+  const p = byId.get(id);
+  if (!p) throw new Error(`/compare/${slug}/: no phone called "${id}"`);
+  return p;
+};
+
+const byName = (a: string, b: string) => a.localeCompare(b, 'en', { sensitivity: 'base', numeric: true });
+
+const pairs = COMPARE_PAGES.map((page) => {
+  const phones = page.phones.map((id) => phone(id, page.slug)) as [Phone, Phone];
+  return {
+    slug: page.slug,
+    href: `/compare/${page.slug}/`,
+    group: page.eyebrow.replace(/^Compare\s*·\s*/, ''),
+    phones,
+    name: phones.map((p) => p.data.name).join(' vs '),
+  };
+});
+
+const grouped = new Map<string, typeof pairs>();
+for (const pair of pairs) grouped.set(pair.group, [...(grouped.get(pair.group) ?? []), pair]);
+const groups = [...grouped]
+  .map(([name, items]) => ({
+    name,
+    id: name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+    items: items.sort((a, b) => byName(a.name, b.name)),
+  }))
+  .sort((a, b) => b.items.length - a.items.length || byName(a.name, b.name));
+
+/** Every phone in a head-to-head, alphabetical, for the quick "add to compare" list */
+const contenders = [...new Set(pairs.flatMap((p) => p.phones))].sort((a, b) => byName(a.data.name, b.data.name));
+
+/** Phones without a photo show their brand's logo instead, as on the Find phones cards */
+const brandLogo = (p: Phone) => (p.data.image ? undefined : logo('brands', p.data.brandSlug));
+
+const verifiedDate = new Date(Math.max(...contenders.map((p) => p.data.lastVerified.getTime())));
+const verifiedIso = verifiedDate.toISOString().slice(0, 10);
+
+/* ---------- Structured data ---------- */
+const schema = [
+  {
+    '@type': 'CollectionPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: title,
+    description,
+    isPartOf: { '@id': `${SITE.url}/#website` },
+    dateModified: verifiedIso,
+    mainEntity: {
+      '@type': 'ItemList',
+      name: 'Head-to-head phone comparisons',
+      itemListOrder: 'https://schema.org/ItemListUnordered',
+      numberOfItems: pairs.length,
+      itemListElement: groups
+        .flatMap((g) => g.items)
+        .map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.name, url: `${SITE.url}${p.href}` })),
+    },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { name: 'Home', item: `${SITE.url}/` },
+      { name: 'Compare', item: url },
+    ].map((b, i) => ({ '@type': 'ListItem', position: i + 1, ...b })),
+  },
+];
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <!-- Hero -->
+  <section class="compare-hero" aria-labelledby="compare-title">
+    <div class="container">
+      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Compare', href: '' }]} />
+
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Compare</p>
+          <h1 id="compare-title">Compare intrinsically safe and <span class="nowrap">explosion-proof</span> phones</h1>
+          <p class="lead">
+            Our head-to-heads put two phones against each other on certification, the features that matter on site and
+            the teams each one suits, with every figure taken from certificates and maker data. To weigh up any other
+            models, line up to four phones side by side in the compare bar.
+          </p>
+          <a class="arrow-link hero-link" href="#head-to-head">See all {pairs.length} head-to-heads <Icon name="arrow-right" /></a>
+        </div>
+
+        <aside class="any-card" aria-labelledby="any-title">
+          <h2 id="any-title" class="any-title">Compare any phones</h2>
+          <ol class="steps">
+            <li>
+              <span class="step" aria-hidden="true">1</span>
+              <div>
+                <h3>Find the phones</h3>
+                <p>Filter all {all.length} phones in Find phones by the zone, gas group and temperature class your site needs.</p>
+              </div>
+            </li>
+            <li>
+              <span class="step" aria-hidden="true">2</span>
+              <div>
+                <h3>Add up to four</h3>
+                <p>Use the compare button on any phone card or phone page, or start with the phones below.</p>
+              </div>
+            </li>
+            <li>
+              <span class="step" aria-hidden="true">3</span>
+              <div>
+                <h3>Open the compare bar</h3>
+                <p>It follows you around the site and lines your phones up side by side, with a “Show differences only” switch.</p>
+              </div>
+            </li>
+          </ol>
+          <div class="any-actions">
+            <a class="btn btn-primary" href={FIND_PHONES.href}>{FIND_PHONES.label} <Icon name="arrow-right" /></a>
+            <a class="btn btn-secondary" href="#build">Pick phones here</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Head-to-head pages, grouped by kind of pair -->
+  <section id="head-to-head" class="band band-white" aria-labelledby="pairs-title">
+    <div class="container">
+      <p class="eyebrow">Head to head</p>
+      <h2 id="pairs-title" class="h2">{pairs.length} head-to-head comparisons</h2>
+      <p class="section-lead">
+        Each one ends with which phone we would choose for which team. The same rules apply to every brand, the two
+        phones are named in alphabetical order, and comparisons are listed alphabetically within each kind of pair.
+        See our <a href="/disclosure/">disclosure</a> for how the site is funded.
+      </p>
+
+      {groups.length > 1 && (
+        <nav class="group-nav" aria-label="Kinds of comparison">
+          <ul>
+            {groups.map((g) => (
+              <li>
+                <a href={`#${g.id}`}>
+                  {g.name}{' '}
+                  <span class="group-count">
+                    <span class="visually-hidden">(</span>{g.items.length}<span class="visually-hidden"> {g.items.length === 1 ? 'comparison' : 'comparisons'})</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+
+      <div class="groups">
+        {groups.map((g) => (
+          <section class="group" id={g.id} aria-labelledby={`${g.id}-title`}>
+            <h3 id={`${g.id}-title`} class="group-title">
+              {g.name}{' '}
+              <span class="group-count">
+                <span class="visually-hidden">(</span>{g.items.length}<span class="visually-hidden"> {g.items.length === 1 ? 'comparison' : 'comparisons'})</span>
+              </span>
+            </h3>
+            <ul class="pairs">
+              {g.items.map((pair) => (
+                <li>
+                  <a class="pair" href={pair.href}>
+                    <span class="pair-media" aria-hidden="true">
+                      {pair.phones.map((p, i) => {
+                        const fallback = brandLogo(p);
+                        return (
+                          <>
+                            {i === 1 && <span class="pair-vs">vs</span>}
+                            <span class="pair-photo">
+                              {p.data.image ? (
+                                <Image src={p.data.image} alt="" widths={[80, 160]} sizes="4.5rem" />
+                              ) : fallback ? (
+                                <img class="pair-logo" src={fallback.src} width={fallback.width} height={fallback.height} alt="" loading="lazy" />
+                              ) : null}
+                            </span>
+                          </>
+                        );
+                      })}
+                    </span>
+                    <span class="pair-text">
+                      {pair.phones.map((p, i) => (
+                        <>
+                          {i === 1 && <span class="pair-and">vs</span>}
+                          <span class="pair-phone">
+                            <span class="pair-name">{p.data.name}</span>{' '}
+                            <span class="pair-zone"><span class="visually-hidden">, </span>{zoneLabel(p)}</span>
+                          </span>
+                        </>
+                      ))}
+                    </span>
+                    <Icon name="arrow-right" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Build your own comparison with the site-wide compare tray -->
+  <section id="build" class="band band-warm" aria-labelledby="build-title">
+    <div class="container">
+      <div class="split-head">
+        <div>
+          <p class="eyebrow">Build your own</p>
+          <h2 id="build-title" class="h2">Line up any phones side by side</h2>
+        </div>
+        <a class="btn btn-secondary" href={FIND_PHONES.href}>Find phones <Icon name="arrow-right" /></a>
+      </div>
+      <p class="section-lead">
+        Start with any of the {contenders.length} phones from these head-to-heads, listed alphabetically, then open the
+        compare bar at the foot of the screen. Find phones has all {all.length}, with filters for your site’s rating.
+      </p>
+
+      <ul class="contenders">
+        {contenders.map((p) => {
+          const fallback = brandLogo(p);
+          return (
+            <li class="contender">
+              <span class="contender-thumb" aria-hidden="true">
+                {p.data.image ? (
+                  <Image src={p.data.image} alt="" widths={[64, 128]} sizes="4rem" />
+                ) : fallback ? (
+                  <img class="pair-logo" src={fallback.src} width={fallback.width} height={fallback.height} alt="" loading="lazy" />
+                ) : null}
+              </span>
+              <div class="contender-body">
+                <a class="contender-name" href={`/phones/${p.id}/`}>{p.data.name}</a>
+                <p class="contender-zone">{zoneLabel(p)}{p.data.status === 'discontinued' ? ' · Discontinued' : ''}</p>
+                <button class="btn btn-secondary contender-btn" type="button" data-compare-add={p.id} aria-pressed="false">
+                  <span class="when-off">+ Add to compare</span>
+                  <span class="when-on">✓ In your comparison</span>
+                  <span class="visually-hidden"> {p.data.name}</span>
+                </button>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Call to action -->
+  <section class="band cta" aria-labelledby="cta-title">
+    <svg class="cta-contours" viewBox="0 0 600 260" aria-hidden="true" focusable="false" preserveAspectRatio="xMaxYMid slice">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M420 130c0-48 46-92 104-92s92 40 92 92-38 96-96 96-100-48-100-96Z" />
+        <path d="M380 132c0-70 64-128 146-128s126 58 126 128-54 134-136 134-136-64-136-134Z" />
+        <path d="M340 134c0-92 82-166 186-166s162 76 162 166-70 172-174 172-174-80-174-172Z" />
+        <path d="M300 136c0-114 100-204 226-204s198 94 198 204-86 210-212 210-212-96-212-210Z" />
+      </g>
+    </svg>
+    <div class="container cta-inner">
+      <div>
+        <p class="eyebrow">Impartial advice</p>
+        <h2 id="cta-title" class="h2">Not sure which phones to compare?</h2>
+        <p class="cta-text">
+          Your zones, gas groups and temperature class decide which phones qualify, and the work your teams do decides
+          between them. Tell us about your site and we will help you build a shortlist impartially.
+        </p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-light" href={CONTACT.href}>Ask us for impartial advice <Icon name="arrow-right" /></a>
+        <a class="btn btn-outline-light" href={FIND_PHONES.href}>Find phones</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .compare-hero {
+    padding-block: 0.5rem 3.5rem;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgb(245 158 11 / 0.06), transparent 60%),
+      radial-gradient(1000px 500px at 10% 30%, rgb(34 197 94 / 0.05), transparent 55%),
+      var(--paper-grain);
+    background-size: auto, auto, 3px 3px;
+  }
+  .hero-grid { display: grid; gap: 2.5rem; margin-top: 1rem; align-items: center; }
+  .hero-copy h1 {
+    font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: var(--tracking-hero);
+  }
+  .hero-copy .lead { margin-top: 1.25rem; max-width: 40rem; }
+  .nowrap { white-space: nowrap; }
+  .hero-link { margin-top: 1rem; }
+
+  /* "Compare any phones" card */
+  .any-card {
+    padding: 1.5rem;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+    box-shadow: var(--shadow-card);
+  }
+  .any-title { font-size: var(--text-xl); }
+  .steps { display: grid; gap: 1rem; margin-top: 1.25rem; }
+  .steps li { display: flex; gap: 0.85rem; align-items: flex-start; }
+  .steps h3 { font-size: var(--text-base); }
+  .steps p { margin-top: 0.2rem; font-size: var(--text-sm); }
+  .step {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--color-forest);
+    color: var(--color-on-dark);
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .any-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+
+  /* ---------- Head-to-heads ---------- */
+  .section-lead { max-width: 44rem; margin-top: 1rem; }
+  .section-lead a { color: var(--color-forest); }
+
+  .group-nav ul { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.75rem; }
+  .group-nav a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+    color: var(--color-ink);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+  .group-nav a:hover { border-color: var(--color-forest); background: var(--color-panel-warm); }
+  .group-count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.5rem;
+    height: 1.5rem;
+    padding: 0 0.4rem;
+    border-radius: 999px;
+    background: var(--color-icon-bg);
+    color: var(--color-forest);
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1;
+  }
+
+  .groups { display: grid; gap: 3rem; margin-top: 2.5rem; }
+  .group { scroll-margin-top: calc(var(--header-h) + 1rem); }
+  .group-title { position: relative; font-size: var(--text-h3); }
+  .group-title .group-count { margin-left: 0.25rem; vertical-align: 0.15em; }
+  .pairs { display: grid; gap: 0.75rem; margin-top: 1.25rem; }
+
+  /* One row per head-to-head: both photos with a "vs" mark, then the two names */
+  .pair {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    height: 100%;
+    padding: 0.625rem 0.75rem 0.625rem 0.625rem;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+    box-shadow: var(--shadow-card);
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .pair:hover { border-color: var(--color-forest); box-shadow: 0 0 0 1px var(--color-forest); }
+  .pair > :global(svg) { width: 1rem; height: 1rem; color: var(--color-forest); transition: transform 0.15s ease; }
+  .pair:hover > :global(svg) { transform: translateX(3px); }
+
+  .pair-media {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 3.5rem);
+    gap: 0.25rem;
+  }
+  .pair-photo {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    background: radial-gradient(ellipse 60% 70% at 50% 58%, #f1eee7 0%, #f7f5f0 45%, #fff 80%);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .pair-photo :global(img) { width: 100%; height: 100%; object-fit: contain; padding: 0.25rem; transition: transform 0.2s ease; }
+  .pair:hover .pair-photo :global(img) { transform: translateY(-2px); }
+  .pair-photo .pair-logo,
+  .contender-thumb .pair-logo { width: 60%; height: auto; padding: 0; object-fit: contain; }
+  .pair-vs {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 2px solid var(--color-panel);
+    border-radius: 50%;
+    background: var(--color-forest);
+    color: var(--color-on-dark);
+    font-family: var(--font-display);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  .pair-text { display: flex; flex-direction: column; gap: 0.1rem; }
+  .pair-phone { line-height: 1.3; }
+  .pair-name {
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: var(--tracking-heading);
+    color: var(--color-heading);
+  }
+  .pair:hover .pair-name { text-decoration: underline; text-underline-offset: 3px; }
+  /* Zones only where they fit beside the name; on phones the group heading gives that context */
+  .pair-zone { display: none; font-size: var(--text-xs); color: var(--color-muted); white-space: nowrap; }
+  .pair-and { font-size: var(--text-xs); color: var(--color-muted); line-height: 1.2; }
+
+  /* ---------- Build your own ---------- */
+  .split-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+  .contenders { display: grid; gap: 0.75rem; margin-top: 2rem; }
+  .contender {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 0.75rem 1rem 1rem;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+  }
+  .contender-thumb {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 4rem;
+    height: 4rem;
+    background: radial-gradient(ellipse 60% 70% at 50% 58%, #f1eee7 0%, #f7f5f0 45%, #fff 80%);
+    border-radius: var(--radius-sm);
+  }
+  .contender-thumb :global(img) { width: 100%; height: 100%; object-fit: contain; padding: 0.25rem; }
+  .contender-body { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+  .contender-name {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-ink);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+  .contender-name:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .contender-zone { font-size: var(--text-xs); color: var(--color-muted); }
+  .contender-btn { margin-top: 0.75rem; }
+
+  /* ---------- CTA panel (as on the Best for pages) ---------- */
+  .cta {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(3.5rem, 3rem + 2vw, 4.5rem);
+    background: var(--color-forest);
+    border-color: var(--color-forest);
+    color: var(--color-on-dark);
+  }
+  .cta-contours {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(60%, 40rem);
+    height: 100%;
+    color: var(--color-on-dark);
+    opacity: 0.09;
+    pointer-events: none;
+  }
+  .cta-inner { position: relative; display: grid; gap: 2rem; align-items: center; }
+  .cta .eyebrow { color: var(--color-on-dark-muted); }
+  .cta h2 { color: var(--color-on-dark); }
+  .cta-text { max-width: 38rem; margin-top: 1rem; color: var(--color-on-dark-muted); }
+  .cta-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .cta :global(:focus-visible) { outline-color: var(--color-on-dark); }
+
+  /* ---------- Tablet and up ---------- */
+  @media (min-width: 40rem) {
+    .contenders { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pair-media { grid-template-columns: repeat(2, 4.5rem); }
+    .pair-name { font-size: var(--text-base); }
+    .pair-zone { display: inline; }
+  }
+  /* Two rows of pairs per group on tablets; on wider screens the groups flow into two columns instead, so a group
+     with a single comparison leaves no gap */
+  @media (min-width: 40rem) and (max-width: 55.99rem) {
+    .pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 56rem) {
+    .hero-grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 4rem; }
+    .cta-inner { grid-template-columns: minmax(0, 8fr) auto; }
+    .groups { display: block; columns: 2; column-gap: 3rem; margin-bottom: -2.5rem; }
+    .group { break-inside: avoid; padding-bottom: 2.5rem; }
+  }
+  @media (min-width: 64rem) {
+    .contenders { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+</style>

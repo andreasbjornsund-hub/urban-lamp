@@ -25,7 +25,7 @@
       "number": "UL 24 ATEX 3153X"
     },
     "iecex": {
-      "marking": "Ex ia IIC T4 Ga / Ex ia IIIC T135°C Db IP64",
+      "marking": "Ex ia IIC T4 Ga / Ex ia IIIC T135°C Db",
       "number": "IECEx UL 24.0004X"
     },
     "northAmerica": "NEC/CEC 500/505 (E226123): Class I Div 1 Groups A-D; Class II Div 1 Groups E-G; Class III; T4; Zone 0 AEx ia IIC T4 Ga; Zone 21 AEx ia IIIC T135°C Db",

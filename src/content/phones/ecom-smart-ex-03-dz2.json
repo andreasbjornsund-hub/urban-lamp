@@ -79,7 +79,7 @@
     "accessories": "USB-C; docking charge pads; 3.5 mm audio with PTT accessory support",
     "biometrics": "Fingerprint (power key)",
     "touch": "Glove",
-    "apps": "PTT, eSentinel (LWP), eMDM, eBarcode, eDiagnostics, eConfig (2024 datasheet)",
+    "apps": "eSentinel (alarm app), eDiagnostics",
     "storage": "128 GB",
     "replaceableBattery": true,
     "gloveTouch": true,
@@ -104,7 +104,7 @@
   "capabilities": [
     {
       "label": "Push-to-talk",
-      "value": "Built in (PTT key + preinstalled app)"
+      "value": "Key + third-party app"
     },
     {
       "label": "Emergency / SOS",
@@ -112,11 +112,11 @@
     },
     {
       "label": "Lone worker",
-      "value": "Built in (eSentinel app + LWP key)"
+      "value": "Via app (eSentinel alarm app, assignable to the alarm key)"
     },
     {
       "label": "Barcode scanning",
-      "value": "Built in (eBarcode, camera-based)"
+      "value": "Via app (eBARCODE-ML, paid; camera-based)"
     },
     {
       "label": "NFC reading",
@@ -188,8 +188,16 @@
       "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pds/t203555_ger.pdf"
     },
     {
+      "label": "ecom instruments: Smart-Ex 03 user manual DOCT-9141 (alarm key 'can be assigned to eSentinel'; custom apps eSentinel and eDiagnostics)",
+      "url": "https://www.ecom-ex.com/fileadmin/user_upload/product-data/pdf/communication/smart-ex/03/user_manual_EXT_Smart-Ex_03_DOCT-9141_EN.pdf"
+    },
+    {
       "label": "Pepperl+Fuchs: Smart-Ex 03 DZ1 product page (rockwell.pepperl-fuchs.com, says Oct 2029)",
       "url": "https://rockwell.pepperl-fuchs.com/en/p118776"
+    },
+    {
+      "label": "ecom instruments: Push-to-talk solutions (third-party PTT apps, none preinstalled)",
+      "url": "https://www.ecom-ex.com/solutions/push-to-talk/"
     },
     {
       "label": "Onedirect UK (reseller): Smart-Ex 03 DZ2 listing (price)",
