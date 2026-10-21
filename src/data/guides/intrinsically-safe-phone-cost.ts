@@ -6,7 +6,7 @@ const page: GuidePage = {
   description:
     "What does an intrinsically safe phone cost? Reseller prices for BARTEC, i.safe MOBILE, ecom and Zone 1 iPhones, with a cost-per-year calculator.",
   h1: "How much does an intrinsically safe phone cost? Prices by brand and model in 2026",
-  navLabel: "What intrinsically safe phones cost",
+  navLabel: "Intrinsically safe phones price list",
   lead:
     "Few makers of intrinsically safe phones publish a price list. Most sell through distributors and quote on request, so the first number many buyers see is a quote of €2,000 or more for a single handset, with nothing obvious to compare it against. Specialist resellers do list prices on their websites, and between them they cover nearly every current model from BARTEC, ecom, i.safe MOBILE and the iPhone case makers.",
   datePublished: '2026-10-21',

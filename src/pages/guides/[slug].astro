@@ -11,8 +11,8 @@ import { BEST_PAGES } from '../../data/best-pages';
 import { COMPARE_PAGES } from '../../data/compare-pages';
 import { externalLink, pageSlug } from '../../lib/links';
 import { processGuideHtml } from '../../lib/guide-html';
-import { guideImage } from '../../lib/guide-images';
-import { getImage } from 'astro:assets';
+import { guidePhotos } from '../../lib/guide-images';
+import { Image, getImage } from 'astro:assets';
 
 export const getStaticPaths = (() => GUIDE_PAGES.map((page) => ({ params: { slug: page.slug }, props: { page } }))) satisfies GetStaticPaths;
 
@@ -28,15 +28,35 @@ const targets = {
 };
 const html = (s: string) => processGuideHtml(s, { page: `/guides/${page.slug}/`, utmContent, targets });
 
-/* The body is split where the calculator goes; a guide without the marker renders as one block */
+/* The guide's photos are spaced out through the body; the first is also its share image (Open Graph and the Article schema) */
+const photos = guidePhotos(page.slug);
+const photo = photos[0];
+
+/* Photo n of N goes before the h2 nearest n/(N+1) of the way through the body, to break up the copy */
 const CALCULATOR = '<!-- CALCULATOR -->';
-const parts = page.body.split(CALCULATOR).map(html);
-if (parts.length > 2) throw new Error(`/guides/${page.slug}/: the calculator marker appears more than once`);
+const PHOTO = /^<!-- PHOTO (\d+) -->$/;
+const withPhotos = (body: string) => {
+  const h2s = [...body.matchAll(/<h2[\s>]/g)].map((m) => m.index).filter((i) => i > 0);
+  if (h2s.length < photos.length) throw new Error(`/guides/${page.slug}/: ${photos.length} photos but only ${h2s.length} places to put them`);
+  const spots: number[] = [];
+  photos.forEach((_, n) => {
+    const target = (body.length * (n + 1)) / (photos.length + 1);
+    const free = h2s.filter((i) => !spots.includes(i));
+    spots.push(free.reduce((a, b) => (Math.abs(b - target) < Math.abs(a - target) ? b : a)));
+  });
+  return spots
+    .sort((a, b) => b - a)
+    .reduce((out, at, k) => out.slice(0, at) + `<!-- PHOTO ${spots.length - 1 - k} -->` + out.slice(at), body);
+};
+
+/* The body is split where the calculator and the photos go; a guide without either renders as one block */
+const parts = withPhotos(page.body)
+  .split(/(<!-- CALCULATOR -->|<!-- PHOTO \d+ -->)/)
+  .map((s) => (s === CALCULATOR ? s : PHOTO.test(s) ? photos[Number(s.match(PHOTO)![1])] : html(s)));
+if (parts.filter((s) => s === CALCULATOR).length > 1) throw new Error(`/guides/${page.slug}/: the calculator marker appears more than once`);
 const ctaHtml = html(page.cta.html);
 const quote = externalLink('https://xshielder.com/get-a-quote', utmContent);
 
-/* The guide's photo, when it has one, is its share image (Open Graph and the Article schema) */
-const photo = guideImage(page.slug);
 const shareImage = photo ? (await getImage({ src: photo.img, width: 1200, height: 630, fit: 'cover', format: 'jpg' })).src : SITE.ogImage;
 
 const dateText = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -88,12 +108,16 @@ const schema = [
   <section class="band band-white guide-band" aria-label="Guide">
     <div class="container">
       <div class="guide-body">
-        <div class="guide-prose" set:html={parts[0]} />
-        {parts.length > 1 && (
-          <>
+        {parts.map((part) =>
+          part === CALCULATOR ? (
             <CostCalculator hideTitle />
-            <div class="guide-prose" set:html={parts[1]} />
-          </>
+          ) : typeof part !== 'string' ? (
+            <figure class="guide-photo">
+              <Image src={part.img} alt={part.alt} widths={[600, 960, 1200]} sizes="(min-width: 64rem) 60rem, 100vw" />
+            </figure>
+          ) : (
+            part.trim() && <div class="guide-prose" set:html={part} />
+          ),
         )}
       </div>
     </div>
@@ -188,6 +212,13 @@ const schema = [
   .guide-prose { display: grid; gap: 1.1rem; min-width: 0; }
   .guide-prose > :global(*) { max-width: 44rem; }
   .guide-prose > :global(.table-scroll) { max-width: none; }
+  .guide-photo :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
   .guide-prose :global(h2) {
     margin-top: 1.75rem;
     font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);

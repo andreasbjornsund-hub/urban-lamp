@@ -10,7 +10,7 @@
 
 ## Guides
 - [Rugged vs intrinsically safe phones](https://intrinsicallysafephones.com/guides/rugged-vs-intrinsically-safe-phones/)
-- [What intrinsically safe phones cost](https://intrinsicallysafephones.com/guides/intrinsically-safe-phone-cost/)
+- [Intrinsically safe phones price list](https://intrinsicallysafephones.com/guides/intrinsically-safe-phone-cost/)
 - [Android vs iPhone in hazardous areas](https://intrinsicallysafephones.com/guides/android-vs-iphone-hazardous-areas/)
 - [Replacing discontinued phones](https://intrinsicallysafephones.com/guides/discontinued-intrinsically-safe-phones/)
 - [Intrinsically safe phones FAQ](https://intrinsicallysafephones.com/guides/faq/)
