@@ -2,7 +2,7 @@
  * Turns a guide's pasted HTML into what the template renders, without touching the copy:
  *  - outbound links get the HAG link policy (externalLink: rel, target and, for xshielder.com, UTM tags)
  *  - internal links to /phones/, /best/, /compare/ and /guides/ must point at a page that exists (the build fails otherwise)
- *  - h2s get ids for anchor links
+ *  - h2, h3 and h4 headings get ids for anchor links and the contents list (unique across the page via opts.ids)
  *  - tables get a labelled, focusable horizontal scroll wrapper and scope="col" on header cells
  */
 import { externalLink } from './links';
@@ -32,7 +32,10 @@ function checkInternal(href: string, targets: GuideLinkTargets): string | undefi
   return targets[section as keyof GuideLinkTargets].has(slug) ? undefined : `no page at ${href}`;
 }
 
-export function processGuideHtml(html: string, opts: { page: string; utmContent: string; targets: GuideLinkTargets }): string {
+export function processGuideHtml(
+  html: string,
+  opts: { page: string; utmContent: string; targets: GuideLinkTargets; ids?: Set<string> },
+): string {
   const errors: string[] = [];
 
   let out = html.replace(/<a\s+([^>]*?)>/g, (tag, attrs: string) => {
@@ -48,12 +51,13 @@ export function processGuideHtml(html: string, opts: { page: string; utmContent:
     return tag;
   });
 
-  const ids = new Set<string>();
-  out = out.replace(/<h2>([\s\S]*?)<\/h2>/g, (_, inner: string) => {
-    let id = slugify(inner);
-    while (ids.has(id)) id += '-2';
+  const ids = opts.ids ?? new Set<string>();
+  out = out.replace(/<h([234])>([\s\S]*?)<\/h\1>/g, (_, level: string, inner: string) => {
+    const base = slugify(inner);
+    let id = base;
+    for (let n = 2; ids.has(id); n++) id = `${base}-${n}`;
     ids.add(id);
-    return `<h2 id="${id}">${inner}</h2>`;
+    return `<h${level} id="${id}">${inner}</h${level}>`;
   });
 
   // Label each table after the heading above it, so screen-reader users know what the scroll region holds
