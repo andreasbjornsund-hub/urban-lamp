@@ -47,7 +47,7 @@ const page: BestPage = {
       label: 'Best for lone workers in hot climates',
       why: [
         'For people who work alone at remote wellsites, along pipeline routes or in desert fields, we would put this phone in their hands first. It is certified for ambient temperatures up to +60 °C, the highest of our five, and its alarm key can be assigned to ecom’s eSentinel alarm app, giving a lone worker a single key to press when something goes wrong. Glove touch, IP68 and MIL-STD-810H ruggedness suit a handset that gets knocked about between sites.',
-        'As an intrinsically safe (Ex ia) phone it is certified for Zone 1/21 under ATEX, IECEx and UKEX and listed for Class I Division 1 in North America, so one handset can serve both Zone-classified and Division-classified sites. ecom lists security updates until November 2032, the phone is Android Enterprise Recommended, and the 4400 mAh battery is user-replaceable outside the hazardous area.',
+        'As an intrinsically safe (Ex ia) phone it is certified for Zone 1/21 under ATEX, IECEx and UKEX and listed for Class I Division 1 in North America, so one handset can serve both Zone-classified and Division-classified sites. ecom lists security updates until Q4 2032, the phone is Android Enterprise Recommended, and the 4400 mAh battery is user-replaceable outside the hazardous area.',
         'It is not certified for Zone 0 and it weighs 400 g. Its T4 limit of 135 °C sits well below the ignition temperatures of the usual hydrocarbons, but it does not suit substances that ignite below 135 °C, and the 13 MP camera is optimized for scanning rather than inspection photography. A camera-free version is available for sites that restrict cameras.',
       ],
     },

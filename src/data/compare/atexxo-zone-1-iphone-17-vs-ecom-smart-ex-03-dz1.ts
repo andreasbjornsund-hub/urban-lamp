@@ -11,7 +11,7 @@ const page: ComparePage = {
     'These two answer the same Zone 1 question in different ways. The Atexxo Zone 1 iPhone 17 is a standard Apple iPhone 17 in a flameproof (Ex db) housing. The ecom Smart-Ex 03 DZ1 is a dedicated intrinsically safe (Ex ia) Android phone. Both are certified for Zone 1/21 under ATEX and IECEx, with gas group IIC and temperature class T4. The differences that decide the choice are practical: North America, heat, push-to-talk and alarm keys, the battery and whether your fleet runs iPhones. Here is how they compare, and which we would choose for which team.',
   verdict: {
     summary: [
-      'On the practical points the ecom Smart-Ex 03 DZ1 wins more of them: it has a North American listing with a published certificate number, is certified up to +60 °C ambient, offers glove touch and dedicated push-to-talk and alarm keys with eSentinel preinstalled, and takes a battery you can swap. We would choose it for US and Canadian work, hot sites and gloved crews. We would choose the Atexxo Zone 1 iPhone 17 for teams that want an iPhone in Zone 1/21: a standard iPhone 17 with iOS apps and Apple Business, 256 GB or 512 GB of storage, and a USB-C port and SIM slot they can reach in a safe area. If the team photographs or scans with the iPhone’s camera, check camera access with Atexxo first.',
+      'On the practical points the ecom Smart-Ex 03 DZ1 wins more of them: it has a North American listing with a published certificate number, is certified up to +60 °C ambient, offers glove touch and dedicated push-to-talk and alarm keys with eSentinel preinstalled, and takes a battery you can swap. We would choose it for US and Canadian work, hot sites and gloved crews. We would choose the Atexxo Zone 1 iPhone 17 for teams that want an iPhone in Zone 1/21: a standard iPhone 17 with iOS apps and Apple Business, 256 GB or 512 GB of storage, and Wi-Fi 7. If the team photographs or scans with the iPhone’s camera, check camera access with Atexxo first.',
     ],
     choose: [
       {
@@ -19,7 +19,7 @@ const page: ComparePage = {
         reasons: [
           'Your fleet already runs iPhones: a standard iPhone 17 sits inside, with iOS 27, the App Store and device management through Apple Business, in a Zone 1/21 housing from Atexxo in the Netherlands.',
           'Your teams keep a lot of data on the phone: it has 256 GB or 512 GB of storage, against 128 GB for the ecom Smart-Ex 03 DZ1.',
-          'Your iPhone crews still charge by cable and fit SIMs in a safe area: its USB-C port and SIM slot are user-accessible, alongside eSIM and MagSafe charging.',
+          'Your sites are moving to Wi-Fi 7: it has Wi-Fi 7 and Bluetooth 6, against Wi-Fi 6E and Bluetooth 5.2 for the ecom Smart-Ex 03 DZ1.',
         ],
       },
       {
@@ -89,7 +89,7 @@ const page: ComparePage = {
       edge: 'even',
       text: [
         'For IT teams, the choice is mostly about what you already run. The Atexxo Zone 1 iPhone 17 is a standard iPhone 17 with the Apple A19, 8 GB of RAM and 256 GB or 512 GB of storage, so it works with the same apps and Apple device management as other iPhones, through Apple Business. The ecom Smart-Ex 03 DZ1 runs Android 15 on the Qualcomm QCM6490 with 8 GB of RAM and 128 GB of storage, and it is Android Enterprise Recommended, with eSentinel and eDiagnostics preinstalled.',
-        'On updates they look close. Security updates for the ecom Smart-Ex 03 DZ1 are listed until November 2032, and ecom lists Android 15 as the upgrade limit. Apple does not publish an end date for the iPhone 17, but security updates are expected for 7+ years (based on previous model support). Both have 5G, with Wi-Fi 6E and Bluetooth 5.2 on the ecom Smart-Ex 03 DZ1 and Wi-Fi 7 and Bluetooth 6 on the Atexxo Zone 1 iPhone 17.',
+        'On updates they look close. Security updates for the ecom Smart-Ex 03 DZ1 are listed until Q4 2032, and ecom lists Android 15 as the upgrade limit. Apple does not publish an end date for the iPhone 17, but security updates are expected for 7+ years (based on previous model support). Both have 5G, with Wi-Fi 6E and Bluetooth 5.2 on the ecom Smart-Ex 03 DZ1 and Wi-Fi 7 and Bluetooth 6 on the Atexxo Zone 1 iPhone 17.',
       ],
     },
   ],
@@ -112,7 +112,7 @@ const page: ComparePage = {
     },
     {
       q: 'Which gets security updates for longer?',
-      a: 'They look close. Security updates for the ecom Smart-Ex 03 DZ1 are listed until November 2032. Apple does not publish an end date for the iPhone 17 inside the Atexxo housing; previous iPhone models have had security updates for seven years or more.',
+      a: 'They look close. Security updates for the ecom Smart-Ex 03 DZ1 are listed until Q4 2032. Apple does not publish an end date for the iPhone 17 inside the Atexxo housing; previous iPhone models have had security updates for seven years or more.',
     },
     {
       q: 'Can you charge either phone in the hazardous area?',

@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import InfoPage from '../components/InfoPage.astro';
+import { CONTACT } from '../config/site';
+import { BEST_PAGES } from '../data/best-pages';
+import { COMPARE_PAGES } from '../data/compare-pages';
+import { GUIDE_PAGES } from '../data/guide-pages';
+
+// Who runs the site comes from the privacy notice (public/privacy.html); keep the two in step
+const phones = await getCollection('phones');
+const brands = new Set(phones.map((p) => p.data.brand)).size;
+
+const sections = [
+  {
+    heading: 'What this site does',
+    html: `<p>intrinsicallysafephones.com compares intrinsically safe and explosion-proof phones for hazardous areas, mainly ATEX and IECEx Zone 1 and Zone 2. It covers ${phones.length} phones and iPhone options from ${brands} brands, current and discontinued.</p>
+<p>Every phone has its own page with its Ex marking decoded, the conditions on its certificate and its specifications. On top of that there are ${COMPARE_PAGES.length} head-to-head comparisons, ${BEST_PAGES.length} rankings by zone, industry and use case, and ${GUIDE_PAGES.length} guides.</p>`,
+  },
+  {
+    heading: 'Who runs it',
+    html: `<p>intrinsicallysafephones.com is run by Andreas Parr Bjørnsund through a company in Norway, and is part of the <a href="https://hazardousareaguide.com/" rel="nofollow">Hazardous Area Guide</a> network.</p>`,
+  },
+  {
+    heading: 'How it is funded',
+    html: `<p>The site's main sponsor is Xshielder, a maker of explosion-proof iPhone cases. The <a href="/disclosure/">disclosure page</a> explains what that means for the content, and <a href="/how-we-rate/">how we rate</a> sets out the rules every phone is held to.</p>`,
+  },
+  {
+    heading: 'Get in touch',
+    html: `<p>For price and availability, help choosing a phone, or a fact that needs correcting, <a href="${CONTACT.href}">contact us</a>. We reply by email.</p>`,
+  },
+];
+---
+
+<InfoPage
+  path="/about/"
+  title="About Intrinsically Safe Phones"
+  description="Who runs intrinsicallysafephones.com, what it covers and how it is funded: an independent comparison of phones for ATEX Zone 1 and Zone 2."
+  h1="About us"
+  lead="An independent place to research and compare phones for hazardous areas, built on certificates rather than marketing claims."
+  sections={sections}
+/>

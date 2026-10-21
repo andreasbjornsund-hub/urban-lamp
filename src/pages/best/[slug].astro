@@ -68,8 +68,7 @@ const updatesText = (d: Phone['data']) => {
   if (!text) return 'No end date published';
   const note = d.unconfirmed['os.securityUntil'];
   if (!note || d.os.supportYears) return text;
-  const quarter = note.match(/\bQ([1-4]) (\d{4})\b/);
-  if (quarter) return `Q${quarter[1]} ${quarter[2]} (maker’s statement)`;
+  if (d.os.securityUntilLabel) return `${d.os.securityUntilLabel} (maker’s statement)`;
   if (/^estimated/i.test(note)) return `About ${monthYear(d.os.securityUntil)} (estimate)`;
   if (/at least/i.test(note)) return text.replace(/^Until/, 'At least');
   return `${text} (unconfirmed)`;
@@ -174,7 +173,6 @@ const schema = [
     '@type': 'BreadcrumbList',
     itemListElement: [
       { name: 'Home', item: `${SITE.url}/` },
-      { name: 'Best for', item: `${SITE.url}/best/` },
       { name: page.h1, item: url },
     ].map((b, i) => ({ '@type': 'ListItem', position: i + 1, ...b })),
   },
@@ -189,7 +187,7 @@ const schema = [
   <!-- Hero -->
   <section class="best-hero" aria-labelledby="best-title">
     <div class="container">
-      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Best for', href: '/best/' }, { label: page.h1, href: '' }]} />
+      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: page.h1, href: '' }]} />
 
       <div class="hero-grid">
         <div class="hero-copy">

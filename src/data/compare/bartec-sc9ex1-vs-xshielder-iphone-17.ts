@@ -29,9 +29,8 @@ const page: ComparePage = {
         reasons: [
           'Your plant handles substances that ignite below 135 °C: it is rated T6 (≤ 85 °C) for gas and T80 °C for dust, against T4 and T135 °C.',
           'Inspection and survey teams document the work: it has two 48 MP rear lenses (main and ultra wide), an 18 MP Center Stage front camera and Face ID, all confirmed through the case, against a 48 MP autofocus rear camera on the BARTEC SC9EX1 Smartscanner.',
-          'Your fleet already runs iPhones: a standard iPhone 17 sits inside, enrolled through Apple Business, with security updates expected for 7+ years (based on previous model support).',
+          'Your fleet already runs iPhones: a standard iPhone 17 sits inside, enrolled through Apple Business.',
           'Crews carry the phone for a full shift: it weighs 330 g including the phone, against 370 g for the BARTEC SC9EX1 Smartscanner.',
-          'Crews keep inspection photos and video on the phone: it has 256 GB or 512 GB of storage and records 4K60 Dolby Vision video, against 128 GB and 4K30 for the BARTEC SC9EX1 Smartscanner.',
         ],
       },
     ],
@@ -67,7 +66,7 @@ const page: ComparePage = {
       edge: 'bartec-sc9ex1',
       text: [
         'The BARTEC SC9EX1 Smartscanner is intrinsically safe (Ex ia op is) and certified for Zone 0/1/21 under ATEX and IECEx, with protection level Ga for gas. Its North American listing (E226123) covers Class I Division 1, Class II Division 1 and Class III, and includes Zone 0 AEx ia op is IIC T4 Ga. The Xshielder iPhone 17 is a flameproof (Ex db) case certified for Zone 1/21 at level Gb, which covers Zone 1 and Zone 2, and it is not certified for Zone 0. IECEx covers its cemented-lid S02 version only, and our data does not list a North American approval for it.',
-        'Heat and gas class pull apart. The BARTEC SC9EX1 Smartscanner is certified from −20 °C to +55 °C ambient, against −20 °C to +50 °C for the Xshielder case, while the Xshielder iPhone 17 has the stricter T6 rating (maximum surface temperature 85 °C for gas, 80 °C for dust) against T4 and 135 °C. T6 matters only where a substance ignites below 135 °C; most hydrocarbons sit at T1 to T3. Both certificates carry impact conditions: BARTEC asks you to protect the phone against high impact energy, and Xshielder’s says the case was tested for low impact energy and should not be exposed to high impact risk.',
+        'Heat and gas class pull apart. The BARTEC SC9EX1 Smartscanner is certified from −20 °C to +55 °C ambient, against −20 °C to +50 °C for the Xshielder case, while the Xshielder iPhone 17 has the stricter T6 rating (maximum surface temperature 85 °C for gas, 80 °C for dust) against T4 and 135 °C. T6 matters only where a substance ignites below 135 °C; most hydrocarbons sit at T1 to T3. Both certificates carry impact conditions: BARTEC asks you to protect the phone against high impact energy, and Xshielder’s says the case was tested for low impact energy and should not be exposed to high impact risk. BARTEC also lists Korean KCs approvals for the BARTEC SC9EX1 Smartscanner; our data lists no national approvals beyond ATEX and IECEx for the Xshielder case.',
       ],
     },
     {
@@ -75,7 +74,7 @@ const page: ComparePage = {
       edge: 'bartec-sc9ex1',
       text: [
         'Scanning is the clearest gap. The BARTEC SC9EX1 Smartscanner has a Zebra scan engine built in, and its certificate adds the op is protection (inherently safe optical radiation) to the Ex ia rating; the conditions of use list the SE55 scan engine as a Class 2 laser (520 nm). The Xshielder iPhone 17 reads QR codes with its camera built in and handles 1D and 2D codes through an app. For stores, logistics and asset-tagging rounds where people scan all day, the dedicated engine is the simpler tool. Our data lists no scanning performance figures for either phone, so test both on your own labels.',
-        'The BARTEC SC9EX1 Smartscanner puts the work on keys: two programmable keys, one for push-to-talk and one for emergency calls, with glove and stylus touch on its screen; lone working runs through an app. The Xshielder iPhone 17 runs push-to-talk from the programmable Action Button on its cover, with apps built on Apple’s Push to Talk framework. There is no separate push-to-talk key, and you need such an app. Its touchscreen is standard capacitive, without glove touch. Its emergency function is iOS Emergency SOS, and lone-worker cover comes from an app. For crews in thick gloves, the BARTEC SC9EX1 Smartscanner is the better fit.',
+        'The BARTEC SC9EX1 Smartscanner puts the work on keys: two programmable keys, one for push-to-talk (used with an app) and one for emergency calls, with glove and stylus touch on its screen; lone working runs through an app. The Xshielder iPhone 17 runs push-to-talk from the programmable Action Button on its cover, with apps built on Apple’s Push to Talk framework. There is no separate push-to-talk key, and you need such an app. Its touchscreen is standard capacitive, without glove touch. Its emergency function is iOS Emergency SOS, and lone-worker cover comes from an app. For crews in thick gloves, the BARTEC SC9EX1 Smartscanner is the better fit.',
       ],
     },
     {
@@ -90,7 +89,7 @@ const page: ComparePage = {
       title: 'Battery, charging and fleet management',
       edge: 'bartec-sc9ex1',
       text: [
-        'Power is the clearest practical gap. The BARTEC SC9EX1 Smartscanner has a 4300 mAh battery you can swap, so a crew can carry a charged spare and change it outside the hazardous area. BARTEC says to use original BARTEC accessories only and gives a charging range of 0 to +45 °C in its datasheet, although its product page says 0 to +40 °C. The Xshielder iPhone 17 has a 3692 mAh battery that is not user-replaceable, and with the USB-C port not accessible it charges wirelessly (MagSafe, up to 25 W), again outside the hazardous area, with Bluetooth headsets only.',
+        'Power is the clearest practical gap. The BARTEC SC9EX1 Smartscanner has a 4300 mAh battery you can swap, so a crew can carry a charged spare and change it outside the hazardous area. BARTEC says to use original BARTEC accessories only and gives a charging range of 0 to +45 °C in its datasheet, although its product page says 0 to +40 °C. The Xshielder iPhone 17 has a 3692 mAh battery that is not user-replaceable, and with the USB-C port not accessible it charges wirelessly (MagSafe, up to 25 W), again outside the hazardous area; headset audio is Bluetooth only.',
         'For IT teams, the choice is mostly about what you already run. The Xshielder iPhone 17 is a standard iPhone inside running iOS 27, so it works with the same apps and management as other iPhones, through Apple Business. The BARTEC SC9EX1 Smartscanner runs Android 15, and BARTEC lists an upgrade to Android 16, with further upgrades subject to Qualcomm. Neither update date is firm: BARTEC states security updates until at least May 2030, and Apple’s are expected for 7+ years (based on previous model support). Only Xshielder-authorized personnel may open the case, and a physical SIM is installed by Xshielder on request.',
       ],
     },

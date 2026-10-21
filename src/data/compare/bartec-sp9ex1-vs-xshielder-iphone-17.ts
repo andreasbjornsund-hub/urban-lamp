@@ -21,7 +21,7 @@ const page: ComparePage = {
           'You work in the US or Canada: it is listed under E226123 for Class I Division 1, while our data does not list a North American approval for the Xshielder iPhone 17.',
           'Your crews wear gloves and rely on push-to-talk or an emergency call: it has glove and stylus touch and two programmable keys, one for each.',
           'Shifts run long or sites run hot: its 4300 mAh battery is user-replaceable outside the hazardous area, and it is certified up to +55 °C ambient, against +50 °C for the Xshielder iPhone 17.',
-          'Your crews are hard on their phones: it lists MIL-STD-810H and IP68, while our data lists no ruggedness standard for the Xshielder iPhone 17, whose certificate says it was tested for low impact energy.',
+          'Your crews are hard on their phones: it lists MIL-STD-810H and IP68, while our data lists no ruggedness standard for the Xshielder iPhone 17.',
         ],
       },
       {
@@ -29,9 +29,8 @@ const page: ComparePage = {
         reasons: [
           'Your plant handles substances that ignite below 135 °C: it is rated T6 (≤ 85 °C) for gas and T80 °C for dust, against T4 and T135 °C.',
           'Inspection and survey teams document the work: it has two 48 MP rear lenses (main and ultra wide), an 18 MP Center Stage front camera and Face ID, all confirmed through the case, against a 48 MP autofocus rear camera on the BARTEC SP9EX1.',
-          'Your fleet already runs iPhones: a standard iPhone 17 sits inside, enrolled through Apple Business, with security updates expected for 7+ years (based on previous model support).',
+          'Your fleet already runs iPhones: a standard iPhone 17 sits inside, enrolled through Apple Business.',
           'Crews carry the phone for a full shift: it weighs 330 g including the phone, against 350 g for the BARTEC SP9EX1.',
-          'Crews keep inspection photos and video on the phone: it has 256 GB or 512 GB of storage and records 4K60 Dolby Vision video, against 128 GB and 4K30 for the BARTEC SP9EX1.',
         ],
       },
     ],
@@ -67,14 +66,14 @@ const page: ComparePage = {
       edge: 'bartec-sp9ex1',
       text: [
         'The BARTEC SP9EX1 is intrinsically safe (Ex ia) and certified for Zone 0/1/21 under ATEX and IECEx, with protection level Ga for gas. Its North American listing (E226123) covers Class I Division 1, Class II Division 1 and Class III, and includes Zone 0 AEx ia IIC T4 Ga. The Xshielder iPhone 17 is a flameproof (Ex db) case certified for Zone 1/21 at level Gb, which covers Zone 1 and Zone 2, and it is not certified for Zone 0. IECEx covers its cemented-lid S02 version only, and our data does not list a North American approval for it.',
-        'Heat and gas class pull apart. The BARTEC SP9EX1 is certified from −20 °C to +55 °C ambient, against −20 °C to +50 °C for the Xshielder case, while the Xshielder iPhone 17 has the stricter T6 rating (maximum surface temperature 85 °C for gas, 80 °C for dust) against T4 and 135 °C. T6 matters only where a substance ignites below 135 °C; most hydrocarbons sit at T1 to T3. Both certificates carry impact conditions: BARTEC asks you to protect the phone against high impact energy, and Xshielder’s says the case was tested for low impact energy and should not be exposed to high impact risk.',
+        'Heat and gas class pull apart. The BARTEC SP9EX1 is certified from −20 °C to +55 °C ambient, against −20 °C to +50 °C for the Xshielder case, while the Xshielder iPhone 17 has the stricter T6 rating (maximum surface temperature 85 °C for gas, 80 °C for dust) against T4 and 135 °C. T6 matters only where a substance ignites below 135 °C; most hydrocarbons sit at T1 to T3. Both certificates carry impact conditions: BARTEC asks you to protect the phone against high impact energy, and Xshielder’s says the case was tested for low impact energy and should not be exposed to high impact risk. BARTEC also lists Korean KCs approvals for the BARTEC SP9EX1; our data lists no national approvals beyond ATEX and IECEx for the Xshielder case.',
       ],
     },
     {
       title: 'Push-to-talk, gloves and rugged handling',
       edge: 'bartec-sp9ex1',
       text: [
-        'The BARTEC SP9EX1 is built for gloved, radio-style work. It has two programmable keys, one for push-to-talk and one for emergency calls, and glove and stylus touch on its 6.1-inch AMOLED screen; lone working runs through an app. It lists MIL-STD-810H and IP68. Our data lists no ruggedness standard for the Xshielder iPhone 17, and its Ex certificate gives IP6X (dust-tight) only: we found no Xshielder document that states a water rating. The Xshielder iPhone 17 is the lighter phone, at 330 g including the phone against 350 g, though 20 g is a small gap.',
+        'The BARTEC SP9EX1 is built for gloved, radio-style work. It has two programmable keys, one for push-to-talk (used with an app) and one for emergency calls, and glove and stylus touch on its 6.1-inch AMOLED screen; lone working runs through an app. It lists MIL-STD-810H and IP68. Our data lists no ruggedness standard for the Xshielder iPhone 17, and its Ex certificate gives IP6X (dust-tight) only: we found no Xshielder document that states a water rating. The Xshielder iPhone 17 is the lighter phone, at 330 g including the phone against 350 g, though 20 g is a small gap.',
         'The Xshielder iPhone 17 runs push-to-talk from the programmable Action Button on its cover, with apps built on Apple’s Push to Talk framework. There is no separate push-to-talk key, and you need such an app. Its touchscreen is standard capacitive, without glove touch. Headset audio is Bluetooth only, because the USB-C port is not accessible, and an Ex-certified Bluetooth headset is recommended; the speakers and microphones work through the cover, but output is reduced against a bare iPhone. Its emergency function is iOS Emergency SOS, and lone-worker cover comes from an app.',
       ],
     },
@@ -110,7 +109,7 @@ const page: ComparePage = {
     },
     {
       q: 'Do both phones support push-to-talk?',
-      a: 'Yes, in different ways. The BARTEC SP9EX1 has two programmable keys, one for push-to-talk and one for emergency calls. On the Xshielder iPhone 17 it uses the programmable Action Button on the cover with apps built on Apple’s Push to Talk framework: there is no separate push-to-talk key, and you need such an app.',
+      a: 'Yes, in different ways. The BARTEC SP9EX1 has two programmable keys, one for push-to-talk and one for emergency calls, and push-to-talk runs through an app. On the Xshielder iPhone 17 it uses the programmable Action Button on the cover with apps built on Apple’s Push to Talk framework: there is no separate push-to-talk key, and you need such an app.',
     },
     {
       q: 'Which gets security updates for longer?',

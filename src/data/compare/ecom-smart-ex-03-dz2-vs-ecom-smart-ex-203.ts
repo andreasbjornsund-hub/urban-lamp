@@ -6,7 +6,7 @@ const page: ComparePage = {
   description:
     'ecom Smart-Ex 03 DZ2 or ecom Smart-Ex 203? Two Zone 2 Android phones compared on scanning, camera, storage and security updates, with our pick for each team.',
   h1: 'ecom Smart-Ex 03 DZ2 vs ecom Smart-Ex 203',
-  eyebrow: 'Compare · Zone 2 Android phones',
+  eyebrow: 'Compare · Android phones for Zone 2',
   lead:
     'The ecom Smart-Ex 03 DZ2 and the ecom Smart-Ex 203 are two ecom Android phones for Zone 2/22. Both are intrinsically safe (Ex ic), certified under ATEX and IECEx with IIC T4 and a Class I Division 2 approval for North America, both have 8 GB of RAM, 5G and a battery you can swap outside the hazardous area, and neither is certified for Zone 1. The differences show up in the work: scanning, photos, storage, alarms and how long security updates run. Here is how they compare, and which we would choose for which team.',
   verdict: {
@@ -17,7 +17,7 @@ const page: ComparePage = {
       {
         id: 'ecom-smart-ex-03-dz2',
         reasons: [
-          'You want the longer update runway: it runs Android 15 with security updates until November 2032, against Android 14 and March 2032 on the ecom Smart-Ex 203.',
+          'You want the longer update runway: it runs Android 15 with security updates until Q4 2032, against Android 14 and Q1 2032 on the ecom Smart-Ex 203.',
           'Your lone workers need an alarm app ready to go: ecom’s eSentinel comes preinstalled and can be assigned to the dedicated alarm key.',
           'You scan now and then, or on hot sites: it scans with its camera and ecom’s paid eBARCODE-ML app, so there is no accessory to fit and the +60 °C ambient range stays.',
           'Some of your sites are Zone 1 and you want one phone family: the ecom Smart-Ex 03 DZ1 is the Zone 1 version of the same phone.',
@@ -51,7 +51,7 @@ const page: ComparePage = {
     },
     {
       row: 'Security updates',
-      note: 'ecom lists updates until November 2032 for the ecom Smart-Ex 03 DZ2 and until March 2032 for the ecom Smart-Ex 203, eight months apart, and the two run Android 15 and Android 14. That matters most for fleets you plan to keep for many years.',
+      note: 'ecom lists updates until Q4 2032 for the ecom Smart-Ex 03 DZ2 and until Q1 2032 for the ecom Smart-Ex 203, three quarters apart, and the two run Android 15 and Android 14. That matters most for fleets you plan to keep for many years.',
     },
   ],
   sections: [
@@ -75,8 +75,8 @@ const page: ComparePage = {
       title: 'Software and security updates',
       edge: 'ecom-smart-ex-03-dz2',
       text: [
-        'The ecom Smart-Ex 03 DZ2 runs Android 15 on a Qualcomm Dragonwing QCM6490, and ecom lists security updates until November 2032. The ecom Smart-Ex 203 runs Android 14 on a Qualcomm Dragonwing QCM4490, with security updates until March 2032. Both are Android Enterprise Recommended, which helps IT teams that manage a fleet, and both offer 5G, Wi-Fi 6E, Bluetooth 5.2, NFC, nano-SIM and eSIM. Both are rated IP68 and MIL-STD-810H.',
-        'For a fleet you plan to keep for years, the longer update date and the higher Android version favor the ecom Smart-Ex 03 DZ2, by eight months of security updates. The two phones use different processors, and our data has no performance figures to compare them, so we do not rank them on speed. If your team runs on a shorter replacement cycle, the earlier update date for the ecom Smart-Ex 203 may not matter.',
+        'The ecom Smart-Ex 03 DZ2 runs Android 15 on a Qualcomm Dragonwing QCM6490, and ecom lists security updates until Q4 2032. The ecom Smart-Ex 203 runs Android 14 on a Qualcomm Dragonwing QCM4490, with security updates until Q1 2032. Both are Android Enterprise Recommended, which helps IT teams that manage a fleet, and both offer 5G, Wi-Fi 6E, Bluetooth 5.2, NFC, nano-SIM and eSIM. Both are rated IP68 and MIL-STD-810H.',
+        'For a fleet you plan to keep for years, the longer update date and the higher Android version favor the ecom Smart-Ex 03 DZ2, by three quarters of security updates. The two phones use different processors, and our data has no performance figures to compare them, so we do not rank them on speed. If your team runs on a shorter replacement cycle, the earlier update date for the ecom Smart-Ex 203 may not matter.',
       ],
     },
     {
@@ -91,7 +91,7 @@ const page: ComparePage = {
   faq: [
     {
       q: 'Is the ecom Smart-Ex 03 DZ2 better than the ecom Smart-Ex 203?',
-      a: 'Neither is better across the board. The ecom Smart-Ex 03 DZ2 suits crews that want eSentinel alarms ready, camera scanning at up to +60 °C and security updates until November 2032. The ecom Smart-Ex 203 suits crews that scan with hardware, take photos with its 48 MP camera and need microSD storage. Both are certified for Zone 2/22 and Class I Division 2.',
+      a: 'Neither is better across the board. The ecom Smart-Ex 03 DZ2 suits crews that want eSentinel alarms ready, camera scanning at up to +60 °C and security updates until Q4 2032. The ecom Smart-Ex 203 suits crews that scan with hardware, take photos with its 48 MP camera and need microSD storage. Both are certified for Zone 2/22 and Class I Division 2.',
     },
     {
       q: 'Can either phone scan barcodes?',
@@ -103,7 +103,7 @@ const page: ComparePage = {
     },
     {
       q: 'Which gets security updates for longer?',
-      a: 'The ecom Smart-Ex 03 DZ2, by eight months. ecom lists security updates until November 2032 for it and until March 2032 for the ecom Smart-Ex 203, and the two run Android 15 and Android 14.',
+      a: 'The ecom Smart-Ex 03 DZ2, by three quarters. ecom lists security updates until Q4 2032 for it and until Q1 2032 for the ecom Smart-Ex 203, and the two run Android 15 and Android 14.',
     },
     {
       q: 'Are both phones approved for North America?',

@@ -28,7 +28,7 @@ const page: ComparePage = {
         id: 'ecom-smart-ex-03-dz1',
         reasons: [
           'Your sites run hot: it is certified up to +60 °C ambient, against +55 °C for the BARTEC SP9EX1.',
-          'You plan the fleet for the long term: security updates are listed until November 2032, while BARTEC states at least May 2030.',
+          'You plan the fleet for the long term: security updates are listed until Q4 2032, while BARTEC states at least May 2030.',
           'Your crews rely on alarms and lone working: ecom’s eSentinel alarm app comes installed and can be assigned to the alarm key.',
           'You run Android Enterprise and want the newer radio: it is Android Enterprise Recommended and has Wi-Fi 6E.',
           'A client or site asks for UKCA-marked equipment: it has a UKEX certificate as well as ATEX and IECEx.',
@@ -50,7 +50,7 @@ const page: ComparePage = {
     {
       row: 'Security updates',
       title: 'Security update support',
-      note: 'The ecom Smart-Ex 03 DZ1 has the longer commitment, until November 2032, against BARTEC’s statement of at least May 2030. BARTEC lists an upgrade to Android 16 for the BARTEC SP9EX1, with further upgrades subject to Qualcomm, while ecom lists Android 15 as the upgrade limit for the ecom Smart-Ex 03 DZ1.',
+      note: 'The ecom Smart-Ex 03 DZ1 has the longer commitment, until Q4 2032, against BARTEC’s statement of at least May 2030. BARTEC lists an upgrade to Android 16 for the BARTEC SP9EX1, with further upgrades subject to Qualcomm, while ecom lists Android 15 as the upgrade limit for the ecom Smart-Ex 03 DZ1.',
     },
     {
       row: 'Rear camera',
@@ -64,7 +64,7 @@ const page: ComparePage = {
       edge: 'bartec-sp9ex1',
       text: [
         'This is the biggest gap on paper. Both phones use Ex ia intrinsic safety with IIC T4 for gas and IIIC T135 °C for dust, but the BARTEC SP9EX1 is certified for Zone 0/1/21 (protection level Ga), and its North American listing (E226123) includes Zone 0 AEx ia IIC T4 Ga. The ecom Smart-Ex 03 DZ1 is certified to level Gb for Zone 1/21, and our data lists it as not certified for Zone 0. If any area you enter is Zone 0, only the BARTEC SP9EX1 of these two qualifies.',
-        'The ecom Smart-Ex 03 DZ1 adds a UKEX certificate (EPS 23 UKEX 1 095 X) to its ATEX and IECEx certificates. Its North American listing is cMETus (Eurofins MET, E115956): Class I Division 1, Groups A to D, T4, with Zone 1 AEx ia. BARTEC’s ATEX dust marking includes IP64, which our data does not show for ecom. ecom also lists a mining version, the ecom Smart-Ex 03 DZ1M, certified for Group I (underground mining) only; our data does not list a mining version for the BARTEC SP9EX1.',
+        'Its North American listing is cMETus (Eurofins MET, E115956): Class I Division 1, Groups A to D, T4, with Zone 1 AEx ia. BARTEC’s ATEX dust marking includes IP64, which our data does not show for ecom. ecom also lists a mining version, the ecom Smart-Ex 03 DZ1M, certified for Group I (underground mining) only; our data does not list a mining version for the BARTEC SP9EX1.',
       ],
     },
     {
@@ -88,7 +88,7 @@ const page: ComparePage = {
       edge: 'ecom-smart-ex-03-dz1',
       text: [
         'For lone workers the ecom Smart-Ex 03 DZ1 comes ready: ecom installs its eSentinel alarm app, which can be assigned to the dedicated alarm key, and the phone adds a programmable push-to-talk key, a multifunction key, a fingerprint reader in the power key and a 3.5 mm audio socket that supports push-to-talk accessories. The BARTEC SP9EX1 has two programmable keys, one for push-to-talk and one for emergency calls, and relies on an app for lone working; our data does not list a preinstalled safety app for it.',
-        'On updates, ecom lists security updates until November 2032, Android Enterprise Recommended status and Wi-Fi 6E. BARTEC states security updates until at least May 2030 for the BARTEC SP9EX1, which has Wi-Fi 6, and our data does not show its Android Enterprise status. BARTEC lists an upgrade to Android 16, with further upgrades subject to Qualcomm, while ecom lists Android 15 as the upgrade limit for the ecom Smart-Ex 03 DZ1. So the BARTEC SP9EX1 has the newer OS path, and the ecom Smart-Ex 03 DZ1 the longer security support.',
+        'On updates, ecom lists security updates until Q4 2032, Android Enterprise Recommended status and Wi-Fi 6E. BARTEC states security updates until at least May 2030 for the BARTEC SP9EX1, which has Wi-Fi 6, and our data does not show its Android Enterprise status. BARTEC lists an upgrade to Android 16, with further upgrades subject to Qualcomm, while ecom lists Android 15 as the upgrade limit for the ecom Smart-Ex 03 DZ1. So the BARTEC SP9EX1 has the newer OS path, and the ecom Smart-Ex 03 DZ1 the longer security support.',
       ],
     },
   ],
@@ -107,7 +107,7 @@ const page: ComparePage = {
     },
     {
       q: 'Which gets security updates for longer?',
-      a: 'The ecom Smart-Ex 03 DZ1, whose security updates are listed until November 2032. BARTEC states security updates for the BARTEC SP9EX1 until at least May 2030. BARTEC does list an upgrade to Android 16 for its phone, with further upgrades subject to Qualcomm, while ecom lists Android 15 as the upgrade limit for the ecom Smart-Ex 03 DZ1.',
+      a: 'The ecom Smart-Ex 03 DZ1, whose security updates are listed until Q4 2032. BARTEC states security updates for the BARTEC SP9EX1 until at least May 2030. BARTEC does list an upgrade to Android 16 for its phone, with further upgrades subject to Qualcomm, while ecom lists Android 15 as the upgrade limit for the ecom Smart-Ex 03 DZ1.',
     },
     {
       q: 'Are both phones approved for North America?',

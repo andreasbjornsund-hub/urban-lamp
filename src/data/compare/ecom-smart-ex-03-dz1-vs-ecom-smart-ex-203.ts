@@ -6,7 +6,7 @@ const page: ComparePage = {
   description:
     'ecom Smart-Ex 03 DZ1 or ecom Smart-Ex 203? Zone 1 or Zone 2, camera, scanner, storage and security updates compared, with our pick for each team.',
   h1: 'ecom Smart-Ex 03 DZ1 vs ecom Smart-Ex 203',
-  eyebrow: 'Compare · Zone 1 or Zone 2 Android phones',
+  eyebrow: 'Compare · Android phones for Zone 2',
   lead:
     'The ecom Smart-Ex 03 DZ1 and the ecom Smart-Ex 203 are two intrinsically safe Android phones from the same maker, but they are not rated for the same sites. The ecom Smart-Ex 03 DZ1 (Ex ia) is certified for Zone 1/21 and Class I Division 1; the ecom Smart-Ex 203 (Ex ic) is certified for Zone 2/22 and Class I Division 2 only. Both have 8 GB of RAM, 5G, Wi-Fi 6E and a battery you swap outside the hazardous area. The rest of the choice is about camera, scanning, storage and software. Here is how they compare, and which we would choose for which team.',
   verdict: {
@@ -20,7 +20,7 @@ const page: ComparePage = {
           'Any of your work reaches Zone 1: it is certified for Zone 1/21 (Ex ia, Gb), while the ecom Smart-Ex 203 is certified for Zone 2/22 only, and our data lists no Zone 1 version of it.',
           'You work at North American Division 1 sites: its Class I Division 1 listing (E115956) also covers Division 2, while the ecom Smart-Ex 203 holds Division 2 only.',
           'Your lone workers need an alarm app ready to go: ecom’s eSentinel comes preinstalled and can be assigned to the dedicated alarm key, and our data lists no preinstalled apps for the ecom Smart-Ex 203.',
-          'You want the newer software and longer support: it runs Android 15 with security updates until November 2032, against Android 14 and March 2032.',
+          'You want the newer software and longer support: it runs Android 15 with security updates until Q4 2032, against Android 14 and Q1 2032.',
           'A client or site asks for UKCA-marked equipment: it has a UKEX certificate as well as ATEX and IECEx, and our data lists none for the ecom Smart-Ex 203.',
         ],
       },
@@ -56,7 +56,7 @@ const page: ComparePage = {
     },
     {
       row: 'Security updates',
-      note: 'ecom lists updates until November 2032 for the ecom Smart-Ex 03 DZ1 and until March 2032 for the ecom Smart-Ex 203, eight months apart, and the two run Android 15 and Android 14. That matters most for fleets you plan to keep for many years.',
+      note: 'ecom lists updates until Q4 2032 for the ecom Smart-Ex 03 DZ1 and until Q1 2032 for the ecom Smart-Ex 203, three quarters apart, and the two run Android 15 and Android 14. That matters most for fleets you plan to keep for many years.',
     },
   ],
   sections: [
@@ -65,7 +65,7 @@ const page: ComparePage = {
       edge: 'ecom-smart-ex-03-dz1',
       text: [
         'The ecom Smart-Ex 03 DZ1 is intrinsically safe (Ex ia) and certified for Zone 1/21 under ATEX and IECEx, with protection level Gb for gas. Its North American listing (cMETus, Eurofins MET, E115956) covers Class I, II and III Division 1. The ecom Smart-Ex 203 is Ex ic, certified to level Gc for Zone 2/22, with a Class I Division 2 approval, and our data lists no Zone 1 version of it. A rating for Zone 1 or Division 1 also covers Zone 2 and Division 2, so the ecom Smart-Ex 03 DZ1 can work wherever the ecom Smart-Ex 203 can.',
-        'On the rest of the rating they match: both are IIC T4 for gas and IIIC T135 °C for dust, and T4 suits most gases, but not those that ignite below 135 °C. Both are certified from −20 °C to +60 °C ambient, though the ecom Smart-Ex 203 drops to +50 °C with its scanner module fitted. The ecom Smart-Ex 03 DZ1 adds a UKEX certificate (EPS 23 UKEX 1 095 X), and ecom lists a mining version of it, the ecom Smart-Ex 03 DZ1M, for Group I only; our data lists neither for the ecom Smart-Ex 203, whose conditions of use also say low mechanical-hazard locations only.',
+        'On the rest of the rating they match: both are IIC T4 for gas and IIIC T135 °C for dust, and T4 suits most gases, but not those that ignite below 135 °C. Both are certified from −20 °C to +60 °C ambient, though the ecom Smart-Ex 203 drops to +50 °C with its scanner module fitted. ecom lists a mining version of the ecom Smart-Ex 03 DZ1, the ecom Smart-Ex 03 DZ1M, for Group I only; our data lists none for the ecom Smart-Ex 203, whose conditions of use also say low mechanical-hazard locations only.',
       ],
     },
     {
@@ -73,7 +73,7 @@ const page: ComparePage = {
       edge: 'ecom-smart-ex-203',
       text: [
         'The ecom Smart-Ex 203 is the stronger choice when the phone is also the crew’s camera. It has a 48 MP autofocus rear camera with an LED flash and a 16 MP front camera, against a 13 MP rear camera with phase-detection autofocus and an LED flash, and a 5 MP front camera, on the ecom Smart-Ex 03 DZ1, whose camera is optimized for scanning. ecom lists 1080p video for the ecom Smart-Ex 03 DZ1, and our data does not list video for the ecom Smart-Ex 203.',
-        'For scanning in volume, the ecom Smart-Ex 203 takes the SM-Ex S203 SR scanner (Zebra) through its extra interface for peripherals, which suits stores, logistics and asset-tagging rounds. With the scanner fitted, its ambient range narrows to −20 °C to +50 °C. The ecom Smart-Ex 03 DZ1 scans through its camera with ecom’s eBARCODE-ML app, a paid add-on, which suits occasional scans, keeps its +60 °C ceiling and leaves nothing to fit. NFC reading is built in on both phones, and ecom lists a no-camera part number of the ecom Smart-Ex 03 DZ1 for sites that ban cameras.',
+        'For scanning in volume, the ecom Smart-Ex 203 takes the SM-Ex S203 SR scanner (Zebra) through its extra interface for peripherals, which suits stores, logistics and asset-tagging rounds. With the scanner fitted, its ambient range narrows to −20 °C to +50 °C. The ecom Smart-Ex 03 DZ1 scans through its camera with ecom’s eBARCODE-ML app, a paid add-on, which suits occasional scans, keeps its +60 °C ceiling and leaves nothing to fit. NFC reading is built in on both phones, and ecom lists a no-camera part number of the ecom Smart-Ex 03 DZ1 for sites that ban cameras; our data also lists a camera-free option for the ecom Smart-Ex 203.',
       ],
     },
     {
@@ -88,7 +88,7 @@ const page: ComparePage = {
       title: 'Software, alarms and security updates',
       edge: 'ecom-smart-ex-03-dz1',
       text: [
-        'The ecom Smart-Ex 03 DZ1 runs Android 15 on a Qualcomm Dragonwing QCM6490, and ecom lists security updates until November 2032, with Android 15 as the upgrade limit. The ecom Smart-Ex 203 runs Android 14 on a Qualcomm Dragonwing QCM4490, with security updates until March 2032, and our data does not list an OS upgrade for it. Both are Android Enterprise Recommended and offer Wi-Fi 6E, Bluetooth 5.2 and nano-SIM plus eSIM. The two phones use different processors, and our data has no performance figures to compare them, so we do not rank them on speed.',
+        'The ecom Smart-Ex 03 DZ1 runs Android 15 on a Qualcomm Dragonwing QCM6490, and ecom lists security updates until Q4 2032, with Android 15 as the upgrade limit. The ecom Smart-Ex 203 runs Android 14 on a Qualcomm Dragonwing QCM4490, with security updates until Q1 2032, and our data does not list an OS upgrade for it. Both are Android Enterprise Recommended and offer Wi-Fi 6E, Bluetooth 5.2 and nano-SIM plus eSIM. The two phones use different processors, and our data has no performance figures to compare them, so we do not rank them on speed.',
         'For lone workers the ecom Smart-Ex 03 DZ1 comes ready: ecom installs its eSentinel alarm app and eDiagnostics, the alarm app can be assigned to the dedicated alarm key, and a 3.5 mm audio socket supports push-to-talk accessories. The ecom Smart-Ex 203 has a programmable push-to-talk / multifunction key that can serve as the alarm, and ecom has not confirmed a lone-worker app for this exact model. Both must be charged, and have the battery changed, outside the hazardous area: ecom specifies charging at 0 to 45 °C for the ecom Smart-Ex 03 DZ1 and +5 to +45 °C for the ecom Smart-Ex 203.',
       ],
     },
@@ -96,7 +96,7 @@ const page: ComparePage = {
   faq: [
     {
       q: 'Is the ecom Smart-Ex 03 DZ1 better than the ecom Smart-Ex 203?',
-      a: 'Neither is better across the board, but they are not rated for the same sites. The ecom Smart-Ex 03 DZ1 suits Zone 1 work, Division 1 sites and crews that want eSentinel alarms ready and security updates until November 2032. The ecom Smart-Ex 203 suits Zone 2/22 and Division 2 sites where you want a 48 MP camera, a scanner accessory and microSD storage.',
+      a: 'Neither is better across the board, but they are not rated for the same sites. The ecom Smart-Ex 03 DZ1 suits Zone 1 work, Division 1 sites and crews that want eSentinel alarms ready and security updates until Q4 2032. The ecom Smart-Ex 203 suits Zone 2/22 and Division 2 sites where you want a 48 MP camera, a scanner accessory and microSD storage.',
     },
     {
       q: 'Can the ecom Smart-Ex 203 be used in Zone 1?',
@@ -108,7 +108,7 @@ const page: ComparePage = {
     },
     {
       q: 'Which gets security updates for longer?',
-      a: 'The ecom Smart-Ex 03 DZ1, by eight months. ecom lists security updates until November 2032 for it and until March 2032 for the ecom Smart-Ex 203, and the two run Android 15 and Android 14.',
+      a: 'The ecom Smart-Ex 03 DZ1, by three quarters. ecom lists security updates until Q4 2032 for it and until Q1 2032 for the ecom Smart-Ex 203, and the two run Android 15 and Android 14.',
     },
     {
       q: 'Are both phones approved for North America?',

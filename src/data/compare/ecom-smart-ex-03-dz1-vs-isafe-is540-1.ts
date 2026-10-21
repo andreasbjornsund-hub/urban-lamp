@@ -84,7 +84,7 @@ const page: ComparePage = {
       title: 'Fleet management, updates and battery',
       edge: 'even',
       text: [
-        'For IT teams there is little between them. Both are Android Enterprise Recommended and use the same Qualcomm QCM6490 processor with 8 GB of RAM and 5G. The ecom Smart-Ex 03 DZ1 runs Android 15 with Wi-Fi 6E and security updates until November 2032; the i.safe MOBILE IS540.1 runs Android 14 with Wi-Fi 6, and i.safe states security patches until Q4 2032.',
+        'For IT teams there is little between them. Both are Android Enterprise Recommended and use the same Qualcomm QCM6490 processor with 8 GB of RAM and 5G. The ecom Smart-Ex 03 DZ1 runs Android 15 with Wi-Fi 6E and security updates until Q4 2032; the i.safe MOBILE IS540.1 runs Android 14 with Wi-Fi 6, and i.safe states security patches until Q4 2032.',
         'Both use a 4400 mAh battery the user can swap, and both must be charged, and have the battery changed, outside the hazardous area. ecom specifies charging at 0 to 45 °C and offers docking charge pads; i.safe requires its PROTECTOR 2.0 USB-C cable or other approved equipment. Operators on a Nokia private wireless network have one more reason to look at the i.safe MOBILE IS540.1: Nokia sells it in its portfolio, alongside apps such as Nokia Team Comms.',
       ],
     },
@@ -104,7 +104,7 @@ const page: ComparePage = {
     },
     {
       q: 'Which gets security updates for longer?',
-      a: 'They are almost level. Security updates for the ecom Smart-Ex 03 DZ1 are listed until November 2032. For the i.safe MOBILE IS540.1, i.safe states Q4 2032, while Google’s Android Enterprise directory lists 30 January 2032.',
+      a: 'On the makers’ own dates they are level. ecom states security updates until Q4 2032 for the ecom Smart-Ex 03 DZ1, and i.safe states Q4 2032 for the i.safe MOBILE IS540.1, while Google’s Android Enterprise directory lists 30 January 2032 for it.',
     },
     {
       q: 'Can you charge either phone in the hazardous area?',

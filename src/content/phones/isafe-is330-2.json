@@ -52,6 +52,9 @@
   "os": {
     "name": "Android",
     "version": "Android 10",
+    "securityUntil": "2025-09-30",
+    "securityUntilLabel": "Q3 2025",
+    "updates": "Security updates ended in Q3 2025",
     "enterprise": "Android Enterprise Recommended"
   },
   "specs": {
@@ -119,7 +122,7 @@
     "May be near the end of its life: check availability before ordering",
     "Zone 2 only, so not for Zone 1 areas",
     "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
-    "No published end date for security updates",
+    "Security updates ended in Q3 2025",
     "In-use weight not published"
   ],
   "bestFor": [
@@ -141,6 +144,10 @@
     {
       "label": "i.safe MOBILE: Product range 'Archive' (lists IS530.M1, IS530.2, IS530.1, IS360.2, IS330.x, IS655.2)",
       "url": "https://www.isafe-mobile.com/en/products/product-range/archive/is3301"
+    },
+    {
+      "label": "i.safe MOBILE: Security updates (security patch table) (2026-10-13)",
+      "url": "https://www.isafe-mobile.com/en/support/security-updates"
     },
     {
       "label": "R. STAHL (distributor): IS330.2 data sheets 307076/307077",

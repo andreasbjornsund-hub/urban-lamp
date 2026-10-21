@@ -6,7 +6,7 @@ const page: ComparePage = {
   description:
     'ecom Smart-Ex 203 or i.safe MOBILE IS540.1? Zone 2 or Zone 1, scanner accessories, storage, weight and security updates compared, with our pick for each team.',
   h1: 'ecom Smart-Ex 203 vs i.safe MOBILE IS540.1',
-  eyebrow: 'Compare · Zone 1 or Zone 2 Android phones',
+  eyebrow: 'Compare · Android phones for Zone 2',
   lead:
     'The ecom Smart-Ex 203 and the i.safe MOBILE IS540.1 are two intrinsically safe Android 14 phones with 8 GB of RAM, 5G and a battery you swap outside the hazardous area, but they are rated for different zones. The i.safe MOBILE IS540.1 (Ex ib) is certified for Zone 1/21 and Class I Division 1; the ecom Smart-Ex 203 (Ex ic) is certified for Zone 2/22 and Class I Division 2 only. Both take a barcode scanner as an accessory. Here is how they compare, and which we would choose for which team.',
   verdict: {
@@ -21,7 +21,7 @@ const page: ComparePage = {
           'You work at North American Division 1 sites: it is approved for Class I, II and III, Division 1, which also covers Division 2, while the ecom Smart-Ex 203 holds Division 2 only.',
           'Your crews scan in Zone 1 areas: it takes a barcode scan module (IS-TH2xx.1) through its 16-pin ISM interface, and the ecom Smart-Ex 203 is not certified for Zone 1.',
           'Some of your crews work underground: the i.safe MOBILE IS540.M1 mining version keeps the Zone 1/21 rating alongside Group I.',
-          'You run a Nokia private wireless network or plan around the longer stated support: Nokia offers the phone, and i.safe MOBILE states security patches until Q4 2032 (Google’s directory lists 30 January 2032), against March 2032 listed for the ecom Smart-Ex 203.',
+          'You run a Nokia private wireless network: Nokia offers the same phone in its private wireless portfolio, alongside apps such as Nokia Team Comms.',
         ],
       },
       {
@@ -30,7 +30,7 @@ const page: ComparePage = {
           'Crews carry the phone for a full shift: it weighs 365 g against 422 g for the i.safe MOBILE IS540.1.',
           'You need storage on the device: it takes a microSD card of up to 512 GB, against up to 128 GB for the i.safe MOBILE IS540.1.',
           'Some Zone 2 sites run hot and the phones carry no scanner: it is certified to +60 °C ambient, against +55 °C for the i.safe MOBILE IS540.1, but only +50 °C with the scanner fitted.',
-          'You want a larger screen and a better front camera: it has a 6.3-inch display with glove and wet touch and a 16 MP front camera, against 6 inches with glove touch and 5 MP.',
+          'You want a larger screen and a higher-resolution front camera: it has a 6.3-inch display with glove and wet touch and a 16 MP front camera, against 6 inches with glove touch and 5 MP.',
         ],
       },
     ],
@@ -42,8 +42,9 @@ const page: ComparePage = {
       note: 'This decides where a phone may be used at all. The i.safe MOBILE IS540.1 is certified for Zone 1/21, which also covers Zone 2/22; the ecom Smart-Ex 203 is certified for Zone 2/22 only, so it cannot be used in Zone 1 areas.',
     },
     {
-      row: 'Barcode scanning',
-      note: 'Both take a scanner as an accessory: the SM-Ex S203 SR (Zebra) on the ecom Smart-Ex 203 and an IS-TH2xx.1 scan module on the i.safe MOBILE IS540.1’s ISM interface. Fitting the ecom scanner limits its ambient range to −20 °C to +50 °C, and our data lists one range, −20 °C to +55 °C, for the i.safe MOBILE IS540.1.',
+      row: 'Ambient temperature (Ta)',
+      title: 'Maximum ambient temperature',
+      note: 'Both take a scanner as an accessory, so this is the difference that matters for scanning in the heat. The ecom Smart-Ex 203 is certified to +60 °C, but fitting its SM-Ex S203 SR (Zebra) scanner limits it to +50 °C; our data lists one range, up to +55 °C, for the i.safe MOBILE IS540.1 with its scan module on the ISM interface.',
     },
     {
       row: 'Weight',
@@ -59,7 +60,7 @@ const page: ComparePage = {
       title: 'Zone 1 and certification',
       edge: 'isafe-is540-1',
       text: [
-        'The i.safe MOBILE IS540.1 is intrinsically safe (Ex ib) and certified for Zone 1/21 under ATEX and IECEx, with protection level Gb for gas, and it holds a North American approval for Class I, II and III, Division 1, Groups A to G, with temperature code T4. The ecom Smart-Ex 203 is Ex ic, certified to level Gc for Zone 2/22, with a Class I Division 2 approval for Groups A to D, and our data lists no Zone 1 version of it. A rating for Zone 1 or Division 1 also covers Zone 2 and Division 2, so the i.safe MOBILE IS540.1 can work wherever the ecom Smart-Ex 203 can.',
+        'The i.safe MOBILE IS540.1 is intrinsically safe (Ex ib) and certified for Zone 1/21 under ATEX and IECEx, with protection level Gb for gas, and it holds a North American approval for Class I, II and III, Division 1, Groups A to G, with temperature code T4. The ecom Smart-Ex 203 is Ex ic, certified to level Gc for Zone 2/22, with a Class I Division 2 approval for Groups A to D, and our data lists no Zone 1 version of it. A rating for Zone 1 or Division 1 also covers Zone 2 and Division 2, so the i.safe MOBILE IS540.1 can work in every zone and Division the ecom Smart-Ex 203 covers, up to its +55 °C ambient limit.',
         'On the rest of the rating they match: both are IIC T4 for gas and IIIC T135 °C for dust, and T4 suits most gases, but not those that ignite below 135 °C. Ambient differs: −20 °C to +55 °C for the i.safe MOBILE IS540.1, and −20 °C to +60 °C for the ecom Smart-Ex 203, or +50 °C with its scanner module fitted. The ecom Smart-Ex 203’s conditions of use also say low mechanical-hazard locations only, a condition our data does not list for the i.safe MOBILE IS540.1. The i.safe MOBILE IS540.M1 mining version keeps Zone 1/21 alongside Group I; our data lists none for the ecom Smart-Ex 203.',
       ],
     },
@@ -67,7 +68,7 @@ const page: ComparePage = {
       title: 'Scanning and accessories',
       edge: 'even',
       text: [
-        'Both phones scan through an accessory rather than the camera. The ecom Smart-Ex 203 takes the SM-Ex S203 SR scanner (Zebra) through its extra interface for peripherals, which suits stores, logistics and asset-tagging rounds. With the scanner fitted, its ambient range narrows from −20 °C to +60 °C to −20 °C to +50 °C. The i.safe MOBILE IS540.1 takes a barcode scan module (IS-TH2xx.1) through its 16-pin ISM interface, and accessories in the hazardous area connect only this way.',
+        'Both phones scan through an accessory.The ecom Smart-Ex 203 takes the SM-Ex S203 SR scanner (Zebra) through its extra interface for peripherals, which suits stores, logistics and asset-tagging rounds. With the scanner fitted, its ambient range narrows from −20 °C to +60 °C to −20 °C to +50 °C. The i.safe MOBILE IS540.1 takes a barcode scan module (IS-TH2xx.1) through its 16-pin ISM interface, and accessories in the hazardous area connect only this way.',
         'Our data lists one ambient range for the i.safe MOBILE IS540.1, −20 °C to +55 °C, and no separate limit with its scan module, so check the certificate for your configuration. For scanning in Zone 1, the i.safe MOBILE IS540.1 is the only one of the two that qualifies; for Zone 2 sites where crews scan all day, either will do, and you pick by weight, storage and heat. Both read NFC tags, and our data lists no scanning performance figures for either phone, so test both on your own labels.',
       ],
     },
@@ -83,8 +84,8 @@ const page: ComparePage = {
       title: 'Updates, keys and fleet management',
       edge: 'even',
       text: [
-        'Both run Android 14 and are Android Enterprise Recommended. The ecom Smart-Ex 203 uses a Qualcomm Dragonwing QCM4490 and has Wi-Fi 6E; the i.safe MOBILE IS540.1 uses a Qualcomm QCM6490 and has Wi-Fi 6. Our data has no performance figures, so we do not rank the processors on speed. ecom lists security updates for the ecom Smart-Ex 203 until March 2032. For the i.safe MOBILE IS540.1, i.safe MOBILE states security patches until Q4 2032, while Google’s Android Enterprise directory lists 30 January 2032, so which phone runs longer depends on the date you trust.',
-        'On the keys, the ecom Smart-Ex 203 has one programmable push-to-talk / multifunction key that can serve as the alarm, and ecom has not confirmed a lone-worker app for this exact model. The i.safe MOBILE IS540.1 has a programmable red key and a programmable left side key, typically for a lone-worker alarm and push-to-talk. Neither phone can be charged in the hazardous area: ecom specifies charging at +5 to +45 °C, and i.safe requires its PROTECTOR 2.0 USB-C cable or other approved equipment. Nokia also offers the i.safe MOBILE IS540.1 in its private wireless portfolio.',
+        'Both run Android 14 and are Android Enterprise Recommended. The ecom Smart-Ex 203 uses a Qualcomm Dragonwing QCM4490 and has Wi-Fi 6E; the i.safe MOBILE IS540.1 uses a Qualcomm QCM6490 and has Wi-Fi 6. Our data has no performance figures, so we do not rank the processors on speed. ecom lists security updates for the ecom Smart-Ex 203 until Q1 2032. For the i.safe MOBILE IS540.1, i.safe MOBILE states security patches until Q4 2032, while Google’s Android Enterprise directory lists 30 January 2032, so which phone runs longer depends on the date you trust.',
+        'On the keys, the ecom Smart-Ex 203 has a programmable push-to-talk / multifunction key that can serve as the alarm, and ecom has not confirmed a lone-worker app for this exact model. The i.safe MOBILE IS540.1 has a programmable red key and a programmable left side key, typically for a lone-worker alarm and push-to-talk. Neither phone can be charged in the hazardous area: ecom specifies charging at +5 to +45 °C, and i.safe requires its PROTECTOR 2.0 USB-C cable or other approved equipment. Nokia also offers the i.safe MOBILE IS540.1 in its private wireless portfolio.',
       ],
     },
   ],
@@ -107,7 +108,7 @@ const page: ComparePage = {
     },
     {
       q: 'Which gets security updates for longer?',
-      a: 'It depends on the date you trust. ecom lists security updates for the ecom Smart-Ex 203 until March 2032. For the i.safe MOBILE IS540.1, i.safe MOBILE states Q4 2032, while Google’s Android Enterprise directory lists 30 January 2032.',
+      a: 'It depends on the date you trust. ecom lists security updates for the ecom Smart-Ex 203 until Q1 2032. For the i.safe MOBILE IS540.1, i.safe MOBILE states Q4 2032, while Google’s Android Enterprise directory lists 30 January 2032.',
     },
     {
       q: 'Are there other versions of each phone?',

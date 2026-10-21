@@ -6,7 +6,7 @@ const page: ComparePage = {
   description:
     'BARTEC SC9EX1 Smartscanner or i.safe MOBILE IS540.1? Built-in scanner, Zone 0, weight and security updates compared, with our pick for each team.',
   h1: 'BARTEC SC9EX1 Smartscanner vs i.safe MOBILE IS540.1',
-  eyebrow: 'Compare · Zone 1 scanning phones',
+  eyebrow: 'Compare · Zone 1 Android phones',
   lead:
     'If scanning is part of the job, these are two intrinsically safe phones to compare. The BARTEC SC9EX1 Smartscanner has a Zebra scan engine built in; the i.safe MOBILE IS540.1 takes a barcode scan module through its ISM accessory interface. Both are certified for Zone 1/21 under ATEX and IECEx with a Class I Division 1 approval for North America, both run on the Qualcomm QCM6490 with 5G, and both have a battery you swap outside the hazardous area. The rest of the choice is about Zone 0, weight, updates and storage. Here is how they compare, and which we would choose for which team.',
   verdict: {

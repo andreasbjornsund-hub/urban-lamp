@@ -38,7 +38,7 @@ const page: BestPage = {
       label: 'Best for lone workers who also use push-to-talk',
       why: [
         'For teams where people work alone and also need to talk to the control room, this is the Android smartphone we would start with. It has a programmable push-to-talk key and a separate alarm key that can be assigned to ecom’s eSentinel alarm app, so a lone worker can raise an alarm with one press. The 6-inch glove-touch screen and IP68 body handle the rest of the round, and push-to-talk runs through a third-party app that ecom does not preinstall, so you choose the service.',
-        'It is certified Ex ia IIC T4 for Zone 1/21 under ATEX, IECEx and UKEX, with Class I Division 1 for North America and approvals in Brazil, Korea, South Africa and Japan, which suits crews that cross regions. The ambient rating reaches +60 °C, security updates are listed until November 2032, and it is Android Enterprise Recommended on Android 15. A user-replaceable 4400 mAh battery, swapped outside the hazardous area, keeps long rotations going.',
+        'It is certified Ex ia IIC T4 for Zone 1/21 under ATEX, IECEx and UKEX, with Class I Division 1 for North America and approvals in Brazil, Korea, South Africa and Japan, which suits crews that cross regions. The ambient rating reaches +60 °C, security updates are listed until Q4 2032, and it is Android Enterprise Recommended on Android 15. A user-replaceable 4400 mAh battery, swapped outside the hazardous area, keeps long rotations going.',
         'Compared with the IS440.1, it has no channel selector, and at 400 g it is the heavier handset. It is rated T4 and is not certified for Zone 0.',
       ],
     },
@@ -66,7 +66,7 @@ const page: BestPage = {
       why: [
         'On Zone 2 sites where crews move between talk groups all day, the IS880.2 is the only smartphone-style handset on this page with a channel selector, next to a PTT side key and a red SOS key. It has a 5.5-inch Gorilla Glass 3 screen with glove touch, IP68, MIL-STD-810H, a 50 MP autofocus camera and a user-replaceable 4500 mAh battery, swapped outside the hazardous area.',
         'It is intrinsically safe to Ex ic IIC T4 Gc and certified for Zone 2/22 under ATEX and IECEx with published certificate numbers, so it cannot be used in Zone 1. It is 4G only, with no 5G, and it runs Android 14 as Android Enterprise compliant rather than Android Enterprise Recommended.',
-        'Two figures need checking before a fleet order. i.safe publishes no end date for security updates, and its datasheet gives 267 g although a reseller lists 196.4 g. If you need Zone 1 or 5G, the IS440.1 is the better fit.',
+        'Check two things before a fleet order. i.safe states security patches only until Q3 2029, three years sooner than the Q4 2032 it gives for the IS440.1, and its datasheet gives 267 g although a reseller lists 196.4 g. If you need Zone 1 or 5G, the IS440.1 is the better fit.',
       ],
     },
   ],

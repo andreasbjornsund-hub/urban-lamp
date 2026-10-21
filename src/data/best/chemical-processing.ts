@@ -47,7 +47,7 @@ const page: BestPage = {
       label: 'Best for lone operators and alarm response',
       why: [
         'Operators who work alone on a unit or a tank farm need a quick way to raise the alarm, and this is the phone we would give them. A dedicated alarm key can be linked to ecom’s eSentinel alarm app, so help is one press away, and glove touch and a user-replaceable battery suit a full shift. For process areas that restrict cameras, a camera-free version is available.',
-        'Its Ex ia IIC T4 certificates cover Zone 1/21 under ATEX, IECEx and UKEX, and a Class I Division 1 listing adds North America, so the same handset can go to sites in different regions. It is certified to +60 °C ambient, the highest of our five, security updates run until November 2032, and the phone is Android Enterprise Recommended.',
+        'Its Ex ia IIC T4 certificates cover Zone 1/21 under ATEX, IECEx and UKEX, and a Class I Division 1 listing adds North America, so the same handset can go to sites in different regions. It is certified to +60 °C ambient, the highest of our five, security updates run until Q4 2032, and the phone is Android Enterprise Recommended.',
         'It is T4, so it does not suit carbon disulphide or other substances that ignite below 135 °C. It is not certified for Zone 0, and at 400 g it is heavier than the BARTEC and i.safe picks.',
       ],
     },

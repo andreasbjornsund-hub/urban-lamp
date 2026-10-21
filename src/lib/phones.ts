@@ -64,11 +64,23 @@ export function monthYear(iso?: string): string | undefined {
   return iso ? new Date(iso).toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }) : undefined;
 }
 
+type OsUpdates = { securityUntil?: string; securityUntilLabel?: string; supportYears?: number };
+
+/** End of security updates in the maker's wording: "Q4 2032" when it gives a quarter, else "September 2030" */
+export function securityEnd(os: OsUpdates): string | undefined {
+  return os.securityUntilLabel ?? monthYear(os.securityUntil);
+}
+
+/** True once the last promised security update is behind us (at build time) */
+export function securityEnded(os: OsUpdates): boolean {
+  return Boolean(os.securityUntil && !os.supportYears && os.securityUntil < new Date().toISOString().slice(0, 10));
+}
+
 /** Security update support as shown on pages and in comparisons */
-export function securityUpdates(os: { securityUntil?: string; supportYears?: number }): string | undefined {
+export function securityUpdates(os: OsUpdates): string | undefined {
   if (os.supportYears) return `${os.supportYears}+ years (based on previous model support)`;
-  const until = monthYear(os.securityUntil);
-  return until ? `Until ${until}` : undefined;
+  const until = securityEnd(os);
+  return until ? `${securityEnded(os) ? 'Ended' : 'Until'} ${until}` : undefined;
 }
 
 /* ---------- Ex marking decoder ---------- */

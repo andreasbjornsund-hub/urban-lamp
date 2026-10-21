@@ -6,7 +6,7 @@ const page: ComparePage = {
   description:
     'Xciel XCiPhone 17 or Xshielder iPhone 17? Zone 2 and Division 2 against Zone 1/21, temperature class and push-to-talk compared, with our pick for each team.',
   h1: 'Xciel XCiPhone 17 vs Xshielder iPhone 17',
-  eyebrow: 'Compare · iPhones for Zone 1, Zone 2 or Division 2',
+  eyebrow: 'Compare · iPhone cases and conversions',
   lead:
     'Both put a standard iPhone 17 inside a certified case, so the phone, its iOS 27 software and its 5G radio are the same. What differs is the protection around it, and with it where your team may work. The Xciel XCiPhone 17 is an intrinsically safe (Ex ic) case for Zone 2, with a Class I Division 2 listing for North America on one of its versions. The Xshielder iPhone 17 is a flameproof (Ex db) case certified for Zone 1/21 under ATEX. Here is how they compare, and which we would choose for which team.',
   verdict: {

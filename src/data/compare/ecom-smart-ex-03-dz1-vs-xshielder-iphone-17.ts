@@ -81,7 +81,7 @@ const page: ComparePage = {
       title: 'Inspection photos, scanning and data capture',
       edge: 'xshielder-iphone-17',
       text: [
-        'This is where the Xshielder iPhone 17 pulls ahead. Its two 48 MP rear cameras, a main and an ultra wide with 2x optical-quality zoom, are confirmed through the case, and so are the 18 MP Center Stage front camera and Face ID. Video is 4K60 with Dolby Vision. The ecom Smart-Ex 03 DZ1 has a 13 MP camera with phase-detection autofocus and an LED flash, optimized for scanning, and records 1080p video. For inspection records and corrosion photos, the iPhone is the stronger tool; 3D scanning on it is through a photogrammetry app.',
+        'This is where the Xshielder iPhone 17 pulls ahead. Its two 48 MP rear cameras, a main and an ultra wide, with 2x optical-quality zoom, are confirmed through the case, and so are the 18 MP Center Stage front camera and Face ID. Video is 4K60 with Dolby Vision. The ecom Smart-Ex 03 DZ1 has a 13 MP camera with phase-detection autofocus and an LED flash, optimized for scanning, and records 1080p video. For inspection records and corrosion photos, the iPhone is the stronger tool; 3D scanning on it is through a photogrammetry app. There is no Camera Control button on the cover, though the Action Button can open the camera.',
         'Both phones scan barcodes through apps. The ecom Smart-Ex 03 DZ1 uses ecom’s eBARCODE-ML app, a paid add-on, while the Xshielder iPhone 17 reads QR codes with its camera built in and handles 1D and 2D codes through an app. NFC reading is built into both phones, though it has not been verified through Xshielder’s metal enclosure. A camera-free version of the ecom Smart-Ex 03 DZ1 is available for sites that ban cameras, and our data lists none for the Xshielder iPhone 17.',
       ],
     },
@@ -90,7 +90,7 @@ const page: ComparePage = {
       edge: 'ecom-smart-ex-03-dz1',
       text: [
         'Power is the clearest practical gap. The ecom Smart-Ex 03 DZ1 has a 4400 mAh battery you can swap, so a crew can carry a charged spare and change it outside the hazardous area. ecom specifies charging at 0 to 45 °C, offers docking charge pads, and requires the battery cover to be fitted before entering the hazardous area. The Xshielder iPhone 17 has a 3692 mAh battery that is not user-replaceable, and with the USB-C port not accessible it charges wirelessly (MagSafe, up to 25 W), again outside the hazardous area. Capacity is not runtime, and our data lists a battery life only for the iPhone, so we do not compare how long each lasts.',
-        'Weight goes the other way: the Xshielder iPhone 17 is 330 g including the phone, against 400 g for the ecom Smart-Ex 03 DZ1. For IT teams, the choice is mostly about what you already run. The ecom Smart-Ex 03 DZ1 runs Android 15 (ecom lists it as the upgrade limit), is Android Enterprise Recommended, and has security updates listed until November 2032. The Xshielder iPhone 17 is a standard iPhone inside, so it works with the same apps and management as other iPhones, through Apple Business, and its security updates are expected for 7+ years (based on previous model support). Only Xshielder-authorized personnel may open the case.',
+        'Weight goes the other way: the Xshielder iPhone 17 is 330 g including the phone, against 400 g for the ecom Smart-Ex 03 DZ1. For IT teams, the choice is mostly about what you already run. The ecom Smart-Ex 03 DZ1 runs Android 15 (ecom lists it as the upgrade limit), is Android Enterprise Recommended, and has security updates listed until Q4 2032. The Xshielder iPhone 17 is a standard iPhone inside, so it works with the same apps and management as other iPhones, through Apple Business, and its security updates are expected for 7+ years (based on previous model support). Only Xshielder-authorized personnel may open the case.',
       ],
     },
   ],
@@ -109,7 +109,7 @@ const page: ComparePage = {
     },
     {
       q: 'Which gets security updates for longer?',
-      a: 'They look close. Security updates for the ecom Smart-Ex 03 DZ1 are listed until November 2032. Apple does not publish an end date for the iPhone 17 inside the Xshielder case; previous iPhone models have had security updates for seven years or more.',
+      a: 'They look close. Security updates for the ecom Smart-Ex 03 DZ1 are listed until Q4 2032. Apple does not publish an end date for the iPhone 17 inside the Xshielder case; previous iPhone models have had security updates for seven years or more.',
     },
     {
       q: 'Can you charge either phone in the hazardous area?',

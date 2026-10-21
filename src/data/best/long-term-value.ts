@@ -31,7 +31,7 @@ const page: BestPage = {
       label: 'Best overall for long-term value',
       why: [
         'Our pick for long-term value is the Xshielder iPhone 17 Pro Max, the strongest option for a team that wants one device to do the work of several. Inside the flameproof (Ex db) case is a standard iPhone 17 Pro Max, and its cameras with 8x optical-quality zoom, LiDAR and Face ID all work through the case. One handset can photograph an installation, measure a space or capture a 3D scan with LiDAR, unlock with Face ID and run the iOS inspection apps the team already uses, and the programmable Action Button on the cover handles push-to-talk through apps built on Apple’s Push to Talk framework (there is no dedicated push-to-talk key).',
-        'Support length is the second half of the case. Apple publishes no end date, so security updates are expected for 7+ years (based on previous model support), an expectation rather than a promise, where ecom’s November 2032 and i.safe’s Q4 2032 are the makers’ own dates. Over that time the phone can replace a separate Ex camera and measuring tools for many documentation tasks, and IT teams enroll it through Apple Business (formerly Apple Business Manager).',
+        'Support length is the second half of the case. Apple publishes no end date, so security updates are expected for 7+ years (based on previous model support), an expectation rather than a promise, where ecom’s Q4 2032 and i.safe’s Q4 2032 are the makers’ own dates. Over that time the phone can replace a separate Ex camera and measuring tools for many documentation tasks, and IT teams enroll it through Apple Business (formerly Apple Business Manager).',
         'When the fleet is eventually replaced, Xshielder can take the iPhone out of the case so it can be traded in or resold, which gives the device a residual value at the end of service. The trade-offs sit in the case. The battery is not user-replaceable, and because only Xshielder-authorized personnel may open the case, a worn battery is not a job for your own technicians. It charges wirelessly outside the hazardous area only, and IECEx certification covers the S02 version only.',
       ],
     },
@@ -39,7 +39,7 @@ const page: BestPage = {
       id: 'ecom-smart-ex-03-dz1',
       label: 'Best long-term value on Android',
       why: [
-        'For fleets that run on Android and want to plan replacement years ahead, this is the phone we would start with. ecom lists security updates until November 2032, the longest confirmed date for any Android phone in our data, and the phone is Android Enterprise Recommended, so it suits managed fleets.',
+        'For fleets that run on Android and want to plan replacement years ahead, this is the phone we would start with. ecom states security updates until Q4 2032, the latest confirmed date for any Android phone in our data (i.safe MOBILE states the same quarter for several of its phones), and the phone is Android Enterprise Recommended, so it suits managed fleets.',
         'A user-replaceable 4400 mAh battery is the other long-term argument: it can be swapped outside the hazardous area and replaced when it wears, so the phone is not retired with its battery. The certification is broad enough to standardize on, with intrinsically safe Ex ia IIC T4 for Zone 1/21 under ATEX, IECEx and UKEX, Class I Division 1 for North America and further approvals in Brazil, Korea, South Africa and Japan. A mining version is available for underground sites.',
         'Two limits belong in the plan. Major Android upgrades stop at Android 15, so the later years bring security patches rather than new versions, and T4 means checking any gas on your site that ignites below 135 °C. It is not certified for Zone 0.',
       ],
@@ -48,7 +48,7 @@ const page: BestPage = {
       id: 'ecom-smart-ex-203',
       label: 'Best value for Zone 2-only sites',
       why: [
-        'For sites where every hazardous area is Zone 2, this is where we would look for value first. Resellers list prices for the Smart-Ex 203, and it is among the lower-cost smartphones where they do, which is the basis for this label, so treat it as our estimate. Security updates are confirmed until March 2032, which keeps a phone bought now in support for years.',
+        'For sites where every hazardous area is Zone 2, this is where we would look for value first. Resellers list prices for the Smart-Ex 203, and it is among the lower-cost smartphones where they do, which is the basis for this label, so treat it as our estimate. ecom states security updates until Q1 2032, which keeps a phone bought now in support for years.',
         'It does more than a basic handset. A Zebra scanner accessory (the SM-Ex S203 SR) adds a dedicated scan engine, a camera-free version is available for sites that restrict cameras, and the 4500 mAh battery is user-replaceable outside the hazardous area. It is rated to +60 °C, or +50 °C with the scanner module fitted.',
         'It is certified for Zone 2/22 only, as intrinsically safe Ex ic IIC T4 under ATEX and IECEx with Class I Division 2 for North America, so a site that later gains a Zone 1 area would need a different phone. ecom’s datasheet leaves out the ATEX category, so we treat its ATEX marking as unconfirmed (protection level Gc corresponds to category 3G). It runs Android 14.',
       ],
@@ -108,7 +108,7 @@ const page: BestPage = {
   faq: [
     {
       q: 'What is the best long-term value phone for hazardous areas?',
-      a: 'On our estimate, the Xshielder iPhone 17 Pro Max: it pairs security updates expected for 7+ years (based on previous model support) with a camera, LiDAR, Face ID and iOS apps that can replace separate Ex equipment. It is an estimate, not a price ranking, because few makers publish prices. For Android, the ecom Smart-Ex 03 DZ1 has the longest confirmed update date, November 2032.',
+      a: 'On our estimate, the Xshielder iPhone 17 Pro Max: it pairs security updates expected for 7+ years (based on previous model support) with a camera, LiDAR, Face ID and iOS apps that can replace separate Ex equipment. It is an estimate, not a price ranking, because few makers publish prices. For Android, the ecom Smart-Ex 03 DZ1 has the latest confirmed update date, Q4 2032, which i.safe MOBILE also states for several of its phones.',
     },
     {
       q: 'How much does an intrinsically safe phone cost?',
@@ -116,7 +116,7 @@ const page: BestPage = {
     },
     {
       q: 'How long do hazardous-area phones get security updates?',
-      a: 'It varies by brand, and by whether the date is confirmed. ecom lists November 2032 for the Smart-Ex 03 DZ1 and March 2032 for the Smart-Ex 203, i.safe states Q4 2032 for the IS440.2 and IS540.1 (Google’s directory lists 30 January 2032 for the IS540.1), and BARTEC states at least May 2030 for its phones. Apple publishes no end date for the iPhone 17 Pro Max inside the Xshielder case, so we show 7+ years based on previous model support.',
+      a: 'It varies by brand, and by whether the date is confirmed. ecom states Q4 2032 for the Smart-Ex 03 DZ1 and Q1 2032 for the Smart-Ex 203, i.safe states Q4 2032 for the IS440.2 and IS540.1 (Google’s directory lists 30 January 2032 for the IS540.1), and BARTEC states at least May 2030 for its phones. Apple publishes no end date for the iPhone 17 Pro Max inside the Xshielder case, so we show 7+ years based on previous model support.',
     },
     {
       q: 'Is a user-replaceable battery worth having?',

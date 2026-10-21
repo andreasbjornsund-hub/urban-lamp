@@ -6,7 +6,7 @@ const page: ComparePage = {
   description:
     'BARTEC SC9EX1 Smartscanner or i.safe MOBILE IS440.1? A built-in scanner with Zone 0, or a push-to-talk handheld: two different jobs, compared for Zone 1.',
   h1: 'BARTEC SC9EX1 Smartscanner vs i.safe MOBILE IS440.1',
-  eyebrow: 'Compare · Scanning or push-to-talk phones for Zone 1',
+  eyebrow: 'Compare · Push-to-talk phones for Zone 1',
   lead:
     'These two intrinsically safe phones do different jobs, so ask first what your crews carry them for. The BARTEC SC9EX1 Smartscanner is an Android 15 smartphone with a Zebra scan engine built in, certified for Zone 0/1/21 (Ex ia op is) and weighing 370 g. The i.safe MOBILE IS440.1 is a radio-style handheld built around push-to-talk, with a dedicated key and a channel selector, at 307 g; barcode scanning is listed as not available. Both hold a Class I Division 1 approval for North America and have a battery you swap outside the hazardous area. Here is how they compare, and which we would choose for which team.',
   verdict: {
@@ -48,7 +48,7 @@ const page: ComparePage = {
     },
     {
       row: 'Push-to-talk',
-      note: 'The i.safe MOBILE IS440.1 is built around it: a dedicated key, PoC (push-to-talk over cellular) apps, a channel selector and M1 and M2 keys. The BARTEC SC9EX1 Smartscanner puts push-to-talk on one of its two programmable keys and works with an app, so the choice of push-to-talk app is yours.',
+      note: 'The i.safe MOBILE IS440.1 is built around it: a dedicated key, PoC (push-to-talk over cellular) apps, a channel selector and M1 and M2 keys. The BARTEC SC9EX1 Smartscanner puts push-to-talk on one of its two programmable keys and works with a push-to-talk app.',
     },
     {
       row: 'Weight',
@@ -77,7 +77,7 @@ const page: ComparePage = {
       edge: 'bartec-sc9ex1',
       text: [
         'The BARTEC SC9EX1 Smartscanner is intrinsically safe (Ex ia op is) and certified for Zone 0/1/21 under ATEX and IECEx, with protection level Ga for gas, and its North American listing (E226123) includes Zone 0 AEx ia op is IIC T4 Ga. The i.safe MOBILE IS440.1 is Ex ib and certified to level Gb, which covers Zone 1 and Zone 2, and our data lists it as not certified for Zone 0. If a scanning or voice round takes people into Zone 0, only the BARTEC SC9EX1 Smartscanner of these two qualifies.',
-        'On the rest of the rating they match. Both are IIC T4 for gas and IIIC T135 °C for dust, both hold a Class I Division 1 approval for North America, and both are certified for −20 °C to +55 °C ambient. T4 suits most gases, but not those that ignite below 135 °C. BARTEC’s ATEX dust marking includes IP64, which our data does not show for i.safe. The i.safe MOBILE IS440.1 has a mining version, the i.safe MOBILE IS440.M1, which keeps Zone 1/21 alongside Group I; our data does not list one for the BARTEC SC9EX1 Smartscanner.',
+        'On the rest of the rating they match. Both are IIC T4 for gas and IIIC T135 °C for dust, both hold a Class I Division 1 approval for North America, and both are certified for −20 °C to +55 °C ambient. T4 suits most gases, but not those that ignite below 135 °C. BARTEC’s ATEX dust marking includes IP64, which our data does not show for the i.safe MOBILE IS440.1. The i.safe MOBILE IS440.1 has a mining version, the i.safe MOBILE IS440.M1, which keeps Zone 1/21 alongside Group I; our data does not list one for the BARTEC SC9EX1 Smartscanner.',
       ],
     },
     {

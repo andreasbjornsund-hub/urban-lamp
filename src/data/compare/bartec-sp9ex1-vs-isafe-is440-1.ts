@@ -19,7 +19,7 @@ const page: ComparePage = {
         reasons: [
           'Your work reaches Zone 0: it is certified for Zone 0/1/21 (Ex ia, Ga) and its North American listing includes Zone 0 AEx, while the i.safe MOBILE IS440.1 is not certified for Zone 0.',
           'Your crews read, type and check records as well as talk: it has a 6.1-inch AMOLED display at 1080 × 2340 with glove and stylus touch, Android 15, 8 GB of RAM and 128 GB of storage, against 2.4 inches at 240 × 320 with 4 GB and 64 GB.',
-          'Your crews scan barcodes or photograph their work: it scans through its camera with third-party software, has a 48 MP autofocus rear camera and records 4K video, while barcode scanning is not available on the i.safe MOBILE IS440.1.',
+          'Your crews scan barcodes or photograph their work: it scans through its camera with third-party software, has a 48 MP autofocus rear camera and records 4K video, while barcode scanning is not available on the i.safe MOBILE IS440.1, while barcode scanning is not available on the i.safe MOBILE IS440.1 and our data has no rear camera or video figures for it.',
           'You want a path to newer software: it runs Android 15, and BARTEC lists an upgrade to Android 16, with further upgrades subject to Qualcomm.',
           'You want some devices without a cellular radio or SIM: the BARTEC SP9EX1 Cam version has neither and is covered by the same certificates.',
         ],

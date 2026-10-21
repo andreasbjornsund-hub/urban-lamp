@@ -6,7 +6,7 @@ const page: ComparePage = {
   description:
     'Atexxo Zone 1 iPhone 17 or Xshielder iPhone 17? Temperature class, cameras, weight, USB-C and SIM compared for two flameproof Zone 1 iPhones, with our pick.',
   h1: 'Atexxo Zone 1 iPhone 17 vs Xshielder iPhone 17',
-  eyebrow: 'Compare · Zone 1 iPhones',
+  eyebrow: 'Compare · iPhone cases and conversions',
   lead:
     'These are two flameproof (Ex db) housings for the same phone, a standard Apple iPhone 17, and on certification they are close. Both are certified for Zone 1/21 under ATEX and IECEx, though Xshielder’s IECEx certificate covers its cemented-lid S02 version only. Both run iOS 27 on the Apple A19 with 5G, and neither can be charged in the hazardous area. The differences sit in the housing: temperature class, what is confirmed to work through it, weight, and whether you can reach the USB-C port and SIM slot yourself. Here is how they compare, and which we would choose for which team.',
   verdict: {
@@ -67,7 +67,7 @@ const page: ComparePage = {
       title: 'Cameras, Face ID and push-to-talk',
       edge: 'xshielder-iphone-17',
       text: [
-        'Inside, both phones have the same 48 MP Fusion main and ultra wide cameras, an 18 MP Center Stage front camera and Face ID, so the question is what works through the housing. Xshielder confirms the rear cameras, the front camera, Face ID, a touchscreen that is usable through its Gorilla Glass window, and power and volume keys on the cover. Atexxo does not state whether the rear cameras can be used through its housing, and our data does not confirm the front camera, Face ID or the touchscreen. The edge rests on what Xshielder confirms, not on anything Atexxo rules out, so if inspection photos or camera scanning are part of the job, ask Atexxo before you order.',
+        'Inside, both phones have the same 48 MP Fusion main and ultra wide cameras, an 18 MP Center Stage front camera and Face ID, so the question is what works through the housing. Xshielder confirms the rear cameras, the front camera, Face ID, a touchscreen that is usable through its Gorilla Glass window, and power and volume keys on the cover. Atexxo does not state whether the rear cameras can be used through its housing, and our data does not confirm the front camera, Face ID or the touchscreen. The edge rests on what Xshielder confirms, not on anything Atexxo rules out, so if inspection photos or camera scanning are part of the job, ask Atexxo before you order. There is no Camera Control button on the Xshielder cover, though the Action Button can open the camera.',
         'Push-to-talk is the other gap. On the Xshielder iPhone 17 it runs from the programmable Action Button on the cover with apps built on Apple’s Push to Talk framework, so you need such an app and there is no separate key. Our data lists no push-to-talk key for the Atexxo Zone 1 iPhone 17: push-to-talk runs through an app on the same framework, and the Action Button is mappable if it is accessible, but Atexxo does not confirm that it is. On both, NFC and satellite SOS are not confirmed to work through a metal enclosure.',
       ],
     },

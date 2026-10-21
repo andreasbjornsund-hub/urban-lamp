@@ -56,8 +56,9 @@
     "version": "Android 15",
     "atLaunch": "Android 13",
     "upgradeLimit": "Android 15",
-    "securityUntil": "2032-11-30",
-    "updates": "Security updates until November 2032",
+    "securityUntil": "2032-12-31",
+    "securityUntilLabel": "Q4 2032",
+    "updates": "Security updates until Q4 2032",
     "enterprise": "Android Enterprise Recommended"
   },
   "specs": {
@@ -136,7 +137,7 @@
     "Also certified for Class I Division 2 in North America",
     "Push-to-talk and SOS keys",
     "5G connectivity",
-    "Security updates until November 2032"
+    "Security updates until Q4 2032"
   ],
   "limitations": [
     "Zone 2 only, so not for Zone 1 areas",
@@ -198,6 +199,18 @@
     {
       "label": "ecom instruments: Push-to-talk solutions (third-party PTT apps, none preinstalled)",
       "url": "https://www.ecom-ex.com/solutions/push-to-talk/"
+    },
+    {
+      "label": "ecom instruments: Smart-Ex 03 DZ1 product page (security updates 'Until Q4 2032')",
+      "url": "https://www.ecom-ex.com/products/communication/cell-phones/smart-ex-03-dz1/"
+    },
+    {
+      "label": "ecom instruments: Smart-Ex 03 DZ2 product page (security updates 'Until Q4 2032')",
+      "url": "https://www.ecom-ex.com/products/communication/cell-phones/smart-ex-03-dz2/"
+    },
+    {
+      "label": "ecom instruments: Release plan for security patches (Smart-Ex 03: Q4 2032; Smart-Ex 203: End of Security Patch Q1/2032)",
+      "url": "https://support.ecom-ex.com/457976005.html"
     },
     {
       "label": "Onedirect UK (reseller): Smart-Ex 03 DZ2 listing (price)",

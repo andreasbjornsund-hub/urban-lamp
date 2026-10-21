@@ -6,12 +6,12 @@ const page: ComparePage = {
   description:
     'ecom Smart-Ex 203 or i.safe MOBILE IS440.1? A Zone 2/22 smartphone against a Zone 1/21 push-to-talk handheld: certification, keys, screen and scanning compared.',
   h1: 'ecom Smart-Ex 203 vs i.safe MOBILE IS440.1',
-  eyebrow: 'Compare · Zone 2 smartphone or Zone 1 push-to-talk handheld',
+  eyebrow: 'Compare · Push-to-talk phones for Zone 1',
   lead:
     'These two phones differ in certification and in the job they do. The ecom Smart-Ex 203 is an Android 14 smartphone with a 6.3-inch display, certified for Zone 2/22 and Class I Division 2 only (Ex ic). The i.safe MOBILE IS440.1 is a radio-style push-to-talk handheld with a 2.4-inch display, certified for Zone 1/21 and Class I Division 1 (Ex ib), which also covers Zone 2. Both offer 5G and a battery you swap outside the hazardous area. The first question is the zone; the second is whether the crew mostly talks or also reads and scans. Here is how they compare, and which we would choose for which team.',
   verdict: {
     summary: [
-      'Start with the zone. If any of your work is in Zone 1/21 or Class I Division 1 areas, only the i.safe MOBILE IS440.1 of these two qualifies: the ecom Smart-Ex 203 is certified for Zone 2/22 and Class I Division 2 only, and our data lists no Zone 1 version of it. The i.safe MOBILE IS440.1 also covers Zone 2/22 and Division 2, so a push-to-talk crew can use it across all of those areas.',
+      'These two do different jobs, a smartphone and a radio-style push-to-talk handheld, but start with the zone. If any of your work is in Zone 1/21 or Class I Division 1 areas, only the i.safe MOBILE IS440.1 of these two qualifies: the ecom Smart-Ex 203 is certified for Zone 2/22 and Class I Division 2 only, and our data lists no Zone 1 version of it. The i.safe MOBILE IS440.1 also covers Zone 2/22 and Division 2, so a push-to-talk crew can use it across all of those areas.',
       'If every area is Zone 2/22 or Class I Division 2, either phone is allowed and the choice is the job. For crews who read, type, photograph and scan with a hardware scanner, we would choose the ecom Smart-Ex 203. For crews whose job is mostly voice, with a dedicated push-to-talk key, a channel selector and a lighter body, we would choose the i.safe MOBILE IS440.1.',
     ],
     choose: [
@@ -22,7 +22,7 @@ const page: ComparePage = {
           'Your crews scan all day on Zone 2/22 sites: it takes the SM-Ex S203 SR scanner accessory (Zebra), while barcode scanning is listed as not available on the i.safe MOBILE IS440.1.',
           'Photos are part of the job: it has a 48 MP autofocus rear camera with an LED flash and a 16 MP front camera, while our data has no rear camera figure for the i.safe MOBILE IS440.1.',
           'You need room on the device: it takes a microSD card of up to 512 GB on top of its 128 GB of storage.',
-          'Your Zone 2/22 sites run hot and you scan without the scanner module: it is certified up to +60 °C ambient, against +55 °C for the i.safe MOBILE IS440.1, but only up to +50 °C with the scanner module fitted.',
+          'Your Zone 2/22 sites run hot and you do not fit the scanner module: it is certified up to +60 °C ambient, against +55 °C for the i.safe MOBILE IS440.1, but only up to +50 °C with the scanner module fitted.',
         ],
       },
       {
@@ -31,7 +31,7 @@ const page: ComparePage = {
           'Any of your work is in Zone 1/21 or Class I Division 1 areas: it is certified for them (Ex ib, Gb) and also covers Zone 2/22 and Division 2, while the ecom Smart-Ex 203 is certified for Zone 2/22 only.',
           'Voice is the job: it has a dedicated push-to-talk key with PoC apps, a channel selector and M1 and M2 keys, so the main actions sit on keys rather than on a screen.',
           'Your crews carry the device all shift: at 307 g it weighs 58 g less than the ecom Smart-Ex 203 at 365 g.',
-          'You plan the fleet around long support: i.safe MOBILE states security patches until Q4 2032, while ecom lists updates until March 2032 for the ecom Smart-Ex 203.',
+          'You plan the fleet around long support: i.safe MOBILE states security patches until Q4 2032, while ecom lists updates until Q1 2032 for the ecom Smart-Ex 203.',
           'Some of your crews work underground: the i.safe MOBILE IS440.M1 mining version keeps the Zone 1/21 rating, and our data does not list a mining version for the ecom Smart-Ex 203.',
         ],
       },
@@ -45,11 +45,11 @@ const page: ComparePage = {
     },
     {
       row: 'Push-to-talk',
-      note: 'The i.safe MOBILE IS440.1 is built around it: a dedicated key, PoC (push-to-talk over cellular) apps, a channel selector and M1 and M2 keys. The ecom Smart-Ex 203 has a programmable push-to-talk key that works with an app, so the choice of push-to-talk app is yours.',
+      note: 'The i.safe MOBILE IS440.1 is built around it: a dedicated key, PoC (push-to-talk over cellular) apps, a channel selector and M1 and M2 keys. The ecom Smart-Ex 203 has a programmable push-to-talk key that works with a push-to-talk app.',
     },
     {
       row: 'Display',
-      note: 'The ecom Smart-Ex 203 has a 6.3-inch display at 1080 × 2340, with room to read, type and check records. The i.safe MOBILE IS440.1 has a 2.4-inch display at 240 × 320, with touch listed for gloves and wet use and keys for the main actions.',
+      note: 'The ecom Smart-Ex 203 has a 6.3-inch display at 1080 × 2340, with room to read, type and check records; the i.safe MOBILE IS440.1 has a 2.4-inch display at 240 × 320, with keys for the main actions. Both list touch for gloves and wet use.',
     },
     {
       row: 'Barcode scanning',
@@ -86,7 +86,7 @@ const page: ComparePage = {
       edge: 'even',
       text: [
         'The ecom Smart-Ex 203 is the fuller smartphone platform. It runs Android 14 on a Qualcomm Dragonwing QCM4490 with 8 GB of RAM and Wi-Fi 6E, and it is Android Enterprise Recommended. The i.safe MOBILE IS440.1 runs ISM-OS 14 on a Qualcomm QCM6490 with 4 GB of RAM and Wi-Fi 6, and its preinstalled App World carries curated push-to-talk and MDM apps; our data does not show Android Enterprise status for it. The two use different processors and our data has no performance figures, so we do not rank them on speed. Both offer 5G, Bluetooth 5.2, NFC, nano-SIM and eSIM.',
-        'On updates, ecom lists security updates until March 2032 for the ecom Smart-Ex 203, and i.safe MOBILE states security patches until Q4 2032 for the i.safe MOBILE IS440.1. Both batteries are user-replaceable, and both phones must be charged, and have the battery changed, outside the hazardous area. ecom specifies charging at +5 to +45 °C, allows no connections to the USB-C port or charging pads in hazardous areas and offers docking charge pads; for North America, i.safe specifies its PROTECTOR 2.0 USB-C cable for the i.safe MOBILE IS440.1, which also has charging contacts.',
+        'On updates, ecom lists security updates until Q1 2032 for the ecom Smart-Ex 203, and i.safe MOBILE states security patches until Q4 2032 for the i.safe MOBILE IS440.1. Both batteries are user-replaceable, and both phones must be charged, and have the battery changed, outside the hazardous area. ecom specifies charging at +5 to +45 °C, allows no connections to the USB-C port or charging pads in hazardous areas and offers docking charge pads; for North America, i.safe specifies its PROTECTOR 2.0 USB-C cable for the i.safe MOBILE IS440.1, which also has charging contacts.',
       ],
     },
   ],
@@ -101,7 +101,7 @@ const page: ComparePage = {
     },
     {
       q: 'Do I need a Zone 2 phone for a Zone 2 site?',
-      a: 'No. The i.safe MOBILE IS440.1 is certified for Zone 1/21 and also covers Zone 2/22, so it may be used on Zone 2/22 sites too. The ecom Smart-Ex 203 is the smartphone for crews that only work in Zone 2/22 and need a larger screen, a camera or a hardware scanner. If you want the radio style at Zone 2/22 only, the i.safe MOBILE IS440.2 is its Zone 2/22 version. Choose by the job, not by the zone alone.',
+      a: 'No. The i.safe MOBILE IS440.1 is certified for Zone 1/21 and also covers Zone 2/22, so it may be used on Zone 2/22 sites too. The ecom Smart-Ex 203 is the smartphone for crews that only work in Zone 2/22 and need a larger screen, a 48 MP rear camera or a hardware scanner. If you want the radio style at Zone 2/22 only, the i.safe MOBILE IS440.2 is its Zone 2/22 version. Choose by the job, not by the zone alone.',
     },
     {
       q: 'Can either phone scan barcodes?',

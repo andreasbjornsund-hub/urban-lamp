@@ -11,7 +11,7 @@ const page: ComparePage = {
     'Two i.safe MOBILE phones cover Zone 1/21 in very different shapes. The i.safe MOBILE IS440.1 is a radio-style handheld with a dedicated push-to-talk key, a channel selector and a 2.4-inch display; the i.safe MOBILE IS540.1 is a full Android 14 smartphone with a 6-inch display. Both are intrinsically safe (Ex ib), certified for Zone 1/21 under ATEX and IECEx with a Class I Division 1 approval for North America, both run on the Qualcomm QCM6490 with 5G, and both have a battery you swap outside the hazardous area. The difference is how the crew works. Here is how they compare, and which we would choose for which team.',
   verdict: {
     summary: [
-      'Both phones have the same Zone 1/21 and Class I Division 1 rating, so pick by how your crews work. For crews whose job is mostly voice, who carry the device all shift and want the main actions on keys, we would choose the i.safe MOBILE IS440.1, which weighs 307 g. For crews that also read, type, scan and keep files on the device, we would choose the i.safe MOBILE IS540.1, with its 6-inch screen, barcode scan module and microSD slot.',
+      'Both phones have the same Zone 1/21 and Class I Division 1 rating, so pick by how your crews work. For crews whose job is mostly voice, who carry the device all shift and want the main actions on keys, we would choose the i.safe MOBILE IS440.1, which weighs 307 g. For crews that also read, type, scan and keep files on the device, we would choose the i.safe MOBILE IS540.1, with its 6-inch screen, optional barcode scan module and microSD slot.',
     ],
     choose: [
       {
@@ -19,7 +19,7 @@ const page: ComparePage = {
         reasons: [
           'Voice is the job: it has a dedicated push-to-talk key with PoC apps, a channel selector and M1 and M2 keys, so the main actions sit on keys rather than on a screen.',
           'Your crews carry the device all shift: at 307 g it weighs 115 g less than the i.safe MOBILE IS540.1 at 422 g.',
-          'Your crews work in wet conditions or in gloves: touch is listed for gloves and wet use, where our data lists glove touch for the i.safe MOBILE IS540.1.',
+          'Your crews work in wet conditions: touch is listed for gloves and wet use, where our data lists glove touch for the i.safe MOBILE IS540.1.',
           'You want a bodycam: its 8 MP autofocus front camera is usable as one.',
         ],
       },

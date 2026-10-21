@@ -6,7 +6,7 @@ const page: ComparePage = {
   description:
     'ecom Smart-Ex 203 or Xshielder iPhone 17 Pro Max? Zone 2/22 and Division 2 against Zone 1/21, camera, battery and heat compared, with our pick for each team.',
   h1: 'ecom Smart-Ex 203 vs Xshielder iPhone 17 Pro Max',
-  eyebrow: 'Compare · iPhone or Android for Zone 1, Zone 2 or Division 2',
+  eyebrow: 'Compare · iPhone or Android for Zone 2 and Division 2',
   lead:
     'These two are certified for different zones, and that decides most of the choice. The ecom Smart-Ex 203 is a dedicated Android phone, intrinsically safe (Ex ic) and certified for Zone 2/22 under ATEX and IECEx, with a Class I Division 2 approval for North America. The Xshielder iPhone 17 Pro Max is a flameproof (Ex db) case around a standard Apple iPhone 17 Pro Max, certified for Zone 1/21 under ATEX, with IECEx for the cemented-lid S02 version only. It also brings a Pro camera system with LiDAR and a 6.9-inch display. Here is how they compare, and which we would choose for which team.',
   verdict: {
@@ -81,7 +81,7 @@ const page: ComparePage = {
       title: 'Heat, battery, gloves and push-to-talk',
       edge: 'ecom-smart-ex-203',
       text: [
-        'The ecom Smart-Ex 203 has more room in the heat and on power. It is certified from −20 °C to +60 °C ambient, against −20 °C to +50 °C for the Xshielder iPhone 17 Pro Max, though fitting the scanner module limits it to +50 °C. Its 4500 mAh battery is user-replaceable, so a crew can carry a charged spare. The Xshielder iPhone 17 Pro Max has the larger battery (4823 mAh on the nano-SIM and eSIM model) but it is not replaceable, and it charges wirelessly (MagSafe, up to 25 W) outside the hazardous area because its USB-C port is not accessible. It is also 45 g heavier: 410 g including the phone, against 365 g.',
+        'The ecom Smart-Ex 203 has more room in the heat and more flexibility on power. It is certified from −20 °C to +60 °C ambient, against −20 °C to +50 °C for the Xshielder iPhone 17 Pro Max, though fitting the scanner module limits it to +50 °C. Its 4500 mAh battery is user-replaceable, so a crew can carry a charged spare. The Xshielder iPhone 17 Pro Max has the larger battery (4823 mAh on the nano-SIM and eSIM model) but it is not replaceable, and it charges wirelessly (MagSafe, up to 25 W) outside the hazardous area because its USB-C port is not accessible. It is also 45 g heavier: 410 g including the phone, against 365 g.',
         'The ecom Smart-Ex 203 is built for gloved, key-driven work. It has glove and wet touch and a programmable push-to-talk / multifunction key that can serve as the alarm; ecom has not confirmed a lone-worker app for this exact model. The Xshielder iPhone 17 Pro Max runs push-to-talk from the programmable Action Button on the cover, with apps built on Apple’s Push to Talk framework: there is no separate push-to-talk key, and you need such an app. Its touchscreen is standard capacitive, without glove touch, and headset audio is Bluetooth only.',
       ],
     },
@@ -89,8 +89,8 @@ const page: ComparePage = {
       title: 'Inspection photos, scanning and data capture',
       edge: 'xshielder-iphone-17-pro-max',
       text: [
-        'This is where the Xshielder iPhone 17 Pro Max pulls ahead. Its camera system is confirmed through the case: a 48 MP main camera, a 48 MP ultra wide and a 48 MP telephoto with 4x and 8x optical-quality zoom, plus LiDAR and 4K120 video. The 18 MP Center Stage front camera and Face ID work through the case too, though there is no Camera Control button on the cover; the Action Button can open the camera. The ecom Smart-Ex 203 has a 48 MP autofocus camera with LED flash and a 16 MP front camera. Its display is a 6.3-inch TFT at 1080 × 2340, against the Pro Max’s 6.9-inch OLED at 2868 × 1320.',
-        'For scanning in volume, the ecom Smart-Ex 203 takes the SM-Ex S203 SR scanner accessory (Zebra) through its extra interface for peripherals, which suits stock and asset rounds. The Xshielder iPhone 17 Pro Max reads QR codes with its camera and handles 1D and 2D codes through an app. The ecom Smart-Ex 203 offers 128 GB of storage plus microSD up to 512 GB, against 256 GB to 2 TB on the Pro Max. For IT teams, the Pro Max is managed through Apple Business and the ecom Smart-Ex 203 is Android Enterprise Recommended, with security updates until March 2032.',
+        'This is where the Xshielder iPhone 17 Pro Max pulls ahead. Its camera system is confirmed through the case: a 48 MP main camera, a 48 MP ultra wide and a 48 MP telephoto with 4x and 8x optical-quality zoom, plus LiDAR and 4K120 video. The 18 MP Center Stage front camera and Face ID work through the case too, though there is no Camera Control button on the cover; the Action Button can open the camera. The ecom Smart-Ex 203 has a 48 MP autofocus camera with LED flash and a 16 MP front camera. Its display is a 6.3-inch TFT at 1080 × 2340, against the Xshielder iPhone 17 Pro Max’s 6.9-inch OLED at 2868 × 1320.',
+        'For scanning in volume, the ecom Smart-Ex 203 takes the SM-Ex S203 SR scanner accessory (Zebra) through its extra interface for peripherals, which suits stock and asset rounds. The Xshielder iPhone 17 Pro Max reads QR codes with its camera and handles 1D and 2D codes through an app. The ecom Smart-Ex 203 offers 128 GB of storage plus microSD up to 512 GB, against 256 GB to 2 TB on the Xshielder iPhone 17 Pro Max. NFC reading is built into both phones, though it has not been verified through Xshielder’s metal enclosure. For IT teams, the Xshielder iPhone 17 Pro Max is managed through Apple Business and the ecom Smart-Ex 203 is Android Enterprise Recommended, with security updates until Q1 2032.',
       ],
     },
   ],
@@ -109,7 +109,7 @@ const page: ComparePage = {
     },
     {
       q: 'Which is better for inspection photos and 3D scanning?',
-      a: 'The Xshielder iPhone 17 Pro Max: three 48 MP lenses with 8x optical-quality zoom, LiDAR for 3D scanning and 4K120 video are confirmed to work through its case. The ecom Smart-Ex 203 has a 48 MP autofocus camera with LED flash, and for barcode scanning it takes the SM-Ex S203 SR scanner accessory.',
+      a: 'The Xshielder iPhone 17 Pro Max: three 48 MP lenses with 8x optical-quality zoom, LiDAR for 3D scanning and 4K120 video are confirmed to work through its case. The ecom Smart-Ex 203 has a 48 MP autofocus camera with LED flash, and for barcode scanning it takes the SM-Ex S203 SR scanner accessory. Our data lists no LiDAR or 3D-scanning figure for the ecom Smart-Ex 203.',
     },
     {
       q: 'Do both phones support push-to-talk?',

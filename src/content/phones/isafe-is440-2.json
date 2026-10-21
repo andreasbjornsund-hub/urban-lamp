@@ -52,7 +52,8 @@
     "name": "Android",
     "version": "ISM-OS 14",
     "securityUntil": "2032-12-31",
-    "updates": "Security updates until December 2032"
+    "securityUntilLabel": "Q4 2032",
+    "updates": "Security updates until Q4 2032"
   },
   "specs": {
     "display": "2.4-inch Gorilla Glass 3",
@@ -118,7 +119,6 @@
     }
   ],
   "unconfirmed": {
-    "os.securityUntil": "i.safe MOBILE states Q4 2032.",
     "specs.dimensionsMm": "From i.safe MOBILE's datasheet; its web page gives a width of 70 mm."
   },
   "features": [

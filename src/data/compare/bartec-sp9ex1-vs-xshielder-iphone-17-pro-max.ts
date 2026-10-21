@@ -11,7 +11,7 @@ const page: ComparePage = {
     'These two answer the same hazardous-area question in different ways. The BARTEC SP9EX1 is a dedicated intrinsically safe (Ex ia) Android phone, certified for Zone 0/1/21 under ATEX and IECEx. The Xshielder iPhone 17 Pro Max is a flameproof (Ex db) case around a standard Apple iPhone 17 Pro Max, certified for Zone 1/21 under ATEX, with IECEx for the cemented-lid S02 version only. The differences that decide the choice are practical: Zone 0, North America, gas temperature class, the battery and the camera. Here is how they compare, and which we would choose for which team.',
   verdict: {
     summary: [
-      'On the practical points, the BARTEC SP9EX1 wins more of them: it is the only one certified for Zone 0, and it has a North American listing, glove touch, programmable push-to-talk and emergency keys, a swappable battery and +55 °C ambient. We would choose it for Zone 0 work, US and Canadian sites, gloved crews and long shifts. We would choose the Xshielder iPhone 17 Pro Max for teams that want an iPhone in Zone 1: it is the one for substances that ignite below 135 °C, for inspection work that needs its three-lens 48 MP camera system and LiDAR, and for fleets managed through Apple Business.',
+      'On the practical points, the BARTEC SP9EX1 wins more of them: it is the only one certified for Zone 0, and it has a North American listing, glove touch, programmable push-to-talk and emergency keys, a swappable battery and +55 °C ambient. We would choose it for Zone 0 work, US and Canadian sites, gloved crews and long shifts, and at 350 g it weighs 60 g less. We would choose the Xshielder iPhone 17 Pro Max for teams that want an iPhone in Zone 1: it is the one for substances that ignite below 135 °C, for inspection work that needs its three-lens 48 MP camera system and LiDAR, and for fleets managed through Apple Business.',
     ],
     choose: [
       {
@@ -29,9 +29,9 @@ const page: ComparePage = {
         reasons: [
           'Your plant handles substances that ignite below 135 °C: it is rated T6 (≤ 85 °C) for gas and T80 °C for dust, against T4 and T135 °C.',
           'Inspection and survey teams document the work: it has three 48 MP lenses with 8x optical-quality zoom plus LiDAR, all confirmed through the case, against a 48 MP autofocus rear camera on the BARTEC SP9EX1.',
-          'Your fleet already runs iPhones: a standard iPhone 17 Pro Max sits inside, enrolled through Apple Business, with security updates expected for 7+ years (based on previous model support).',
+          'Your fleet already runs iPhones: a standard iPhone 17 Pro Max sits inside, enrolled through Apple Business.',
           'Crews review drawings and data on site: it has a 6.9-inch OLED display, 12 GB of RAM and 256 GB to 2 TB of storage, against a 6.1-inch AMOLED display, 8 GB and 128 GB.',
-          'A site asks for a stated ingress rating on the Ex certificate: its certificate gives IP65 / IP68 (depth 1.5 m), where BARTEC’s ATEX dust marking includes IP64.',
+          'A site asks for IP65 or IP68 in the Ex certificate itself, not just on the device: its certificate gives IP65 / IP68 (depth 1.5 m), where BARTEC’s ATEX dust marking includes IP64; as devices, both are rated IP68.',
         ],
       },
     ],
@@ -67,14 +67,14 @@ const page: ComparePage = {
       edge: 'bartec-sp9ex1',
       text: [
         'The BARTEC SP9EX1 is intrinsically safe (Ex ia) and certified for Zone 0/1/21 under ATEX and IECEx, with protection level Ga for gas. Its North American listing (E226123) covers Class I Division 1, Class II Division 1 and Class III, and includes Zone 0 AEx ia IIC T4 Ga. The Xshielder iPhone 17 Pro Max is a flameproof (Ex db) case certified for Zone 1/21 at level Gb, which covers Zone 1 and Zone 2, and it is not certified for Zone 0. IECEx covers its cemented-lid S02 version only, and our data does not list a North American approval for it.',
-        'Heat and gas class pull apart. The BARTEC SP9EX1 is certified from −20 °C to +55 °C ambient, against −20 °C to +50 °C for the Xshielder case, while the Xshielder iPhone 17 Pro Max has the stricter T6 rating (maximum surface temperature 85 °C for gas, 80 °C for dust) against T4 and 135 °C. T6 matters only where a substance ignites below 135 °C; most hydrocarbons sit at T1 to T3. Both certificates carry impact conditions: BARTEC asks you to protect the phone against high impact energy, and Xshielder’s says the case was tested for low impact energy and should not be exposed to high impact risk.',
+        'Heat and gas class pull apart. The BARTEC SP9EX1 is certified from −20 °C to +55 °C ambient, against −20 °C to +50 °C for the Xshielder case, while the Xshielder iPhone 17 Pro Max has the stricter T6 rating (maximum surface temperature 85 °C for gas, 80 °C for dust) against T4 and 135 °C. T6 matters only where a substance ignites below 135 °C; most hydrocarbons sit at T1 to T3. Both certificates carry impact conditions: BARTEC asks you to protect the phone against high impact energy, and Xshielder’s says the case was tested for low impact energy and should not be exposed to high impact risk. BARTEC also lists Korean KCs approvals for the BARTEC SP9EX1; our data lists no national approvals beyond ATEX and IECEx for the Xshielder case.',
       ],
     },
     {
       title: 'Push-to-talk, gloves and rugged handling',
       edge: 'bartec-sp9ex1',
       text: [
-        'The BARTEC SP9EX1 is built for gloved, radio-style work. It has two programmable keys, one for push-to-talk and one for emergency calls, and glove and stylus touch on its 6.1-inch AMOLED screen; lone working runs through an app. It weighs 350 g against 410 g for the Xshielder iPhone 17 Pro Max, and lists MIL-STD-810H, where our data lists no ruggedness standard for the iPhone. Both are rated IP68 as devices; the Xshielder iPhone 17 Pro Max’s Ex certificate gives IP65 / IP68 (depth 1.5 m), where BARTEC’s ATEX dust marking includes IP64.',
+        'The BARTEC SP9EX1 is built for gloved, radio-style work. It has two programmable keys, one for push-to-talk (used with an app) and one for emergency calls, and glove and stylus touch on its 6.1-inch AMOLED screen; lone working runs through an app. It weighs 350 g against 410 g for the Xshielder iPhone 17 Pro Max, and lists MIL-STD-810H, where our data lists no ruggedness standard for the iPhone. Both are rated IP68 as devices; the Xshielder iPhone 17 Pro Max’s Ex certificate gives IP65 / IP68 (depth 1.5 m), where BARTEC’s ATEX dust marking includes IP64.',
         'The Xshielder iPhone 17 Pro Max runs push-to-talk from the programmable Action Button on its cover, with apps built on Apple’s Push to Talk framework. There is no separate push-to-talk key, and you need such an app. Its touchscreen is standard capacitive, without glove touch. Headset audio is Bluetooth only, because the USB-C port is not accessible, and an Ex-certified Bluetooth headset is recommended; the speakers and microphones work through the cover, but output is reduced against a bare iPhone. Its emergency function is iOS Emergency SOS, and lone-worker cover comes from an app.',
       ],
     },
@@ -98,7 +98,7 @@ const page: ComparePage = {
   faq: [
     {
       q: 'Is the BARTEC SP9EX1 better than the Xshielder iPhone 17 Pro Max?',
-      a: 'Neither is better across the board. The BARTEC SP9EX1 wins more of the practical points: Zone 0, a North American listing, +55 °C ambient, glove touch, programmable keys and a swappable battery. The Xshielder iPhone 17 Pro Max wins on gas temperature class (T6), cameras with LiDAR and fit with an iPhone fleet. Both are certified for Zone 1/21.',
+      a: 'Neither is better across the board. The BARTEC SP9EX1 wins more of the practical points: Zone 0, a North American listing, +55 °C ambient, glove touch, programmable keys and a swappable battery, and it weighs 350 g against 410 g. The Xshielder iPhone 17 Pro Max wins on gas temperature class (T6), cameras with LiDAR and fit with an iPhone fleet. Both are certified for Zone 1/21.',
     },
     {
       q: 'Can either phone be used in Zone 0?',
@@ -110,7 +110,7 @@ const page: ComparePage = {
     },
     {
       q: 'Do both phones support push-to-talk?',
-      a: 'Yes, in different ways. The BARTEC SP9EX1 has two programmable keys, one for push-to-talk and one for emergency calls. On the Xshielder iPhone 17 Pro Max it uses the programmable Action Button on the cover with apps built on Apple’s Push to Talk framework: there is no separate push-to-talk key, and you need such an app.',
+      a: 'Yes, in different ways. The BARTEC SP9EX1 has two programmable keys, one for push-to-talk and one for emergency calls, and push-to-talk runs through an app. On the Xshielder iPhone 17 Pro Max it uses the programmable Action Button on the cover with apps built on Apple’s Push to Talk framework: there is no separate push-to-talk key, and you need such an app.',
     },
     {
       q: 'Which gets security updates for longer?',

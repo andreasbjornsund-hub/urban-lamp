@@ -61,7 +61,8 @@
     "version": "Android 14",
     "atLaunch": "Android 12",
     "securityUntil": "2032-12-31",
-    "updates": "Security updates until December 2032",
+    "securityUntilLabel": "Q4 2032",
+    "updates": "Security updates until Q4 2032",
     "enterprise": "Android Enterprise Recommended"
   },
   "specs": {

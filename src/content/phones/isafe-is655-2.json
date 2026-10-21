@@ -53,6 +53,9 @@
   "os": {
     "name": "Android",
     "version": "Android 10",
+    "securityUntil": "2025-09-30",
+    "securityUntilLabel": "Q3 2025",
+    "updates": "Security updates ended in Q3 2025",
     "enterprise": "Android Enterprise Recommended"
   },
   "specs": {
@@ -129,6 +132,10 @@
     {
       "label": "i.safe MOBILE: Product range 'Archive' (lists IS530.M1, IS530.2, IS530.1, IS360.2, IS330.x, IS655.2)",
       "url": "https://www.isafe-mobile.com/en/products/product-range/archive/is3301"
+    },
+    {
+      "label": "i.safe MOBILE: Security updates (security patch table) (2026-10-13)",
+      "url": "https://www.isafe-mobile.com/en/support/security-updates"
     },
     {
       "label": "Rockall Safety (reseller): IS655.2 listing (page text partly mislabelled IS530.1)",

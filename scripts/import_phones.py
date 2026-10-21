@@ -224,10 +224,12 @@ NOTES = {
     ("B-IS-655", "Rear camera"): "From a single reseller listing.",
     ("B-IS-655", "Front camera"): "From a single reseller listing.",
     ("B-IS-120", "Current OS"): "Proprietary ISM-OS, according to distributor data.",
-    ("B-IS-440", "Security updates until"): "i.safe MOBILE states Q4 2032.",
     ("B-IS-540", "Security updates until"): "i.safe MOBILE states Q4 2032. Google's Android Enterprise directory lists 30 January 2032.",
     ("B-BT-SP9", "Security updates until"): "BARTEC states 'at least May 2030'.",
 }
+# Bases whose maker states the end of security updates as a quarter ("2032-Q4", "Q4 2032"). The workbook holds the
+# quarter's last day for sorting and the cost calculator; pages quote the quarter, the maker's own wording.
+SECURITY_QUARTERS = {"B-PF-SE03", "B-PF-SE203", "B-IS-330", "B-IS-440", "B-IS-530", "B-IS-540", "B-IS-541", "B-IS-655", "B-IS-880"}
 THROUGH_NOTE = "Inferred from related information; not stated by the maker for this exact model."
 CAPABILITY_NOTE = "Not confirmed by the maker for this exact model."
 
@@ -425,10 +427,32 @@ def tidy(text):
 
 
 APPLE_SUPPORT_YEARS = 7
+TODAY = datetime.date.today().isoformat()
+# An end date before this is flagged as a limitation ("Security updates end in Q1 2027")
+SOON = (datetime.date.today() + datetime.timedelta(days=2 * 365)).isoformat()
 
 
 def month_year(iso):
     return datetime.date.fromisoformat(iso).strftime("%B %Y")
+
+
+def quarter_label(base_id, iso):
+    """ "Q4 2032" for a quarter's last day, as the maker words it; stops the import if the date isn't one"""
+    d = datetime.date.fromisoformat(iso)
+    q = (d.month - 1) // 3 + 1
+    end = (datetime.date(d.year + (q == 4), 1 if q == 4 else 3 * q + 1, 1) - datetime.timedelta(days=1))
+    if d != end:
+        sys.exit(f"{base_id} | Security updates until | {iso} isn't the last day of a quarter (see SECURITY_QUARTERS)")
+    return f"Q{q} {d.year}"
+
+
+def security_end(o):
+    """End of security updates in the maker's wording"""
+    return o.get("securityUntilLabel") or month_year(o["securityUntil"])
+
+
+def security_ended(o):
+    return bool(o.get("securityUntil")) and not o.get("supportYears") and o["securityUntil"] < TODAY
 
 
 def protection(marking):
@@ -626,7 +650,9 @@ def build(p, base, through, caps, sources, folded, existing):
     until = use(base, "Security updates until", "os.securityUntil", notes)
     if until and re.match(r"\d{4}-\d{2}-\d{2}", str(until)):
         os_info["securityUntil"] = str(until)[:10]
-        os_info["updates"] = f"Security updates until {month_year(os_info['securityUntil'])}"
+        if base.id in SECURITY_QUARTERS:
+            os_info["securityUntilLabel"] = quarter_label(base.id, os_info["securityUntil"])
+        os_info["updates"] = f"Security updates {'ended in' if security_ended(os_info) else 'until'} {security_end(os_info)}"
     if base.id.startswith("B-AP-"):
         # The workbook holds Apple's legal minimum (first sale + 5 years). Earlier iPhones got
         # 7+ years, so publish that and move the date on 2 years for sorting and filters.
@@ -961,9 +987,9 @@ def strengths(ph, lighter):
     if "5G" in s.get("connectivity", []):
         out.append("5G connectivity")
     if o.get("securityUntil", "") >= "2030" and ph["status"] == "current":
-        when = month_year(o["securityUntil"])
+        when = security_end(o)
         out.append(o["updates"] if o.get("supportYears")
-                   else f"Security updates expected until at least {when}" if "os.securityUntil" in u
+                   else f"Security updates expected until at least {when}" if "os.securityUntil" in u and not o.get("securityUntilLabel")
                    else f"Security updates until {when}")
     if ph["type"] == "dedicated" and s.get("replaceableBattery"):
         out.append("User-replaceable battery")
@@ -1045,7 +1071,11 @@ def limitations(ph, names):
         if unsure:
             what = join_and(unsure)
             out.append(f"{what[0].upper()}{what[1:]} not confirmed to work through the enclosure")
-    if ph["type"] == "dedicated" and ph["status"] == "current" and ph["os"]["name"] == "Android" and not o.get("securityUntil"):
+    if security_ended(o):
+        out.append(f"Security updates ended in {security_end(o)}")
+    elif ph["status"] == "current" and o.get("securityUntil") and not o.get("supportYears") and o["securityUntil"] < SOON:
+        out.append(f"Security updates end in {security_end(o)}")
+    elif ph["type"] == "dedicated" and ph["status"] == "current" and ph["os"]["name"] == "Android" and not o.get("securityUntil"):
         out.append("No published end date for security updates")
     if not s.get("weightG"):
         out.append("In-use weight not published")

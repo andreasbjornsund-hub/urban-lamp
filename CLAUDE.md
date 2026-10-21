@@ -10,20 +10,21 @@ Read this first. It holds the decisions and rules behind the code; DESIGN.md cov
 - **Commercial context:** Xshielder sponsors the site. Comparisons must stay fair; Xshielder is promoted
   through structure (use-case pages where it genuinely wins, alternatives pages, a labelled sponsor slot),
   never by bending facts, scores or wording.
-- **People:** the repo belongs to Andreas (andreasbjornsund-hub/urban-lamp). Rory is running the revamp on the
-  `astro-revamp` branch. Andreas signs off before anything merges to `main`.
+- **People:** the repo belongs to Andreas (andreasbjornsund-hub/urban-lamp). Rory ran the revamp on the
+  `astro-revamp` branch and took it live on 2026-10-21 (merged to `main`; Rory confirmed Andreas's sign-off wasn't needed).
 - **Languages:** English first. German (`/de/`) and Dutch (`/nl/`) exist only as legacy pages for now and will
   be translated later.
 
 ## Stack and layout
 
-- Astro 7, fully static. New pages in `src/pages/`. The legacy site sits untouched in `public/` and is copied
-  into the build, so its `.html` URLs keep working until each page is rebuilt and redirected.
+- Astro 7, fully static. New pages in `src/pages/`. Only the legacy German (`/de/`), Dutch (`/nl/`) and privacy pages
+  are still served from `public/`. The old English pages were taken off the site at launch (2026-10-21) and kept as drafts in
+  `legacy/` (not built; see `legacy/README.md`). Each old URL now serves a small redirect page from `public/` (meta refresh
+  plus canonical) to its closest new page, until real 301s are set in Cloudflare.
 - Hosting: GitHub Pages, behind Cloudflare. Real 301 redirects and response headers (caching, security) are
   set in Cloudflare, not in the repo.
 - Deploy: `.github/workflows/deploy.yml` builds on push to `main`, deploys, then purges Cloudflare.
-- **Before merging to `main`, Andreas must switch Settings → Pages → Source to "GitHub Actions".** Pages
-  currently publishes the repo root, which no longer has an `index.html`; merging first breaks the live site.
+- Settings → Pages → Source is "GitHub Actions" (switched 2026-10-21 at launch).
 
 ```bash
 npm run dev            # dev server (daemonises; `npx astro dev stop` to stop). Restart after changing src/content.config.ts
@@ -46,17 +47,19 @@ Nav: `Best for ▾ | Compare | Guides ▾ | About | [Find phones]` — defined i
 | Home | `/` | Built |
 | Find phones (filter + compare) | `/phones/` | Built |
 | Phone pages | `/phones/{slug}/` | Built (48 phones from the master data workbook) |
-| Compare index | `/compare/` | Built (2026-10-15): lists every head-to-head, grouped by its `eyebrow`, plus a route to compare any phones (Find phones and the compare tray) |
-| Head-to-head | `/compare/{a}-vs-{b}/` (slugs sorted) | Batch 1 built (12 pairs of brand flagships, 2026-10-15). The other 32 flagship pairs are planned for later batches |
+| Compare index | `/compare/` | Built (2026-10-15), redesigned 2026-10-20: a two-phone picker with a teaser of the head-to-head, plus every head-to-head as plain links grouped by phone |
+| Head-to-head | `/compare/{a}-vs-{b}/` (slugs sorted) | All 44 flagship pairs plus ecom Smart-Ex 03 DZ2 vs Smart-Ex 203 built (45 pages, 2026-10-15 to 2026-10-20), with the `/compare/` hub. Five Xciel pages still need the Opus fact-check (see the compare section) |
 | Alternatives | `/alternatives/{slug}/` | Not built |
-| Best for (zone / industry / need) | `/best/{slug}/` | All 16 slugs in `site.ts` built ("Budget" became `long-term-value`, 2026-10-14). `/best/` index not built |
-| Brands | `/brands/{slug}/` (footer, not nav) | Not built |
-| Guides | `/guides/{slug}/` | Not built; two legacy articles are linked from the Guides menu |
+| Best for (zone / industry / need) | `/best/{slug}/` | All 16 slugs in `site.ts` built ("Budget" became `long-term-value`, 2026-10-14). No `/best/` index, by decision (Rory, 2026-10-21): nothing links to it and breadcrumbs go Home / page |
+| Brands | `/brands/{slug}/` | Not built; the footer link and the brand link on phone pages were removed at launch |
+| Guides | `/guides/{slug}/` | Template and five pages built (the `/guides/` index was removed 2026-10-21 by Rory's decision; the Guides menu lists them) 2026-10-21: rugged vs intrinsically safe, phone cost with calculator, Android vs iPhone (replaces the legacy iPhone Ex case article, which now redirects here), replacing discontinued phones, and the FAQ (`/guides/faq/`, `faqInBody`). Not yet signed off: the cost guide publishes reseller prices, which needs Andreas's OK. The legacy "What is an intrinsically safe phone?" article was taken out of the Guides menu 2026-10-21 (Rory); its URL now redirects to `/guides/faq/` |
 | Disclosure | `/disclosure/` | Built (plain-language funding statement; Andreas to confirm the wording) |
-| About, How we rate, Contact, Terms, Cookies | `/about/` etc. | Not built |
+| About, How we rate, Terms, Cookies | `/about/` etc. | Built at launch (2026-10-21) on `src/components/InfoPage.astro`; short versions written from the privacy notice, disclosure and these rules. Keep `/cookies/` and `/about/` in step with `public/privacy.html` |
+| Contact | `/contact/` | Built at launch. Same Web3Forms set-up as the legacy home page form (access key, subject "intrinsicallysafephones.com enquiry", sender name, fields name/email/company/message/page, `_honey` spam trap, same messages), so enquiries arrive unchanged. `?phone=<slug>` and legacy `?inquire=` pre-fill the message; the home page forwards `/#contact` and `/?inquire=…` here |
 
-Most nav and footer links point at pages that don't exist yet. `/contact/` matters most: legacy pages' price
-links (`/?inquire=…#contact`) relied on the old homepage form, which is gone.
+`public/llms.txt` was rewritten at launch to point at the new pages; the old `llms-full.txt` and `reasoning.json` are in `legacy/`.
+The footer newsletter box emails the same inbox through Web3Forms ("Newsletter signup"); there is no mailing list behind it,
+and the privacy notice does not mention it yet.
 
 ## Design system (`src/styles/global.css`)
 
@@ -98,8 +101,7 @@ links (`/?inquire=…#contact`) relied on the old homepage form, which is gone.
   The relationship is disclosed once, in the footer line on every page and on `/disclosure/`, and Xshielder links
   keep `rel="sponsored"`. Don't add per-page sponsor labels back without checking with Andreas. Prices are always
   "on request", even though the workbook has indicative prices.
-- Legacy pages, `public/llms-full.txt` and `reasoning.json` still carry the older data and need updating from
-  the workbook.
+- The legacy German and Dutch pages still carry the older data.
 - **Images:** every phone photo goes through `npm run phones:images` so the grid looks uniform: sources are
   listed in `scripts/phone-images.json` (official packshot URL + source page per slug; front-on, plain
   background, one device). The script removes the background, drops detached badges/text/shadows, trims to the
@@ -112,6 +114,9 @@ links (`/?inquire=…#contact`) relied on the old homepage form, which is gone.
 - Apple security updates are shown as "7+ years (based on previous model support)" (`os.supportYears`, set by the
   import for every `B-AP-*` base). The workbook holds Apple's 5-year legal minimum; the import adds 2 years to
   that date so sorting and the "updates to 2030+" filter match.
+- Makers that state the end of security updates as a quarter (ecom, i.safe MOBILE; `SECURITY_QUARTERS` in the import)
+  are quoted that way ("Until Q4 2032", `os.securityUntilLabel`); the workbook holds the quarter's last day for sorting,
+  filters and the cost calculator. A date in the past reads "Ended Q3 2025". Checked on the makers' pages 2026-10-21.
 
 ## HAG network link policy (`src/lib/links.ts`)
 
@@ -150,6 +155,20 @@ tags; competitors (list mirrors `scripts/hag_link_policy.py` and `public/assets/
   The marking decoder (`MarkingTabs` → `MarkingDecoder`) puts ATEX and IECEx in tabs when a phone has both,
   and splits each marking into labelled gas / dust / mining blocks (atmosphere and zones come from the EPL).
   Codes already explained in an earlier block are listed as "as above" instead of repeated.
+- **Home page** (`src/pages/index.astro`, reworked with Rory 2026-10-20): kept short and low on text, with no side text
+  beside headings, and no eyebrows anywhere on the page (Rory, 2026-10-21). Hero (layout unchanged; second button
+  "Compare phones"), then "Start your search here." (centred heading and line, Best for links behind three centred
+  button-style tabs: Zone, Industry, Use case; WAI-ARIA tabs, every panel in the HTML and shown without JS), each a
+  hand-drawn picture (`src/assets/home/tab-{zone,industry,use-case}.webp`, supplied by Rory 2026-10-21) beside a
+  two-column list of Best for links whose text comes from each page's h1. On desktop screens at least 40rem tall every
+  section band except the CTA is at least 620px tall (a MacBook view with the dock), content centred, and the
+  type tokens, buttons, tiles and images inside are a step larger so the bands don't look sparse. Then brands
+  (copy left, logos right in their own colours, black where there's no colour file, Xshielder's yellow logo on its
+  dark badge as in the hero; alphabetical), one head-to-head visual (two unboxed, unnamed phone photos in portrait frames with
+  a plain green "vs" between, linking to ecom Smart-Ex 03 DZ1 vs i.safe MOBILE IS540.1; the build fails if it holds a
+  sponsor product; the button "Compare phones" goes to `/compare/`), "Facts first" (three principles, no funding copy), guides (three real guides, each with its own photo), FAQ (FAQPage JSON-LD; eleven standalone questions, reworked 2026-10-21, the funding question removed by Rory; the build fails if the counts, brand groups, Zone 1 Android update dates or the "only Xshielder is T6 in Zone 1" claim stop matching the data. The cost answer repeats the cost guide's reseller price ranges, so it falls under the same pending sign-off from Andreas), CTA. Counts come from
+  the data; the build fails on a missing Best for or compare slug or an over-long title/description. The photos are
+  low-resolution mockup crops.
 - **Home hero strips** (`src/components/home/HeroMarquee.astro`): no box; three strips in alternating
   directions that fade out at the container edges (aligned with the header CTA): brand logos, certification
   marks, and real (confirmed) ATEX markings from the phone collection. Brands are alphabetical (fairness).
@@ -196,7 +215,7 @@ tags; competitors (list mirrors `scripts/hag_link_policy.py` and `public/assets/
   (with "Show differences only"), shared Best for pages, CTA, FAQ, numbered notes on unconfirmed values for both
   phones. Values come from the phone data: each difference names a spec row by its label and the build fails on an
   unknown label, a title over 60 or a description over 160 characters. The specification rows are shared with the
-  phone pages through `src/lib/spec-groups.ts`. `CompareTable` shows "Full comparison" only for pairs with a page.
+  phone pages through `src/lib/spec-groups.ts`, and merged for two phones in `src/lib/compare-rows.ts`. `CompareTable` shows "Full comparison" only for pairs with a page.
   Flagships agreed with Rory (2026-10-15): i.safe IS540.1 and IS440.1, ecom Smart-Ex 03 DZ1 and Smart-Ex 203,
   BARTEC SP9EX1 and SC9EX1, Xshielder iPhone 17 Pro Max and iPhone 17, Atexxo Zone 1 iPhone 17, Xciel XCiPhone 17.
   Never pair the Xshielder cases with each other (they are not siblings). Rory's rules from the pilot (2026-10-15):
@@ -209,12 +228,49 @@ tags; competitors (list mirrors `scripts/hag_link_policy.py` and `public/assets/
   impact energy) are stated where they matter. Workflow: Sonnet writes from a per-pair fact sheet, Opus fact-checks
   every claim, the main session does the fairness pass and builds. Briefs, the fact-sheet generator and the house-rule
   checker are in `../compare-tools/` (outside the repo; see its README).
-- **Compare index** (`src/pages/compare/index.astro`): lists every page in `COMPARE_PAGES`, so a new file in
-  `src/data/compare/` shows up there (and in the sitemap) with no other change. Groups come from each page's `eyebrow`
-  minus the "Compare · " prefix, so keep eyebrows consistent across pages of the same kind. Neutral order: groups with
-  the most comparisons first (alphabetical on a tie), pairs alphabetical within a group; never sponsor-first. A
-  "Build your own" band lists every phone in a head-to-head (alphabetical) with an add-to-compare button for the tray;
-  a phone without a photo shows its brand logo. The CTA is the neutral impartial-advice panel.
+  Eyebrows are fixed groups so the pages stay consistent: `python3 ../compare-tools/eyebrows.py src/data/compare` sets
+  each page's eyebrow from its two phones (Zone 1 Android phones; Push-to-talk phones for Zone 1; Android phones for
+  Zone 2; iPhone or Android for Zone 1; iPhone or Android for Zone 2 and Division 2; iPhone cases and conversions). Run it
+  after adding pages. Not yet Opus fact-checked (editor pass only): bartec-sc9ex1, bartec-sp9ex1, ecom-smart-ex-03-dz1
+  and isafe-is540-1 vs xciel-xciphone-17, and xciel-xciphone-17 vs xshielder-iphone-17-pro-max.
+- **Compare index** (`src/pages/compare/index.astro`, redesigned with Rory 2026-10-20): a picker of two phones
+  ("Phone" / "Compared with") with a teaser of their head-to-head: the first verdict paragraph, the first four key
+  differences with their values, the first "Choose the X if…" reason for each phone, and "Read the full comparison".
+  Only phones in a head-to-head can be picked, and the second list holds only phones with a page against the first
+  (a choice that still has a page is kept when the first phone changes). Teaser columns follow the picker order; the
+  heading is the page's h1. The default pair (`DEFAULT_PAIR`: ecom Smart-Ex 03 DZ1 vs i.safe MOBILE IS540.1) is
+  server-rendered and must not include a sponsor product (the build checks); other teasers come from
+  `/compare-teasers.json` (`src/pages/compare-teasers.json.ts`, built by `src/lib/compare-teaser.ts`), fetched when a
+  visitor reaches for the picker. The choice goes in the URL (`?a=…&b=…`); the canonical stays `/compare/`. The two
+  phones stand large and unboxed on the hero (a glow behind, a shadow under, a "vs" badge between; Rory 2026-10-20), each
+  with a "Change phone" button that opens a menu showing every option with its photo thumbnail and zones: a popover
+  listbox (keyboard: arrows, Home/End, type-ahead, Enter, Escape) placed under the button on wider screens and a
+  bottom sheet on phones. Photos are generated at 640 px for the stage and 128 px for the menus. Values come from `src/lib/compare-rows.ts`, the same merged
+  specification rows the head-to-head pages use. Below, "All N head-to-head comparisons" lists every page as a plain
+  link in a collapsed `<details>`, grouped by phone (each pair appears under both phones), so every page stays linked
+  without JavaScript. Phones are alphabetical everywhere; eyebrows are no longer used on the hub. One line points to
+  Find phones and the compare bar for unpaired phones. The CTA is the neutral impartial-advice panel. Elements the
+  script re-renders lose Astro's scope attribute, so their styles use `:global()`.
+- **Guides** (`src/pages/guides/[slug].astro`, index at `src/pages/guides/index.astro`): one file per guide in
+  `src/data/guides/<slug>.ts`, collected by `src/data/guide-pages.ts` (fields documented there; title/description lengths
+  checked). Copy is written outside the repo (`../guides/*.html`, HubSpot-style) and pasted in word for word: `lead` is the
+  first paragraph, `body` the HTML up to the closing call to action, `cta` the last section before the FAQ (rendered in
+  the forest CTA band; guides use `kind: 'neutral'` only, no Xshielder or iPhone CTAs, Rory 2026-10-21), `faq` the h4/p pairs (FAQPage JSON-LD). The FAQ page sets `faqInBody`: its categorised h3/p questions stay in the body, `faq` holds them as plain text for the JSON-LD only, the foot accordion is skipped, and it sorts last in the menu. `src/lib/guide-html.ts` applies the HAG link policy to
+  outbound links, gives h2s ids, wraps tables in a labelled scroll box, and fails the build on a link to a missing
+  `/phones/`, `/best/`, `/compare/` or `/guides/` page. Article + Breadcrumb + FAQPage JSON-LD. The Guides menu and
+  the home page's three guide cards (`insights`, by slug; the build fails on a missing guide or photo) use `GUIDE_PAGES` (`navLabel`). Each guide's photo is `src/assets/guides/<slug>.webp` (16:9, alt text in `src/lib/guide-images.ts`, supplied by Rory 2026-10-21): the home card, and the guide page's Open Graph and Article image (cropped to 1200 × 630). `<!-- CALCULATOR -->` in a body
+  renders `src/components/guides/CostCalculator.astro`, a single-phone estimator (simplified with Rory 2026-10-21; no
+  side-by-side comparison): a phone chooser, a currency chooser and three pre-filled, editable fields (price, service life,
+  resale), giving the cost per year and over the service life, plus "How we worked this out" bullets for each figure.
+  Reseller list price ranges are hard-coded there (from `../price-research-2026-10-20.md`); the price starts at the middle
+  of the range (Android) or the entry storage (iPhones). A market with no list price gets a build-time estimate (the
+  phone's range in another market × the median ratio between those markets for the same brand, else every preset).
+  Service life runs to `os.securityUntil` (worded with `os.securityUntilLabel` when the maker gives a quarter; Apple dates
+  are estimates via `os.supportYears`). Resale is £125 (£100–150, `RESALE_GBP`) only for iPhones in a removable Ex case
+  (`type: 'ex-case'`, not case-only), never for conversions or dedicated phones. A "worth considering" camera note shows
+  for Pro iPhones with `camera-48mp` in the data (the camera can replace a separate Ex camera). Switching currency
+  converts edited amounts at ECB rates for 20 October 2026 (`RATES`). These prices are an exception to "prices on
+  request" pending Andreas.
 - `sitemap.xml` is generated (`src/pages/sitemap.xml.ts`): Astro pages plus legacy entries from
   `src/data/legacy-sitemap.xml`.
 

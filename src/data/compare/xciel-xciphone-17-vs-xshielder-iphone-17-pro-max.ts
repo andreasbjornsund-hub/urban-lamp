@@ -6,12 +6,12 @@ const page: ComparePage = {
   description:
     'Xciel XCiPhone 17 or Xshielder iPhone 17 Pro Max? Zone 2 and Division 2 against Zone 1/21, temperature class and the iPhone inside compared, with our pick.',
   h1: 'Xciel XCiPhone 17 vs Xshielder iPhone 17 Pro Max',
-  eyebrow: 'Compare · iPhones for Zone 1, Zone 2 or Division 2',
+  eyebrow: 'Compare · iPhone cases and conversions',
   lead:
     'This is not a like-for-like pair, so we say so up front. The Xciel XCiPhone 17 puts a standard 6.3-inch iPhone 17 in an intrinsically safe (Ex ic) case for Zone 2, with a Class I Division 2 listing for North America on one of its versions. The Xshielder iPhone 17 Pro Max puts the 6.9-inch iPhone 17 Pro Max in a flameproof (Ex db) case certified for Zone 1/21 under ATEX, and under IECEx for the cemented-lid S02 version only. The choice follows your site classification and the iPhone you want. Here is how they compare, and which we would choose for which team.',
   verdict: {
     summary: [
-      'The choice follows your site classification. If any of your work is in Zone 1/21, we would choose the Xshielder iPhone 17 Pro Max: it is the only one of the two certified for Zone 1/21, and its cameras, LiDAR, Face ID and Action Button are confirmed through the case. For North American sites classified Class I Division 2, we would choose the Xciel XCiPhone 17: its Xciel XCiPhone17 version holds the Division 2 listing (Groups A-D, T6), and our data does not list a North American approval for the Xshielder iPhone 17 Pro Max. Where every area is ATEX Zone 2, both qualify: the Xciel XCiPhone 17 suits teams that want a standard iPhone 17, to install the iPhone themselves (the Xciel XCiPhone17-A version) or use wired accessories outside the hazardous area, and the Xshielder iPhone 17 Pro Max suits teams that want a Pro Max with its camera system and LiDAR confirmed through the case and push-to-talk on the Action Button.',
+      'This is not a like-for-like pair: the two cases hold different iPhones and are certified for different zones, so the choice follows your site classification first. If any of your work is in Zone 1/21, we would choose the Xshielder iPhone 17 Pro Max: it is the only one of the two certified for Zone 1/21, and its cameras, LiDAR, Face ID and Action Button are confirmed through the case. For North American sites classified Class I Division 2, we would choose the Xciel XCiPhone 17: its Xciel XCiPhone17 version holds the Division 2 listing (Groups A-D, T6), and our data does not list a North American approval for the Xshielder iPhone 17 Pro Max. Where every area is ATEX Zone 2, both qualify: the Xciel XCiPhone 17 suits teams that want a standard iPhone 17, to install the iPhone themselves (the Xciel XCiPhone17-A version) or use wired accessories outside the hazardous area, and the Xshielder iPhone 17 Pro Max suits teams that want a Pro Max with its camera system and LiDAR confirmed through the case and push-to-talk on the Action Button.',
     ],
     choose: [
       {
@@ -55,10 +55,6 @@ const page: ComparePage = {
       title: 'The iPhone inside',
       note: 'The Xciel XCiPhone 17 holds a standard iPhone 17 (6.3-inch display, 8 GB of RAM); the Xshielder iPhone 17 Pro Max holds the iPhone 17 Pro Max (6.9-inch display, 12 GB of RAM, three 48 MP lenses and LiDAR). The pair is not like-for-like, so settle which iPhone you want before comparing the cases.',
     },
-    {
-      row: 'Push-to-talk',
-      note: 'On the Xshielder iPhone 17 Pro Max the Action Button on the cover is confirmed as the push-to-talk key, for apps built on Apple’s Push to Talk framework. The Xciel XCiPhone 17 also runs push-to-talk through such apps, with its Action Button mappable if accessible.',
-    },
   ],
   sections: [
     {
@@ -66,7 +62,7 @@ const page: ComparePage = {
       edge: 'xshielder-iphone-17-pro-max',
       text: [
         'The Xshielder iPhone 17 Pro Max is the wider-rated of the two. It is a flameproof (Ex db) case certified for Zone 1/21 under ATEX, marked II 2G Ex db IIC T6 Gb for gas and II 2D Ex tb IIIC T80 °C Db for dust, and that rating also covers Zone 2/22. Its IECEx certificate covers the cemented-lid S02 version only. The Xciel XCiPhone 17 is marked II 3G Ex ic IIC T4 Gc, an intrinsically safe (Ex ic) case certified for Zone 2, and it has no dust zone rating.',
-        'The Xciel XCiPhone 17’s conditions of use state that it is not for Zone 0, 1, 20, 21 or 22, so a crew that enters a Zone 1 area, even occasionally, needs the Xshielder iPhone 17 Pro Max. Neither is certified for Zone 0. If every area you work in is Zone 2, the Xciel XCiPhone 17 is rated for it, and its Division 2 listing (next section) widens where it can go. Both share the same ambient range, −20 °C to +50 °C. Xshielder’s Ex certificate gives IP65 / IP68 (depth 1.5 m); for the Xciel XCiPhone 17, our data holds only the IP54 in its North American listing.',
+        'The Xciel XCiPhone 17’s conditions of use state that it is not for Zone 0, 1, 20, 21 or 22, so a crew that enters a Zone 1 area, even occasionally, needs the Xshielder iPhone 17 Pro Max. Neither is certified for Zone 0. If every area you work in is Zone 2, the Xciel XCiPhone 17 is rated for it, and its Division 2 listing (next section) widens where it can go. Both share the same ambient range, −20 °C to +50 °C. Xshielder’s Ex certificate gives IP65 / IP68 (depth 1.5 m); Xciel does not state an IP rating for the Xciel XCiPhone 17 beyond the IP54 in its North American listing.',
       ],
     },
     {
@@ -90,7 +86,7 @@ const page: ComparePage = {
       edge: 'xshielder-iphone-17-pro-max',
       text: [
         'The two cases hold different phones. The Xciel XCiPhone 17 carries the standard iPhone 17: a 6.3-inch OLED display, the Apple A19, 8 GB of RAM, two 48 MP rear cameras and a 3692 mAh battery. The Xshielder iPhone 17 Pro Max carries the 6.9-inch iPhone 17 Pro Max: the A19 Pro, 12 GB of RAM, three 48 MP lenses including a telephoto with 4x and 8x optical-quality zoom, LiDAR and a 4823 mAh battery (5088 mAh on the eSIM-only model). Both run iOS 27 with 5G, and both list security updates as expected for 7+ years (based on previous model support). The Xshielder iPhone 17 Pro Max weighs 410 g including the phone; our data lists no weight for the Xciel XCiPhone 17.',
-        'Xshielder documents what works through its case: Face ID, the cameras and LiDAR, the 18 MP front camera, touch and the programmable Action Button, which acts as the push-to-talk key for apps built on Apple’s Push to Talk framework. There is no Camera Control button on the cover, and audio output is reduced against a bare iPhone. The Xciel XCiPhone 17’s USB-C port takes wired accessories outside hazardous areas, while the Xshielder iPhone 17 Pro Max charges wirelessly because its port is not accessible. Our data does not confirm which controls or cameras work through the Xciel case, so the edge rests on what Xshielder confirms, not on anything Xciel rules out.',
+        'Xshielder documents what works through its case: Face ID, the cameras and LiDAR, the 18 MP front camera, touch and the programmable Action Button, which acts as the push-to-talk key for apps built on Apple’s Push to Talk framework. There is no Camera Control button on the cover, audio output is reduced against a bare iPhone, and the certificate notes that the case was tested for low impact energy and should not be exposed to a high risk of impact. The Xciel XCiPhone 17’s USB-C port takes wired accessories outside hazardous areas, while the Xshielder iPhone 17 Pro Max charges wirelessly because its port is not accessible. Our data does not confirm which controls or cameras work through the Xciel case, so the edge rests on what Xshielder confirms, not on anything Xciel rules out.',
       ],
     },
   ],

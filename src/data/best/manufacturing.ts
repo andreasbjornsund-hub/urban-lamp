@@ -38,7 +38,7 @@ const page: BestPage = {
       label: 'Best for Zone 2/22 production and packing lines',
       why: [
         'Where a line is classified Zone 2/22, a Zone 2/22 phone is enough, and this is the one we would put in each operator’s hand on packing, assembly and finishing lines. It takes Zebra’s SM-Ex S203 SR scanner as an accessory, and it has a 48 MP camera, glove and wet touch, a 6.3-inch display and a programmable push-to-talk key that can also be used as an alarm.',
-        'It is intrinsically safe to Ex ic IIC T4 with dust group IIIC under ATEX and IECEx, with Class I Division 2 and Class II Division 2 (Groups F and G) for North America. Security updates are listed until March 2032, it is Android Enterprise Recommended, and ecom also lists a camera-free version for sites that restrict cameras. At 365 g, with a user-replaceable battery that is swapped outside the hazardous area, it suits full shifts.',
+        'It is intrinsically safe to Ex ic IIC T4 with dust group IIIC under ATEX and IECEx, with Class I Division 2 and Class II Division 2 (Groups F and G) for North America. Security updates are listed until Q1 2032, it is Android Enterprise Recommended, and ecom also lists a camera-free version for sites that restrict cameras. At 365 g, with a user-replaceable battery that is swapped outside the hazardous area, it suits full shifts.',
         'The limits are specific. It is Zone 2/22 only, so it is not for areas classified Zone 1/21. Its North American dust approval lists Groups F and G, so Group E (metal dust) is not covered, and the certificate allows low mechanical-hazard locations only and asks you to avoid high electrostatic charge processes. The certified ambient range drops to −20 °C to +50 °C with the scanner module attached, against +60 °C without it, and ecom’s datasheet leaves out the ATEX category (protection level Gc corresponds to category 3G).',
       ],
     },
@@ -65,7 +65,7 @@ const page: BestPage = {
       label: 'Best for maintenance teams inside Zone 1/21 areas',
       why: [
         'Maintenance teams who work inside the Zone 1/21 areas of a plant, such as mixing rooms and dust-handling areas, will find this the most practical handset on the page. It has a programmable push-to-talk key, an alarm key that can be assigned to ecom’s eSentinel alarm app and glove touch, and its camera is optimized for ecom’s eBARCODE-ML scanning app (a paid add-on) for tagged equipment and spares.',
-        'The certificates cover plants in several regions. It is intrinsically safe to Ex ia IIC T4 with dust group IIIC under ATEX, IECEx and UKEX, and carries cMETus approvals for Class I Division 1, Class II Division 1 (Groups E to G) and Class III Division 1 in North America. It is IP68 and MIL-STD-810H, certified up to +60 °C for warm plant rooms, and security updates are listed until November 2032.',
+        'The certificates cover plants in several regions. It is intrinsically safe to Ex ia IIC T4 with dust group IIIC under ATEX, IECEx and UKEX, and carries cMETus approvals for Class I Division 1, Class II Division 1 (Groups E to G) and Class III Division 1 in North America. It is IP68 and MIL-STD-810H, certified up to +60 °C for warm plant rooms, and security updates are listed until Q4 2032.',
         'It is the heaviest of the five at 400 g, T4 means any vapor that ignites below 135 °C needs checking, and it is not certified for Zone 0. Scanning relies on the camera and a paid app rather than a built-in engine, so teams that scan all day should look at the SC9EX1.',
       ],
     },

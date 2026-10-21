@@ -6,12 +6,12 @@ const page: ComparePage = {
   description:
     'BARTEC SC9EX1 Smartscanner or BARTEC SP9EX1? Built-in scan engine, weight, Zone 0 certification and the Cam version compared, with our pick for each team.',
   h1: 'BARTEC SC9EX1 Smartscanner vs BARTEC SP9EX1',
-  eyebrow: 'Compare · Zone 0 Android phones',
+  eyebrow: 'Compare · Zone 1 Android phones',
   lead:
     'These are two closely related intrinsically safe (Ex ia) phones from BARTEC. Both are certified for Zone 0/1/21 under the same ATEX and IECEx certificate numbers, share one North American listing for Class I Division 1, and run Android 15 on the Qualcomm QCM6490 with 5G, the same 48 MP camera and a 4300 mAh battery you swap outside the hazardous area. The question is whether your team needs the BARTEC SC9EX1 Smartscanner’s built-in Zebra scan engine, or would rather carry the lighter BARTEC SP9EX1 and scan through the camera. Here is how they compare, and which we would choose for which team.',
   verdict: {
     summary: [
-      'Pick by how much your crews scan. If scanning is the main job, such as stores, logistics or asset-tagging rounds, we would choose the BARTEC SC9EX1 Smartscanner: the Zebra scan engine is built in, with the same certificate numbers and Zone 0 rating as the BARTEC SP9EX1. For every other team we would choose the BARTEC SP9EX1: same certificates, camera, screen and battery at 350 g instead of 370 g, with camera-app scanning when a scan is needed now and then. Zone is not the decider, because both reach Zone 0.',
+      'Pick by how much your crews scan. If scanning is the main job, such as stores, logistics or asset-tagging rounds, we would choose the BARTEC SC9EX1 Smartscanner: the Zebra scan engine is built in, with the same ATEX and IECEx certificate numbers and Zone 0 rating as the BARTEC SP9EX1. For every other team we would choose the BARTEC SP9EX1: same ATEX and IECEx certificates, camera, screen and battery at 350 g instead of 370 g, with camera-app scanning when a scan is needed now and then. Zone is not the decider, because both reach Zone 0.',
     ],
     choose: [
       {
@@ -19,7 +19,7 @@ const page: ComparePage = {
         reasons: [
           'Your crews scan all day and want the scanner built in: it has a Zebra scan engine, where the BARTEC SP9EX1 scans through its camera with third-party software.',
           'Your scanning rounds reach Zone 0: its marking adds op is (inherently safe optical radiation) to Ex ia IIC T4 Ga, and its North American listing includes Zone 0 AEx ia op is.',
-          'Your safety team wants the scan engine covered in the certificate: the conditions of use name the SE55 scan engine as a Class 2 laser (520 nm).',
+          'You want one device for scanning, photos and calls: the scan engine comes on top of the same 48 MP camera, 6.1-inch AMOLED screen and two programmable keys as the BARTEC SP9EX1, for 20 g more.',
         ],
       },
       {
@@ -72,7 +72,7 @@ const page: ComparePage = {
       title: 'Weight, size and carrying',
       edge: 'bartec-sp9ex1',
       text: [
-        'The BARTEC SP9EX1 weighs 350 g and the BARTEC SC9EX1 Smartscanner 370 g, so the Smartscanner is 20 g heavier. The listed dimensions are 168.7 × 83.4 × 17.9 mm for the BARTEC SP9EX1 and 168.7 × 83.4 × 30.8 mm for the BARTEC SC9EX1 Smartscanner: the first two figures match and only the last differs. For crews who scan all day, 20 g buys a built-in scanner. For everyone else the lighter phone is the easier carry.',
+        'The BARTEC SP9EX1 weighs 350 g and the BARTEC SC9EX1 Smartscanner 370 g, so the BARTEC SC9EX1 Smartscanner is 20 g heavier. The listed dimensions are 168.7 × 83.4 × 17.9 mm for the BARTEC SP9EX1 and 168.7 × 83.4 × 30.8 mm for the BARTEC SC9EX1 Smartscanner: the first two figures match and only the last differs. For crews who scan all day, 20 g buys a built-in scanner. For everyone else the lighter phone is the easier carry.',
         'Handling is otherwise the same. Both have a 6.1-inch AMOLED screen (1080 × 2340, Gorilla Glass Victus) with glove and stylus touch, two programmable keys for push-to-talk and emergency calls, and ratings of IP68 and MIL-STD-810H. Both have a 4300 mAh user-replaceable battery, changed outside the hazardous area. Try both in the hand, with your gloves and holsters, before you buy a fleet.',
       ],
     },
@@ -81,7 +81,7 @@ const page: ComparePage = {
       edge: 'even',
       text: [
         'The rest of the specification matches: Android 15 (Android 13 at launch) with an upgrade to Android 16 listed, further upgrades subject to Qualcomm; the Qualcomm QCM6490 at 2.7 GHz with 8 GB of RAM and 128 GB of storage; 5G, Wi-Fi 6, Bluetooth 5.2, NFC and nano-SIM plus eSIM. BARTEC states security updates for both until at least May 2030, so neither has the edge on support. Each has a North America part number for Verizon: 17-S19C-31111111 for the BARTEC SC9EX1 Smartscanner and 17-S19P-31110111 for the BARTEC SP9EX1.',
-        'One option exists only for the BARTEC SP9EX1: the BARTEC SP9EX1 Cam version, with no cellular radio or SIM slot. It keeps Wi-Fi 6, Bluetooth 5.2, NFC and GNSS and is covered by the same certificates, so it suits Wi-Fi-only sites. Our data does not list a Cam version of the BARTEC SC9EX1 Smartscanner. For both phones, BARTEC says to use original BARTEC accessories only and gives a charging range of 0 to +45 °C in its datasheet, although its product page says 0 to +40 °C.',
+        'One option is listed only for the BARTEC SP9EX1: the BARTEC SP9EX1 Cam version, with no cellular radio or SIM slot. It keeps Wi-Fi 6, Bluetooth 5.2, NFC and GNSS and is covered by the same certificates, so it suits Wi-Fi-only sites. Our data does not list a Cam version of the BARTEC SC9EX1 Smartscanner. For both phones, BARTEC says to use original BARTEC accessories only and gives a charging range of 0 to +45 °C in its datasheet, although its product page says 0 to +40 °C.',
       ],
     },
   ],
@@ -100,7 +100,7 @@ const page: ComparePage = {
     },
     {
       q: 'Can the BARTEC SP9EX1 scan barcodes?',
-      a: 'Yes, through its camera with third-party software. It has no built-in scan engine; for that, BARTEC offers the BARTEC SC9EX1 Smartscanner. Our data lists no scanning performance figures for either phone, so test both on your own labels first.',
+      a: 'Yes, through its camera with third-party software. It is not listed with a built-in scan engine; for that, BARTEC offers the BARTEC SC9EX1 Smartscanner. Our data lists no scanning performance figures for either phone, so test both on your own labels first.',
     },
     {
       q: 'Is there a version without a cellular radio?',
@@ -118,7 +118,7 @@ const page: ComparePage = {
   cta: {
     kind: 'neutral',
     heading: 'Still deciding between the two?',
-    text: 'Both phones are certified for Zone 0/1/21 with the same certificate numbers, so the choice comes down to how much your team scans and how much weight your crews want to carry. Tell us about your sites and tasks and we will help you choose impartially, or check whether a Zone 1 phone would do.',
+    text: 'Both phones are certified for Zone 0/1/21 with the same ATEX and IECEx certificate numbers, so the choice comes down to how much your team scans and how much weight your crews want to carry. Tell us about your sites and tasks and we will help you choose impartially, or check whether a Zone 1 phone would do.',
   },
 };
 

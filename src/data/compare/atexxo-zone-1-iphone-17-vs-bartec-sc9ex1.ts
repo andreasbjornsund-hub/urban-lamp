@@ -8,10 +8,10 @@ const page: ComparePage = {
   h1: 'Atexxo Zone 1 iPhone 17 vs BARTEC SC9EX1 Smartscanner',
   eyebrow: 'Compare · iPhone or Android for Zone 1',
   lead:
-    'These two do different jobs. The BARTEC SC9EX1 Smartscanner is a dedicated intrinsically safe (Ex ia) Android phone with a Zebra scan engine built in, certified for Zone 0/1/21 under ATEX and IECEx and for Class I Division 1 in North America. The Atexxo Zone 1 iPhone 17 is a standard Apple iPhone 17 in a flameproof (Ex db) housing, certified for Zone 1/21 under ATEX and IECEx. On the practical points the BARTEC SC9EX1 Smartscanner wins most of them, while the Atexxo case is for teams that want an iPhone. Here is how they compare, and which we would choose for which team.',
+    'These two do different jobs. The BARTEC SC9EX1 Smartscanner is a dedicated intrinsically safe (Ex ia) Android phone with a Zebra scan engine built in, certified for Zone 0/1/21 under ATEX and IECEx and for Class I Division 1 in North America. The Atexxo Zone 1 iPhone 17 is a standard Apple iPhone 17 in a flameproof (Ex db) housing, certified for Zone 1/21 under ATEX and IECEx. On the practical points the BARTEC SC9EX1 Smartscanner wins most of them, while the Atexxo housing is for teams that want an iPhone. Here is how they compare, and which we would choose for which team.',
   verdict: {
     summary: [
-      'If your work touches Zone 0 or North American Division 1 sites, your crews scan all day, or they wear gloves and need a physical push-to-talk key and a battery they can swap, we would choose the BARTEC SC9EX1 Smartscanner: it covers all of that and weighs 370 g against 470 g. If your sites stop at Zone 1/21, your fleet runs iPhones and iOS apps managed through Apple Business, and you want a USB-C port and SIM slot you can reach yourself in a safe area, we would choose the Atexxo Zone 1 iPhone 17, and check with Atexxo whether the rear cameras work through the housing if the team scans or photographs with them.',
+      'If your work touches Zone 0 or North American Division 1 sites, your crews scan all day, or they wear gloves and need a physical push-to-talk key and a battery they can swap, we would choose the BARTEC SC9EX1 Smartscanner: it covers all of that and weighs 370 g against 470 g. If your sites stop at Zone 1/21, your fleet runs iPhones and iOS apps managed through Apple Business, and you want 256 GB or 512 GB of storage, we would choose the Atexxo Zone 1 iPhone 17, and check with Atexxo whether the rear cameras work through the housing if the team scans or photographs with them.',
     ],
     choose: [
       {
@@ -19,8 +19,7 @@ const page: ComparePage = {
         reasons: [
           'Your fleet already runs iPhones: a standard iPhone 17 sits inside, with iOS 27, the App Store and device management through Apple Business, in a Zone 1/21 housing from Atexxo in the Netherlands.',
           'Your teams keep a lot of data on the phone: it has 256 GB or 512 GB of storage, against 128 GB for the BARTEC SC9EX1 Smartscanner.',
-          'Your iPhone crews still charge by cable and fit SIMs in a safe area: its USB-C port and SIM slot are user-accessible, alongside eSIM and MagSafe charging.',
-          'You plan the fleet around long support: Apple’s security updates are expected for 7+ years (based on previous model support), while BARTEC states security updates until at least May 2030.',
+          'Your sites are moving to Wi-Fi 7: it has Wi-Fi 7 and Bluetooth 6, against Wi-Fi 6 and Bluetooth 5.2 for the BARTEC SC9EX1 Smartscanner.',
         ],
       },
       {
@@ -64,8 +63,8 @@ const page: ComparePage = {
       title: 'Zone 0, North America and certification',
       edge: 'bartec-sc9ex1',
       text: [
-        'This is the clearest gap. The BARTEC SC9EX1 Smartscanner is intrinsically safe (Ex ia op is) and certified for Zone 0/1/21 under ATEX and IECEx, with protection level Ga for gas, and its North American listing (E226123) covers Class I Division 1, Class II Division 1 and Class III, with Zone 0 AEx. The Atexxo Zone 1 iPhone 17 is flameproof (Ex db) and certified for Zone 1/21 at level Gb, and our data does not list a North American approval for it. If any area you enter is Zone 0, or your sites are classified by Division, only the BARTEC SC9EX1 Smartscanner of these two qualifies.',
-        'On the rest of the rating the two match: both are IIC T4 for gas and IIIC T135 °C for dust, and T4 suits most gases but not those that ignite below 135 °C. The BARTEC SC9EX1 Smartscanner is certified for −20 °C to +55 °C ambient, against −20 °C to +50 °C for the Atexxo Zone 1 iPhone 17, whose range comes from its conditions of use. As a device the BARTEC SC9EX1 Smartscanner is rated IP68 and MIL-STD-810H, and our data holds no ingress protection or ruggedness rating for the Atexxo Zone 1 iPhone 17. Both certificates also carry 2 J impact conditions on glass or transparent parts.',
+        'This is the clearest gap. The BARTEC SC9EX1 Smartscanner is intrinsically safe (Ex ia op is) and certified for Zone 0/1/21 under ATEX and IECEx, with protection level Ga for gas, and its North American listing (E226123) covers Class I Division 1, Class II Division 1 and Class III, with Zone 0 AEx. The Atexxo Zone 1 iPhone 17 is flameproof (Ex db) and certified for Zone 1/21 at level Gb, and our data does not list a North American approval for it. If any area you enter is Zone 0, only the BARTEC SC9EX1 Smartscanner of these two qualifies, and for sites classified by Division it is the only one of the two with a listing in our data.',
+        'On the rest of the rating the two match: both are IIC T4 for gas and IIIC T135 °C for dust, and T4 suits most gases but not those that ignite below 135 °C. The BARTEC SC9EX1 Smartscanner is certified for −20 °C to +55 °C ambient, against −20 °C to +50 °C for the Atexxo Zone 1 iPhone 17, whose range comes from its conditions of use. As a device the BARTEC SC9EX1 Smartscanner is rated IP68 and MIL-STD-810H, and our data holds no ingress protection or ruggedness rating for the Atexxo Zone 1 iPhone 17. Both certificates also carry impact conditions: Atexxo’s limits impact on the glass windows to 2 J, and BARTEC’s quick start guide sets 2 J for transparent parts.',
       ],
     },
     {
@@ -86,10 +85,10 @@ const page: ComparePage = {
     },
     {
       title: 'iPhone or Android: apps, updates and fleet management',
-      edge: 'atexxo-zone-1-iphone-17',
+      edge: 'even',
       text: [
         'This is where the Atexxo Zone 1 iPhone 17 earns its place. It is a standard Apple iPhone 17 with the Apple A19, 8 GB of RAM and 256 GB or 512 GB of storage, running iOS 27 with the App Store, and it works with the same apps and Apple device management as other iPhones, through Apple Business. For a fleet that already runs iPhones, the apps, policies and training carry over. The BARTEC SC9EX1 Smartscanner runs Android 15 on the Qualcomm QCM6490 with 8 GB of RAM and 128 GB of storage, and our data does not show its device-management options.',
-        'On updates, BARTEC states security updates until at least May 2030 and lists an upgrade to Android 16, with further upgrades subject to Qualcomm. Apple does not publish an end date for the iPhone 17, but security updates are expected for 7+ years (based on previous model support). Both phones have 5G and NFC, and the Atexxo Zone 1 iPhone 17 has Wi-Fi 7 and Bluetooth 6 against Wi-Fi 6 and Bluetooth 5.2. The edge rests on storage, connectivity and the iPhone ecosystem, not on anything our data shows BARTEC lacking.',
+        'On updates, neither date is firm. BARTEC states security updates until at least May 2030 and lists an upgrade to Android 16, with further upgrades subject to Qualcomm. Apple does not publish an end date for the iPhone 17, but security updates are expected for 7+ years (based on previous model support). Both phones have 5G and NFC, and the Atexxo Zone 1 iPhone 17 has Wi-Fi 7 and Bluetooth 6 against Wi-Fi 6 and Bluetooth 5.2. The edge rests on storage, connectivity and the iPhone ecosystem, not on anything our data shows BARTEC lacking.',
       ],
     },
   ],

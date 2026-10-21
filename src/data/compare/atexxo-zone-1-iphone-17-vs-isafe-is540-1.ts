@@ -11,7 +11,7 @@ const page: ComparePage = {
     'These two answer the same Zone 1 question in different ways. The Atexxo Zone 1 iPhone 17 is a standard Apple iPhone 17 in a flameproof (Ex db) housing. The i.safe MOBILE IS540.1 is a dedicated intrinsically safe (Ex ib) Android phone. Both are certified for Zone 1/21 under ATEX and IECEx, with gas group IIC and temperature class T4. The differences that decide the choice are practical: North America, push-to-talk and glove touch, the battery, scanning and whether your fleet runs iPhones. Here is how they compare, and which we would choose for which team.',
   verdict: {
     summary: [
-      'On the practical points the i.safe MOBILE IS540.1 wins more of them: it has a North American approval in our data, glove touch, programmable push-to-talk and alarm keys, a battery you can swap, and a scan module and microSD slot on top. We would choose it for North American sites, gloved crews, long shifts and high-volume scanning. We would choose the Atexxo Zone 1 iPhone 17 for teams that want an iPhone in Zone 1/21: a standard iPhone 17 with iOS apps and Apple Business, 256 GB or 512 GB of storage, and a USB-C port and SIM slot they can reach in a safe area. If the team photographs or scans with the iPhone’s camera, check camera access with Atexxo first.',
+      'On the practical points the i.safe MOBILE IS540.1 wins more of them: it has a North American approval in our data, glove touch, programmable push-to-talk and alarm keys, a battery you can swap, and a scan module and microSD slot on top. We would choose it for North American sites, gloved crews, long shifts and high-volume scanning. We would choose the Atexxo Zone 1 iPhone 17 for teams that want an iPhone in Zone 1/21: a standard iPhone 17 with iOS apps and Apple Business, 256 GB or 512 GB of storage, and Wi-Fi 7. If the team photographs or scans with the iPhone’s camera, check camera access with Atexxo first.',
     ],
     choose: [
       {
@@ -19,7 +19,7 @@ const page: ComparePage = {
         reasons: [
           'Your fleet already runs iPhones: a standard iPhone 17 sits inside, with iOS 27, the App Store and device management through Apple Business, in a Zone 1/21 housing from Atexxo in the Netherlands.',
           'Your teams keep a lot of data on the phone: it has 256 GB or 512 GB of storage, against 128 GB plus a microSD card of up to 128 GB for the i.safe MOBILE IS540.1.',
-          'Your iPhone crews still charge by cable and fit SIMs in a safe area: its USB-C port and SIM slot are user-accessible, alongside eSIM and MagSafe charging.',
+          'Your sites are moving to Wi-Fi 7: it has Wi-Fi 7 and Bluetooth 6, against Wi-Fi 6 and Bluetooth 5.2 for the i.safe MOBILE IS540.1.',
         ],
       },
       {
@@ -64,7 +64,7 @@ const page: ComparePage = {
       edge: 'isafe-is540-1',
       text: [
         'On the core rating the two match. Both are certified for Zone 1/21 under ATEX and IECEx, with gas group IIC and protection levels Gb and Db, and neither is certified for Zone 0. Both are T4, which suits most gases but not those that ignite below 135 °C. The i.safe MOBILE IS540.1 goes further on paper: it is approved for Class I, II and III Division 1 in North America and lists approvals for Brazil, Korea, Japan and South Africa, while our data lists no North American or other national approval for the Atexxo Zone 1 iPhone 17.',
-        'Heat and robustness favor the i.safe MOBILE IS540.1 too. It is certified from −20 °C to +55 °C ambient, against −20 °C to +50 °C for the Atexxo Zone 1 iPhone 17, whose range comes from its conditions of use, and it is rated IP68 and MIL-STD-810H, where our data holds no ingress protection or ruggedness rating for the Atexxo Zone 1 iPhone 17. The i.safe MOBILE IS540.1 also has a mining version, the i.safe MOBILE IS540.M1, which keeps Zone 1/21 alongside Group I; our data lists none for the Atexxo Zone 1 iPhone 17. Atexxo asks that the glass windows are protected from impact above 2 J.',
+        'Heat and documented robustness favor the i.safe MOBILE IS540.1 too. It is certified from −20 °C to +55 °C ambient, against −20 °C to +50 °C for the Atexxo Zone 1 iPhone 17, whose range comes from its conditions of use, and it is rated IP68 and MIL-STD-810H, where our data holds no ingress protection or ruggedness rating for the Atexxo Zone 1 iPhone 17. The i.safe MOBILE IS540.1 also has a mining version, the i.safe MOBILE IS540.M1, which keeps Zone 1/21 alongside Group I; our data lists none for the Atexxo Zone 1 iPhone 17. Atexxo asks that the glass windows are protected from impact above 2 J.',
       ],
     },
     {
@@ -72,7 +72,7 @@ const page: ComparePage = {
       edge: 'isafe-is540-1',
       text: [
         'The i.safe MOBILE IS540.1 is built for gloved, radio-style work. It has glove touch, a programmable red key and a programmable left side key, assigned through i.safe’s Button App: typically the red key for a lone-worker alarm and the side key for push-to-talk. The red key is also its built-in emergency function, and push-to-talk runs through a third-party app. The Atexxo Zone 1 iPhone 17 has a standard capacitive touchscreen, with glove touch listed as No, and our data lists no push-to-talk key: push-to-talk runs through an app built on Apple’s Push to Talk framework, and Atexxo does not confirm that the Action Button is accessible.',
-        'On weight and power, the i.safe MOBILE IS540.1 weighs 422 g against 470 g, and its 4400 mAh battery is user-replaceable, changed outside the hazardous area. It charges with i.safe’s PROTECTOR 2.0 USB-C cable or other approved equipment, also outside the hazardous area. The Atexxo Zone 1 iPhone 17 has a 3692 mAh battery that is not replaceable, and charges outside the hazardous area through its user-accessible USB-C port or on a MagSafe charger. Plan charging points and spare batteries outside the zone for either phone.',
+        'On weight and power, the i.safe MOBILE IS540.1 weighs 422 g against 470 g, and its 4400 mAh battery is user-replaceable, changed outside the hazardous area. It charges with i.safe’s PROTECTOR 2.0 USB-C cable or other approved equipment, also outside the hazardous area. The Atexxo Zone 1 iPhone 17 has a 3692 mAh battery that is not replaceable, and charges outside the hazardous area through its user-accessible USB-C port or on a MagSafe charger. Plan charging points outside the zone for either phone, and spare batteries for the i.safe MOBILE IS540.1.',
       ],
     },
     {

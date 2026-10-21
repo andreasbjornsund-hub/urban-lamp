@@ -55,7 +55,8 @@
     "name": "Android",
     "version": "Android 14",
     "securityUntil": "2032-03-31",
-    "updates": "Security updates until March 2032",
+    "securityUntilLabel": "Q1 2032",
+    "updates": "Security updates until Q1 2032",
     "enterprise": "Android Enterprise Recommended"
   },
   "specs": {
@@ -164,6 +165,10 @@
     {
       "label": "Pepperl+Fuchs: Smart-Ex 203 datasheet 480998_eng (release 2026-10-08)",
       "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pds/480998_eng.pdf"
+    },
+    {
+      "label": "ecom instruments: Release plan for security patches (Smart-Ex 03: Q4 2032; Smart-Ex 203: End of Security Patch Q1/2032)",
+      "url": "https://support.ecom-ex.com/457976005.html"
     },
     {
       "label": "Onedirect UK (reseller): Smart-Ex 203 listing (price)",

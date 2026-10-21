@@ -18,7 +18,8 @@ import {
   zoneLabel,
   confirmedDivision,
   schemeList,
-  monthYear,
+  securityEnd,
+  securityEnded,
   securityUpdates,
   type Phone,
 } from '../../lib/phones';
@@ -62,9 +63,10 @@ const row = (label: string, value: string | undefined, ...keys: string[]): Row =
 const zones = zoneLabel(phone);
 const division = confirmedDivision(phone);
 const schemes = schemeList(phone);
-const updates = monthYear(os.securityUntil);
+const updates = securityEnd(os);
 const updatesText = securityUpdates(os);
-const updatesEstimated = Boolean(d.unconfirmed['os.securityUntil']);
+// A quarter is the maker's own wording, so it's quoted as is even when the value carries a note
+const updatesEstimated = Boolean(d.unconfirmed['os.securityUntil']) && !os.securityUntilLabel;
 const markingConfirmed = !(d.unconfirmed['certification.atex.marking'] && !c.atex?.number && !c.iecex?.number);
 // Only a marking backed by a certificate is quoted in the description and FAQ
 const headline = markingConfirmed ? (c.atex?.marking.split(' / ')[0] ?? c.iecex?.marking.split(' / ')[0] ?? c.note) : undefined;
@@ -156,7 +158,7 @@ const faqs = [
     : []),
   {
     q: `What operating system does the ${d.name} run?`,
-    a: `${os.version}.${os.supportYears ? ` Security updates are expected for ${os.supportYears}+ years from launch, based on previous model support.` : updates ? ` Security updates ${updatesEstimated ? 'are expected until at least' : 'until'} ${updates}.` : ''}`,
+    a: `${os.version}.${os.supportYears ? ` Security updates are expected for ${os.supportYears}+ years from launch, based on previous model support.` : updates ? ` Security updates ${securityEnded(os) ? 'ended in' : updatesEstimated ? 'are expected until at least' : 'until'} ${updates}.` : ''}`,
   },
   ...(discontinued || d.statusNote
     ? [{
@@ -261,7 +263,7 @@ const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 
 
         <div class="hero-copy">
           <p class="eyebrow">
-            <a href={`/brands/${d.brandSlug}/`}>{d.brand}</a> · {TYPE_LABEL[d.type]}
+            {d.brand} · {TYPE_LABEL[d.type]}
           </p>
           <h1 id="phone-title">{d.name}</h1>
 

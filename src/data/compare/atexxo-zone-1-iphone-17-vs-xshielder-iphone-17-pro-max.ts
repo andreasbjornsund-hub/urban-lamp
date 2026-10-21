@@ -6,7 +6,7 @@ const page: ComparePage = {
   description:
     'Atexxo Zone 1 iPhone 17 or Xshielder iPhone 17 Pro Max? Temperature class, cameras, ingress protection, weight and ports compared for Zone 1, with our pick.',
   h1: 'Atexxo Zone 1 iPhone 17 vs Xshielder iPhone 17 Pro Max',
-  eyebrow: 'Compare · Zone 1 iPhones',
+  eyebrow: 'Compare · iPhone cases and conversions',
   lead:
     'This is not a like-for-like pair, so we say so up front. The Atexxo Zone 1 iPhone 17 puts a standard 6.3-inch iPhone 17 in a flameproof (Ex db) housing; the Xshielder iPhone 17 Pro Max does the same for the 6.9-inch iPhone 17 Pro Max. Both are certified for Zone 1/21 under ATEX and IECEx, though Xshielder’s IECEx certificate covers its cemented-lid S02 version only, and our data has no Zone 1 Pro Max from Atexxo. The choice is a Pro Max against a standard iPhone 17 for Zone 1, with a different case around each. Here is how they compare, and which we would choose for which team.',
   verdict: {
@@ -68,7 +68,7 @@ const page: ComparePage = {
       title: 'Cameras, controls and what works through the case',
       edge: 'xshielder-iphone-17-pro-max',
       text: [
-        'The Xshielder iPhone 17 Pro Max has the stronger camera hardware: a 48 MP main, ultra wide and telephoto (4x, 8x optical-quality), 4K120 Dolby Vision video with ProRes RAW and Apple Log 2, and LiDAR. The Atexxo Zone 1 iPhone 17 has a 48 MP main and ultra wide (2x optical-quality) and 4K60 video. Xshielder confirms the 48 MP Pro system, including the 8x zoom, and LiDAR work through its case, so 3D scanning is built in; on the Atexxo Zone 1 iPhone 17 it is via a photogrammetry app.',
+        'The Xshielder iPhone 17 Pro Max has the stronger camera hardware: a 48 MP main, ultra wide and telephoto (4x, 8x optical-quality), 4K120 Dolby Vision video with ProRes RAW and Apple Log 2, and LiDAR. The Atexxo Zone 1 iPhone 17 has a 48 MP main and ultra wide (2x optical-quality) and 4K60 video. Xshielder confirms the 48 MP Pro system, including the 8x zoom, and LiDAR work through its case, so 3D scanning is built in; on the Atexxo Zone 1 iPhone 17 it is via a photogrammetry app. There is no Camera Control button on the Xshielder cover, though the Action Button can open the camera.',
         'Beyond the hardware, the edge rests on what Xshielder confirms, not on anything Atexxo rules out. Atexxo does not state whether the rear cameras can be used through its housing, and our data does not confirm Face ID or the touchscreen there; Xshielder confirms Face ID, the front camera and a usable touchscreen. Push-to-talk runs from the programmable Action Button on the Xshielder cover with apps built on Apple’s Push to Talk framework, so you need such an app and there is no separate key. Our data lists no push-to-talk key for the Atexxo Zone 1 iPhone 17, and Atexxo does not confirm the Action Button is accessible.',
       ],
     },

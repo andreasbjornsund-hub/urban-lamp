@@ -6,7 +6,7 @@ const page: ComparePage = {
   description:
     'Atexxo Zone 1 iPhone 17 or ecom Smart-Ex 203? Zone 1/21 against Zone 2/22 and Division 2, gloves, battery and heat compared, with our pick for each team.',
   h1: 'Atexxo Zone 1 iPhone 17 vs ecom Smart-Ex 203',
-  eyebrow: 'Compare · iPhone or Android for Zone 1, Zone 2 or Division 2',
+  eyebrow: 'Compare · iPhone or Android for Zone 2 and Division 2',
   lead:
     'These two sit on different rungs of the hazardous-area ladder. The Atexxo Zone 1 iPhone 17 is a standard Apple iPhone 17 in a flameproof (Ex db) housing, certified for Zone 1/21 under ATEX and IECEx. The ecom Smart-Ex 203 is a dedicated intrinsically safe (Ex ic) Android phone, certified for Zone 2/22 under ATEX and IECEx, with a Class I Division 2 approval for North America. So the first question is where your team works, and the second is which phone suits the job once you know. Here is how they compare, and which we would choose for which team.',
   verdict: {
@@ -20,7 +20,7 @@ const page: ComparePage = {
           'Some of your work is in Zone 1/21: it is certified for Zone 1/21 under ATEX and IECEx, and the ecom Smart-Ex 203 is certified for Zone 2/22 only.',
           'Your dust hazard reaches Zone 21: it is rated Db for dust (IIIC T135 °C), while the ecom Smart-Ex 203 is rated Dc and certified for dust Zone 22.',
           'Your fleet already runs iPhones: a standard iPhone 17 sits inside, managed through Apple Business, with security updates expected for 7+ years (based on previous model support).',
-          'You swap SIM cards in the workshop: its SIM slot is user-accessible in a safe area, while our data does not state SIM access for the ecom Smart-Ex 203.',
+          'Your iPhone crews still charge by cable and fit SIMs in a safe area: its USB-C port and SIM slot are user-accessible, alongside eSIM and MagSafe charging.',
         ],
       },
       {
@@ -68,7 +68,7 @@ const page: ComparePage = {
       edge: 'ecom-smart-ex-203',
       text: [
         'Here the ecom Smart-Ex 203 comes out ahead. Its North American approval covers Class I Division 2 Groups A-D (T4) and Class II Division 2 Groups F and G (T4), plus Class I Zone 2 AEx ic IIC T4 Gc and Zone 22 AEx ic IIIC T135 °C Dc. Our data has no listing number for it. If your sites are classified by Class and Division rather than by zone, that is the line that decides. Our data does not confirm a North American approval for the Atexxo Zone 1 iPhone 17, so for a Division 2 site, ask Atexxo before you buy.',
-        'On IECEx the two are level. The Atexxo Zone 1 iPhone 17 holds IECEx EPS 26.0046X and the ecom Smart-Ex 203 holds IECEx EPS 25.0034X, alongside ATEX certificates EPS 26 ATEX 1 043 X and EPS 25 ATEX 1 131 X. The ecom Smart-Ex 203 also lists national approvals for Korea (KC), South Africa (IA MASC) and Japan (CML), and our data lists no other approvals for the Atexxo Zone 1 iPhone 17. Both certificates carry impact conditions: Atexxo asks that the glass windows are protected from impacts above 2 J, and the ecom Smart-Ex 203 is for low mechanical-hazard locations only.',
+        'On IECEx the two are level. The Atexxo Zone 1 iPhone 17 holds IECEx EPS 26.0046X and the ecom Smart-Ex 203 holds IECEx EPS 25.0034X, alongside ATEX certificates EPS 26 ATEX 1 043 X and EPS 25 ATEX 1 131 X. The ecom Smart-Ex 203 also lists national approvals for Korea (KC), South Africa (IA MASC) and Japan (CML), and our data lists no other approvals for the Atexxo Zone 1 iPhone 17. Both certificates carry impact conditions: Atexxo’s certificate asks that the glass windows are protected from impacts above 2 J, and the ecom Smart-Ex 203 is for low mechanical-hazard locations only.',
       ],
     },
     {
@@ -84,7 +84,7 @@ const page: ComparePage = {
       edge: 'even',
       text: [
         'On power and carry the ecom Smart-Ex 203 is ahead. Its 4500 mAh battery is user-replaceable, so a crew can carry a charged spare and change it outside the hazardous area, and it weighs 365 g against 470 g for the Atexxo Zone 1 iPhone 17, whose 3692 mAh battery is not replaceable. Our data has no run-time figure for the ecom Smart-Ex 203, so we do not compare battery life: test both over a real shift. The Atexxo Zone 1 iPhone 17 has a user-accessible USB-C port for charging in a safe area; ecom specifies charging at +5 to +45 °C, with no connections to its USB-C port or charging pads in hazardous areas.',
-        'On screen and software the Atexxo Zone 1 iPhone 17 has the edge on paper: a 6.3-inch OLED at 2622 × 1206, up to 120 Hz and 3,000 nits peak, with Wi-Fi 7 and iOS 27 on the Apple A19, managed through Apple Business. The ecom Smart-Ex 203 has a 6.3-inch TFT at 1080 × 2340 with glove and wet touch, runs Android 14, is Android Enterprise Recommended and has security updates until March 2032. It offers 128 GB of storage plus microSD up to 512 GB, against 256 GB or 512 GB. Both have 8 GB of RAM and 5G. Which suits you depends on the fleet you already run.',
+        'On screen and software the Atexxo Zone 1 iPhone 17 has the edge on paper: a 6.3-inch OLED at 2622 × 1206, up to 120 Hz and 3,000 nits peak, with Wi-Fi 7 and iOS 27 on the Apple A19, managed through Apple Business. The ecom Smart-Ex 203 has a 6.3-inch TFT at 1080 × 2340 with glove and wet touch, runs Android 14, is Android Enterprise Recommended and has security updates until Q1 2032. It offers 128 GB of storage plus microSD up to 512 GB, against 256 GB or 512 GB. Both have 8 GB of RAM and 5G. Which suits you depends on the fleet you already run.',
       ],
     },
   ],
@@ -111,7 +111,7 @@ const page: ComparePage = {
     },
     {
       q: 'Which gets security updates for longer?',
-      a: 'They look close. ecom lists security updates until March 2032 for the ecom Smart-Ex 203. Apple does not publish an end date for the iPhone 17 inside the Atexxo housing; previous iPhone models have had security updates for seven years or more, so we do not rank the two.',
+      a: 'They look close. ecom lists security updates until Q1 2032 for the ecom Smart-Ex 203. Apple does not publish an end date for the iPhone 17 inside the Atexxo housing; previous iPhone models have had security updates for seven years or more, so we do not rank the two.',
     },
     {
       q: 'How much do the Atexxo Zone 1 iPhone 17 and ecom Smart-Ex 203 cost?',

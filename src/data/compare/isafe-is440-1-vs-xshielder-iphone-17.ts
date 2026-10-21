@@ -6,12 +6,12 @@ const page: ComparePage = {
   description:
     'i.safe MOBILE IS440.1 or Xshielder iPhone 17? A push-to-talk handheld or an iPhone for Zone 1: Division 1, temperature class, battery and cameras compared.',
   h1: 'i.safe MOBILE IS440.1 vs Xshielder iPhone 17',
-  eyebrow: 'Compare · Radio-style handheld or iPhone',
+  eyebrow: 'Compare · Push-to-talk phones for Zone 1',
   lead:
-    'These two answer the Zone 1 question in different ways. The i.safe MOBILE IS440.1 is an intrinsically safe (Ex ib) radio-style handheld with a dedicated push-to-talk key and a battery you can swap. The Xshielder iPhone 17 is a flameproof (Ex db) case around a standard Apple iPhone 17, a full smartphone. Both are certified for Zone 1/21 under ATEX and IECEx, though for the Xshielder case IECEx covers the cemented-lid S02 version only. The differences that decide the choice are the job, North America, gas temperature class and the battery. Here is how they compare, and which we would choose for which team.',
+    'These two answer the Zone 1 question in different ways, and they do different jobs. The i.safe MOBILE IS440.1 is an intrinsically safe (Ex ib) radio-style handheld with a dedicated push-to-talk key and a battery you can swap. The Xshielder iPhone 17 is a flameproof (Ex db) case around a standard Apple iPhone 17, a full smartphone. Both are certified for Zone 1/21 under ATEX and IECEx, though for the Xshielder case IECEx covers the cemented-lid S02 version only. The differences that decide the choice are the job, North America, gas temperature class and the battery. Here is how they compare, and which we would choose for which team.',
   verdict: {
     summary: [
-      'On the practical points, the i.safe MOBILE IS440.1 wins more of them: it has push-to-talk hardware, a North American Class I Division 1 listing, a higher ambient limit, glove and wet touch and a battery you can swap, so we would choose it for push-to-talk crews, North American sites, hot sites and gloved work. We would choose the Xshielder iPhone 17 for teams that want an iPhone in Zone 1: it is the one for substances that ignite below 135 °C, for photos and scanning with the cameras confirmed through the case, for Face ID and for fleets already managed through Apple Business.',
+      'A radio-style handheld and an iPhone in a flameproof case do different jobs, so pick by the work. On the practical points, the i.safe MOBILE IS440.1 wins more of them: it has push-to-talk hardware, a North American Class I Division 1 listing, a higher ambient limit, glove and wet touch and a battery you can swap, so we would choose it for push-to-talk crews, North American sites, hot sites and gloved work. We would choose the Xshielder iPhone 17 for teams that want an iPhone in Zone 1: it is the one for substances that ignite below 135 °C, for photos and scanning with the cameras confirmed through the case, for Face ID and for fleets already managed through Apple Business.',
     ],
     choose: [
       {
@@ -64,7 +64,7 @@ const page: ComparePage = {
       edge: 'isafe-is440-1',
       text: [
         'On the core rating the two match. Both are certified for Zone 1/21 under ATEX and IECEx, with gas group IIC and protection levels Gb and Db, and for the Xshielder case IECEx covers the cemented-lid S02 version only. The i.safe MOBILE IS440.1 goes further on paper: it holds a Class I Division 1 listing in North America, with Class II Division 1 and Class III, lists approvals for Brazil, Korea, China, Japan and South Africa, and has a mining version. Our data lists no North American approval, other national approvals or mining version for the Xshielder iPhone 17.',
-        'Heat and gas class pull in opposite directions. The i.safe MOBILE IS440.1 is certified from −20 °C to +55 °C ambient, against −20 °C to +50 °C for the Xshielder iPhone 17. The Xshielder iPhone 17 has the stricter T6 rating (maximum surface temperature 85 °C for gas, 80 °C for dust) against T4 and 135 °C. T6 matters only where a substance ignites below 135 °C. Its certificate also says the case was tested for low impact energy and should not be exposed to high impact risk, and gives IP6X (dust-tight) only, with no water rating in the documents we found, while the i.safe MOBILE IS440.1 is rated IP68 and MIL-STD-810H.',
+        'Heat and gas class pull in opposite directions. The i.safe MOBILE IS440.1 is certified from −20 °C to +55 °C ambient, against −20 °C to +50 °C for the Xshielder iPhone 17. The Xshielder iPhone 17 has the stricter T6 rating (maximum surface temperature 85 °C for gas, 80 °C for dust) against T4 and 135 °C. T6 matters only where a substance ignites below 135 °C. Its certificate also says the case was tested for low impact energy and should not be exposed to high impact risk, and gives IP6X (dust-tight) only, with no water rating in the documents we found. The i.safe MOBILE IS440.1 is rated IP68 and MIL-STD-810H, though its own certificate says to protect it from high-energy impacts.',
       ],
     },
     {
@@ -87,7 +87,7 @@ const page: ComparePage = {
       title: 'Battery, charging and carrying',
       edge: 'isafe-is440-1',
       text: [
-        'The i.safe MOBILE IS440.1 has a 2400 mAh battery you can swap, so a crew can carry a charged spare and change it outside the hazardous area; for North America, i.safe specifies its PROTECTOR 2.0 USB-C cable for charging, also outside the hazardous area. The Xshielder iPhone 17 has the larger 3692 mAh battery, but it is not user-replaceable. Capacity is not run time: our data lists up to 30 hours of video playback for the iPhone and no run-time figure for the i.safe MOBILE IS440.1, so test battery life over a real shift.',
+        'The i.safe MOBILE IS440.1 has a 2400 mAh battery you can swap, so a crew can carry a charged spare and change it outside the hazardous area; for North America, i.safe specifies its PROTECTOR 2.0 USB-C cable for charging, also outside the hazardous area. The Xshielder iPhone 17 has the larger 3692 mAh battery, but it is not user-replaceable. Capacity is not runtime, and our data has no battery-life figure for the i.safe MOBILE IS440.1, so test both over a real shift.',
         'With the USB-C port not accessible, the Xshielder iPhone 17 charges wirelessly (MagSafe, up to 25 W) outside the hazardous area. Only Xshielder-authorized personnel may open the case, the S02 cemented-lid version must not be opened by the user, and the phone uses eSIM, with a physical SIM installed by Xshielder on request. On weight the two are close: the i.safe MOBILE IS440.1 weighs 307 g and the Xshielder iPhone 17 330 g including the phone, so the i.safe MOBILE IS440.1 is 23 g lighter. The bigger difference is the screen: 2.4 inches against 6.3.',
       ],
     },

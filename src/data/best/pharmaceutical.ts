@@ -19,7 +19,7 @@ const page: BestPage = {
     'All four are certified for Zone 1 and dust Zone 21 in gas group IIC and dust group IIIC, and can also be used in Zone 2 and Zone 22. Prices are on request.',
   glanceColumns: ['zones', 'cameraFree', 'barcode', 'updates', 'weight'],
   method: [
-    'Rank 1 goes to the Zone 1/21 phone that suits the most pharmaceutical production areas. It comes in a camera-free version for areas that restrict cameras, it is intrinsically safe to Ex ia, the highest level, and it has the longest security support we could confirm, until November 2032 (i.safe states Q4 2032 for the IS540.1, but Google’s Android Enterprise directory lists January 2032). Camera rules are set by each site, so we treat a camera-free version as a capability to compare, not a rule for the whole industry.',
+    'Rank 1 goes to the Zone 1/21 phone that suits the most pharmaceutical production areas. It comes in a camera-free version for areas that restrict cameras, it is intrinsically safe to Ex ia, the highest level, and it has the longest security support we could confirm, until Q4 2032 (i.safe states the same quarter for the IS540.1, but Google’s Android Enterprise directory lists January 2032). Camera rules are set by each site, so we treat a camera-free version as a capability to compare, not a rule for the whole industry.',
     'Positions 2 to 4 are the best choices for three other kinds of work: dispensing and material scanning, engineering and validation records where cameras are allowed, and scanning in warehouses and solvent stores. Every brand’s prices are on request, so cost does not affect the order. We stop at four picks because the other Zone 1/21 phones either repeat one of these jobs or lack the published data to support a label.',
     'The order follows the certificates and the makers’ documentation, and it would change if another Zone 1/21 phone offered a camera-free version with Ex ia protection and longer confirmed security support.',
   ],
@@ -29,7 +29,7 @@ const page: BestPage = {
       label: 'Best overall for pharmaceutical sites',
       why: [
         'Our first recommendation for pharmaceutical production, and especially for areas that restrict cameras, is the ecom Smart-Ex 03 DZ1. ecom sells the Smart-Ex 03 DZ1 without a camera (the -AI-N128 version) as well as with one, so camera-free suites and the rest of the plant can run the same model. An operator in a solvent room or a dryer bay keeps the programmable push-to-talk key and an alarm key that can be assigned to ecom’s eSentinel alarm app, and the display works with gloves on.',
-        'The certificate fits a plant with both solvent and powder areas. It is intrinsically safe to Ex ia, the highest level, and rated IIC T4 for Zone 1/21 with dust group IIIC under ATEX, IECEx and UKEX, with a Class I Division 1 approval for North America, which makes it easy to specify across a multi-site group. T4 suits solvents that ignite above 135 °C. ecom lists security updates until November 2032, and Android Enterprise Recommended status lets it join an existing Android fleet.',
+        'The certificate fits a plant with both solvent and powder areas. It is intrinsically safe to Ex ia, the highest level, and rated IIC T4 for Zone 1/21 with dust group IIIC under ATEX, IECEx and UKEX, with a Class I Division 1 approval for North America, which makes it easy to specify across a multi-site group. T4 suits solvents that ignite above 135 °C. ecom lists security updates until Q4 2032, and Android Enterprise Recommended status lets it join an existing Android fleet.',
         'The trade-off is scanning. Barcodes are read through ecom’s eBARCODE-ML app (a paid add-on) using the camera, so the camera-free version cannot scan, and dispensing teams in camera-free areas should look at the IS540.1 below. At 400 g it is the second-lightest of our four, and the battery can be swapped by the user, but only outside the hazardous area.',
       ],
     },
@@ -97,7 +97,7 @@ const page: BestPage = {
   faq: [
     {
       q: 'What is the best phone for pharmaceutical sites?',
-      a: 'On our criterion, the ecom Smart-Ex 03 DZ1 ranks first: it comes in a camera-free version, it is intrinsically safe to Ex ia for Zone 1/21, and ecom lists security updates until November 2032. Where dispensing and weighing checks need a scanner, the i.safe MOBILE IS540.1 is our pick.',
+      a: 'On our criterion, the ecom Smart-Ex 03 DZ1 ranks first: it comes in a camera-free version, it is intrinsically safe to Ex ia for Zone 1/21, and ecom lists security updates until Q4 2032. Where dispensing and weighing checks need a scanner, the i.safe MOBILE IS540.1 is our pick.',
     },
     {
       q: 'Are cameras allowed on pharmaceutical sites?',

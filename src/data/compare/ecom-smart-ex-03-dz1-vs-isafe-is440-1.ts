@@ -75,7 +75,7 @@ const page: ComparePage = {
       edge: 'even',
       text: [
         'On the core rating they match. Both are intrinsically safe and certified for Zone 1/21 under ATEX and IECEx, with IIC T4 for gas and IIIC T135 °C for dust, and both hold a Class I Division 1 approval for North America. T4 suits most gases, but not those that ignite below 135 °C. Neither is certified for Zone 0. The ecom Smart-Ex 03 DZ1 uses Ex ia protection and the i.safe MOBILE IS440.1 Ex ib; both suit Zone 1.',
-        'The ecom Smart-Ex 03 DZ1 is certified to +60 °C ambient against +55 °C, and adds a UKEX certificate, where our data has none for the i.safe MOBILE IS440.1. The i.safe MOBILE IS440.1 answers with the more flexible mining version: the i.safe MOBILE IS440.M1 keeps Zone 1/21 alongside Group I, while the ecom Smart-Ex 03 DZ1M is certified for Group I only. Both list approvals beyond ATEX and IECEx, including Brazil, Korea, South Africa and Japan, and the i.safe MOBILE IS440.1 also lists China.',
+        'The ecom Smart-Ex 03 DZ1 is certified to +60 °C ambient against +55 °C. The i.safe MOBILE IS440.1 answers with the more flexible mining version: the i.safe MOBILE IS440.M1 keeps Zone 1/21 alongside Group I, while the ecom Smart-Ex 03 DZ1M is certified for Group I only. Both list approvals beyond ATEX and IECEx, including Brazil, Korea, South Africa and Japan, and the i.safe MOBILE IS440.1 also lists China.',
       ],
     },
     {
@@ -83,7 +83,7 @@ const page: ComparePage = {
       edge: 'ecom-smart-ex-03-dz1',
       text: [
         'For IT teams the ecom Smart-Ex 03 DZ1 is the fuller platform. It runs Android 15 with 8 GB of RAM, 128 GB of storage and Wi-Fi 6E, and it is Android Enterprise Recommended. The i.safe MOBILE IS440.1 runs ISM-OS 14 with 4 GB of RAM, 64 GB of storage and Wi-Fi 6, and its preinstalled App World carries curated push-to-talk and MDM apps. Both use the Qualcomm QCM6490 processor and offer 5G, Bluetooth 5.2, NFC, nano-SIM and eSIM.',
-        'Security updates run to similar dates: ecom lists the ecom Smart-Ex 03 DZ1 until November 2032, and i.safe states security patches until Q4 2032 for the i.safe MOBILE IS440.1. Both have a replaceable battery that must be swapped, and charged, outside the hazardous area. ecom specifies charging at 0 to 45 °C and offers docking charge pads; for North America, i.safe specifies its PROTECTOR 2.0 USB-C cable, and the phone also has charging contacts.',
+        'Security updates run to the same quarter: ecom states Q4 2032 for the ecom Smart-Ex 03 DZ1, and i.safe states security patches until Q4 2032 for the i.safe MOBILE IS440.1. Both have a replaceable battery that must be swapped, and charged, outside the hazardous area. ecom specifies charging at 0 to 45 °C and offers docking charge pads; for North America, i.safe specifies its PROTECTOR 2.0 USB-C cable, and the phone also has charging contacts.',
       ],
     },
   ],

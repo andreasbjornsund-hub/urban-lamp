@@ -6,12 +6,12 @@ const page: ComparePage = {
   description:
     'BARTEC SP9EX1 or ecom Smart-Ex 203? Zone 0/1 or Zone 2, scanning, storage, weight and security updates compared, with our pick for each team.',
   h1: 'BARTEC SP9EX1 vs ecom Smart-Ex 203',
-  eyebrow: 'Compare · Zone 0/1 or Zone 2 Android phones',
+  eyebrow: 'Compare · Android phones for Zone 2',
   lead:
     'The BARTEC SP9EX1 and the ecom Smart-Ex 203 are both intrinsically safe Android phones with 8 GB of RAM, 5G and a battery you swap outside the hazardous area, but they are rated for different zones. The BARTEC SP9EX1 (Ex ia) is certified for Zone 0/1/21 and Class I Division 1; the ecom Smart-Ex 203 (Ex ic) is certified for Zone 2/22 and Class I Division 2 only. The rest of the choice is about scanning, storage, weight and security updates. Here is how they compare, and which we would choose for which team.',
   verdict: {
     summary: [
-      'Start with the highest zone you enter. For any Zone 0 or Zone 1 work we would choose the BARTEC SP9EX1: its rating also covers Zone 2 and Division 2, and it is 15 g lighter. The ecom Smart-Ex 203 is for sites where Zone 2 is enough, and there we would choose it for crews that scan in volume with a hardware scanner, need card storage of up to 512 GB or want security updates listed until March 2032. For other Zone 2 work either phone will do.',
+      'Start with the highest zone you enter. For any Zone 0 or Zone 1 work we would choose the BARTEC SP9EX1: its rating also covers Zone 2 and Division 2, and it is 15 g lighter. The ecom Smart-Ex 203 is for sites where Zone 2 is enough, and there we would choose it for crews that scan in volume with a hardware scanner, need card storage of up to 512 GB or want security updates listed until Q1 2032. For other Zone 2 work either phone will do.',
     ],
     choose: [
       {
@@ -20,7 +20,7 @@ const page: ComparePage = {
           'Your work reaches Zone 0 or Zone 1: it is certified for Zone 0/1/21 (Ex ia, Ga) and its North American listing includes Zone 0 AEx, while the ecom Smart-Ex 203 is certified for Zone 2/22 only.',
           'You work at North American Division 1 sites: it holds Class I Division 1 (E226123), which also covers Division 2, while the ecom Smart-Ex 203 holds Division 2 only.',
           'Crews carry the phone for a full shift: it weighs 350 g against 365 g for the ecom Smart-Ex 203.',
-          'The screen and video matter on your rounds: it has a 6.1-inch AMOLED display with glove and stylus touch and records 4K video.',
+          'Your crews use a stylus: it has a 6.1-inch AMOLED display with glove and stylus touch, against glove and wet touch on the ecom Smart-Ex 203.',
           'You want a path to newer Android versions: it runs Android 15, and BARTEC lists an upgrade to Android 16, with further upgrades subject to Qualcomm.',
         ],
       },
@@ -29,7 +29,7 @@ const page: ComparePage = {
         reasons: [
           'Your crews scan all day at Zone 2 sites: it takes the SM-Ex S203 SR scanner (Zebra), while the BARTEC SP9EX1 scans through its camera with third-party software.',
           'You need storage on the device: it takes a microSD card of up to 512 GB, and our data does not mention a card slot on the BARTEC SP9EX1.',
-          'You plan the fleet around long support: ecom lists security updates until March 2032, against BARTEC’s statement of at least May 2030, and the phone is Android Enterprise Recommended.',
+          'You plan the fleet around long support: ecom lists security updates until Q1 2032, against BARTEC’s statement of at least May 2030, and the phone is Android Enterprise Recommended.',
           'Some Zone 2 sites run hot and the phones carry no scanner: it is certified to +60 °C ambient, against +55 °C for the BARTEC SP9EX1, but only +50 °C with the scanner fitted.',
         ],
       },
@@ -48,7 +48,7 @@ const page: ComparePage = {
     {
       row: 'Security updates',
       title: 'Security update support',
-      note: 'ecom lists security updates for the ecom Smart-Ex 203 until March 2032, while BARTEC states at least May 2030 for the BARTEC SP9EX1, a gap of 22 months. The BARTEC SP9EX1 runs the newer Android 15, and BARTEC lists an upgrade to Android 16.',
+      note: 'ecom lists security updates for the ecom Smart-Ex 203 until Q1 2032, while BARTEC states at least May 2030 for the BARTEC SP9EX1, a gap of almost two years on the makers’ stated dates. The BARTEC SP9EX1 runs the newer Android 15, and BARTEC lists an upgrade to Android 16, with further upgrades subject to Qualcomm.',
     },
     {
       row: 'Storage',
@@ -60,7 +60,7 @@ const page: ComparePage = {
       title: 'Zone 0 and certification',
       edge: 'bartec-sp9ex1',
       text: [
-        'This is the biggest gap between the two. The BARTEC SP9EX1 is intrinsically safe (Ex ia) and certified for Zone 0/1/21 under ATEX and IECEx, with protection level Ga for gas, and its North American listing (E226123) includes Zone 0 AEx ia IIC T4 Ga and Class I Division 1. The ecom Smart-Ex 203 is Ex ic, certified to level Gc for Zone 2/22, with a Class I Division 2 approval, and our data lists no Zone 1 version of it. Because the higher rating also covers Zone 2, the BARTEC SP9EX1 can work anywhere the ecom Smart-Ex 203 can, but not the other way round.',
+        'This is the biggest gap between the two. The BARTEC SP9EX1 is intrinsically safe (Ex ia) and certified for Zone 0/1/21 under ATEX and IECEx, with protection level Ga for gas, and its North American listing (E226123) includes Zone 0 AEx ia IIC T4 Ga and Class I Division 1. The ecom Smart-Ex 203 is Ex ic, certified to level Gc for Zone 2/22, with a Class I Division 2 approval, and our data lists no Zone 1 version of it. Because the higher rating also covers Zone 2, the BARTEC SP9EX1 can work in every zone and Division the ecom Smart-Ex 203 covers, up to its +55 °C ambient limit, but not the other way round.',
         'On the rest of the rating they match: both are IIC T4 for gas and IIIC T135 °C for dust, and T4 suits most gases, but not those that ignite below 135 °C. Both certificates limit mechanical and electrostatic risk: BARTEC says to protect the BARTEC SP9EX1 against high impact energy, and the ecom Smart-Ex 203’s conditions of use say low mechanical-hazard locations only. Both are rated IP68 and MIL-STD-810H as devices, and BARTEC’s ATEX dust marking includes IP64, which our data does not show for ecom.',
       ],
     },
@@ -76,23 +76,23 @@ const page: ComparePage = {
       title: 'Screen, camera and handling',
       edge: 'even',
       text: [
-        'Both phones have a 48 MP autofocus rear camera. The BARTEC SP9EX1 adds an f/1.79 lens, records 4K video and has an 8 MP front camera; the ecom Smart-Ex 203 has an LED flash and a 16 MP front camera, and our data does not list video for it. The BARTEC SP9EX1 has a 6.1-inch AMOLED screen (1080 × 2340, Gorilla Glass Victus) with glove and stylus touch. The ecom Smart-Ex 203 has a 6.3-inch TFT screen (1080 × 2340) with glove and wet touch, and a side fingerprint reader, which our data does not list for the BARTEC SP9EX1.',
+        'Both phones have a 48 MP autofocus rear camera. Our data lists an f/1.79 lens, 4K video and an 8 MP front camera for the BARTEC SP9EX1; the ecom Smart-Ex 203 has an LED flash and a 16 MP front camera, and our data does not list video for it. The BARTEC SP9EX1 has a 6.1-inch AMOLED screen (1080 × 2340, Gorilla Glass Victus) with glove and stylus touch. The ecom Smart-Ex 203 has a 6.3-inch TFT screen (1080 × 2340) with glove and wet touch, and a side fingerprint reader, which our data does not list for the BARTEC SP9EX1.',
         'In the hand, the BARTEC SP9EX1 weighs 350 g and the ecom Smart-Ex 203 365 g, and our data lists no weight for the scanner accessory, so weigh a fitted phone before you equip a fleet. The ecom Smart-Ex 203 has the larger battery, 4500 mAh against 4300 mAh, but our data has no run-time figures for either phone, so test battery life over a real shift. Both are rated IP68 and MIL-STD-810H. The BARTEC SP9EX1 Cam version has no cellular radio or SIM slot and is covered by the same certificates.',
       ],
     },
     {
       title: 'Updates, alarms and charging',
-      edge: 'ecom-smart-ex-203',
+      edge: 'even',
       text: [
-        'On updates, ecom lists security updates for the ecom Smart-Ex 203 until March 2032, and it is Android Enterprise Recommended with Wi-Fi 6E. BARTEC states security updates for the BARTEC SP9EX1 until at least May 2030, and our data does not show its Android Enterprise status; it has Wi-Fi 6. The BARTEC SP9EX1 runs Android 15 against Android 14, and BARTEC lists an upgrade to Android 16, with further upgrades subject to Qualcomm. The two use different processors, and our data has no performance figures, so we do not rank them on speed.',
-        'Both phones put push-to-talk and an emergency call on keys and rely on an app for lone working. The BARTEC SP9EX1 has two programmable keys, one for each. The ecom Smart-Ex 203 has one programmable push-to-talk / multifunction key that can serve as the alarm, and ecom has not confirmed a lone-worker app for this exact model. Neither phone can be charged, or have its battery changed, in the hazardous area: ecom specifies charging at +5 to +45 °C, and BARTEC says to use original BARTEC accessories only.',
+        'On updates, ecom lists security updates for the ecom Smart-Ex 203 until Q1 2032, and it is Android Enterprise Recommended with Wi-Fi 6E. BARTEC states security updates for the BARTEC SP9EX1 until at least May 2030, and our data does not show its Android Enterprise status; it has Wi-Fi 6. The BARTEC SP9EX1 runs Android 15 against Android 14, and BARTEC lists an upgrade to Android 16, with further upgrades subject to Qualcomm. The two use different processors, and our data has no performance figures, so we do not rank them on speed.',
+        'Both phones put push-to-talk and an emergency call or alarm on keys and rely on an app for lone working. The BARTEC SP9EX1 has two programmable keys, one for push-to-talk and one for emergency calls. The ecom Smart-Ex 203 has a programmable push-to-talk / multifunction key that can serve as the alarm, and ecom has not confirmed a lone-worker app for this exact model. Neither phone can be charged, or have its battery changed, in the hazardous area: ecom specifies charging at +5 to +45 °C, and BARTEC says to use original BARTEC accessories only.',
       ],
     },
   ],
   faq: [
     {
       q: 'Is the BARTEC SP9EX1 better than the ecom Smart-Ex 203?',
-      a: 'Neither is better across the board, but they are not rated for the same sites. The BARTEC SP9EX1 suits Zone 0 and Zone 1 work, Division 1 sites and teams that want a lighter phone with an AMOLED screen and 4K video. The ecom Smart-Ex 203 suits Zone 2/22 and Division 2 sites where you want a hardware scanner, microSD storage and security updates listed until March 2032.',
+      a: 'Neither is better across the board, but they are not rated for the same sites. The BARTEC SP9EX1 suits Zone 0 and Zone 1 work, Division 1 sites and teams that want a lighter phone with an AMOLED screen and 4K video. The ecom Smart-Ex 203 suits Zone 2/22 and Division 2 sites where you want a hardware scanner, microSD storage and security updates listed until Q1 2032.',
     },
     {
       q: 'Can either phone be used in Zone 0 or Zone 1?',
@@ -104,7 +104,7 @@ const page: ComparePage = {
     },
     {
       q: 'Which gets security updates for longer?',
-      a: 'The ecom Smart-Ex 203, by 22 months on the makers’ dates. ecom lists security updates until March 2032, while BARTEC states security updates for the BARTEC SP9EX1 until at least May 2030, and lists an upgrade to Android 16, with further upgrades subject to Qualcomm.',
+      a: 'The ecom Smart-Ex 203, by almost two years on the makers’ dates. ecom lists security updates until Q1 2032, while BARTEC states security updates for the BARTEC SP9EX1 until at least May 2030, and lists an upgrade to Android 16, with further upgrades subject to Qualcomm.',
     },
     {
       q: 'Are both phones approved for North America?',

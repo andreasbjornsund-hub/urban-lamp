@@ -6,12 +6,12 @@ const page: ComparePage = {
   description:
     'Atexxo Zone 1 iPhone 17 or i.safe MOBILE IS440.1? An iPhone or a radio-style handheld for Zone 1/21: Division 1, battery swap, gloves and weight compared.',
   h1: 'Atexxo Zone 1 iPhone 17 vs i.safe MOBILE IS440.1',
-  eyebrow: 'Compare · Radio-style handheld or iPhone',
+  eyebrow: 'Compare · Push-to-talk phones for Zone 1',
   lead:
-    'These two share a Zone 1/21 rating but do different jobs. The Atexxo Zone 1 iPhone 17 is a standard Apple iPhone 17 in a flameproof (Ex db) housing: a full smartphone with a 6.3-inch OLED display and iOS 27. The i.safe MOBILE IS440.1 is an intrinsically safe (Ex ib) radio-style handheld with a dedicated push-to-talk key, a 2.4-inch display and a battery you can swap. Both are certified for Zone 1/21 under ATEX and IECEx with the same IIC T4 rating, and only the i.safe MOBILE IS440.1 also holds a Class I Division 1 listing. Here is how they compare, and which we would choose for which team.',
+    'These two share a Zone 1/21 rating but do different jobs. The Atexxo Zone 1 iPhone 17 is a standard Apple iPhone 17 in a flameproof (Ex db) housing: a full smartphone with a 6.3-inch OLED display and iOS 27. The i.safe MOBILE IS440.1 is an intrinsically safe (Ex ib) radio-style handheld with a dedicated push-to-talk key, a 2.4-inch display and a battery you can swap. Both are certified for Zone 1/21 under ATEX and IECEx with the same IIC T4 rating, and our data confirms a Class I Division 1 listing only for the i.safe MOBILE IS440.1. Here is how they compare, and which we would choose for which team.',
   verdict: {
     summary: [
-      'Both are certified for Zone 1/21, so pick by the job. For crews whose work is mostly voice, for gloved or wet hands, for North American Class I Division 1 sites and for anyone carrying the device all shift, we would choose the i.safe MOBILE IS440.1: it has a dedicated push-to-talk key, glove and wet touch and a battery you can swap, and it weighs 307 g against 470 g. For teams that need a full iPhone, with its 6.3-inch display, iOS apps and Apple device management, we would choose the Atexxo Zone 1 iPhone 17, and check camera access with Atexxo if the work depends on it.',
+      'Both are certified for Zone 1/21, but they do different jobs: one is a radio-style handheld, the other a full iPhone, so pick by the job. For crews whose work is mostly voice, for gloved or wet hands, for North American Class I Division 1 sites and for anyone carrying the device all shift, we would choose the i.safe MOBILE IS440.1: it has a dedicated push-to-talk key, glove and wet touch and a battery you can swap, and it weighs 307 g against 470 g. For teams that need a full iPhone, with its 6.3-inch display, iOS apps and Apple device management, we would choose the Atexxo Zone 1 iPhone 17, and check camera access with Atexxo if the work depends on it.',
     ],
     choose: [
       {
@@ -19,7 +19,7 @@ const page: ComparePage = {
         reasons: [
           'Your crews read, type and run iPhone apps as well as talk: it has a 6.3-inch OLED display at 2622 × 1206, iOS 27, 8 GB of RAM and 256 GB or 512 GB of storage, against 2.4 inches at 240 × 320, 4 GB and 64 GB.',
           'Your fleet already runs iPhones: a standard iPhone 17 sits inside, managed through Apple Business, with security updates expected for 7+ years (based on previous model support).',
-          'Your crews scan codes with the camera: the iPhone 17 inside reads QR codes through the camera and 1D and 2D codes through an app, while barcode scanning is not available on the i.safe MOBILE IS440.1. Atexxo does not state whether the rear cameras work through its housing, so ask first.',
+          'Your crews scan codes with the camera: the iPhone 17 inside reads QR codes through the camera and 1D and 2D codes through an app, while barcode scanning is not available on the i.safe MOBILE IS440.1; Atexxo does not state whether the rear cameras work through its housing, so ask first.',
         ],
       },
       {
@@ -70,7 +70,7 @@ const page: ComparePage = {
       edge: 'isafe-is440-1',
       text: [
         'The i.safe MOBILE IS440.1 is built for radio-style work. It has a dedicated push-to-talk key with PoC (push-to-talk over cellular) apps, a channel selector, M1 and M2 keys and a programmable red key that i.safe lists for SOS and lone-worker use, and its touch works with gloves and wet hands. App World comes preinstalled with curated push-to-talk and MDM apps, and audio accessories connect through the 8-pin ISM interface. For a crew that talks more than it taps, the main actions sit on keys.',
-        'The Atexxo Zone 1 iPhone 17 reaches push-to-talk through an app built on Apple’s Push to Talk framework. It has no hardware push-to-talk key, and while the Action Button is mappable if it is accessible, Atexxo does not confirm that it is. Its touchscreen is standard capacitive, without glove touch. Emergency SOS is iOS Emergency SOS, and lone-worker cover comes from an app on both phones. Crews in gloves who want a hardware key will prefer the i.safe MOBILE IS440.1; crews who run a push-to-talk app and work bare-handed can use the iPhone.',
+        'The Atexxo Zone 1 iPhone 17 reaches push-to-talk through an app built on Apple’s Push to Talk framework. It has no hardware push-to-talk key, and while the Action Button is mappable if it is accessible, Atexxo does not confirm that it is. Its touchscreen is standard capacitive, without glove touch. Emergency SOS is iOS Emergency SOS, and lone-worker cover comes from an app on both phones. Crews in gloves who want a hardware key will prefer the i.safe MOBILE IS440.1; crews who run a push-to-talk app and work bare-handed can use the Atexxo Zone 1 iPhone 17.',
       ],
     },
     {

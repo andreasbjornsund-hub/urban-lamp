@@ -6,7 +6,7 @@ const page: ComparePage = {
   description:
     'Atexxo Zone 1 iPhone 17 or Xciel XCiPhone 17? Zone 1 against Zone 2 and Division 2, North America, dust and IECEx compared, with our pick for each team.',
   h1: 'Atexxo Zone 1 iPhone 17 vs Xciel XCiPhone 17',
-  eyebrow: 'Compare · iPhones for Zone 1, Zone 2 or Division 2',
+  eyebrow: 'Compare · iPhone cases and conversions',
   lead:
     'Both of these put a standard iPhone 17 inside a certified housing, so the phone itself is the same: iOS 27, the Apple A19 chip, 8 GB of RAM and 5G. The real question is where your team works. The Atexxo Zone 1 iPhone 17 is a flameproof (Ex db) conversion certified for Zone 1/21 under ATEX and IECEx. The Xciel XCiPhone 17 is an intrinsically safe (Ex ic) case certified for Zone 2 under ATEX, with a Class I Division 2 listing for North America on one of its versions. Here is how they compare, and which we would choose for which team.',
   verdict: {

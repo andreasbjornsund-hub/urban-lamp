@@ -1,3 +1,5 @@
+import { GUIDE_PAGES } from '../data/guide-pages';
+
 export const SITE = {
   name: 'Intrinsically Safe Phones',
   url: 'https://intrinsicallysafephones.com',
@@ -67,26 +69,12 @@ export const MAIN_NAV: NavItem[] = [
     label: 'Best for',
     href: '/best/',
     menu: [BEST_BY_ZONE, BEST_BY_INDUSTRY, BEST_BY_NEED],
-    footerLink: { label: 'See all use cases', href: '/best/' },
   },
   { label: 'Compare', href: '/compare/' },
   {
     label: 'Guides',
     href: '/guides/',
-    menu: [
-      {
-        links: [
-          { label: 'Buying guide', href: '/guides/buying-guide/' },
-          { label: 'What is an intrinsically safe phone?', href: '/what-is-an-intrinsically-safe-phone.html' },
-          { label: 'ATEX zones explained', href: '/guides/atex-zones-explained/' },
-          { label: 'Gas groups & temperature classes', href: '/guides/gas-groups-temperature-classes/' },
-          { label: 'ATEX vs IECEx', href: '/guides/atex-vs-iecex/' },
-          { label: 'iPhone Ex case vs dedicated phone', href: '/iphone-ex-case-vs-dedicated-atex-phone.html' },
-          { label: 'Glossary', href: '/guides/glossary/' },
-        ],
-      },
-    ],
-    footerLink: { label: 'All guides', href: '/guides/' },
+    menu: [{ links: [...GUIDE_PAGES.map((g) => ({ label: g.navLabel, href: `/guides/${g.slug}/` }))] }],
   },
   { label: 'About', href: '/about/' },
 ];
@@ -97,8 +85,6 @@ export const FOOTER_NAV: { heading: string; links: NavLink[] }[] = [
     links: [
       FIND_PHONES,
       { label: 'Compare phones', href: '/compare/' },
-      { label: 'Brands', href: '/brands/' },
-      { label: 'Guides', href: '/guides/' },
     ],
   },
   {
@@ -108,7 +94,6 @@ export const FOOTER_NAV: { heading: string; links: NavLink[] }[] = [
       { label: 'Zone 2 phones', href: '/best/zone-2-phones/' },
       { label: 'Oil & gas', href: '/best/oil-and-gas/' },
       { label: 'iPhone & iOS', href: '/best/iphone/' },
-      { label: 'All use cases', href: '/best/' },
     ],
   },
   {

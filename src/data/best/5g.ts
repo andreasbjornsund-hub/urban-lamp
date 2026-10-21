@@ -38,7 +38,7 @@ const page: BestPage = {
       label: 'Best for sites running 5G alongside Wi-Fi 6E',
       why: [
         'For sites that run a 5G network and a modern Wi-Fi network side by side, this is the one dedicated Zone 1 phone in our data listed with Wi-Fi 6E, alongside 5G, a nano-SIM and eSIM. Wi-Fi 6E adds the 6 GHz band to Wi-Fi 6, which helps where access points offer it, while BARTEC and i.safe list Wi-Fi 6 and Xshielder’s iPhone cases list Wi-Fi 7.',
-        'It is intrinsically safe (Ex ia IIC T4) for Zone 1/21 under ATEX, IECEx and UKEX, with Class I Division 1 for North America. ecom lists security updates until November 2032, and the phone runs Android 15 as Android Enterprise Recommended, so it fits standard fleet management.',
+        'It is intrinsically safe (Ex ia IIC T4) for Zone 1/21 under ATEX, IECEx and UKEX, with Class I Division 1 for North America. ecom lists security updates until Q4 2032, and the phone runs Android 15 as Android Enterprise Recommended, so it fits standard fleet management.',
         'For a network project, ecom does not publish a band list in our data, so check the bands your network uses with ecom before you order. The phone is rated T4, weighs 400 g and is not certified for Zone 0.',
       ],
     },

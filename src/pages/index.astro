@@ -1,81 +1,209 @@
 ---
-import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import { guidePage } from '../data/guide-pages';
+import { guideImage } from '../lib/guide-images';
+import { Image, getImage } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon, { type IconName } from '../components/Icon.astro';
 import HeroMarquee from '../components/home/HeroMarquee.astro';
-import { SITE, FIND_PHONES, BUYING_GUIDE, CONTACT } from '../config/site';
+import { SITE, FIND_PHONES, CONTACT, BEST_BY_INDUSTRY } from '../config/site';
+import { logo, logoScale } from '../lib/brand-logos';
+import { BEST_PAGES, bestPage } from '../data/best-pages';
+import { COMPARE_PAGES } from '../data/compare-pages';
 
 // Placeholder images cropped from the design mockup. Replace with full-resolution originals.
 import rigImg from '../assets/home/hero-rig.webp';
-import industriesImg from '../assets/home/industries-worker.png';
-import insightStart from '../assets/home/insight-starting-point.png';
-import insightQuestions from '../assets/home/insight-questions.png';
-import insightRollout from '../assets/home/insight-rollout.png';
+import zoneImg from '../assets/home/tab-zone.webp';
+import industriesImg from '../assets/home/tab-industry.webp';
+import useCaseImg from '../assets/home/tab-use-case.webp';
 
-const title = 'Intrinsically Safe & Explosion-Proof Phones: Expert Guide';
-const description =
-  'Impartial guidance on choosing intrinsically safe and explosion-proof phones for Zone 1 and Zone 2 hazardous areas. Compare devices, read guides, get advice.';
+/* Counts and names come from the phone data, so the copy stays true as the catalogue changes */
+const phones = await getCollection('phones');
+const current = phones.filter((p) => p.data.status === 'current');
+const phoneById = new Map(phones.map((p) => [p.id, p]));
+const bestHref = (slug: string) => {
+  if (!bestPage(slug)) throw new Error(`Home page links to a missing Best for page: ${slug}`);
+  return `/best/${slug}/`;
+};
+/** Link text from the page's own h1, so it matches what the page ranks for: "Best Zone 1 phones in 2026" -> "Best Zone 1 phones" */
+const bestLabel = (slug: string) => bestPage(slug)!.h1.replace(/ in \d{4}$/, '').replace(/ for hazardous areas$/, '');
 
-const steps: { icon: IconName; title: string; text: string }[] = [
-  { icon: 'document', title: 'Understand your requirements', text: 'Clarify your operating environment, risk areas and user needs.' },
-  { icon: 'search', title: 'Evaluate suitable devices', text: 'Explore options that fit your requirements and use cases.' },
-  { icon: 'users', title: 'Build a considered shortlist', text: 'Make a confident, well-informed decision for your team.' },
+const title = 'Intrinsically Safe Phones Compared: ATEX Zone 1 & 2';
+const description = `Compare ${phones.length} intrinsically safe and explosion-proof phones for ATEX and IECEx zones. Head-to-heads and the best phone for every zone, industry and need.`;
+if (title.length > 60 || description.length > 160) throw new Error('Home page title or description is too long');
+
+/* ---------- Best for: three tabs ---------- */
+const coversGas = (z: string) => current.filter((p) => p.data.certification.zonesGas.includes(z)).length;
+const zones: { slug: string; text: string; count?: number }[] = [
+  { slug: 'zone-0-phones', text: 'Gas present continuously, such as inside tanks', count: coversGas('0') },
+  { slug: 'zone-1-phones', text: 'Gas likely in normal operation', count: coversGas('1') },
+  { slug: 'zone-2-phones', text: 'Gas unlikely, and only briefly', count: coversGas('2') },
+  { slug: 'division-1-phones', text: 'North American hazardous locations' },
 ];
 
-const guides: { icon: IconName; title: string; text: string; href: string }[] = [
-  {
-    icon: 'clipboard',
-    title: 'Hazardous-area requirements',
-    text: 'Understand your operating environment, risk zones and the factors that influence device selection.',
-    href: '/guides/hazardous-area-requirements/',
-  },
-  {
-    icon: 'users',
-    title: 'Workforce needs',
-    text: 'Consider how your teams work, what features they need and the challenges they face on site.',
-    href: '/guides/workforce-needs/',
-  },
-  {
-    icon: 'settings',
-    title: 'Deployment and support',
-    text: 'Plan for rollouts, device management and ongoing support to keep your workforce connected.',
-    href: '/guides/deployment-and-support/',
-  },
+const INDUSTRY_TEXT: Record<string, string> = {
+  'oil-and-gas': 'Wellheads, refineries and terminals',
+  offshore: 'Platforms and process modules',
+  'chemical-processing': 'Reactors and tank farms',
+  pharmaceutical: 'Solvents and powder handling',
+  manufacturing: 'Paint lines and dust areas',
+  utilities: 'Biogas and gas networks',
+};
+const industries = BEST_BY_INDUSTRY.links.map((l) => {
+  const slug = l.href.split('/')[2];
+  return { slug, text: INDUSTRY_TEXT[slug] };
+});
+
+const useCases: { icon: IconName; slug: string; text: string }[] = [
+  { icon: 'smartphone', slug: 'iphone', text: 'Certified cases and conversions' },
+  { icon: 'radio', slug: 'push-to-talk', text: 'Hardware PTT and alarm keys' },
+  { icon: 'signal', slug: '5g', text: 'Bands, Wi-Fi and private networks' },
+  { icon: 'camera', slug: 'camera', text: 'Inspection photos and video' },
+  { icon: 'feather', slug: 'lightest', text: 'Weighed as carried' },
+  { icon: 'calendar', slug: 'long-term-value', text: 'Update support and service life' },
 ];
 
-const industries = [
-  { label: 'Oil & gas', href: '/best/oil-and-gas/' },
-  { label: 'Chemical processing', href: '/best/chemical-processing/' },
-  { label: 'Manufacturing', href: '/best/manufacturing/' },
+const tabs = [
+  { id: 'zone', label: 'Zone' },
+  { id: 'industry', label: 'Industry' },
+  { id: 'use-case', label: 'Use case' },
 ];
 
-const approach = [
-  { title: 'Define your requirements', text: 'Tell us about your environment, use cases and key priorities.' },
-  { title: 'Explore the options', text: 'Get clear, impartial guidance on suitable device types and features.' },
-  { title: 'Choose with confidence', text: 'Build a shortlist that fits your needs and plan for successful deployment.' },
+/* ---------- Brands: every maker's logo in its own colours (black where there's no colour file), alphabetical ---------- */
+// Tile-size tweaks: i.safe's thin "MOBILE" type reads small; BARTEC's heavy type reads large
+const TILE_OPTICAL: Record<string, number> = { isafe: 1.15, bartec: 0.85 };
+// Xshielder's yellow logo is made for a dark surface, so it sits on its own badge, as in the hero strip
+const BADGE: Record<string, string> = { xshielder: '#171B25' };
+const brands = [...new Map(phones.map((p) => [p.data.brandSlug, p.data.brand])).entries()]
+  .map(([slug, name]) => {
+    const img = logo('brands', slug, 'colour');
+    return { slug, name, img, badge: BADGE[slug], scale: img ? logoScale(slug, img) * (TILE_OPTICAL[slug] ?? 1) : 1 };
+  })
+  .sort((a, b) => a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }));
+const brandList = brands.map((b) => b.name.replace(/\s*\(.*\)$/, ''));
+
+/* ---------- Head-to-head: one pair shown, with no sponsor product ---------- */
+const FEATURED_PAIR = 'ecom-smart-ex-03-dz1-vs-isafe-is540-1';
+const featured = COMPARE_PAGES.find((p) => p.slug === FEATURED_PAIR);
+if (!featured) throw new Error(`Home page links to a missing comparison: ${FEATURED_PAIR}`);
+const pair = await Promise.all(
+  featured.phones.map(async (id) => {
+    const p = phoneById.get(id)!;
+    if (p.data.sponsor) throw new Error('The home page comparison must not include a sponsor product');
+    const src = p.data.image
+      ? (await getImage({ src: p.data.image, width: 720, height: 720, fit: 'contain', format: 'webp' })).src
+      : undefined;
+    return { src };
+  }),
+);
+
+/* ---------- How we compare ---------- */
+const principles: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'file-check', title: 'From the certificate', text: 'Zones, markings and limits come from certificates and maker datasheets.' },
+  { icon: 'scale', title: 'Same rules for every brand', text: 'Every phone is described, ranked and compared the same way.' },
+  { icon: 'flag', title: 'Unknowns flagged', text: 'Anything we could not confirm is marked as not verified, never guessed.' },
 ];
 
-const insights = [
+/* ---------- Guides: each card uses the guide's own photo (src/lib/guide-images.ts) ---------- */
+const insights = ['rugged-vs-intrinsically-safe-phones', 'android-vs-iphone-hazardous-areas', 'intrinsically-safe-phone-cost'].map((slug) => {
+  const page = guidePage(slug);
+  const photo = guideImage(slug);
+  if (!page) throw new Error(`Home page: no guide at /guides/${slug}/`);
+  if (!photo) throw new Error(`Home page: no photo at src/assets/guides/${slug}.webp`);
+  return { slug, ...photo, title: page.navLabel, href: `/guides/${slug}/` };
+});
+
+/* ---------- FAQ ---------- */
+// Every question names its subject and every answer restates it, so each reads on its own (SEO/AEO rule).
+// Facts in the copy are checked against the phone data so the answers fail the build instead of going stale.
+const ios = current.filter((p) => p.data.os.name === 'iOS');
+const iosZone1 = ios.filter((p) => p.data.certification.zonesGas.includes('1'));
+if (iosZone1.some((p) => !p.data.certification.protection?.includes('Ex db'))) {
+  throw new Error('Home FAQ says every Zone 1 iPhone option is flameproof (Ex db); re-check the copy');
+}
+const brandsOfType = (types: string[]) =>
+  [...new Set(current.filter((p) => types.includes(p.data.type)).map((p) => p.data.brandSlug))].sort().join(',');
+if (brandsOfType(['dedicated']) !== 'bartec,ecom,isafe' || brandsOfType(['ex-case', 'conversion']) !== 'atexxo,xciel,xshielder') {
+  throw new Error('Home FAQ names which brands make dedicated phones and which make iPhone cases; re-check the copy');
+}
+const t6Zone1 = current.filter((p) => p.data.certification.zonesGas.includes('1') && p.data.certification.tempClass === 'T6');
+if (t6Zone1.length === 0 || t6Zone1.some((p) => p.data.brandSlug !== 'xshielder')) {
+  throw new Error('Home FAQ says only Xshielder iPhone cases are T6 among current Zone 1 phones; re-check the copy');
+}
+// Security update dates named in the FAQ: current Zone 1 Android smartphones, by slug
+const zone1Updates = Object.fromEntries(
+  current
+    .filter((p) => p.data.os.name === 'Android' && p.data.formFactor === 'smartphone' && p.data.certification.zonesGas.includes('1'))
+    .map((p) => [p.id, p.data.os.securityUntil]),
+);
+const UPDATES_IN_COPY: Record<string, string> = {
+  'isafe-is530-1': '2027-03-31',
+  'bartec-sp9ex1': '2030-05-31',
+  'bartec-sc9ex1': '2030-05-31',
+  'ecom-smart-ex-03-dz1': '2032-12-31',
+  'isafe-is540-1': '2032-12-31',
+  'isafe-is541-1': '2032-12-31',
+};
+if (JSON.stringify(Object.entries(zone1Updates).sort()) !== JSON.stringify(Object.entries(UPDATES_IN_COPY).sort())) {
+  throw new Error('Home FAQ quotes security update dates for Zone 1 Android smartphones; re-check the copy');
+}
+const brandNames = new Intl.ListFormat('en-GB', { type: 'conjunction' }).format(brands.map((b) => b.name));
+const guideHref = (slug: string) => {
+  if (!guidePage(slug)) throw new Error(`Home page links to a missing guide: ${slug}`);
+  return `/guides/${slug}/`;
+};
+const faq: { q: string; a: string; link?: { label: string; href: string } }[] = [
   {
-    img: insightStart,
-    alt: 'Pipework and distillation columns at a refinery at sunset',
-    title: 'A starting point for hazardous-area phones',
-    text: 'Key considerations to help you understand your options and ask the right questions.',
-    href: '/guides/hazardous-area-phones-starting-point/',
+    q: 'What is an intrinsically safe phone?',
+    a: 'An intrinsically safe phone is built so its circuits and battery cannot release enough electrical or thermal energy to ignite an explosive atmosphere, even with a fault. It is certified under protection type Ex i: level ia is suitable down to Zone 0, ib down to Zone 1, and ic for Zone 2 only.',
   },
   {
-    img: insightQuestions,
-    alt: 'Gloved hand writing on a clipboard checklist',
-    title: 'Questions to ask before you shortlist',
-    text: 'A practical checklist to help you evaluate devices and suppliers with confidence.',
-    href: '/guides/questions-before-you-shortlist/',
+    q: 'What is the difference between an intrinsically safe phone and an explosion-proof phone?',
+    a: 'An intrinsically safe phone limits its energy so it cannot ignite gas or dust. An explosion-proof (flameproof, Ex db) phone or case accepts that ignition could happen inside it and contains it in a housing strong enough to stop the flame reaching the atmosphere outside, which is how every Zone 1 iPhone option we list is certified. Both methods can be approved for Zone 1, and the Ex marking shows which one a phone uses.',
   },
   {
-    img: insightRollout,
-    alt: 'Two workers in hard hats and high-visibility jackets walking through a processing plant',
-    title: 'Planning a workforce rollout',
-    text: 'From testing to training, learn how to plan a smooth and successful deployment.',
-    href: '/guides/planning-a-workforce-rollout/',
+    q: 'Is the iPhone intrinsically safe?',
+    a: `No, a standard iPhone is not intrinsically safe and has no Ex certificate, so it cannot be used in a hazardous area on its own. An iPhone can be used in Zone 1 or Zone 2 inside a certified Ex case or as a certified conversion, and we list ${ios.length} current iPhone options, ${iosZone1.length} of them for Zone 1.`,
+    link: { label: 'Best iPhones for hazardous areas', href: bestHref('iphone') },
+  },
+  {
+    q: 'Which brands make intrinsically safe phones?',
+    a: `The main makers of intrinsically safe and explosion-proof phones for Zone 1 and Zone 2 are ${brandNames}. BARTEC, ecom and i.safe MOBILE build dedicated intrinsically safe phones, while Atexxo, Xciel and Xshielder certify iPhones through Ex cases or conversions, and Atexxo also converts Samsung Galaxy phones.`,
+    link: { label: 'See every phone we compare', href: FIND_PHONES.href },
+  },
+  {
+    q: 'Do I need a Zone 1 or a Zone 2 phone?',
+    a: 'Whether you need a Zone 1 or a Zone 2 phone depends on the most hazardous area your team enters. A Zone 1 phone can also be used in Zone 2, but a Zone 2 phone must never go into Zone 1. Check your site’s area classification drawings, and also the gas group and temperature class they call for.',
+    link: { label: 'Filter phones by zone', href: FIND_PHONES.href },
+  },
+  {
+    q: 'What temperature class does an intrinsically safe phone need?',
+    a: 'Most intrinsically safe and explosion-proof phones are rated T4, so their surfaces stay at or below 135 °C, which suits most gases and vapors on industrial sites. Sites with gases that ignite below 135 °C need T5 or T6 equipment, and among the current Zone 1 phones and cases we list, only the Xshielder explosion-proof iPhone cases are rated T6.',
+    link: { label: 'Best Zone 1 phones', href: bestHref('zone-1-phones') },
+  },
+  {
+    q: 'What is the difference between ATEX, IECEx and UKEX?',
+    a: 'ATEX is the legal requirement for equipment in explosive atmospheres in the EU, and UKEX is the equivalent in Great Britain. IECEx is an international certification scheme accepted in many countries outside Europe. North America uses Class and Division ratings under the NEC and CEC, so check which scheme your site needs.',
+  },
+  {
+    q: 'Can I use a rugged phone in a hazardous area?',
+    a: 'A rugged phone cannot be used in a hazardous area unless it also holds an Ex certificate such as ATEX or IECEx. Rugged ratings such as IP68 and MIL-STD-810H cover water, dust and drops, and say nothing about whether a phone can ignite gas or dust.',
+    link: { label: 'Rugged vs intrinsically safe phones', href: guideHref('rugged-vs-intrinsically-safe-phones') },
+  },
+  {
+    q: 'How much does an intrinsically safe phone cost in 2026?',
+    a: 'Going by reseller list prices in October 2026, a Zone 2 intrinsically safe smartphone costs about €1,150 to €1,750 before VAT and a Zone 1 smartphone about €2,050 to €2,400, with keypad phones from around €540. Zone 1 iPhone options are usually sold with the iPhone included, so compare the full package rather than the price of the case alone.',
+    link: { label: 'What intrinsically safe phones cost', href: guideHref('intrinsically-safe-phone-cost') },
+  },
+  {
+    q: 'How long are intrinsically safe phones supported with security updates?',
+    a: 'Security updates for Zone 1 intrinsically safe smartphones end between Q1 2027 for the older i.safe MOBILE IS530.1 and Q4 2032 for the ecom Smart-Ex 03 DZ1 and i.safe MOBILE IS540.1, with BARTEC’s SP9EX1 and SC9EX1 supported until May 2030. Apple publishes no end date for each iPhone, but earlier iPhones have received security updates for seven years or more.',
+    link: { label: 'Best phones for long-term value', href: bestHref('long-term-value') },
+  },
+  {
+    q: 'Which intrinsically safe phone is best?',
+    a: 'The best intrinsically safe phone depends on the zone, the industry and the work. A team that needs push-to-talk, one that photographs inspections and one on a site that needs T6 equipment will each be best served by a different phone, so we rank phones for every zone, industry and use case and state the criteria behind each ranking.',
+    link: { label: 'Compare phones head to head', href: '/compare/' },
   },
 ];
 
@@ -91,25 +219,54 @@ const schema = [
     about: [
       { '@type': 'Thing', name: 'Intrinsically safe phone' },
       { '@type': 'Thing', name: 'Explosion-proof phone' },
+      { '@type': 'Thing', name: 'ATEX' },
     ],
     primaryImageOfPage: { '@type': 'ImageObject', url: `${SITE.url}/og-image.png` },
+    mainEntity: { '@id': `${SITE.url}/#best-for` },
+  },
+  {
+    '@type': 'ItemList',
+    '@id': `${SITE.url}/#best-for`,
+    name: 'Best intrinsically safe and explosion-proof phones by zone, industry and use case',
+    itemListElement: BEST_PAGES.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: p.h1,
+      url: `${SITE.url}/best/${p.slug}/`,
+    })),
+  },
+  {
+    '@type': 'FAQPage',
+    '@id': `${SITE.url}/#faq`,
+    mainEntity: faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
   },
 ];
 ---
 
 <BaseLayout title={title} description={description} schema={schema}>
+  <!-- Legacy links pointed at the old home page form (/#contact, /?inquire=…); forward them to the contact page -->
+  <script is:inline>
+    if (location.hash === '#contact' || new URLSearchParams(location.search).has('inquire')) {
+      location.replace('/contact/' + location.search);
+    }
+  </script>
+
   <!-- Hero -->
   <section class="hero" aria-labelledby="hero-title">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">Specialist device guidance</p>
         <h1 id="hero-title">The right phone. <span>For the right environment.</span></h1>
         <p class="lead">
-          Clear guidance for choosing intrinsically safe and explosion-proof phones for your workforce.
+          Compare certified phones for ATEX and IECEx Zone 0, 1 and 2, from intrinsically safe handsets to
+          explosion-proof iPhone cases.
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href={FIND_PHONES.href}>{FIND_PHONES.label} <Icon name="arrow-right" /></a>
-          <a class="btn btn-secondary" href={BUYING_GUIDE.href}>{BUYING_GUIDE.label}</a>
+          <a class="btn btn-secondary" href="/compare/">Compare phones</a>
         </div>
       </div>
       <div class="hero-media">
@@ -122,121 +279,237 @@ const schema = [
     </div>
   </section>
 
-  <!-- Three-step strip -->
-  <section class="band band-white band-flush" aria-label="How we help">
+  <!-- Best for: zone, industry and use case as tabs. Every panel is in the HTML (and shown without JavaScript). -->
+  <section id="best-for" class="band band-white" aria-labelledby="best-title">
     <div class="container">
-      <ul class="steps-grid">
-        {steps.map((s) => (
-          <li class="step">
-            <span class="icon-badge"><Icon name={s.icon} /></span>
-            <h2 class="step-title">{s.title}</h2>
-            <p>{s.text}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- Buying guides -->
-  <section class="band band-warm" aria-labelledby="guides-title">
-    <div class="container">
-      <div class="split-head">
-        <div>
-          <p class="eyebrow">Buying guides</p>
-          <h2 id="guides-title" class="h2">Clarity before comparison.</h2>
-        </div>
-        <p class="split-head-text">
-          Choosing a phone for a hazardous environment involves more than device specs. Our guides help you
-          understand your needs, the key considerations and the steps to a successful deployment.
-        </p>
+      <div class="search-head">
+        <h2 id="best-title" class="h2">Start your search here.</h2>
+        <p class="search-text">Filter by the zone, industry or use case you need, and go straight to the best phones for it.</p>
       </div>
-      <ul class="guide-grid">
-        {guides.map((g) => (
-          <li class="guide-card">
-            <span class="icon-badge"><Icon name={g.icon} /></span>
-            <h3>{g.title}</h3>
-            <p>{g.text}</p>
-            <a class="arrow-link" href={g.href}>
-              Read the guide <span class="visually-hidden">on {g.title.toLowerCase()}</span>
-              <Icon name="arrow-right" />
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
 
-  <!-- Industries -->
-  <section class="band band-white" aria-labelledby="industries-title">
-    <div class="container industries-grid">
-      <div class="industries-media">
-        <Image
-          src={industriesImg}
-          alt="A site worker in a hard hat and safety glasses on a phone call at a refinery"
-          widths={[362]}
-          sizes="(min-width: 56rem) 50vw, 100vw"
-        />
-      </div>
-      <div class="industries-copy">
-        <p class="eyebrow">Industries</p>
-        <h2 id="industries-title" class="h2">Built around your working environment.</h2>
-        <p class="industries-text">
-          Different environments bring different challenges. We provide tailored guidance to help you find
-          suitable phone options for your industry.
-        </p>
-        <ul class="industry-list">
-          {industries.map((i) => (
-            <li>
-              <a href={i.href}>{i.label} <Icon name="arrow-right" /></a>
-            </li>
+      <div class="tabs" data-tabs>
+        <div class="tab-list" role="tablist" aria-label="Find the best phone by">
+          {tabs.map((t, i) => (
+            <button
+              type="button"
+              role="tab"
+              id={`tab-${t.id}`}
+              aria-controls={`panel-${t.id}`}
+              aria-selected={i === 0 ? 'true' : 'false'}
+              tabindex={i === 0 ? 0 : -1}
+            >
+              {t.label}
+            </button>
           ))}
-        </ul>
+        </div>
+
+        <div class="tab-panel" role="tabpanel" id="panel-zone" aria-labelledby="tab-zone" tabindex="0">
+          <div class="panel-media">
+            <Image
+              src={zoneImg}
+              alt="Hand-drawn area classification: Zone 0 at a gas release, Zone 1 around it and Zone 2 beyond"
+              widths={[480, 720, 960]}
+              sizes="(min-width: 56rem) 28rem, 100vw"
+              loading="lazy"
+            />
+          </div>
+          <ul class="pick-list">
+            {zones.map((z) => (
+              <li>
+                <a class="pick" href={bestHref(z.slug)}>
+                  <span class="pick-body">
+                    <span class="pick-title">{bestLabel(z.slug)}</span>
+                    <span class="pick-text">{z.text}</span>
+                  </span>
+                  {z.count !== undefined && <span class="pick-count">{z.count} phones</span>}
+                  <Icon name="arrow-right" class="pick-arrow" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="tab-panel" role="tabpanel" id="panel-industry" aria-labelledby="tab-industry" tabindex="0" hidden>
+          <div class="panel-media">
+            <Image
+              src={industriesImg}
+              alt="Hand-drawn process plant with a storage tank, two distillation columns and pipework"
+              widths={[480, 720, 960]}
+              sizes="(min-width: 56rem) 28rem, 100vw"
+              loading="lazy"
+            />
+          </div>
+          <ul class="pick-list">
+            {industries.map((i) => (
+              <li>
+                <a class="pick" href={bestHref(i.slug)}>
+                  <span class="pick-body">
+                    <span class="pick-title">{bestLabel(i.slug)}</span>
+                    <span class="pick-text">{i.text}</span>
+                  </span>
+                  <Icon name="arrow-right" class="pick-arrow" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="tab-panel" role="tabpanel" id="panel-use-case" aria-labelledby="tab-use-case" tabindex="0" hidden>
+          <div class="panel-media">
+            <Image
+              src={useCaseImg}
+              alt="Hand-drawn rugged phone with its camera, connectivity and weight labelled"
+              widths={[480, 720, 960]}
+              sizes="(min-width: 56rem) 28rem, 100vw"
+              loading="lazy"
+            />
+          </div>
+          <ul class="pick-list">
+            {useCases.map((u) => (
+              <li>
+                <a class="pick has-icon" href={bestHref(u.slug)}>
+                  <span class="pick-icon"><Icon name={u.icon} /></span>
+                  <span class="pick-body">
+                    <span class="pick-title">{bestLabel(u.slug)}</span>
+                    <span class="pick-text">{u.text}</span>
+                  </span>
+                  <Icon name="arrow-right" class="pick-arrow" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <noscript>
+        <style is:inline>
+          .tabs .tab-list { display: none; }
+          .tabs .tab-panel[hidden] { display: grid !important; margin-top: 3rem; }
+        </style>
+      </noscript>
+    </div>
+  </section>
+
+  <!-- Brands: copy left, logos right -->
+  <section class="band band-warm" aria-labelledby="brands-title">
+    <div class="container duo">
+      <div class="duo-copy">
+        <h2 id="brands-title" class="h2">Every major brand, side by side.</h2>
+        <p class="duo-text">
+          Compare all the latest devices, from dedicated intrinsically safe handsets to Zone 1 certified iPhone cases
+          and conversions.
+        </p>
+        <a class="arrow-link" href={FIND_PHONES.href}>See all phones <Icon name="arrow-right" /></a>
+      </div>
+      <ul class="logo-grid" aria-label={`Brands we compare: ${brandList.join(', ')}`}>
+        {brands.map((b) => (
+          <li class="logo-tile">
+            {b.img && b.badge ? (
+              <span class="logo-badge" style={`--badge: ${b.badge}`}>
+                <img
+                  src={b.img.src}
+                  width={b.img.width}
+                  height={b.img.height}
+                  alt={b.name}
+                  loading="lazy"
+                  style={`--scale: ${b.scale.toFixed(2)}`}
+                />
+              </span>
+            ) : b.img ? (
+              <img
+                src={b.img.src}
+                width={b.img.width}
+                height={b.img.height}
+                alt={b.name}
+                loading="lazy"
+                style={`--scale: ${b.scale.toFixed(2)}`}
+              />
+            ) : (
+              <span class="logo-text">{b.name}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Head-to-head: visual left, copy right -->
+  <section class="band band-white" aria-labelledby="compare-title">
+    <div class="container duo duo-flip">
+      <a class="matchup" href={`/compare/${featured.slug}/`} aria-label={`Read the comparison: ${featured.h1}`}>
+        {pair.map((p, i) => (
+          <span class="matchup-photo" style={`grid-column: ${i * 2 + 1}`}>
+            {p.src && <img src={p.src} alt="" width="360" height="360" loading="lazy" />}
+          </span>
+        ))}
+        <span class="matchup-vs" aria-hidden="true">vs</span>
+      </a>
+      <div class="duo-copy">
+        <h2 id="compare-title" class="h2">Compare phones head to head.</h2>
+        <p class="duo-text">The verdict, the differences that decide it and the full specifications, side by side.</p>
+        <div class="duo-actions">
+          <a class="btn btn-primary" href="/compare/">Compare phones <Icon name="arrow-right" /></a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Approach: plain paper between the white bands -->
-  <section class="band" aria-labelledby="approach-title">
-    <div class="container">
-      <p class="eyebrow">Our approach</p>
-      <h2 id="approach-title" class="h2">A more informed way to choose.</h2>
-      <ol class="approach">
-        {approach.map((a, i) => (
-          <li class="approach-step">
-            <span class="approach-num" aria-hidden="true">{i + 1}</span>
-            <div class="approach-body">
-              <h3><span class="visually-hidden">Step {i + 1}: </span>{a.title}</h3>
-              <p>{a.text}</p>
+  <!-- How we compare -->
+  <section class="band band-warm" aria-labelledby="principles-title">
+    <div class="container principles">
+      <div>
+        <h2 id="principles-title" class="h2">Facts first, for every brand.</h2>
+      </div>
+      <ul class="principle-list">
+        {principles.map((p) => (
+          <li class="principle">
+            <span class="icon-badge"><Icon name={p.icon} /></span>
+            <div>
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
             </div>
           </li>
         ))}
-      </ol>
+      </ul>
     </div>
   </section>
 
-  <!-- Latest insights -->
+  <!-- Guides -->
   <section class="band band-white" aria-labelledby="insights-title">
     <div class="container">
-      <div class="insights-head">
-        <div>
-          <p class="eyebrow">Latest insights</p>
-          <h2 id="insights-title" class="h2">Practical guidance, at your pace.</h2>
-        </div>
-        <a class="arrow-link" href="/guides/">View all guides <Icon name="arrow-right" /></a>
-      </div>
+      <h2 id="insights-title" class="h2">Practical guidance, at your pace.</h2>
       <ul class="insight-grid">
         {insights.map((p) => (
-          <li class="insight">
-            <Image src={p.img} alt={p.alt} widths={[192]} sizes="(min-width: 56rem) 33vw, 100vw" />
-            <h3>{p.title}</h3>
-            <p>{p.text}</p>
-            <a class="arrow-link" href={p.href}>
-              Read more <span class="visually-hidden">: {p.title}</span>
-              <Icon name="arrow-right" />
+          <li>
+            <a class="insight" href={p.href}>
+              <Image src={p.img} alt={p.alt} widths={[400, 800]} sizes="(min-width: 56rem) 33vw, 100vw" />
+              <h3>{p.title}</h3>
             </a>
           </li>
         ))}
       </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="band band-warm" aria-labelledby="faq-title">
+    <div class="container faq-grid">
+      <div>
+        <h2 id="faq-title" class="h2">Hazardous-area phones, explained.</h2>
+      </div>
+      <div class="faq-list">
+        {faq.map((f) => (
+          <details class="faq">
+            <summary>
+              <h3>{f.q}</h3>
+              <Icon name="chevron-down" />
+            </summary>
+            <div class="faq-answer">
+              <p>{f.a}</p>
+              {f.link && <a class="arrow-link" href={f.link.href}>{f.link.label} <Icon name="arrow-right" /></a>}
+            </div>
+          </details>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -254,12 +527,8 @@ const schema = [
     </svg>
     <div class="container cta-inner">
       <div>
-        <p class="eyebrow">Get started</p>
-        <h2 id="cta-title" class="h2">Start with the right questions.</h2>
-        <p class="cta-text">
-          Filter every certified phone by zone, industry and feature, and compare models side by side. Or ask
-          our team for impartial advice.
-        </p>
+        <h2 id="cta-title" class="h2">Find the right phone for your site.</h2>
+        <p class="cta-text">Filter every certified phone by zone and feature, or ask our team for impartial advice.</p>
       </div>
       <div class="cta-actions">
         <a class="btn btn-light" href={FIND_PHONES.href}>{FIND_PHONES.label} <Icon name="arrow-right" /></a>
@@ -268,6 +537,31 @@ const schema = [
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  // Tabs (WAI-ARIA pattern): click or arrow keys to switch, Home/End for the first and last tab
+  document.querySelectorAll<HTMLElement>('[data-tabs]').forEach((root) => {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const select = (tab: HTMLButtonElement, focus = false) => {
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')!)!.hidden = !on;
+      });
+      if (focus) tab.focus();
+    };
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(tab));
+      tab.addEventListener('keydown', (e) => {
+        const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+        if (next === undefined) return;
+        e.preventDefault();
+        select(tabs[(next + tabs.length) % tabs.length], true);
+      });
+    });
+  });
+</script>
 
 <style>
   /* ---------- Hero ---------- */
@@ -326,177 +620,269 @@ const schema = [
   }
   .hero-media :global(.marquees) { position: relative; z-index: 1; }
 
-  /* ---------- Steps strip ---------- */
-  .steps-grid { display: grid; }
-  .step {
-    display: grid;
-    justify-items: center;
-    gap: 0.5rem;
-    padding: 2.25rem 1rem;
-    text-align: center;
-  }
-  .step + .step { border-top: 1px solid var(--color-border); }
-  .step .icon-badge { margin-bottom: 0.75rem; }
-  .step-title {
-    font-size: var(--text-h3);
-    letter-spacing: var(--tracking-heading);
-  }
-  .step p {
-    max-width: 17rem;
-    font-size: var(--text-sm);
-    color: var(--color-text);
+  /* ---------- Start your search: centred heading, tabs as a row of buttons ---------- */
+  .search-head { text-align: center; }
+  .search-text {
+    max-width: 34rem;
+    margin: 1rem auto 0;
   }
 
-  /* ---------- Section heading with side text ---------- */
-  .split-head {
-    display: grid;
-    gap: 1.25rem;
-    margin-bottom: 2.5rem;
-  }
-  .split-head-text {
-    max-width: 28rem;
-    font-size: var(--text-sm);
-  }
-
-  /* ---------- Guide cards ---------- */
-  .guide-grid {
-    display: grid;
-    gap: 1.25rem;
-  }
-  .guide-card {
+  .tabs { margin-top: 2rem; }
+  /* A quiet segmented control: the selected tab is a white key on a warm track */
+  .tab-list {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1.75rem 1.5rem 1.25rem;
-    background: var(--color-card);
+    justify-content: center;
+    gap: 0.125rem;
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+    padding: 0.25rem;
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    box-shadow: var(--shadow-card);
+    border-radius: calc(var(--radius) + 0.25rem);
+    background: var(--color-panel-warm);
   }
-  .guide-card h3 {
-    margin-top: 1.5rem;
-    font-size: var(--text-h3);
+  .tab-list [role='tab'] {
+    min-height: 2.75rem;
+    padding: 0.5rem 1.15rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    background: none;
+    color: var(--color-muted);
+    font: 500 0.9375rem / 1.2 var(--font-sans);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
   }
-  .guide-card p {
-    flex: 1;
-    margin-top: 0.75rem;
-    font-size: var(--text-sm);
+  .tab-list [role='tab']:hover { color: var(--color-forest); }
+  .tab-list [role='tab'][aria-selected='true'] {
+    border-color: var(--color-border);
+    background: var(--color-panel);
+    color: var(--color-forest);
+    font-weight: 600;
+    box-shadow: 0 1px 2px rgb(30 40 35 / 0.08);
   }
-  .guide-card .arrow-link { margin-top: 1.25rem; }
 
-  /* ---------- Industries ---------- */
-  .industries-grid {
+  .tab-panel {
     display: grid;
-    gap: 2.5rem;
+    gap: 2rem;
     align-items: center;
+    padding-top: 2.5rem;
   }
-  .industries-media img {
-    width: 100%;
-    aspect-ratio: 362 / 298;
-    object-fit: cover;
+  .tab-panel:focus-visible { outline-offset: 6px; }
+
+  .panel-media {
+    margin: 0;
+    aspect-ratio: 4 / 3;
+    max-width: 22rem;
+    overflow: hidden;
     border-radius: var(--radius);
   }
-  .industries-text {
-    max-width: 30rem;
-    margin-top: 1.25rem;
-    font-size: var(--text-sm);
-  }
-  .industry-list { margin-top: 2rem; }
-  .industry-list li { border-bottom: 1px solid var(--color-border-strong); }
-  .industry-list a {
-    display: flex;
+  .panel-media :global(img) { width: 100%; height: 100%; object-fit: cover; }
+
+  .pick-list { display: grid; align-content: center; }
+  .pick-list li { border-bottom: 1px solid var(--color-border); }
+  .pick-list li:first-child { border-top: 1px solid var(--color-border); }
+  .pick {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
     align-items: center;
-    justify-content: space-between;
-    min-height: 3.5rem;
+    gap: 1rem;
+    min-height: 5rem;
+    padding-block: 0.75rem;
     color: var(--color-ink);
-    font-size: var(--text-sm);
-    font-weight: 500;
     text-decoration: none;
   }
-  .industry-list :global(svg) {
+  .pick.has-icon { grid-template-columns: auto 1fr auto; }
+  .pick-icon { color: var(--color-forest); }
+  .pick-icon :global(svg) { width: 1.35rem; height: 1.35rem; }
+  .pick-body { display: grid; gap: 0.1rem; }
+  .pick-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--color-heading);
+    letter-spacing: var(--tracking-heading);
+  }
+  .pick-text { font-size: var(--text-xs); color: var(--color-muted); }
+  .pick-count { font-size: var(--text-xs); color: var(--color-muted); white-space: nowrap; }
+  .pick :global(.pick-arrow) {
     width: 1rem;
     height: 1rem;
     color: var(--color-forest);
     transition: transform 0.15s ease;
   }
-  .industry-list a:hover { color: var(--color-forest); }
-  .industry-list a:hover :global(svg) { transform: translateX(3px); }
+  .pick:hover .pick-title { color: var(--color-forest); }
+  .pick:hover :global(.pick-arrow) { transform: translateX(3px); }
 
-  /* ---------- Approach ---------- */
-  .approach {
+  /* ---------- Two-column sections: copy one side, visual the other ---------- */
+  .duo {
     display: grid;
-    gap: 2rem;
-    margin-top: 3rem;
+    gap: 2.5rem;
+    align-items: center;
   }
-  .approach-step {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1.25rem;
-    position: relative;
+  .duo-text {
+    max-width: 26rem;
+    margin-top: 1.25rem;
   }
-  /* Vertical connector on mobile */
-  .approach-step:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 3.25rem;
-    bottom: -1.75rem;
-    left: 1.5rem;
-    width: 1px;
-    background: var(--color-border-strong);
-  }
-  .approach-num {
-    display: grid;
-    place-items: center;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    background: var(--color-icon-bg);
-    color: var(--color-forest);
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-  }
-  .approach-body { padding-top: 0.6rem; }
-  .approach-body h3 { font-size: var(--text-h3); }
-  .approach-body p {
-    max-width: 17rem;
-    margin-top: 0.6rem;
-    font-size: var(--text-sm);
-  }
-
-  /* ---------- Insights ---------- */
-  .insights-head {
+  .duo-copy .arrow-link { margin-top: 1rem; }
+  .duo-actions {
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1rem 2rem;
-    margin-bottom: 2rem;
+    align-items: center;
+    gap: 0.75rem 1.5rem;
+    margin-top: 2rem;
   }
-  .insight-grid {
+  .duo-actions .arrow-link { margin-top: 0; }
+
+  /* Brand logos */
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+  .logo-tile {
+    display: grid;
+    place-items: center;
+    height: 6.5rem;
+    padding: 1rem;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+  .logo-tile img {
+    --logo-h: 1.75rem;
+    width: auto;
+    max-width: 80%;
+    height: calc(var(--logo-h) * var(--scale, 1));
+    object-fit: contain;
+  }
+  .logo-badge {
+    display: grid;
+    place-items: center;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    background: var(--badge);
+  }
+  .logo-badge img { --logo-h: 1.5rem; max-width: 100%; }
+  .logo-text { font-family: var(--font-display); font-weight: 600; color: var(--color-ink); }
+
+  /* Head-to-head visual: two phones unboxed and close together, a glow behind each, "vs" between */
+  .matchup {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    justify-items: center;
+    column-gap: 0.25rem;
+    text-decoration: none;
+  }
+  .matchup-photo {
+    position: relative;
+    display: grid;
+    place-items: center;
+    /* Photos are square with the phone centred; a portrait frame crops the empty sides so the pair sits close */
+    width: min(100%, 15rem);
+    aspect-ratio: 2 / 3;
+  }
+  .matchup-photo::before {
+    content: '';
+    position: absolute;
+    inset: 6% -10% 8%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(30 58 47 / 0.12), rgb(245 158 11 / 0.06) 55%, transparent);
+  }
+  .matchup-photo:first-child { justify-self: end; }
+  .matchup-photo:nth-child(2) { justify-self: start; }
+  .matchup-photo img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+  }
+  .matchup:hover .matchup-photo img { transform: translateY(-4px); }
+  .matchup-vs {
+    grid-row: 1;
+    grid-column: 2;
+    color: var(--color-forest);
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 1rem + 1vw, 1.625rem);
+    font-weight: 600;
+    letter-spacing: var(--tracking-heading);
+  }
+
+  /* ---------- How we compare ---------- */
+  .principles {
     display: grid;
     gap: 2.5rem;
   }
-  .insight {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  .principle-list { display: grid; gap: 1.5rem; }
+  .principle {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 1.25rem;
   }
-  .insight img {
+  .principle h3 { font-size: var(--text-h3); }
+  .principle p {
+    margin-top: 0.3rem;
+    font-size: var(--text-sm);
+  }
+
+  /* ---------- Guides ---------- */
+  .insight-grid {
+    display: grid;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .insight { display: block; text-decoration: none; }
+  .insight :global(img) {
     width: 100%;
     aspect-ratio: 2 / 1;
     object-fit: cover;
     border-radius: var(--radius-sm);
   }
   .insight h3 {
-    margin-top: 1.25rem;
+    margin-top: 1rem;
     font-size: var(--text-h3);
   }
-  .insight p {
-    flex: 1;
-    margin-top: 0.6rem;
+  .insight:hover h3 { color: var(--color-forest); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+
+  /* ---------- FAQ ---------- */
+  .faq-grid {
+    display: grid;
+    gap: 2rem;
+  }
+  .faq-list { border-top: 1px solid var(--color-border-strong); }
+  .faq { border-bottom: 1px solid var(--color-border-strong); }
+  .faq summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 3.75rem;
+    padding-block: 1rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary h3 {
+    font-size: var(--text-lg);
+    letter-spacing: var(--tracking-heading);
+  }
+  .faq summary :global(svg) {
+    flex: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--color-forest);
+    transition: transform 0.2s ease;
+  }
+  .faq[open] summary :global(svg) { transform: rotate(180deg); }
+  .faq summary:hover h3 { color: var(--color-forest); }
+  .faq-answer { padding-bottom: 1.25rem; }
+  .faq-answer p {
+    max-width: 44rem;
     font-size: var(--text-sm);
   }
-  .insight .arrow-link { margin-top: 0.75rem; }
+  .faq-answer .arrow-link { margin-top: 0.25rem; }
 
   /* ---------- CTA panel ---------- */
   .cta {
@@ -522,7 +908,6 @@ const schema = [
     gap: 2rem;
     align-items: center;
   }
-  .cta .eyebrow { color: var(--color-on-dark-muted); }
   .cta h2 { color: var(--color-on-dark); }
   .cta-text {
     max-width: 34rem;
@@ -538,38 +923,24 @@ const schema = [
 
   /* ---------- Tablet and up ---------- */
   @media (min-width: 48rem) {
-    .guide-grid,
-    .insight-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .insight-grid { gap: 1.25rem; }
-
-    .steps-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .step { padding-block: 2.5rem; }
-    .step + .step {
-      border-top: 0;
-      border-left: 1px solid var(--color-border);
-    }
-
-    .approach {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.5rem;
-    }
-    .approach-step {
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
-    }
-    /* Horizontal connector between numbers */
-    .approach-step:not(:last-child)::after {
-      top: 1.5rem;
-      bottom: auto;
-      left: 4.25rem;
-      right: 1.25rem;
-      width: auto;
-      height: 1px;
-    }
-    .approach-body { padding: 0 0 0 2.75rem; }
+    .insight-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+    .logo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .pick-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2.5rem; }
+    .pick-list li:nth-child(2) { border-top: 1px solid var(--color-border); }
   }
 
   /* ---------- Desktop ---------- */
+  /* On a laptop-sized screen each section fills the view (about 620px on a MacBook with the dock shown);
+     the CTA band stays its own height */
+  @media (min-width: 56rem) and (min-height: 40rem) {
+    .band:not(.cta) {
+      display: grid;
+      align-content: center;
+      min-height: 38.75rem;
+      padding-block: 4rem;
+    }
+  }
+
   @media (min-width: 56rem) {
     .hero { padding-block: 1rem 3rem; }
     /*
@@ -591,7 +962,6 @@ const schema = [
     .hero-copy,
     .hero-media { display: contents; }
 
-    .hero .eyebrow { grid-area: 2 / 1; }
     .hero h1 { grid-area: 3 / 1; }
     .hero .lead { grid-area: 4 / 1; }
     .hero-actions { grid-area: 5 / 1; }
@@ -636,20 +1006,79 @@ const schema = [
       margin-bottom: calc((2.875rem - var(--strip-h)) / 2);
     }
 
-    .split-head {
-      grid-template-columns: 1fr minmax(0, 24rem);
-      align-items: end;
-      gap: 3rem;
-    }
-
-    .industries-grid {
-      grid-template-columns: 1.15fr 1fr;
+    .tab-panel {
+      grid-template-columns: 21rem 1fr;
       gap: 4rem;
     }
+    .panel-media { max-width: none; }
+
+    .duo {
+      grid-template-columns: minmax(0, 0.9fr) 1.1fr;
+      gap: 5rem;
+    }
+    .duo-flip { grid-template-columns: 1.1fr minmax(0, 0.9fr); }
+
+    .principles,
+    .faq-grid {
+      grid-template-columns: minmax(0, 0.8fr) 1.2fr;
+      gap: 4rem;
+    }
+    .principles { align-items: center; }
 
     .cta-inner {
       grid-template-columns: 1fr auto;
       gap: 3rem;
     }
+  }
+
+  /* ---------- Laptop and up: everything a step larger, so the taller sections don't feel sparse ---------- */
+  @media (min-width: 56rem) and (min-height: 40rem) {
+    .band:not(.cta) {
+      --text-xs: 0.875rem;
+      --text-sm: 1rem;
+      --text-base: 1.125rem;
+      --text-lg: 1.3125rem;
+      --text-h3: 1.5rem;
+      --text-h2: clamp(2.25rem, 1.5rem + 2.4vw, 3.25rem);
+      font-size: var(--text-base);
+    }
+    .band:not(.cta) .btn {
+      min-height: 3.25rem;
+      padding: 0.85rem 1.75rem;
+    }
+    .band:not(.cta) .btn :global(svg),
+    .band:not(.cta) .arrow-link :global(svg) { width: 1.15rem; height: 1.15rem; }
+
+    .search-text { max-width: 38rem; }
+    .tabs { margin-top: 2.25rem; }
+    .tab-panel {
+      grid-template-columns: 26rem 1fr;
+      gap: 4.5rem;
+      padding-top: 2.75rem;
+    }
+    .pick { min-height: 5.75rem; }
+    .pick :global(.pick-arrow) { width: 1.15rem; height: 1.15rem; }
+    .pick-icon :global(svg) { width: 1.6rem; height: 1.6rem; }
+
+    .duo-text { max-width: 30rem; }
+    .logo-grid { gap: 1rem; }
+    .logo-tile { height: 8.25rem; }
+    .logo-tile img { --logo-h: 2.15rem; }
+    .logo-badge { padding: 0.75rem 1.25rem; }
+    .logo-badge img { --logo-h: 1.85rem; }
+
+    .matchup-photo { width: min(100%, 18.5rem); }
+    .matchup-vs { font-size: 2rem; }
+
+    .principle-list { gap: 2.5rem; }
+    .principle p { font-size: var(--text-base); }
+    .principle .icon-badge { width: 3.75rem; height: 3.75rem; }
+    .principle .icon-badge :global(svg) { width: 1.85rem; height: 1.85rem; }
+
+    .insight-grid { gap: 1.75rem; margin-top: 2.5rem; }
+    .insight :global(img) { aspect-ratio: 16 / 10; }
+
+    .faq summary { min-height: 4.5rem; }
+    .faq-answer p { max-width: 48rem; }
   }
 </style>

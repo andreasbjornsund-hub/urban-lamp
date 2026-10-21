@@ -50,7 +50,10 @@
   },
   "os": {
     "name": "Android",
-    "version": "Android 14"
+    "version": "Android 14",
+    "securityUntil": "2032-12-31",
+    "securityUntilLabel": "Q4 2032",
+    "updates": "Security updates until Q4 2032"
   },
   "specs": {
     "display": "6-inch Gorilla Glass",
@@ -76,16 +79,18 @@
   ],
   "variants": [],
   "unconfirmed": {},
-  "features": [],
+  "features": [
+    "updates-2030"
+  ],
   "strengths": [
     "ATEX and IECEx certified, with published certificate numbers",
     "Supports 450 MHz LTE, used by private utility networks",
     "5G connectivity",
+    "Security updates until Q4 2032",
     "User-replaceable battery"
   ],
   "limitations": [
     "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
-    "No published end date for security updates",
     "Not certified for Zone 0"
   ],
   "bestFor": [
@@ -115,6 +120,10 @@
     {
       "label": "i.safe MOBILE: IS541.1 product page (Android 14, QCM6490, 435.6 g, markings)",
       "url": "https://www.isafe-mobile.com/en/products/product-range/zone-1/21/is5411"
+    },
+    {
+      "label": "i.safe MOBILE: Security updates (security patch table) (2026-10-13)",
+      "url": "https://www.isafe-mobile.com/en/support/security-updates"
     },
     {
       "label": "Engineering News: IS541.1 launch article (2026-08-07)",

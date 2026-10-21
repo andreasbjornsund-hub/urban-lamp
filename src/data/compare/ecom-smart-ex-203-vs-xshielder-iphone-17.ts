@@ -6,7 +6,7 @@ const page: ComparePage = {
   description:
     'ecom Smart-Ex 203 or Xshielder iPhone 17? Zone 2/22 and Division 2 against Zone 1/21, temperature class, battery and heat compared, with our pick for each team.',
   h1: 'ecom Smart-Ex 203 vs Xshielder iPhone 17',
-  eyebrow: 'Compare · iPhone or Android for Zone 1, Zone 2 or Division 2',
+  eyebrow: 'Compare · iPhone or Android for Zone 2 and Division 2',
   lead:
     'These two are certified for different zones, and that decides most of the choice. The ecom Smart-Ex 203 is a dedicated Android phone, intrinsically safe (Ex ic) and certified for Zone 2/22 under ATEX and IECEx, with a Class I Division 2 approval for North America. The Xshielder iPhone 17 is a flameproof (Ex db) case around a standard Apple iPhone 17, certified for Zone 1/21 under ATEX, with IECEx for the cemented-lid S02 version only. Beyond the zone, the differences are practical: gas temperature class, heat, the battery and how each phone is used in the field. Here is how they compare, and which we would choose for which team.',
   verdict: {
@@ -18,7 +18,7 @@ const page: ComparePage = {
         id: 'ecom-smart-ex-203',
         reasons: [
           'Your sites are classified Class I Division 2 in North America: it is approved for Class I Division 2 Groups A-D (T4) and Class II Division 2 Groups F and G, while our data does not confirm a North American approval for the Xshielder iPhone 17.',
-          'Your sites run hot: it is certified up to +60 °C ambient (+50 °C with the scanner fitted), against +50 °C for the Xshielder iPhone 17.',
+          'Your sites run hot or wet: it is certified up to +60 °C ambient (+50 °C with the scanner fitted), against +50 °C for the Xshielder iPhone 17, and it is rated IP68, while the Xshielder iPhone 17’s Ex certificate gives IP6X (dust-tight) only.',
           'Shifts outrun one charge: its 4500 mAh battery is user-replaceable, so you swap it outside the hazardous area, while the Xshielder iPhone 17’s battery is not user-replaceable.',
           'Your crews wear gloves, use push-to-talk or scan all day: it has glove and wet touch, a programmable push-to-talk key and the SM-Ex S203 SR scanner accessory (Zebra).',
           'A site asks for IECEx on whichever unit you buy: our data lists its IECEx certificate, IECEx EPS 25.0034X, without a version limit, while Xshielder’s IECEx certificate covers the cemented-lid S02 version only.',
@@ -29,7 +29,7 @@ const page: ComparePage = {
         reasons: [
           'Some of your work is in Zone 1/21, dust included: it is certified for Zone 1/21 under ATEX, with dust at IIIC T80 °C, and the ecom Smart-Ex 203 is certified for Zone 2/22 only.',
           'Your site handles substances that ignite below 135 °C: it is rated T6 for gas, against T4 on the ecom Smart-Ex 203.',
-          'Inspection photos, camera scanning and Face ID matter: the 48 MP rear cameras, the 18 MP front camera and Face ID are confirmed to work through the case.',
+          'Inspection photos and Face ID matter: it has two 48 MP rear cameras, a main and an ultra wide, against one 48 MP autofocus camera on the ecom Smart-Ex 203, and they work through the case, as do the 18 MP front camera and Face ID.',
           'Your fleet already runs iPhones: a standard iPhone 17 sits inside, managed through Apple Business, with security updates expected for 7+ years (based on previous model support).',
           'Crews carry the phone for a full shift: it weighs 330 g including the phone, against 365 g for the ecom Smart-Ex 203.',
         ],
@@ -66,7 +66,7 @@ const page: ComparePage = {
       edge: 'xshielder-iphone-17',
       text: [
         'The Xshielder iPhone 17 is the wider-rated of the two. It is a flameproof (Ex db) case certified for Zone 1/21 under ATEX, marked II 2G Ex db IIC T6 Gb for gas and II 2D Ex tb IIIC T80 °C Db for dust, and that rating also covers Zone 2/22. The ecom Smart-Ex 203 is an intrinsically safe (Ex ic) phone marked II 3G Ex ic IIC T4 Gc and II 3D Ex ic IIIC T135 °C Dc, certified for Zone 2/22.',
-        'A crew that enters a Zone 1 or Zone 21 area, even occasionally, needs the Xshielder iPhone 17: our data lists no Zone 1 version of the ecom Smart-Ex 203. The gas class also differs, T6 (≤ 85 °C) against T4 (≤ 135 °C), but T6 matters only where a substance ignites below 135 °C, and most hydrocarbons sit at T1 to T3. Neither is certified for Zone 0. Both certificates carry impact conditions: the Xshielder iPhone 17’s says the case was tested for low impact energy and should not be exposed to high impact risk, and the ecom Smart-Ex 203 is for low mechanical-hazard locations only.',
+        'A crew that enters a Zone 1 or Zone 21 area, even occasionally, needs the Xshielder iPhone 17: our data lists no Zone 1 version of the ecom Smart-Ex 203. The gas class also differs, T6 (≤ 85 °C) against T4 (≤ 135 °C), but T6 matters only where a substance ignites below 135 °C, and most hydrocarbons sit at T1 to T3. Neither is certified for Zone 0. The Xshielder iPhone 17’s certificate says the case was tested for low impact energy and should not be exposed to high impact risk, and gives IP6X (dust-tight) only, with no water rating stated; the ecom Smart-Ex 203 is for low mechanical-hazard locations only and is rated IP68.',
       ],
     },
     {
@@ -82,15 +82,15 @@ const page: ComparePage = {
       edge: 'ecom-smart-ex-203',
       text: [
         'The ecom Smart-Ex 203 has more room in the heat and on power. It is certified from −20 °C to +60 °C ambient, against −20 °C to +50 °C for the Xshielder iPhone 17, though fitting the scanner module limits it to +50 °C. Its 4500 mAh battery is user-replaceable, so a crew can carry a charged spare and change it outside the hazardous area. The Xshielder iPhone 17’s 3692 mAh battery is not, and its USB-C port is not accessible, so it charges wirelessly (MagSafe, up to 25 W) outside the hazardous area. Our data has no run-time figure for the ecom Smart-Ex 203, so test both over a shift.',
-        'The ecom Smart-Ex 203 is also built for gloved, key-driven work. It has glove and wet touch and a programmable push-to-talk / multifunction key that can serve as the alarm; ecom has not confirmed a lone-worker app for this exact model. The Xshielder iPhone 17 runs push-to-talk from the programmable Action Button on the cover, with apps built on Apple’s Push to Talk framework: there is no separate push-to-talk key, and you need such an app. Its touchscreen is standard capacitive, without glove touch, and its emergency function is iOS Emergency SOS.',
+        'The ecom Smart-Ex 203 is also built for gloved, key-driven work. It has glove and wet touch and a programmable push-to-talk / multifunction key that can serve as the alarm; ecom has not confirmed a lone-worker app for this exact model. The Xshielder iPhone 17 runs push-to-talk from the programmable Action Button on the cover, with apps built on Apple’s Push to Talk framework: there is no separate push-to-talk key, and you need such an app. Its touchscreen is standard capacitive, without glove touch, and its emergency function is iOS Emergency SOS. Headset audio is Bluetooth only, because the USB-C port is not accessible, and an Ex-certified Bluetooth headset is recommended.',
       ],
     },
     {
       title: 'Scanning, cameras and fleet management',
       edge: 'even',
       text: [
-        'For scanning in volume, the ecom Smart-Ex 203 takes the SM-Ex S203 SR scanner accessory (Zebra), at the cost of the +50 °C ambient limit while it is fitted. The Xshielder iPhone 17 reads QR codes with its camera and handles 1D and 2D codes through an app. Xshielder confirms its 48 MP rear cameras, the 18 MP front camera, Face ID and a touchscreen usable through the Gorilla Glass window work through the case; there is no Camera Control button on the cover, though the Action Button can open the camera. The ecom Smart-Ex 203 has a 48 MP autofocus camera with LED flash and takes microSD up to 512 GB.',
-        'Both have 8 GB of RAM and 5G. The Xshielder iPhone 17 runs iOS 27 on the Apple A19, managed through Apple Business, with a 6.3-inch OLED at up to 120 Hz and security updates expected for 7+ years (based on previous model support). The ecom Smart-Ex 203 runs Android 14, is Android Enterprise Recommended and has security updates until March 2032. A physical SIM in the Xshielder iPhone 17 is fitted by Xshielder on request. Which suits you depends on the fleet you already run and on whether the camera or the scanner does more of your work.',
+        'For scanning in volume, the ecom Smart-Ex 203 takes the SM-Ex S203 SR scanner accessory (Zebra), at the cost of the +50 °C ambient limit while it is fitted. The Xshielder iPhone 17 reads QR codes with its camera and handles 1D and 2D codes through an app. Xshielder confirms its 48 MP rear cameras, the 18 MP front camera, Face ID and a touchscreen usable through the Gorilla Glass window work through the case; there is no Camera Control button on the cover, though the Action Button can open the camera. The ecom Smart-Ex 203 has a 48 MP autofocus camera with LED flash and takes microSD up to 512 GB. NFC reading is built into both phones, though it has not been verified through Xshielder’s metal enclosure.',
+        'Both have 8 GB of RAM and 5G. The Xshielder iPhone 17 runs iOS 27 on the Apple A19, managed through Apple Business, with a 6.3-inch OLED at up to 120 Hz and security updates expected for 7+ years (based on previous model support). The ecom Smart-Ex 203 runs Android 14, is Android Enterprise Recommended and has security updates until Q1 2032. A physical SIM in the Xshielder iPhone 17 is fitted by Xshielder on request. Which suits you depends on the fleet you already run and on whether the camera or the scanner does more of your work.',
       ],
     },
   ],

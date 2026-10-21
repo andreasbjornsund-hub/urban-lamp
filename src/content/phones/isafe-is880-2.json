@@ -49,6 +49,9 @@
   "os": {
     "name": "Android",
     "version": "Android 14",
+    "securityUntil": "2029-09-30",
+    "securityUntilLabel": "Q3 2029",
+    "updates": "Security updates until Q3 2029",
     "enterprise": "Android Enterprise compliant"
   },
   "specs": {
@@ -123,8 +126,7 @@
   "limitations": [
     "Zone 2 only, so not for Zone 1 areas",
     "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
-    "4G only, no 5G",
-    "No published end date for security updates"
+    "4G only, no 5G"
   ],
   "bestFor": [
     "zone-2-phones",
@@ -145,6 +147,10 @@
     {
       "label": "i.safe MOBILE: IS880.2 safety instructions 1074MM02 (EPS 23 ATEX 1 346 X, Ta)",
       "url": "https://www.isafe-mobile.com/fileadmin/pim/DOC/PRO/MM/DOC_PRO_MM_IS880.2_Safety_Instructions_DINA6_1074MM02__SALL__AWEB__V5.pdf"
+    },
+    {
+      "label": "i.safe MOBILE: Security updates (security patch table) (2026-10-13)",
+      "url": "https://www.isafe-mobile.com/en/support/security-updates"
     },
     {
       "label": "A2S ATEX (reseller): IS880.2 listing",

@@ -6,12 +6,12 @@ const page: ComparePage = {
   description:
     'i.safe MOBILE IS440.1 or Xciel XCiPhone 17? Zone 1 handheld against Zone 2 iPhone, Division 1 and 2, dust, push-to-talk and screen compared, with our pick.',
   h1: 'i.safe MOBILE IS440.1 vs Xciel XCiPhone 17',
-  eyebrow: 'Compare · Radio-style handheld or iPhone',
+  eyebrow: 'Compare · Push-to-talk phones for Zone 1',
   lead:
     'This pair splits on where you work and what you carry. The i.safe MOBILE IS440.1 is an intrinsically safe (Ex ib) radio-style handheld certified for Zone 1/21 under ATEX and IECEx, with a Class I Division 1 listing for North America. The Xciel XCiPhone 17 is an intrinsically safe (Ex ic) case around a standard iPhone 17, certified for Zone 2 under ATEX, with a Class I Division 2 listing on one of its versions. A handheld and a full iPhone do different jobs, but the higher rating of the i.safe MOBILE IS440.1 also covers Zone 2. Here is how they compare, and which we would choose for which team.',
   verdict: {
     summary: [
-      'Start with the site. If any of your work is in Zone 1/21, or combustible dust is part of the hazard, we would choose the i.safe MOBILE IS440.1: the Xciel XCiPhone 17 is certified for Zone 2 only and has no dust zone rating. Its Class I Division 1 listing also covers Division 2, with one caveat: its temperature code is T4 where the Xciel XCiPhone17 version’s is T6, which matters only where a substance ignites below 135 °C. Where every area is Zone 2 or Division 2, either qualifies: we would choose the i.safe MOBILE IS440.1 for voice crews, gloves and a swappable battery, and the Xciel XCiPhone 17 for teams that want a full iPhone or want to install it themselves.',
+      'These two do different jobs, a radio-style handheld and a full iPhone, but start with the site. If any of your work is in Zone 1/21, or combustible dust is part of the hazard, we would choose the i.safe MOBILE IS440.1: the Xciel XCiPhone 17 is certified for Zone 2 only and has no dust zone rating. The i.safe MOBILE IS440.1’s Class I Division 1 listing also covers Division 2, with one caveat: its temperature code is T4 where the Xciel XCiPhone17 version’s is T6, which matters only where a substance ignites below 135 °C. Where every area is Zone 2 or Division 2, either qualifies: we would choose the i.safe MOBILE IS440.1 for voice crews, gloves and a swappable battery, and the Xciel XCiPhone 17 for teams that want a full iPhone or, on ATEX Zone 2 sites, want to install the iPhone themselves.',
     ],
     choose: [
       {
@@ -30,7 +30,7 @@ const page: ComparePage = {
           'Your crews need a full iPhone on Zone 2 or Division 2 sites: a standard iPhone 17 sits inside with a 6.3-inch OLED display, iOS 27 and Apple Business management, against a 2.4-inch display and ISM-OS 14.',
           'Your Division 2 sites handle substances that ignite below 135 °C: the Xciel XCiPhone17 version is listed for Class I Division 2, Groups A-D, T6 (LabTest LC25-5610-1), against T4 on the i.safe MOBILE IS440.1’s North American listing.',
           'You want to fit your own iPhone: the Xciel XCiPhone17-A version (ATEX Zone 2 only) can be installed by the customer, following Xciel’s procedure.',
-          'Your crews scan codes or work in apps: the iPhone 17 inside reads QR codes through the camera and 1D and 2D codes through an app, while barcode scanning is not available on the i.safe MOBILE IS440.1. Confirm with Xciel which cameras work through its case.',
+          'Your crews scan codes or work in apps: the iPhone 17 inside reads QR codes through the camera and 1D and 2D codes through an app, while barcode scanning is not available on the i.safe MOBILE IS440.1; confirm with Xciel which cameras work through its case.',
         ],
       },
     ],
@@ -64,9 +64,9 @@ const page: ComparePage = {
     },
     {
       title: 'North America and Division listings',
-      edge: 'even',
+      edge: 'isafe-is440-1',
       text: [
-        'Both hold North American listings, at different levels. The i.safe MOBILE IS440.1 is approved for Class I Division 1, Groups A to D, with temperature code T4, plus Class II Division 1 and Class III (QPS LR3081-6R2, 30 September 2025). A Division 1 listing also covers Division 2 areas, so on a site that mixes the two, one i.safe MOBILE IS440.1 can go into both. The Xciel XCiPhone 17 is listed by LabTest (LC25-5610-1) for Class I Division 2, Groups A-D, T6, with IP54 and an ambient range of −20 to +50 °C.',
+        'Both hold North American listings (the Xciel XCiPhone 17 in its Xciel XCiPhone17 version), at different levels. The i.safe MOBILE IS440.1 is approved for Class I Division 1, Groups A to D, with temperature code T4, plus Class II Division 1 and Class III (QPS LR3081-6R2, 30 September 2025). A Division 1 listing also covers Division 2 areas, so on a site that mixes the two, one i.safe MOBILE IS440.1 can go into both. The Xciel XCiPhone 17 is listed by LabTest (LC25-5610-1) for Class I Division 2, Groups A-D, T6, with IP54 and an ambient range of −20 to +50 °C.',
         'The Xciel listing is T6 against T4, which matters only where a substance ignites below 135 °C; on a Division 2 site with such substances, the Xciel XCiPhone17 version is the one that fits. The listing covers one version: the Xciel XCiPhone17 version is the Class I Division 2 and ATEX Zone 2 version, installed by Xciel, while the Xciel XCiPhone17-A version is ATEX Zone 2 only. So on a Division 2 site the i.safe MOBILE IS440.1 is not ruled out by its rating. The choice comes down to the temperature code and the job.',
       ],
     },

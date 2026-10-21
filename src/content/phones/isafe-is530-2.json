@@ -56,6 +56,9 @@
     "version": "Android 13",
     "atLaunch": "Android 10",
     "upgradeLimit": "Android 13",
+    "securityUntil": "2027-03-31",
+    "securityUntilLabel": "Q1 2027",
+    "updates": "Security updates until Q1 2027",
     "enterprise": "Android Enterprise Recommended"
   },
   "specs": {
@@ -147,7 +150,7 @@
     "Zone 2 only, so not for Zone 1 areas",
     "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
     "4G only, no 5G",
-    "No published end date for security updates"
+    "Security updates end in Q1 2027"
   ],
   "bestFor": [
     "zone-2-phones",
@@ -172,6 +175,10 @@
     {
       "label": "i.safe MOBILE: Product range 'Archive' (lists IS530.M1, IS530.2, IS530.1, IS360.2, IS330.x, IS655.2)",
       "url": "https://www.isafe-mobile.com/en/products/product-range/archive/is3301"
+    },
+    {
+      "label": "i.safe MOBILE: Security updates (security patch table) (2026-10-13)",
+      "url": "https://www.isafe-mobile.com/en/support/security-updates"
     },
     {
       "label": "R. STAHL (distributor): IS530.2 EEA data sheet 305998",
