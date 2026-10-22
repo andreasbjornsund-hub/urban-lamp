@@ -294,3 +294,10 @@ tags; competitors (list mirrors `scripts/hag_link_policy.py` and `public/assets/
 
 Semantic HTML, mobile-first layout, accessible markup, JSON-LD schema, titles ≤ 60 and descriptions ≤ 160
 characters, an entry in the generated sitemap, and robots.txt left pointing at `/sitemap.xml`.
+
+Title wording (SEO sweep with Rory, 2026-10-22): every Best for title contains "Intrinsically Safe". Where a page's
+picks include anything that isn't Ex i (Xshielder or Atexxo Zone 1 flameproof cases, Atexxo Ex ec ic conversions) it is
+paired as "Intrinsically Safe & Ex-Proof", so Xshielder is never called intrinsically safe. Phone page titles and
+descriptions are generated in `src/pages/phones/[slug].astro` from the certified protection: Ex i → "Intrinsically Safe",
+flameproof → "Explosion-Proof", anything else (or an unconfirmed marking) → the scheme ("ATEX"). Descriptions pick the
+longest version that fits 155 characters instead of being cut off.

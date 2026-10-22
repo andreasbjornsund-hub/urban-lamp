@@ -2,7 +2,7 @@ import type { BestPage } from '../best-pages';
 
 const page: BestPage = {
   slug: 'long-term-value',
-  title: 'Best Long-Term Value Phones for Hazardous Areas 2026',
+  title: 'Best Value Phones 2026: Intrinsically Safe & Ex-Proof',
   description:
     'Our estimate of the best long-term value phones for hazardous areas in 2026, weighing support length, spares and what each replaces. Prices are on request.',
   h1: 'Best phones for long-term value in 2026',

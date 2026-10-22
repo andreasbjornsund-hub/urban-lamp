@@ -2,7 +2,7 @@ import type { BestPage } from '../best-pages';
 
 const page: BestPage = {
   slug: 'zone-1-phones',
-  title: 'Best Zone 1 Phones 2026: Ex-Rated Picks Compared',
+  title: 'Best ATEX Zone 1 Phones 2026: Intrinsically Safe & Ex-Proof',
   description:
     'The best phones for ATEX and IECEx Zone 1 in 2026, ranked by certified gas coverage. Intrinsically safe handsets and explosion-proof iPhones compared.',
   h1: 'Best Zone 1 phones in 2026',

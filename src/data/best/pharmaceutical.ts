@@ -2,7 +2,7 @@ import type { BestPage } from '../best-pages';
 
 const page: BestPage = {
   slug: 'pharmaceutical',
-  title: 'Best Phones for Pharmaceutical Sites 2026: Ex-Rated Picks',
+  title: 'Best Pharma Site Phones 2026: Intrinsically Safe & Ex-Proof',
   description:
     'The best phones for pharmaceutical sites in 2026, led by an Ex ia handset with a camera-free version. Intrinsically safe and explosion-proof picks compared.',
   h1: 'Best phones for pharmaceutical sites in 2026',

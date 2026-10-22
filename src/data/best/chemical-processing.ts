@@ -2,7 +2,7 @@ import type { BestPage } from '../best-pages';
 
 const page: BestPage = {
   slug: 'chemical-processing',
-  title: 'Best Phones for Chemical Processing 2026: Ex-Rated Picks',
+  title: 'Best Chemical Plant Phones: Intrinsically Safe & Ex-Proof',
   description:
     'The best phones for chemical plants in 2026, ranked by gas and temperature coverage. Intrinsically safe handsets and explosion-proof iPhones compared.',
   h1: 'Best phones for chemical processing in 2026',

@@ -2,7 +2,7 @@ import type { BestPage } from '../best-pages';
 
 const page: BestPage = {
   slug: 'camera',
-  title: 'Best Camera Phones for Hazardous Areas 2026: Ex-Rated Picks',
+  title: 'Best Camera Phones 2026: Intrinsically Safe & Ex-Proof',
   description:
     'Best camera phones for ATEX and IECEx hazardous areas in 2026, ranked by rear cameras confirmed to work. Explosion-proof iPhones and Android phones compared.',
   h1: 'Best camera phones for hazardous areas in 2026',

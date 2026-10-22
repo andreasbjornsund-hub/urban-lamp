@@ -2,7 +2,7 @@ import type { BestPage } from '../best-pages';
 
 const page: BestPage = {
   slug: '5g',
-  title: 'Best 5G Phones for Hazardous Areas 2026: Ex Picks',
+  title: 'Best 5G Phones 2026: Intrinsically Safe & Ex-Proof',
   description:
     'The best 5G phones for hazardous areas in 2026, ranked by certified zone coverage from Zone 0 to Zone 2. Android handsets and an Ex-cased iPhone compared.',
   h1: 'Best 5G phones for hazardous areas in 2026',

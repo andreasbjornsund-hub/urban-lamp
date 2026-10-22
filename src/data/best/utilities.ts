@@ -2,7 +2,7 @@ import type { BestPage } from '../best-pages';
 
 const page: BestPage = {
   slug: 'utilities',
-  title: 'Best Phones for Utilities 2026: Ex-Rated Picks Compared',
+  title: 'Best Utility Phones 2026: Intrinsically Safe & Ex-Proof',
   description:
     'The best phones for utilities in 2026, ranked for lone working with Zone and Division approvals. Intrinsically safe and explosion-proof options compared.',
   h1: 'Best phones for utilities in 2026',

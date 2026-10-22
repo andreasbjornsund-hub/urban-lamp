@@ -2,7 +2,7 @@ import type { BestPage } from '../best-pages';
 
 const page: BestPage = {
   slug: 'zone-0-phones',
-  title: 'Best Zone 0 Phones 2026: Ex-Rated Picks Compared',
+  title: 'Best Intrinsically Safe Zone 0 Phones 2026: ATEX & IECEx',
   description:
     'The two phones on sale certified for Zone 0 under ATEX and IECEx in 2026: BARTEC’s intrinsically safe SP9EX1 and SC9EX1 Smartscanner, compared and ranked.',
   h1: 'Best Zone 0 phones in 2026',

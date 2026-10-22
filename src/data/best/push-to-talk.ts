@@ -2,7 +2,7 @@ import type { BestPage } from '../best-pages';
 
 const page: BestPage = {
   slug: 'push-to-talk',
-  title: 'Best Push-to-Talk Phones for Hazardous Areas 2026',
+  title: 'Best Push-to-Talk Phones 2026: Intrinsically Safe & Ex-Proof',
   description:
     'The best push-to-talk phones for hazardous areas in 2026, ranked by PTT controls and certification. Ex handhelds, Android phones and an iPhone compared.',
   h1: 'Best push-to-talk phones for hazardous areas in 2026',
