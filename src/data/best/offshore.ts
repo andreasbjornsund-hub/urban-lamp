@@ -2,7 +2,7 @@ import type { BestPage } from '../best-pages';
 
 const page: BestPage = {
   slug: 'offshore',
-  title: 'Best Offshore Phones 2026: Ex-Rated Picks Compared',
+  title: 'Best Offshore Phones 2026: Intrinsically Safe & Ex-Proof',
   description:
     'The best phones for offshore platforms and rigs in 2026, ranked for Zone 1 inspection and documentation. Ex-rated iPhones and handsets compared.',
   h1: 'Best phones for offshore work in 2026',

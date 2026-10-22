@@ -14,6 +14,7 @@ import { externalLink, pageSlug } from '../../lib/links';
 import {
   TYPE_LABEL,
   TYPE_EXPLAINER,
+  FORM_LABEL,
   TEMP_CLASS_MAX,
   zoneLabel,
   confirmedDivision,
@@ -68,20 +69,49 @@ const updatesText = securityUpdates(os);
 // A quarter is the maker's own wording, so it's quoted as is even when the value carries a note
 const updatesEstimated = Boolean(d.unconfirmed['os.securityUntil']) && !os.securityUntilLabel;
 const markingConfirmed = !(d.unconfirmed['certification.atex.marking'] && !c.atex?.number && !c.iecex?.number);
-// Only a marking backed by a certificate is quoted in the description and FAQ
+// Only a marking backed by a certificate is quoted in the FAQ
 const headline = markingConfirmed ? (c.atex?.marking.split(' / ')[0] ?? c.iecex?.marking.split(' / ')[0] ?? c.note) : undefined;
-const typeLower = TYPE_LABEL[d.type].charAt(0).toLowerCase() + TYPE_LABEL[d.type].slice(1);
-const titleOptions = [`${d.name}: ${zones} Specs & Alternatives`, `${d.name}: Specs & Alternatives`, `${d.name} Specs`];
+// The protection named the way people search for it: Ex i is "intrinsically safe"; flameproof (Ex db) never is.
+// Only named when the marking is confirmed, like the marking itself
+const protectionWord = !markingConfirmed
+  ? undefined
+  : c.protection?.startsWith('Intrinsic')
+    ? 'intrinsically safe'
+    : c.protection?.startsWith('Flameproof')
+      ? 'explosion-proof'
+      : undefined;
+const scheme = schemes[0] ?? 'Ex';
+const titleWord = protectionWord?.replace(/(^|[ -])\w/g, (m) => m.toUpperCase()) ?? scheme;
+const titleOptions = [
+  `${d.name}: ${titleWord} ${zones} Specs`,
+  `${d.name}: ${scheme} ${zones} Specs`,
+  `${d.name}: ${zones} Specs`,
+  `${d.name} Specs`,
+];
 const title = titleOptions.find((t) => t.length <= 60) ?? d.name;
-const description = clip(
-  `${d.name} by ${d.manufacturer.name}: ${typeLower} ${markingConfirmed ? 'certified' : 'rated'} for ${zones}${headline ? ` (${headline})` : ''}. Certification decoded, full specs and the closest alternatives compared.`,
-  160,
-);
 
-function clip(text: string, max: number) {
-  if (text.length <= max) return text;
-  return text.slice(0, text.lastIndexOf(' ', max - 1)).replace(/[,:;(]$/, '') + '…';
-}
+// "iPhone" or "Galaxy" from "Apple iPhone 17 Pro Max" / "Samsung Galaxy S25"
+const host = d.hostDevice?.replace(/^(Apple|Samsung) /, '').split(' ')[0] ?? 'phone';
+const noun =
+  d.type === 'ex-case'
+    ? `${host} case`
+    : d.type === 'conversion'
+      ? `${host} conversion`
+      : d.formFactor === 'smartphone'
+        ? `${os.name === 'Android' ? 'Android ' : ''}smartphone`
+        : FORM_LABEL[d.formFactor].toLowerCase();
+const schemeText = schemes.length > 1 ? `${schemes.slice(0, -1).join(', ')} and ${schemes.at(-1)}` : scheme;
+const kind = protectionWord ? `an ${protectionWord}` : markingConfirmed ? 'a certified' : 'an Ex-rated';
+const lead = `${d.name}: ${kind} ${noun} for ${schemeText} ${zones}`;
+// Longest version that fits, so the description is never cut off mid-sentence
+const descriptionOptions = [
+  `${lead}. Ex marking decoded, safe-use rules, full specs and the closest alternatives.`,
+  `${lead}. Ex marking decoded, safe-use rules, full specs and alternatives.`,
+  `${lead}. Ex marking decoded, full specs and alternatives.`,
+  `${lead}.`,
+];
+const description = descriptionOptions.find((t) => t.length <= 155) ?? descriptionOptions.at(-1)!;
+if (description.length > 160) throw new Error(`${phone.id}: description is ${description.length} characters`);
 
 // Built in page order, so the note numbers run in sequence down the page
 const atAGlance = [

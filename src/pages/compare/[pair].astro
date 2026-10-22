@@ -156,7 +156,7 @@ const schema = [
             <article class="contender" aria-labelledby={`contender-${i}`}>
               <a class="contender-media" href={`/phones/${p.id}/`} tabindex="-1" aria-hidden="true">
                 {p.data.image && (
-                  <Image src={p.data.image} alt="" widths={[240, 400]} sizes="(min-width: 56rem) 20rem, 40vw" loading="eager" fetchpriority={i === 0 ? 'high' : undefined} />
+                  <Image src={p.data.image} alt={p.data.imageAlt ?? p.data.name} widths={[240, 400]} sizes="(min-width: 56rem) 20rem, 40vw" loading="eager" fetchpriority={i === 0 ? 'high' : undefined} />
                 )}
               </a>
               <p class="contender-brand">{p.data.brand}</p>

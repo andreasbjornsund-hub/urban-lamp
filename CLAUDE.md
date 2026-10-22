@@ -156,7 +156,9 @@ tags; competitors (list mirrors `scripts/hag_link_policy.py` and `public/assets/
   and splits each marking into labelled gas / dust / mining blocks (atmosphere and zones come from the EPL).
   Codes already explained in an earlier block are listed as "as above" instead of repeated.
 - **Home page** (`src/pages/index.astro`, reworked with Rory 2026-10-20): kept short and low on text, with no side text
-  beside headings, and no eyebrows anywhere on the page (Rory, 2026-10-21). Hero (layout unchanged; second button
+  beside headings, and no eyebrows anywhere on the page (Rory, 2026-10-21), except the hero's H1: "Intrinsically safe phones
+  compared" is the page's real `<h1>` (the search term) styled as an eyebrow, and the slogan "The right phone. For the right
+  environment." below it is a `<p class="hero-slogan">` styled as the headline (Rory, 2026-10-22). Hero (layout unchanged; second button
   "Compare phones"), then "Start your search here." (centred heading and line, Best for links behind three centred
   button-style tabs: Zone, Industry, Use case; WAI-ARIA tabs, every panel in the HTML and shown without JS), each a
   hand-drawn picture (`src/assets/home/tab-{zone,industry,use-case}.webp`, supplied by Rory 2026-10-21) beside a
@@ -184,7 +186,7 @@ tags; competitors (list mirrors `scripts/hag_link_policy.py` and `public/assets/
   1 s after load (`SPONSOR`, `SPONSOR_DELAY_S`). In the colour version its yellow logo sits on a `#171B25`
   badge (`BADGE`); the logo is the brand kit SVG with `#FFED00` set as its fill (the kit file had lost its colour).
   `tone="mono"` is the all-black version. UL/CSA marks stay out, so Class/Division is text. On desktop the
-  strips span the h1 + lead (the copy's lines share grid rows with them): brands top-aligned with the h1, pills
+  strips span the slogan + lead (the copy's lines share grid rows with them; the eyebrow H1 sits in the row above): brands top-aligned with the slogan, pills
   bottom-aligned with the lead, marks halfway between. An empty square grid
   item keeps the hero the height the old square image gave it.
 - **Best for pages** (`src/pages/best/[slug].astro`): one file per page in `src/data/best/<slug>.ts` (filename = slug),
@@ -292,3 +294,10 @@ tags; competitors (list mirrors `scripts/hag_link_policy.py` and `public/assets/
 
 Semantic HTML, mobile-first layout, accessible markup, JSON-LD schema, titles ≤ 60 and descriptions ≤ 160
 characters, an entry in the generated sitemap, and robots.txt left pointing at `/sitemap.xml`.
+
+Title wording (SEO sweep with Rory, 2026-10-22): every Best for title contains "Intrinsically Safe". Where a page's
+picks include anything that isn't Ex i (Xshielder or Atexxo Zone 1 flameproof cases, Atexxo Ex ec ic conversions) it is
+paired as "Intrinsically Safe & Ex-Proof", so Xshielder is never called intrinsically safe. Phone page titles and
+descriptions are generated in `src/pages/phones/[slug].astro` from the certified protection: Ex i → "Intrinsically Safe",
+flameproof → "Explosion-Proof", anything else (or an unconfirmed marking) → the scheme ("ATEX"). Descriptions pick the
+longest version that fits 155 characters instead of being cut off.

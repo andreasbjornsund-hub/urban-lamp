@@ -3,7 +3,7 @@ import { confirmedDivision } from '../../lib/phones';
 
 const page: BestPage = {
   slug: 'division-1-phones',
-  title: 'Best Class I Division 1 & 2 Phones 2026: Compared',
+  title: 'Best Intrinsically Safe Phones for Class I Div 1 & 2 (2026)',
   description:
     'The best phones for Class I Division 1 and 2 locations in 2026, ranked by North American listing. Intrinsically safe handsets and an iPhone option compared.',
   h1: 'Best Class I Division 1 & 2 phones in 2026',

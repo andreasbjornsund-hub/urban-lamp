@@ -27,24 +27,34 @@ PAGES = {
     'casevs': _paths('iphone-ex-case-vs-dedicated-atex-phone.html'),
     'privacy': _paths('privacy.html'),
 }
+# The old English pages now redirect to new Astro pages, so links point straight at those
+EN_NEW = {
+    'best': '/best/zone-1-phones/',
+    'iphone': '/best/iphone/',
+    'whatis': '/guides/faq/',
+    'top5': '/best/iphone/',
+    'casevs': '/guides/android-vs-iphone-hazardous-areas/',
+}
+def page_url(key, lang):
+    return EN_NEW.get(key, PAGES[key]['en']) if lang == 'en' else PAGES[key][lang]
 GUIDES = ['best', 'iphone', 'whatis', 'top5', 'casevs']
 S = {
  'en': dict(skip='Skip to content', menu='Menu', open='Open menu', close='Close menu', guides='Guides', lang='Language',
-   nav=[('Solutions', '/#solutions'), ('GUIDES', None), ('Certification', '/#certification'), ('Software', '/#software'), ('Contact', '/#contact')],
+   nav=[('Solutions', '/phones/'), ('GUIDES', None), ('Certification', '/#certification'), ('Software', '/#software'), ('Contact', '/#contact')],
    contact='/#contact', home='Home', rev='Rev 2026.09 · IEC 60079', tag='ATEX · IECEx reference',
    g={'best': ('Best ATEX Smartphones 2026', 'Top Zone 1 certified devices compared'), 'iphone': ('iPhone in Hazardous Areas', 'How Ex cases make iPhones Zone 1 compliant'),
       'whatis': ('What Is Intrinsic Safety?', 'ATEX & IECEx certification explained'), 'top5': ('Top 3 iPhone Enclosures', 'Zone 1 Ex enclosures ranked'),
       'casevs': ('Case vs Dedicated Phone', 'Which architecture fits your fleet')},
    foot='Engineering reference, not a safety certificate.', privacy='Privacy', contact_l='Contact', network='Part of the Hazardous Area Guide network'),
  'de': dict(skip='Zum Inhalt springen', menu='Menü', open='Menü öffnen', close='Menü schließen', guides='Ratgeber', lang='Sprache',
-   nav=[('Vergleich (EN)', '/#solutions'), ('GUIDES', None), ('Kontakt', '/de/#kontakt')],
+   nav=[('Vergleich (EN)', '/phones/'), ('GUIDES', None), ('Kontakt', '/de/#kontakt')],
    contact='/de/#kontakt', home='Startseite', rev='Rev 2026.09 · IEC 60079', tag='ATEX · IECEx Referenz',
    g={'best': ('Beste ATEX-Smartphones 2026', 'Zone-1-Geräte im Vergleich'), 'iphone': ('iPhone im Ex-Bereich', 'Wie Ex-Gehäuse iPhones Zone-1-konform machen'),
       'whatis': ('Was ist Eigensicherheit?', 'ATEX- und IECEx-Zertifizierung erklärt'), 'top5': ('Top 3 iPhone-Gehäuse', 'Zone-1-Ex-Gehäuse im Ranking'),
       'casevs': ('Gehäuse oder Ex-Smartphone?', 'Welche Lösung zu Ihrer Flotte passt')},
    foot='Technische Referenz, kein Sicherheitszertifikat.', privacy='Datenschutz', contact_l='Kontakt', network='Teil des Hazardous-Area-Guide-Netzwerks'),
  'nl': dict(skip='Naar inhoud', menu='Menu', open='Menu openen', close='Menu sluiten', guides='Gidsen', lang='Taal',
-   nav=[('Vergelijking (EN)', '/#solutions'), ('GUIDES', None), ('Contact', '/nl/#contact')],
+   nav=[('Vergelijking (EN)', '/phones/'), ('GUIDES', None), ('Contact', '/nl/#contact')],
    contact='/nl/#contact', home='Home', rev='Rev 2026.09 · IEC 60079', tag='ATEX · IECEx referentie',
    g={'best': ('Beste ATEX-smartphones 2026', 'Zone 1-toestellen vergeleken'), 'iphone': ('iPhone in Ex-zones', 'Hoe Ex-behuizingen iPhones Zone 1-conform maken'),
       'whatis': ('Wat is intrinsieke veiligheid?', 'ATEX- en IECEx-certificering uitgelegd'), 'top5': ('Top 3 iPhone-behuizingen', 'Zone 1 Ex-behuizingen gerangschikt'),
@@ -67,12 +77,13 @@ def page_key(rel):
     return None, lang, url
 
 def exists(url):
-    return pathlib.Path(url.lstrip('/') + ('index.html' if url.endswith('/') else '')).exists()
+    # Directory URLs are Astro pages, built outside public/
+    return url.endswith('/') or pathlib.Path(url.lstrip('/')).exists()
 
 def lang_links(key, lang, cls=''):
     out = []
     for l in LANGS:
-        target = PAGES.get(key or 'home', PAGES['home'])[l]
+        target = page_url(key, l) if key in PAGES else PAGES['home'][l]
         if not exists(target):
             target = PAGES['home'][l]
         cur = ' aria-current="true"' if l == lang else ''
@@ -86,7 +97,7 @@ def chrome(key, lang, url, compare):
     items = []
     for label, href in t['nav']:
         if href is None:
-            gl = ''.join(f'<a href="{PAGES[g][lang]}" class="dd-item"{cur(PAGES[g][lang])}><span class="dd-item-title">{html.escape(t["g"][g][0])}</span>'
+            gl = ''.join(f'<a href="{page_url(g, lang)}" class="dd-item"{cur(page_url(g, lang))}><span class="dd-item-title">{html.escape(t["g"][g][0])}</span>'
                          f'<span class="dd-item-desc">{html.escape(t["g"][g][1])}</span></a>' for g in GUIDES)
             items.append(f'<div class="dd relative"><button type="button" class="dd-toggle" aria-expanded="false" aria-controls="guides-panel">{t["guides"]} '
                          '<svg width="12" height="12" viewBox="0 0 12 12" class="dd-chev" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
@@ -96,7 +107,7 @@ def chrome(key, lang, url, compare):
     compare_btn = ('\n      <button id="compareToggle" type="button" class="btn btn-secondary !py-2 !px-4 !text-[13px] hidden lg:inline-flex">'
                    'Compare <span class="badge badge-neutral !py-0 !px-2 ml-1" id="compareCount">0</span></button>') if compare else ''
     drawer_links = ''.join(f'\n        <a href="{h}" class="mobile-nav-link">{html.escape(l)}</a>' for l, h in t['nav'] if h)
-    drawer_guides = ''.join(f'\n        <a href="{PAGES[g][lang]}" class="mobile-nav-link !pl-5"{cur(PAGES[g][lang])}>{html.escape(t["g"][g][0])}</a>' for g in GUIDES)
+    drawer_guides = ''.join(f'\n        <a href="{page_url(g, lang)}" class="mobile-nav-link !pl-5"{cur(page_url(g, lang))}>{html.escape(t["g"][g][0])}</a>' for g in GUIDES)
     return f'''<a class="skip-link" href="#main">{t["skip"]}</a>
 <header class="site-header glass sticky top-0 z-30">
   <div class="max-w-[1140px] mx-auto px-4 md:px-6 min-h-16 py-2 flex items-center gap-3 md:gap-6">

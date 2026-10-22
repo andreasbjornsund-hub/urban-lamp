@@ -247,7 +247,17 @@ const schema = [
 ];
 ---
 
-<BaseLayout title={title} description={description} schema={schema}>
+<BaseLayout
+  title={title}
+  description={description}
+  schema={schema}
+  alternates={[
+    { hreflang: 'en', href: '/' },
+    { hreflang: 'de', href: '/de/' },
+    { hreflang: 'nl', href: '/nl/' },
+    { hreflang: 'x-default', href: '/' },
+  ]}
+>
   <!-- Legacy links pointed at the old home page form (/#contact, /?inquire=…); forward them to the contact page -->
   <script is:inline>
     if (location.hash === '#contact' || new URLSearchParams(location.search).has('inquire')) {
@@ -259,7 +269,9 @@ const schema = [
   <section class="hero" aria-labelledby="hero-title">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <h1 id="hero-title">The right phone. <span>For the right environment.</span></h1>
+        <!-- The H1 carries the search term but looks like an eyebrow; the slogan below is styled as the headline -->
+        <h1 id="hero-title" class="eyebrow">Intrinsically safe phones compared</h1>
+        <p class="hero-slogan">The right phone. <span>For the right environment.</span></p>
         <p class="lead">
           Compare certified phones for ATEX and IECEx Zone 0, 1 and 2, from intrinsically safe handsets to
           explosion-proof iPhone cases.
@@ -580,12 +592,23 @@ const schema = [
     align-items: center;
   }
 
-  .hero h1 {
+  /* The eyebrow is the H1, so undo the heading styles .eyebrow doesn't set */
+  .hero h1.eyebrow {
+    font-stretch: normal;
+    line-height: inherit;
+  }
+
+  .hero-slogan {
+    font-family: var(--font-display);
+    font-weight: var(--heading-weight);
+    font-stretch: var(--heading-stretch);
     font-size: var(--text-h1);
     line-height: 1.08;
     letter-spacing: var(--tracking-hero);
+    color: var(--color-heading);
+    text-wrap: balance;
   }
-  .hero h1 span { display: block; }
+  .hero-slogan span { display: block; }
 
   .hero .lead {
     max-width: 30rem;
@@ -962,7 +985,8 @@ const schema = [
     .hero-copy,
     .hero-media { display: contents; }
 
-    .hero h1 { grid-area: 3 / 1; }
+    .hero .eyebrow { grid-area: 2 / 1; }
+    .hero-slogan { grid-area: 3 / 1; }
     .hero .lead { grid-area: 4 / 1; }
     .hero-actions { grid-area: 5 / 1; }
 

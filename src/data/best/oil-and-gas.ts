@@ -2,7 +2,7 @@ import type { BestPage } from '../best-pages';
 
 const page: BestPage = {
   slug: 'oil-and-gas',
-  title: 'Best Oil and Gas Phones 2026: Ex-Rated Picks Compared',
+  title: 'Best Oil and Gas Phones 2026: Intrinsically Safe & Ex-Proof',
   description:
     'The best phones for oil and gas in 2026, ranked by what they let a team do in Zone 1. Intrinsically safe handsets and explosion-proof iPhones compared.',
   h1: 'Best phones for oil and gas in 2026',

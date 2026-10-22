@@ -2,7 +2,7 @@ import type { BestPage } from '../best-pages';
 
 const page: BestPage = {
   slug: 'manufacturing',
-  title: 'Best Phones for Manufacturing 2026: Ex-Rated Picks Compared',
+  title: 'Best Manufacturing Phones: Intrinsically Safe & Ex-Proof',
   description:
     'The best phones for manufacturing in 2026, ranked by gas and conductive dust coverage and built-in scanning. Ex-rated handsets and iPhones compared.',
   h1: 'Best phones for manufacturing in 2026',

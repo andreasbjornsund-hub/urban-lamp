@@ -2,7 +2,7 @@ import type { BestPage } from '../best-pages';
 
 const page: BestPage = {
   slug: 'lightest',
-  title: 'Lightest Phones for Hazardous Areas 2026: Ex-Rated Picks',
+  title: 'Lightest Phones 2026: Intrinsically Safe & Ex-Proof',
   description:
     'The lightest ATEX and IECEx phones for hazardous areas in 2026, weighed as carried. Zone 1 feature phones, push-to-talk handsets, Ex iPhones and Zone 2 picks.',
   h1: 'Lightest phones for hazardous areas in 2026',

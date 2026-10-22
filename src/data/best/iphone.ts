@@ -2,7 +2,7 @@ import type { BestPage } from '../best-pages';
 
 const page: BestPage = {
   slug: 'iphone',
-  title: 'Best iPhones for Hazardous Areas 2026: Ex Picks Compared',
+  title: 'Best ATEX iPhones 2026: Explosion-Proof & Intrinsically Safe',
   description:
     'The best iPhones for hazardous areas in 2026, ranked by certified coverage. Explosion-proof cases and Ex conversions for Zone 1 and Zone 2 compared.',
   h1: 'Best iPhones for hazardous areas in 2026',
