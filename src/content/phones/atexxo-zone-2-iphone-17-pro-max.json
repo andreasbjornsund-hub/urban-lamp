@@ -1,0 +1,216 @@
+{
+  "productId": "AX-Z2-IP17PM",
+  "name": "Atexxo Zone 2 iPhone 17 Pro Max",
+  "brand": "Atexxo",
+  "brandSlug": "atexxo",
+  "manufacturer": {
+    "name": "Atexxo",
+    "country": "Netherlands",
+    "website": "https://atexxo.com"
+  },
+  "type": "conversion",
+  "formFactor": "smartphone",
+  "hostDevice": "Apple iPhone 17 Pro Max",
+  "status": "current",
+  "summary": "The Atexxo Zone 2 iPhone 17 Pro Max is a standard Apple iPhone 17 Pro Max converted by Atexxo for hazardous areas, certified for Zone 2/22 under ATEX. It combines increased safety and intrinsic safety (Ex ec ic). The phone runs iOS 27.",
+  "image": "../../assets/phones/atexxo-zone-2-iphone-17-pro-max.webp",
+  "imageAlt": "Atexxo Zone 2 iPhone 17 Pro Max, front view",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ec ic IIC T4 Gc / II 3D Ex tc IIIB T135°C Dc",
+      "scope": "Unit assessment: each unit is checked by a notified body. No certificate number is published."
+    },
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [
+      "22"
+    ],
+    "protection": "Increased safety and intrinsic safety (Ex ec ic)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIB",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gc / Dc"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "Charge in safe area (wired USB-C or wireless). Each unit spark-tested for intrinsically safe circuits (according to the maker's flyer)."
+  },
+  "os": {
+    "name": "iOS",
+    "version": "iOS 27",
+    "atLaunch": "iOS 26",
+    "securityUntil": "2032-09-19",
+    "updates": "Security updates for 7+ years (based on previous model support)",
+    "supportYears": 7,
+    "enterprise": "Apple Business (formerly Apple Business Manager)"
+  },
+  "specs": {
+    "display": "6.9-inch OLED; ProMotion; Always-On; Ceramic Shield 2",
+    "resolution": "2868 × 1320",
+    "refreshRate": "Up to 120 Hz",
+    "brightness": "3,000 nits peak (outdoor)",
+    "chip": "Apple A19 Pro",
+    "ram": "12 GB",
+    "camera": "48 MP Fusion main + 48 MP ultra wide + 48 MP telephoto (4x; 8x optical-quality)",
+    "frontCamera": "18 MP Center Stage",
+    "video": "4K120 Dolby Vision; ProRes RAW; Apple Log 2",
+    "battery": "4823 mAh (nano-SIM + eSIM model); 5088 mAh (eSIM-only model)",
+    "batteryLife": "Up to 37 hours of video playback",
+    "port": "USB-C (USB 3)",
+    "wirelessCharging": "MagSafe up to 25 W; Qi2",
+    "network": "5G",
+    "wifi": "Wi-Fi 7 (Apple N1)",
+    "bluetooth": "Bluetooth 6",
+    "nfc": "Yes (Apple Pay + Core NFC tag reading)",
+    "gnss": "GPS, GLONASS, Galileo, QZSS, BeiDou, NavIC",
+    "sim": "nano-SIM + eSIM (eSIM-only in US)",
+    "keys": "Action Button; Camera Control; side; volume",
+    "accessories": "USB-C",
+    "biometrics": "Face ID",
+    "depthSensing": "LiDAR",
+    "satellite": "Emergency SOS + Roadside Assistance via satellite (region-dependent)",
+    "uwb": "Yes (2nd gen)",
+    "touch": "Standard capacitive",
+    "apps": "Apple apps; App Store",
+    "storage": "256 GB / 512 GB / 1 TB / 2 TB",
+    "replaceableBattery": false,
+    "gloveTouch": false,
+    "pttKey": false,
+    "mdm": [
+      "Apple Business (formerly Apple Business Manager)"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 7",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 300,
+    "weightNote": "Including the phone",
+    "dimensionsMm": "93 × 175 × 14",
+    "cameraFree": false,
+    "partNumbers": "MOB-EX-IPH series"
+  },
+  "throughCase": [
+    {
+      "label": "Face ID / fingerprint",
+      "value": "Likely (stated for iPhone 14 Zone 2)"
+    },
+    {
+      "label": "NFC",
+      "value": "Yes"
+    },
+    {
+      "label": "Wireless charging",
+      "value": "Yes (safe area only)"
+    },
+    {
+      "label": "USB-C / Lightning port",
+      "value": "Wired charging via housing (USB-C; Lightning on iPhone 14 models)"
+    },
+    {
+      "label": "SIM card",
+      "value": "Self SIM installation or eSIM"
+    }
+  ],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Via app (Push to Talk framework); Action Button mappable if accessible"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (iOS Emergency SOS)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Built in (QR via Camera) / Via app (1D/2D)"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in (Core NFC)"
+    },
+    {
+      "label": "3D scanning",
+      "value": "Built in (LiDAR) + apps"
+    },
+    {
+      "label": "Satellite SOS",
+      "value": "Built in on iPhone; not verified through enclosure"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "os.securityUntil": "Apple doesn't publish an end date; its legal minimum is five years from first sale. Previous iPhone models have had security updates for seven years or more.",
+    "specs.batteryLife": "UK model (nano-SIM and eSIM). The US eSIM-only model has a larger battery.",
+    "specs.satellite": "Listed on Apple's tech specs; availability depends on the country."
+  },
+  "features": [
+    "nfc",
+    "wireless-charging",
+    "updates-2030"
+  ],
+  "strengths": [
+    "5G connectivity",
+    "Security updates for 7+ years (based on previous model support)",
+    "A standard Apple iPhone 17 Pro Max inside, with the same apps and Apple device management as other iPhones"
+  ],
+  "limitations": [
+    "Zone 2 only, so not for Zone 1 areas",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "Dust group IIIB: not rated for conductive dust",
+    "Certified by ATEX unit assessment; no certificate number is published",
+    "ATEX only: no IECEx certificate"
+  ],
+  "bestFor": [
+    "zone-2-phones",
+    "iphone",
+    "5g"
+  ],
+  "alternatives": [
+    "xciel-xciphone-14",
+    "xshielder-iphone-17",
+    "isafe-is530-2"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "Apple: iPhone 17 Pro Max - Technical Specifications (Apple Support, UK)",
+      "url": "https://support.apple.com/en-gb/125091"
+    },
+    {
+      "label": "Apple: Apple Business (formerly Apple Business Manager) user guide",
+      "url": "https://support.apple.com/guide/apple-business-manager/welcome/web"
+    },
+    {
+      "label": "Atexxo (via DirectIndustry): iPhone 17 Pro Max Zone 2 listing",
+      "url": "https://www.directindustry.com/prod/atexxo-bv/product-160752-2857717.html"
+    },
+    {
+      "label": "Atexxo (via DirectIndustry): iPhone 17 Pro Max Zone 2 listing (T135°C)",
+      "url": "https://www.directindustry.com/prod/atexxo-bv/product-160752-2857717.html"
+    },
+    {
+      "label": "Apple: iPhone 17 Pro Max Tech Specs (eSIM-only model)",
+      "url": "https://support.apple.com/125091"
+    },
+    {
+      "label": "GSMArena: Apple iPhone 17 Pro Max - full specifications (4,823 mAh; eSIM-only 5,088 mAh)",
+      "url": "https://www.gsmarena.com/apple_iphone_17_pro_max-13964.php"
+    }
+  ]
+}

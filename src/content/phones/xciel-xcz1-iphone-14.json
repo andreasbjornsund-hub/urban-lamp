@@ -1,0 +1,192 @@
+{
+  "productId": "XC-Z1-IP14",
+  "name": "Xciel XCZ1 iPhone 14",
+  "brand": "Xciel",
+  "brandSlug": "xciel",
+  "manufacturer": {
+    "name": "Xciel Inc",
+    "country": "USA",
+    "website": "https://www.xciel.com"
+  },
+  "type": "ex-case",
+  "formFactor": "smartphone",
+  "hostDevice": "Apple iPhone 14",
+  "status": "current",
+  "statusNote": "Xciel still publishes a datasheet, but we found no current reseller listing. Check availability with Xciel.",
+  "summary": "The Xciel XCZ1 iPhone 14 is a flameproof (Ex db) case for the Apple iPhone 14, certified for Zone 1 under ATEX and IECEx. The phone inside is a standard Apple iPhone 14 running iOS 27, so it works with the same apps and device management as other iPhones.",
+  "image": "../../assets/phones/xciel-xcz1-iphone-14.webp",
+  "imageAlt": "Xciel XCZ1 iPhone 14, front view",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 2G Ex db IIB T5 Gb"
+    },
+    "iecex": {
+      "marking": "Ex db IIB T5 Gb",
+      "number": "IECEx EXV 22.0024X",
+      "scope": "Issue 1, covers iPhone 12, 13 and 14"
+    },
+    "zonesGas": [
+      "1",
+      "2"
+    ],
+    "zonesDust": [],
+    "protection": "Flameproof enclosure (Ex db)",
+    "gasGroup": "IIB",
+    "epl": "Gb",
+    "ambient": "−20 °C to +50 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "Flameproof Ex db enclosure. iPhone must not be removed from the aluminium case; no charging (cable or wireless) when a hazardous atmosphere is present; use a suitably approved charger; flameproof joints not modified or repaired; fasteners thread-locked (only the charging-port cover fasteners are user-replaceable); rubber corner bumpers must be fitted and inspected before each use (IECEx EXV 22.0024X)."
+  },
+  "os": {
+    "name": "iOS",
+    "version": "iOS 27",
+    "atLaunch": "iOS 16",
+    "supportYears": 7,
+    "updates": "Security updates for 7+ years (based on previous model support)",
+    "enterprise": "Apple Business (formerly Apple Business Manager)"
+  },
+  "specs": {
+    "display": "6.1-inch OLED Super Retina XDR; Ceramic Shield",
+    "resolution": "2532 × 1170",
+    "refreshRate": "60 Hz",
+    "brightness": "1,200 nits peak (HDR); no outdoor figure",
+    "chip": "Apple A15 Bionic (5-core GPU)",
+    "ram": "6 GB",
+    "camera": "12 MP main + 12 MP ultra wide",
+    "frontCamera": "12 MP TrueDepth AF",
+    "video": "4K60; Action mode",
+    "battery": "3279 mAh",
+    "batteryLife": "Up to 20 hours of video playback",
+    "port": "Lightning (USB 2)",
+    "wirelessCharging": "MagSafe 15 W; Qi",
+    "network": "5G",
+    "wifi": "Wi-Fi 6",
+    "bluetooth": "Bluetooth 5.3",
+    "nfc": "Yes (Apple Pay + Core NFC tag reading)",
+    "gnss": "GPS, GLONASS, Galileo, QZSS, BeiDou",
+    "sim": "nano-SIM + eSIM (eSIM-only in US)",
+    "keys": "Side, volume, Ring/Silent switch (no Action Button)",
+    "accessories": "Lightning",
+    "biometrics": "Face ID",
+    "satellite": "Emergency SOS + Roadside Assistance via satellite (region-dependent)",
+    "uwb": "Yes (U1)",
+    "touch": "Standard capacitive",
+    "apps": "Apple apps; App Store",
+    "storage": "128 GB / 256 GB / 512 GB",
+    "replaceableBattery": false,
+    "gloveTouch": false,
+    "pttKey": false,
+    "mdm": [
+      "Apple Business (formerly Apple Business Manager)"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 6",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 769,
+    "weightNote": "Including the phone",
+    "dimensionsMm": "197 × 118.7 × 27.6",
+    "ipRating": "IP54",
+    "cameraFree": false
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Via app (Push to Talk framework)"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (iOS Emergency SOS)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Built in (QR via Camera) / Via app (1D/2D)"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in (Core NFC); not verified through metal enclosure"
+    },
+    {
+      "label": "3D scanning",
+      "value": "Via app (camera photogrammetry)"
+    },
+    {
+      "label": "Satellite SOS",
+      "value": "Built in on iPhone; not verified through enclosure"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "certification.atex.marking": "From Xciel's datasheet. The IECEx certificate confirms Ex db IIB Gb but gives the temperature class only in its description, and no ATEX certificate number is published.",
+    "certification.iecex.marking": "From Xciel's datasheet. The IECEx certificate confirms Ex db IIB Gb but gives the temperature class only in its description, and no ATEX certificate number is published.",
+    "certification.ambient": "From the IECEx certificate. Xciel's datasheet says −20 °C to +45 °C.",
+    "specs.satellite": "Listed on Apple's tech specs; availability depends on the country."
+  },
+  "features": [],
+  "strengths": [
+    "ATEX and IECEx certified",
+    "5G connectivity",
+    "A standard Apple iPhone 14 inside, with the same apps and Apple device management as other iPhones"
+  ],
+  "limitations": [
+    "May be near the end of its life: check availability before ordering",
+    "Gas group IIB: not rated for hydrogen or acetylene",
+    "Temperature class not confirmed by a certificate we've seen",
+    "No dust zone rating",
+    "Heavy, at 769 g in use"
+  ],
+  "bestFor": [
+    "zone-1-phones",
+    "iphone",
+    "5g"
+  ],
+  "alternatives": [
+    "xshielder-iphone-16-pro-max",
+    "atexxo-zone-1-iphone-14",
+    "isafe-is541-1"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "IECEx (ExVeritas Limited): IECEx EXV 22.0024X issue 1 (2023-03-23, Current) - iPhone 12, 13 and 14 Flameproof Enclosure",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/1614789/view"
+    },
+    {
+      "label": "Xciel: XCZ1 iPhone 14 datasheet (03/2023)",
+      "url": "https://cdn.hibuwebsites.com/5a8aca1a55574b489d306f762b121113/files/uploaded/XCZ1%20iPhone%2014%20032423.pdf"
+    },
+    {
+      "label": "Apple: iPhone 14 - Technical Specifications (Apple Support, UK)",
+      "url": "https://support.apple.com/en-gb/111850"
+    },
+    {
+      "label": "Apple: Apple Business (formerly Apple Business Manager) user guide",
+      "url": "https://support.apple.com/guide/apple-business-manager/welcome/web"
+    },
+    {
+      "label": "Able Instruments (reseller): Xciel XCZ1 iPad mini 6 (XCZ1 marking Ex db IIC T5 Gb)",
+      "url": "https://ableinstruments.com/?p=91471"
+    },
+    {
+      "label": "Apple: iPhone 14 / 14 Plus technical specifications (UK)",
+      "url": "https://apple.com/uk/iphone-14/specs"
+    }
+  ]
+}

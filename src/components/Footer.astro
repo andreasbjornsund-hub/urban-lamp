@@ -1,0 +1,227 @@
+---
+import { SITE, FOOTER_NAV, LEGAL_NAV } from '../config/site';
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { externalLink } from '../lib/links';
+
+const year = new Date().getFullYear();
+// HAG network sponsor line (same wording as the legacy pages; see scripts/hag_link_policy.py)
+const sponsor = externalLink('https://xshielder.com/', 'footer_sponsor');
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <Logo />
+        <p>{SITE.description}</p>
+      </div>
+
+      {FOOTER_NAV.map((group) => (
+        <nav class="footer-col" aria-label={group.heading}>
+          <h2 class="footer-heading">{group.heading}</h2>
+          <ul>
+            {group.links.map((l) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      ))}
+
+      <div class="footer-col footer-newsletter">
+        <h2 class="footer-heading">Stay in touch</h2>
+        <p id="newsletter-desc">Get the latest guidance and insights.</p>
+        <form
+          class="newsletter"
+          action="https://api.web3forms.com/submit"
+          method="POST"
+          data-newsletter
+        >
+          <input type="hidden" name="access_key" value={SITE.web3formsKey} />
+          <input type="hidden" name="subject" value="Newsletter signup" />
+          <input type="hidden" name="from_name" value={SITE.name} />
+          <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <label for="newsletter-email" class="visually-hidden">Email address</label>
+          <input
+            id="newsletter-email"
+            type="email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="Your email address"
+            aria-describedby="newsletter-desc"
+          />
+          <button type="submit" aria-label="Subscribe">
+            <Icon name="arrow-right" />
+          </button>
+        </form>
+        <p class="newsletter-status" role="status" data-newsletter-status></p>
+      </div>
+    </div>
+
+    <p class="sponsor-line">
+      This site's main sponsor is <a href={sponsor.href} rel={sponsor.rel} target={sponsor.target}>Xshielder</a>.
+      Want to sponsor this site? <a href="/contact/">Contact us</a>. Part of the{' '}
+      <a href="https://hazardousareaguide.com/" rel="nofollow">Hazardous Area Guide</a> network.
+    </p>
+
+    <div class="footer-bottom">
+      <p>© {year} {SITE.name}. All rights reserved.</p>
+      <nav aria-label="Legal">
+        <ul>
+          {LEGAL_NAV.map((l) => (
+            <li><a href={l.href}>{l.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Without JavaScript the form posts straight to Web3Forms; with it, the result shows in place.
+  const form = document.querySelector<HTMLFormElement>('[data-newsletter]');
+  const status = document.querySelector<HTMLElement>('[data-newsletter-status]');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!status) return;
+    const data = Object.fromEntries(new FormData(form));
+    if (data.botcheck) return;
+    const button = form.querySelector('button');
+    button?.setAttribute('disabled', '');
+    status.textContent = 'Subscribing…';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ ...data, page: location.href }),
+      });
+      const json = await res.json();
+      if (!json.success) throw new Error(json.message);
+      form.reset();
+      status.textContent = 'Thanks, you’re subscribed.';
+    } catch {
+      status.textContent = 'Sorry, that didn’t work. Please try again.';
+    } finally {
+      button?.removeAttribute('disabled');
+    }
+  });
+</script>
+
+<style>
+  .site-footer {
+    padding-block: 3.5rem 2rem;
+    font-size: var(--text-sm);
+  }
+
+  .footer-grid {
+    display: grid;
+    gap: 2.5rem 2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .footer-brand,
+  .footer-newsletter { grid-column: 1 / -1; }
+
+  .footer-brand p {
+    max-width: 22rem;
+    margin-top: 0.75rem;
+    color: var(--color-text);
+  }
+
+  .footer-heading {
+    margin-bottom: 0.75rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--color-ink);
+  }
+
+  .footer-col ul { display: grid; }
+  .footer-col a,
+  .footer-bottom a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.25rem;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .footer-col a:hover,
+  .footer-bottom a:hover {
+    color: var(--color-forest);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .footer-newsletter > p { color: var(--color-text); }
+
+  .newsletter {
+    display: flex;
+    max-width: 22rem;
+    margin-top: 1rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-panel);
+  }
+  .newsletter:focus-within {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+  .newsletter input[type='email'] {
+    flex: 1;
+    min-width: 0;
+    min-height: 2.875rem;
+    padding: 0 0.875rem;
+    border: 0;
+    background: transparent;
+    font: 400 1rem / 1 var(--font-sans);
+    color: var(--color-ink);
+  }
+  .newsletter input::placeholder { color: var(--color-muted); }
+  .newsletter input:focus { outline: none; }
+  .newsletter button {
+    display: grid;
+    place-items: center;
+    width: 2.875rem;
+    border: 0;
+    background: none;
+    color: var(--color-forest);
+    cursor: pointer;
+  }
+  .newsletter button :global(svg) { width: 1.125rem; height: 1.125rem; }
+  .newsletter button:focus-visible { outline-offset: -4px; }
+  .newsletter-status:empty { display: none; }
+  .newsletter-status { margin-top: 0.5rem; color: var(--color-forest); }
+
+  .sponsor-line {
+    margin-top: 3rem;
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+  .sponsor-line a { color: inherit; }
+
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    margin-top: 1rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+  }
+  .footer-bottom ul { display: flex; gap: 1.5rem; }
+  .footer-bottom a { color: var(--color-muted); }
+
+  @media (min-width: 56rem) {
+    .footer-grid {
+      grid-template-columns: 1.5fr 1fr 1fr 1fr 1.4fr;
+      gap: 3rem;
+    }
+    .footer-brand,
+    .footer-newsletter { grid-column: auto; }
+  }
+</style>

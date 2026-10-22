@@ -1,0 +1,119 @@
+{
+  "productId": "IS-360.2",
+  "name": "i.safe MOBILE IS360.2",
+  "brand": "i.safe MOBILE",
+  "brandSlug": "isafe",
+  "manufacturer": {
+    "name": "i.safe MOBILE GmbH",
+    "country": "Germany",
+    "website": "https://www.isafe-mobile.com"
+  },
+  "type": "dedicated",
+  "formFactor": "feature-phone",
+  "status": "current",
+  "statusNote": "i.safe MOBILE has moved it to the archive section of its range, but distributors still list it. Check availability before ordering.",
+  "summary": "The i.safe MOBILE IS360.2 is an intrinsically safe (Ex ic) feature phone from i.safe MOBILE, certified for Zone 2/22 under ATEX and IECEx. It uses a proprietary OS (no Google Play), with a user-replaceable battery.",
+  "image": "../../assets/phones/isafe-is360-2.webp",
+  "imageAlt": "i.safe MOBILE IS360.2, front view",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ic IIC T4 Gc / II 3D Ex ic IIIC T135°C Dc",
+      "number": "EPS 21 ATEX 1 126 X"
+    },
+    "iecex": {
+      "marking": "Ex ic IIC T4 Gc / Ex ic IIIC T135°C Dc",
+      "number": "IECEx EPS 21.0043X"
+    },
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ic)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gc / Dc",
+    "ambient": "−10 °C to +50 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "Approved accessories only (per manual)"
+  },
+  "os": {
+    "name": "Other",
+    "version": "Proprietary OS (no Google Play)"
+  },
+  "specs": {
+    "display": "3-inch",
+    "chip": "MediaTek MT6739V/WA",
+    "battery": "3000 mAh",
+    "network": "4G",
+    "touch": "Glove",
+    "apps": "Custom apps installed by i.safe",
+    "replaceableBattery": true,
+    "gloveTouch": true,
+    "connectivity": [
+      "4G"
+    ],
+    "weightG": 195,
+    "partNumbers": "Model M360A01"
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Barcode scanning",
+      "value": "Not available"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {},
+  "features": [],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "User-replaceable battery"
+  ],
+  "limitations": [
+    "May be near the end of its life: check availability before ordering",
+    "Zone 2 only, so not for Zone 1 areas",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "Not certified below −10 °C ambient"
+  ],
+  "bestFor": [
+    "zone-2-phones"
+  ],
+  "alternatives": [
+    "bartec-sp9ex2",
+    "ecom-smart-ex-203",
+    "isafe-is120-2"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "IECEx (Bureau Veritas Consumer Products Services Germany GmbH): IECEx EPS 21.0043X issue 0 (2021-10-12, Current) - IS360.2 intrinsically safe Smartphone",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/54965/view"
+    },
+    {
+      "label": "i.safe MOBILE: IS360.2 operating manual 1057MM10 (EPS 21 ATEX 1 126 X, Ta -10 to +50 °C)",
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/DOC/PRO/MM/DOC_PRO_MM_IS360.2_Operating_Manual_DINA6_1057MM10__SALL__AWEB__V1.pdf"
+    },
+    {
+      "label": "i.safe MOBILE: Product range 'Archive' (lists IS530.M1, IS530.2, IS530.1, IS360.2, IS330.x, IS655.2)",
+      "url": "https://www.isafe-mobile.com/en/products/product-range/archive/is3301"
+    },
+    {
+      "label": "DACPOL (distributor): IS360.2 listing",
+      "url": "https://dacpol.eu/cs/10269-telefony-pro-zony-2-22/product/48660-is3602-smartphone-na-zony-2-22"
+    }
+  ]
+}

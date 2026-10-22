@@ -1,0 +1,205 @@
+{
+  "productId": "IS-540.2",
+  "name": "i.safe MOBILE IS540.2",
+  "brand": "i.safe MOBILE",
+  "brandSlug": "isafe",
+  "manufacturer": {
+    "name": "i.safe MOBILE GmbH",
+    "country": "Germany",
+    "website": "https://www.isafe-mobile.com"
+  },
+  "type": "dedicated",
+  "formFactor": "smartphone",
+  "status": "current",
+  "launchYear": 2023,
+  "summary": "The i.safe MOBILE IS540.2 is an intrinsically safe (Ex ic) smartphone from i.safe MOBILE, certified for Zone 2/22 under ATEX and IECEx. It runs Android 14, with 5G and a user-replaceable battery.",
+  "image": "../../assets/phones/isafe-is540-2.webp",
+  "imageAlt": "i.safe MOBILE IS540.2, front view",
+  "certification": {
+    "otherSchemes": [
+      "RCM (Australia)",
+      "UAE"
+    ],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ic IIC T4 Gc / II 3D Ex ic IIIC T135°C Dc",
+      "number": "EPS 23 ATEX 1 013 X"
+    },
+    "iecex": {
+      "marking": "Ex ic IIC T4 Gc / Ex ic IIIC T135°C Dc",
+      "number": "IECEx EPS 23.0003X"
+    },
+    "northAmerica": "NEC500 Class I Div 2 (per Nokia DAC; certificate number not found)",
+    "division": "Class I Division 2",
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ic)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gc / Dc",
+    "ambient": "−20 °C to +55 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "batterySwap": "Outside the hazardous area only",
+    "conditions": "Use only i.safe-approved accessories; see IS540.2 manual"
+  },
+  "os": {
+    "name": "Android",
+    "version": "Android 14",
+    "atLaunch": "Android 12",
+    "securityUntil": "2032-12-31",
+    "securityUntilLabel": "Q4 2032",
+    "updates": "Security updates until Q4 2032",
+    "enterprise": "Android Enterprise Recommended"
+  },
+  "specs": {
+    "display": "6-inch Gorilla Glass 3",
+    "resolution": "1080 × 2160",
+    "chip": "Qualcomm QCM6490",
+    "ram": "8 GB",
+    "camera": "48 MP AF",
+    "frontCamera": "5 MP FF",
+    "battery": "4400 mAh",
+    "network": "5G",
+    "wifi": "Wi-Fi 6",
+    "bluetooth": "Bluetooth 5.2",
+    "nfc": "Yes",
+    "gnss": "GPS, A-GPS, GLONASS, BeiDou, Galileo",
+    "sim": "nano-SIM + eSIM",
+    "keys": "Programmable red key (e.g. LWP); programmable left side key (e.g. PTT)",
+    "accessories": "16-pin ISM interface; USB-C",
+    "touch": "Glove",
+    "apps": "Button App (key assignment)",
+    "storage": "128 GB, microSD up to 128 GB",
+    "replaceableBattery": true,
+    "gloveTouch": true,
+    "pttKey": true,
+    "mdm": [
+      "Android Enterprise Recommended"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 6",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 422,
+    "dimensionsMm": "180 × 84.9 × 20.6",
+    "ipRating": "IP68",
+    "ruggedness": "MIL-STD-810H",
+    "operatingTemp": "−20 °C to +55 °C",
+    "partNumbers": "Model M540A01; R. STAHL 317431"
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Key + third-party app"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (red key)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app (red key)"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Via accessory"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Via accessory"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "certification.northAmerica": "From Nokia's product page; we haven't found the certificate number.",
+    "certification.division": "From Nokia's product page; we haven't found the certificate number.",
+    "os.securityUntil": "i.safe MOBILE states Q4 2032. Google's Android Enterprise directory lists 30 January 2032.",
+    "specs.camera": "From i.safe MOBILE's datasheet; a distributor sheet lists 40 MP.",
+    "specs.sim": "From i.safe MOBILE; a distributor sheet lists dual micro-SIM.",
+    "specs.weightG": "Taken from the IS540.1; not published separately for the IS540.2.",
+    "capabilities.Barcode scanning": "Not confirmed by the maker for this exact model.",
+    "capabilities.Thermal imaging": "Not confirmed by the maker for this exact model."
+  },
+  "features": [
+    "nfc",
+    "camera-48mp",
+    "thermal",
+    "barcode",
+    "sos-key",
+    "programmable-key",
+    "updates-2030"
+  ],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "Push-to-talk and SOS keys",
+    "Barcode scan module available as an accessory",
+    "5G connectivity",
+    "Security updates until Q4 2032"
+  ],
+  "limitations": [
+    "Zone 2 only, so not for Zone 1 areas",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C"
+  ],
+  "bestFor": [
+    "zone-2-phones",
+    "push-to-talk",
+    "5g"
+  ],
+  "alternatives": [
+    "ecom-smart-ex-03-dz2",
+    "bartec-sp9ex2",
+    "atexxo-zone-2-galaxy-xcover7-pro"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "IECEx (Bureau Veritas Consumer Products Services Germany GmbH): IECEx EPS 23.0003X issue 1 (2026-04-21, Current) - IS540.2 intrinsically safe Smartphone",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/2144078/view"
+    },
+    {
+      "label": "i.safe MOBILE (reseller copy): IS540.1 datasheet 1058MD02 REV06 (10.2023)",
+      "url": "https://rockallsafety.co.uk/wp-content/uploads/2024/05/DOC_PRO_MD_i.safe_MOBILE_IS540.1-A4-datasheet_1058MD02__SEN__AWEB__V8.pdf"
+    },
+    {
+      "label": "i.safe MOBILE (via ManualsLib): IS540.2 operating manual 1060MM10REV00",
+      "url": "https://www.manualslib.de/manual/1019904/I-Safe-Mobile-Is540-2.html"
+    },
+    {
+      "label": "i.safe MOBILE: Security updates table (IS540.x: 'Security Patches until 2032-Q4')",
+      "url": "https://www.isafe-mobile.com/en/support/security-updates"
+    },
+    {
+      "label": "R. STAHL (distributor): IS540.2 data sheet 317431 (2026-04-28)",
+      "url": "https://r-stahl.com/fileadmin/tx_aimeos/Files/n_/gb/SDS_PV_2698955_en_GB/ex-scheda-tecnica-individuale-smartphone-is540-2-smartphone-set-317431-en-gb-rstahl.pdf"
+    },
+    {
+      "label": "Nokia DAC: IS540.1 EX-protected for Europe",
+      "url": "https://dac.nokia.com/portfolio/is5401-ex-protected-for-europe/"
+    },
+    {
+      "label": "R. STAHL (distributor): IS540.M1 single data sheet 319872 (2026-07-27)",
+      "url": "https://r-stahl.com/fileadmin/tx_aimeos/Files/n_/gb/SDS_PV_2761968_en_GB/single-data-sheet-smartphone-is540-m1-smartphone-set-319872-en-gb-rstahl.pdf"
+    },
+    {
+      "label": "Google: Android Enterprise Recommended directory, i.safe MOBILE IS540 ('Security updates until 01/30/2032')",
+      "url": "https://androidenterprisepartners.withgoogle.com/devices/?search=IS540&view=grid"
+    }
+  ]
+}

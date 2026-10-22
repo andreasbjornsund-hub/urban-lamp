@@ -1,0 +1,33 @@
+---
+import InfoPage from '../components/InfoPage.astro';
+
+// Matches the cookie section of the privacy notice (public/privacy.html); keep the two in step
+const sections = [
+  {
+    heading: 'Your choice',
+    html: `<p>On your first visit a banner asks whether you accept cookies for analytics and advertising. If you choose Reject, they are not set. To change your choice, clear this site's cookies and stored data in your browser, and the banner appears again.</p>`,
+  },
+  {
+    heading: 'Cookies we use',
+    html: `<p>With your consent, Google Analytics, Google Tag Manager and Google Ads set cookies so we can see which content helps readers and advertise our guides. This data is kept for 14 months.</p>`,
+  },
+  {
+    heading: 'Stored on your device',
+    html: `<p>The compare bar remembers the phones you pick, and whether you have hidden it, in your browser's local storage. That information stays on your device and is not sent to us.</p>`,
+  },
+  {
+    heading: 'More about your data',
+    html: `<p>The <a href="/privacy.html">privacy notice</a> explains what else we collect, who processes it and how to use your rights.</p>`,
+  },
+];
+---
+
+<InfoPage
+  path="/cookies/"
+  title="Cookie Policy"
+  description="Which cookies intrinsicallysafephones.com uses, why, how long they last and how to change your choice."
+  h1="Cookies"
+  lead="What we store in your browser, and how to change your choice."
+  updated="21 October 2026"
+  sections={sections}
+/>

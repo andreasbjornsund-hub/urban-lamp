@@ -1,0 +1,651 @@
+---
+/*
+ * Site-wide compare tray (rendered once in BaseLayout). Any button with data-compare-add="<phone id>"
+ * on any page adds or removes that phone. The selection lives in localStorage so it follows the user
+ * around the site; phone data comes from /compare-data.json, fetched only once the tray is used.
+ * The tray stays collapsed until the user asks to compare.
+ */
+import Icon from '../Icon.astro';
+
+const MAX_COMPARE = 4;
+---
+
+<section class="tray" data-tray hidden aria-labelledby="tray-title">
+  <!-- Expanded comparison -->
+  <div class="tray-panel" id="tray-panel" data-tray-panel hidden>
+    <div class="container tray-panel-head">
+      <h2 id="tray-panel-title" class="tray-panel-title" tabindex="-1">Comparing <span data-tray-count>0</span> phones</h2>
+      <label class="tray-diff">
+        <input type="checkbox" data-tray-diff />
+        Show differences only
+      </label>
+      <button class="tray-icon-btn" type="button" data-tray-collapse aria-label="Close comparison">
+        <Icon name="close" />
+      </button>
+    </div>
+    <div class="container tray-panel-body">
+      <div class="tray-table-wrap" data-tray-table tabindex="0" role="region" aria-label="Side-by-side comparison"></div>
+    </div>
+  </div>
+
+  <!-- Collapsed bar -->
+  <div class="tray-bar">
+    <div class="container tray-bar-inner">
+      <h2 id="tray-title" class="tray-title">Compare <span class="tray-max">up to {MAX_COMPARE}</span></h2>
+      <ol class="tray-slots" data-tray-slots></ol>
+      <div class="tray-actions">
+        <button class="tray-clear" type="button" data-tray-clear>Clear</button>
+        <button
+          class="btn btn-primary btn-sm"
+          type="button"
+          data-tray-toggle
+          aria-expanded="false"
+          aria-controls="tray-panel"
+        >
+          <span data-tray-toggle-label>Compare</span>
+          <Icon name="chevron-down" class="tray-chevron" />
+        </button>
+        <button class="tray-icon-btn tray-hide" type="button" data-tray-hide aria-label="Hide compare bar" title="Hide compare bar">
+          <Icon name="chevron-down" />
+        </button>
+      </div>
+    </div>
+    <p class="visually-hidden" aria-live="polite" data-tray-live></p>
+  </div>
+
+  <!-- Hidden state: a small tab that brings the bar back -->
+  <button class="tray-tab" type="button" data-tray-show aria-label="Show compare bar">
+    <span>Compare <span class="tray-tab-count" data-tray-tab-count>0</span></span>
+    <Icon name="chevron-up" />
+  </button>
+</section>
+
+<script>
+  interface TrayPhone {
+    id: string;
+    name: string;
+    brand: string;
+    href: string;
+    thumb?: string;
+    compare: { values: string[]; ranks: (number | null)[] };
+  }
+
+  const MAX = 4;
+  const KEY = 'isp-compare';
+  const MIN_KEY = 'isp-compare-hidden';
+  // Only the finder page mirrors the selection into its URL (so a filtered comparison can be shared)
+  const SYNC_URL = location.pathname === '/phones/';
+
+  const tray = document.querySelector<HTMLElement>('[data-tray]');
+
+  if (tray) {
+    const panel = tray.querySelector<HTMLElement>('[data-tray-panel]')!;
+    const slots = tray.querySelector<HTMLOListElement>('[data-tray-slots]')!;
+    const toggle = tray.querySelector<HTMLButtonElement>('[data-tray-toggle]')!;
+    const toggleLabel = tray.querySelector<HTMLElement>('[data-tray-toggle-label]')!;
+    const live = tray.querySelector<HTMLElement>('[data-tray-live]')!;
+    const tableWrap = tray.querySelector<HTMLElement>('[data-tray-table]')!;
+    const diff = tray.querySelector<HTMLInputElement>('[data-tray-diff]')!;
+    const count = tray.querySelector<HTMLElement>('[data-tray-count]')!;
+    const hideBtn = tray.querySelector<HTMLButtonElement>('[data-tray-hide]')!;
+    const showBtn = tray.querySelector<HTMLButtonElement>('[data-tray-show]')!;
+    const tabCount = tray.querySelector<HTMLElement>('[data-tray-tab-count]')!;
+
+    let phones: Map<string, TrayPhone> | null = null;
+    let rowLabels: string[] = [];
+    let loading: Promise<void> | null = null;
+
+    /** Fetch the comparison data once, the first time the tray is needed */
+    function ensureData() {
+      loading ??= fetch('/compare-data.json')
+        .then((r) => r.json())
+        .then((d: { rows: string[]; phones: TrayPhone[] }) => {
+          rowLabels = d.rows;
+          phones = new Map(d.phones.map((p) => [p.id, p]));
+        });
+      return loading;
+    }
+
+    function loadSelection(): string[] {
+      const fromUrl = SYNC_URL ? new URLSearchParams(location.search).get('compare') : null;
+      if (fromUrl) return fromUrl.split(',');
+      try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { return []; }
+    }
+
+    let selected = loadSelection().slice(0, MAX);
+    // Whether the user has tucked the bar away; remembered across pages until they show it again
+    let minimized = (() => { try { return localStorage.getItem(MIN_KEY) === '1'; } catch { return false; } })();
+
+    const esc = (s: string) => s.replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]!);
+
+    function save() {
+      try { localStorage.setItem(KEY, JSON.stringify(selected)); } catch {}
+      if (!SYNC_URL) return;
+      const url = new URL(location.href);
+      if (selected.length) url.searchParams.set('compare', selected.join(','));
+      else url.searchParams.delete('compare');
+      history.replaceState(null, '', url);
+    }
+
+    function setMinimized(min: boolean, focus = false) {
+      minimized = min;
+      try { localStorage.setItem(MIN_KEY, min ? '1' : '0'); } catch {}
+      if (min) setExpanded(false);
+      tray.classList.toggle('is-min', min);
+      document.documentElement.classList.toggle('tray-min', min);
+      if (focus) (min ? showBtn : hideBtn).focus();
+    }
+
+    function setExpanded(open: boolean) {
+      if (open && (selected.length < 2 || minimized)) open = false;
+      panel.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      tray.classList.toggle('is-open', open);
+      document.documentElement.classList.toggle('tray-open', open);
+      if (open) {
+        renderTable();
+        tray.querySelector<HTMLElement>('#tray-panel-title')?.focus();
+      }
+    }
+
+    function renderSlots() {
+      const filled = selected.map((id) => {
+        const p = phones!.get(id)!;
+        return `<li class="slot slot-filled">
+          ${p.thumb ? `<img src="${p.thumb}" alt="" width="40" height="40" loading="lazy">` : '<span class="slot-noimg"></span>'}
+          <a class="slot-name" href="${p.href}">${esc(p.name)}</a>
+          <button type="button" class="slot-remove" data-tray-remove="${p.id}" aria-label="Remove ${esc(p.name)} from comparison">×</button>
+        </li>`;
+      });
+      const empty = Array.from({ length: MAX - selected.length }, (_, i) =>
+        `<li class="slot slot-empty"${i > 0 ? ' data-extra' : ''}><a href="/phones/">Add a phone</a></li>`,
+      );
+      slots.innerHTML = [...filled, ...empty].join('');
+      count.textContent = String(selected.length);
+      tabCount.textContent = String(selected.length);
+      toggleLabel.textContent = selected.length < 2 ? 'Add one more to compare' : `Compare ${selected.length}`;
+      toggle.disabled = selected.length < 2;
+    }
+
+    function renderTable() {
+      const list = selected.map((id) => phones!.get(id)!);
+      const head = list
+        .map(
+          (p) => `<th scope="col">
+            ${p.thumb ? `<img src="${p.thumb}" alt="" width="64" height="64">` : ''}
+            <span class="t-brand">${esc(p.brand)}</span>
+            <a class="t-name" href="${p.href}">${esc(p.name)}</a>
+            <button type="button" class="t-remove" data-tray-remove="${p.id}">Remove<span class="visually-hidden"> ${esc(p.name)}</span></button>
+          </th>`,
+        )
+        .join('');
+      const body = rowLabels
+        .map((label, r) => {
+          const values = list.map((p) => p.compare.values[r]);
+          const ranks = list.map((p) => p.compare.ranks[r]);
+          const known = ranks.filter((x): x is number => x !== null);
+          const best = known.length > 1 && new Set(known).size > 1 ? Math.max(...known) : null;
+          const same = new Set(values).size === 1;
+          const cells = values
+            .map((v, i) =>
+              best !== null && ranks[i] === best
+                ? `<td class="best"><span class="best-dot" aria-hidden="true"></span>${esc(v)}<span class="visually-hidden"> (best)</span></td>`
+                : `<td>${esc(v)}</td>`,
+            )
+            .join('');
+          return `<tr${same ? ' class="same"' : ''}><th scope="row">${esc(label)}</th>${cells}</tr>`;
+        })
+        .join('');
+      tableWrap.innerHTML = `<table><caption class="visually-hidden">Side-by-side comparison</caption>
+        <thead><tr><td class="corner"></td>${head}</tr></thead><tbody>${body}</tbody></table>`;
+    }
+
+    function syncButtons() {
+      document.querySelectorAll<HTMLButtonElement>('[data-compare-add]').forEach((b) => {
+        b.setAttribute('aria-pressed', String(selected.includes(b.dataset.compareAdd!)));
+      });
+    }
+
+    function update(message?: string, persist = true) {
+      syncButtons();
+      tray.hidden = selected.length === 0;
+      // Starting a new comparison brings the bar back
+      if (!selected.length && minimized) setMinimized(false);
+      document.documentElement.classList.toggle('has-tray', selected.length > 0);
+      if (phones) {
+        renderSlots();
+        if (!panel.hidden) {
+          if (selected.length < 2) setExpanded(false);
+          else renderTable();
+        }
+      }
+      if (message) live.textContent = message;
+      if (persist) save();
+    }
+
+    async function toggleId(id: string) {
+      await ensureData();
+      const p = phones!.get(id);
+      if (!p) return;
+      if (selected.includes(id)) {
+        selected = selected.filter((x) => x !== id);
+        update(`${p.name} removed from comparison.`);
+      } else if (selected.length >= MAX) {
+        live.textContent = `You can compare up to ${MAX} phones. Remove one first.`;
+        tray.classList.remove('is-full');
+        void tray.offsetWidth;
+        tray.classList.add('is-full');
+      } else {
+        selected = [...selected, id];
+        update(`${p.name} added to comparison. ${selected.length} of ${MAX} selected.`);
+        if (minimized) {
+          // Stay out of the way, but show that the tab picked it up
+          showBtn.classList.remove('is-bump');
+          void showBtn.offsetWidth;
+          showBtn.classList.add('is-bump');
+        }
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const add = target.closest<HTMLElement>('[data-compare-add]');
+      if (add) return void toggleId(add.dataset.compareAdd!);
+      const remove = target.closest<HTMLElement>('[data-tray-remove]');
+      if (remove) return void toggleId(remove.dataset.trayRemove!);
+    });
+
+    toggle.addEventListener('click', () => setExpanded(panel.hidden));
+    tray.querySelector('[data-tray-collapse]')!.addEventListener('click', () => {
+      setExpanded(false);
+      toggle.focus();
+    });
+    hideBtn.addEventListener('click', () => setMinimized(true, true));
+    showBtn.addEventListener('click', () => setMinimized(false, true));
+    tray.querySelector('[data-tray-clear]')!.addEventListener('click', () => {
+      selected = [];
+      update('Comparison cleared.');
+    });
+    diff.addEventListener('change', () => tableWrap.classList.toggle('only-diff', diff.checked));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !panel.hidden) {
+        setExpanded(false);
+        toggle.focus();
+      }
+    });
+
+    // Keep tabs in step: adding a phone in one tab updates the tray in the others
+    window.addEventListener('storage', async (e) => {
+      if (e.key !== KEY) return;
+      try { selected = JSON.parse(e.newValue || '[]'); } catch { selected = []; }
+      if (selected.length) await ensureData();
+      update(undefined, false);
+    });
+
+    // Show buttons in the right state straight away; fetch data only if something is already selected
+    syncButtons();
+    if (minimized) setMinimized(selected.length > 0);
+    if (selected.length) {
+      ensureData().then(() => {
+        selected = selected.filter((id) => phones!.has(id));
+        update(undefined, SYNC_URL);
+      });
+    }
+  }
+</script>
+
+<style>
+  .tray {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    max-height: 100dvh;
+  }
+  .tray[hidden] { display: none; }
+
+  /* ---------- Collapsed bar ---------- */
+  .tray-bar {
+    position: relative;
+    background: var(--color-panel);
+    border-top: 1px solid var(--color-border-strong);
+    box-shadow: 0 -10px 30px -12px rgb(40 35 25 / 0.25);
+  }
+  .tray-bar-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 4.5rem;
+    padding-block: 0.625rem;
+  }
+  .tray-title {
+    display: none;
+    flex: none;
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+  .tray-max { display: block; font: 400 var(--text-xs) / 1.3 var(--font-sans); color: var(--color-muted); letter-spacing: 0; }
+
+  .tray-slots {
+    display: flex;
+    flex: 1;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+  .tray-slots :global(.slot) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex: 0 1 13rem;
+    min-width: 0;
+    height: 3.25rem;
+    padding: 0.375rem;
+    border-radius: var(--radius);
+    font-size: var(--text-xs);
+  }
+  .tray-slots :global(.slot-filled) {
+    border: 1px solid var(--color-panel-border);
+    background: var(--color-bg);
+  }
+  .tray-slots :global(.slot-filled img),
+  .tray-slots :global(.slot-noimg) {
+    flex: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    background: #fff;
+  }
+  .tray-slots :global(.slot-name) {
+    display: none;
+    overflow: hidden;
+    font-weight: 500;
+    color: var(--color-ink);
+    line-height: 1.25;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .tray-slots :global(.slot-remove) {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    margin-left: auto;
+    border: 0;
+    border-radius: 50%;
+    background: var(--color-panel-warm);
+    color: var(--color-ink);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .tray-slots :global(.slot-remove:hover) { background: var(--color-border); }
+  .tray-slots :global(.slot-empty) {
+    justify-content: center;
+    border: 1px dashed var(--color-border-strong);
+    color: var(--color-muted);
+  }
+  .tray-slots :global(.slot-empty a) { color: inherit; text-decoration: none; }
+  .tray-slots :global(.slot-empty a:hover) { color: var(--color-forest); text-decoration: underline; }
+  .tray-slots :global(a.slot-name) { text-decoration: none; }
+  .tray-slots :global(a.slot-name:hover) { text-decoration: underline; }
+
+  .tray-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: none;
+  }
+  .tray-clear {
+    min-height: 2.75rem;
+    padding: 0 0.25rem;
+    border: 0;
+    background: none;
+    color: var(--color-muted);
+    font: 500 var(--text-sm) / 1 var(--font-sans);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+  .tray-actions .btn:disabled {
+    background: var(--color-panel-warm);
+    color: var(--color-muted);
+    cursor: default;
+  }
+  .tray-hide { flex: none; }
+  .tray-actions :global(.tray-chevron) { transform: rotate(180deg); transition: transform 0.2s ease; }
+  .tray.is-open .tray-actions :global(.tray-chevron) { transform: none; }
+
+  /* ---------- Hidden: just a small tab in the corner ---------- */
+  .tray-tab { display: none; }
+  .tray.is-min {
+    inset: auto max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) auto;
+  }
+  .tray.is-min .tray-bar,
+  .tray.is-min .tray-panel { display: none; }
+  .tray.is-min .tray-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0 0.875rem 0 1rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--color-forest);
+    color: var(--color-on-dark);
+    font: 600 var(--text-sm) / 1 var(--font-sans);
+    box-shadow: 0 8px 24px -8px rgb(20 25 22 / 0.45);
+    cursor: pointer;
+    animation: tab-in 0.2s ease;
+  }
+  .tray-tab:hover { background: var(--color-forest-hover); }
+  .tray-tab :global(svg) { width: 1.125rem; height: 1.125rem; }
+  .tray-tab-count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.375rem;
+    height: 1.375rem;
+    margin-left: 0.25rem;
+    padding: 0 0.3rem;
+    border-radius: 999px;
+    background: var(--color-on-dark);
+    color: var(--color-forest);
+    font-size: var(--text-xs);
+  }
+  .tray-tab.is-bump { animation: tab-bump 0.4s ease; }
+  @keyframes tab-in {
+    from { opacity: 0; transform: translateY(0.5rem); }
+  }
+  @keyframes tab-bump {
+    40% { transform: scale(1.08); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tray.is-min .tray-tab, .tray-tab.is-bump { animation: none; }
+  }
+
+  /* Gentle shake when the tray is full */
+  .tray.is-full .tray-slots { animation: nudge 0.35s ease; }
+  @keyframes nudge {
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  /* ---------- Expanded panel ---------- */
+  .tray-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    max-height: min(78dvh, 46rem);
+    background: var(--color-panel);
+    border-top: 1px solid var(--color-border-strong);
+    box-shadow: 0 -20px 50px -20px rgb(40 35 25 / 0.35);
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .tray-panel[hidden] { display: none; }
+  .tray-panel-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--color-panel-border);
+  }
+  .tray-panel-title { font-size: 1.25rem; margin-right: auto; }
+  .tray-panel-title:focus { outline: none; }
+  .tray-diff {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    font-size: var(--text-sm);
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+  .tray-diff input { width: 1.125rem; height: 1.125rem; accent-color: var(--color-forest); }
+  .tray-icon-btn {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 0;
+    border-radius: 50%;
+    background: var(--color-panel-warm);
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+  .tray-icon-btn :global(svg) { width: 1.25rem; height: 1.25rem; }
+
+  .tray-panel-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-block: 1rem 1.25rem;
+  }
+  .tray-table-wrap { overflow-x: auto; }
+  .tray-table-wrap :global(table) {
+    width: 100%;
+    min-width: 34rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: var(--text-sm);
+  }
+  .tray-table-wrap :global(th),
+  .tray-table-wrap :global(td) {
+    padding: 0.7rem 0.875rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--color-panel-border);
+  }
+  .tray-table-wrap :global(thead th) { vertical-align: bottom; }
+  .tray-table-wrap :global(thead img) { width: 3.5rem; height: 3.5rem; object-fit: contain; margin-bottom: 0.4rem; }
+  .tray-table-wrap :global(.t-brand) { display: block; font-size: var(--text-xs); color: var(--color-muted); font-weight: 400; }
+  .tray-table-wrap :global(.t-name) {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--color-heading);
+    text-decoration: none;
+  }
+  .tray-table-wrap :global(.t-name:hover) { text-decoration: underline; }
+  .tray-table-wrap :global(.t-remove) {
+    margin-top: 0.3rem;
+    padding: 0;
+    min-height: 2rem;
+    border: 0;
+    background: none;
+    color: var(--color-muted);
+    font: 400 var(--text-xs) / 1 var(--font-sans);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .tray-table-wrap :global(tbody th),
+  .tray-table-wrap :global(.corner) {
+    position: sticky;
+    left: 0;
+    width: 7rem;
+    background: var(--color-panel);
+    color: var(--color-muted);
+    font-weight: 500;
+    border-right: 1px solid var(--color-panel-border);
+  }
+  .tray-table-wrap :global(td) { color: var(--color-ink); }
+  .tray-table-wrap :global(tr.same td) { color: var(--color-muted); }
+  .tray-table-wrap :global(td.best) { color: var(--color-forest); font-weight: 600; }
+  .tray-table-wrap :global(.best-dot) {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.45rem;
+    border-radius: 50%;
+    background: #2f9e64;
+  }
+  .tray-table-wrap:global(.only-diff) :global(tr.same) { display: none; }
+
+  /* Keep page content clear of the bar */
+  :global(html.has-tray:not(.tray-min)) :global(body) { padding-bottom: 5rem; }
+  /* Dim the page behind the expanded panel */
+  :global(html.tray-open)::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    background: rgb(20 25 22 / 0.35);
+  }
+
+  /* ---------- Small screens: thumbnails only ---------- */
+  @media (max-width: 39.99rem) {
+    .tray-bar-inner { gap: 0.75rem; }
+    .tray-slots { gap: 0.375rem; }
+    .tray-slots :global(.slot) { flex: 0 0 auto; width: 2.75rem; height: 2.75rem; padding: 0.25rem; justify-content: center; }
+    .tray-slots :global(.slot-filled img), .tray-slots :global(.slot-noimg) { width: 2.125rem; height: 2.125rem; }
+    .tray-slots :global(.slot-empty a) { display: grid; place-items: center; width: 100%; height: 100%; font-size: 0; }
+    .tray-slots :global(.slot-empty a)::before { content: '+'; font-size: 1.25rem; }
+    .tray-slots :global(.slot-empty[data-extra]) { display: none; }
+    .tray-slots :global(.slot-remove) {
+      position: absolute;
+      top: -0.5rem;
+      right: -0.5rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      border: 1px solid var(--color-border-strong);
+      background: var(--color-panel);
+      font-size: 0.875rem;
+    }
+    .tray-clear { display: none; }
+    /* No room in the bar, so the hide button becomes a pull-tab on its top edge.
+       The button keeps a 44px tap target; only the bottom part is drawn. */
+    .tray-hide {
+      position: absolute;
+      right: 1rem;
+      bottom: 100%;
+      width: 3.25rem;
+      height: 2.75rem;
+      align-items: end;
+      padding-bottom: 0.125rem;
+      background: none;
+      border-radius: 0;
+    }
+    .tray-hide::before {
+      content: '';
+      position: absolute;
+      inset: auto 0 -1px;
+      height: 1.625rem;
+      background: var(--color-panel);
+      border: 1px solid var(--color-border-strong);
+      border-bottom: 0;
+      border-radius: var(--radius) var(--radius) 0 0;
+      box-shadow: 0 -6px 14px -8px rgb(40 35 25 / 0.3);
+    }
+    .tray-hide :global(svg) { position: relative; }
+  }
+
+  @media (min-width: 40rem) {
+    .tray-slots :global(.slot-name) { display: -webkit-box; }
+  }
+  @media (min-width: 64rem) {
+    .tray-title { display: block; }
+  }
+</style>

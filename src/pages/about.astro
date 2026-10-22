@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import InfoPage from '../components/InfoPage.astro';
+import { CONTACT } from '../config/site';
+import { BEST_PAGES } from '../data/best-pages';
+import { COMPARE_PAGES } from '../data/compare-pages';
+import { GUIDE_PAGES } from '../data/guide-pages';
+
+const phones = await getCollection('phones');
+const brands = new Set(phones.map((p) => p.data.brand)).size;
+
+const sections = [
+  {
+    heading: 'Why we created this site',
+    html: `<p>Choosing a phone for a hazardous area means reading certificates. The zones, gas group, temperature class and conditions of use sit in ATEX and IECEx documents and makers' datasheets, each brand publishes them in its own format, and comparing two phones properly can take an afternoon with a spreadsheet.</p>
+<p>We built intrinsicallysafephones.com to put that information in one place. It covers ${phones.length} phones and iPhone options from ${brands} brands, current and discontinued, and each one has its own page with its Ex marking decoded, the conditions on its certificate, its full specifications and, for cases, what still works through the case.</p>
+<p>The site covers both routes into Zone 1 and Zone 2: dedicated intrinsically safe phones, and standard iPhones and Samsung Galaxy phones in certified Ex cases or conversions. Both are described by the same rules, so a team can weigh them against each other on equal terms.</p>
+<p>To help with the decision there are ${COMPARE_PAGES.length} head-to-head comparisons, ${BEST_PAGES.length} rankings by zone, industry and use case, each stating the criteria behind it, and ${GUIDE_PAGES.length} guides on topics such as cost, rugged phones and replacing discontinued models.</p>
+<p>Everything is checked against primary sources, and anything we could not confirm is marked as not verified. <a href="/how-we-rate/">How we rate</a> sets out the rules.</p>`,
+  },
+  {
+    heading: 'Get in touch',
+    html: `<p>For price and availability, help choosing a phone, or a fact that needs correcting, <a href="${CONTACT.href}">contact us</a>. We reply by email.</p>`,
+  },
+];
+---
+
+<InfoPage
+  path="/about/"
+  title="About Intrinsically Safe Phones"
+  description="Why we built intrinsicallysafephones.com and what it covers: phone pages, head-to-head comparisons and rankings for ATEX Zone 1 and Zone 2."
+  h1="About us"
+  lead="An independent place to research and compare phones for hazardous areas, built on certificates rather than marketing claims."
+  sections={sections}
+/>

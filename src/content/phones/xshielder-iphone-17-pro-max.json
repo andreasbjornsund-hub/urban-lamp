@@ -1,0 +1,335 @@
+{
+  "productId": "XS-IP17PM",
+  "name": "Xshielder iPhone 17 Pro Max",
+  "brand": "Xshielder",
+  "brandSlug": "xshielder",
+  "manufacturer": {
+    "name": "Xshielder AS",
+    "country": "Norway",
+    "website": "https://xshielder.com"
+  },
+  "type": "ex-case",
+  "formFactor": "smartphone",
+  "hostDevice": "Apple iPhone 17 Pro Max",
+  "status": "current",
+  "launchYear": 2026,
+  "summary": "The Xshielder iPhone 17 Pro Max is a flameproof (Ex db) case for the Apple iPhone 17 Pro Max, certified for Zone 1/21 under ATEX and IECEx. The phone inside is a standard Apple iPhone 17 Pro Max running iOS 27, so it works with the same apps and device management as other iPhones.",
+  "image": "../../assets/phones/xshielder-iphone-17-pro-max.webp",
+  "imageAlt": "Xshielder iPhone 17 Pro Max, front view",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 2G Ex db IIC T6 Gb / II 2D Ex tb IIIC T80°C Db",
+      "number": "FIDI 26 ATEX 0016X"
+    },
+    "iecex": {
+      "marking": "Ex db IIC T6 Gb / Ex tb IIIC T80°C Db",
+      "number": "IECEx FIDI 26.0016X",
+      "scope": "S02 cemented variant only"
+    },
+    "zonesGas": [
+      "1",
+      "2"
+    ],
+    "zonesDust": [
+      "21",
+      "22"
+    ],
+    "protection": "Flameproof enclosure (Ex db)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T6",
+    "maxSurfaceTemp": "80 °C",
+    "epl": "Gb / Db",
+    "ambient": "−20 °C to +50 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "Flameproof Ex db enclosure (dust: Ex tb). Specific conditions of use (FIDI 26 ATEX 0016X / IECEx FIDI 26.0016X): no repair of flameproof joints; fasteners only replaced with identical ones (min. tensile strength 500 MPa); tested for low impact energy, do not expose to high impact risk; enclosure must not be opened in hazardous area; S02 (cemented lid) must not be opened by the user; battery charging only outside hazardous area. Either variant may only be opened by Xshielder-authorised personnel. USB-C port not accessible: charge wirelessly (MagSafe) outside the hazardous area."
+  },
+  "os": {
+    "name": "iOS",
+    "version": "iOS 27",
+    "atLaunch": "iOS 26",
+    "securityUntil": "2032-09-19",
+    "updates": "Security updates for 7+ years (based on previous model support)",
+    "supportYears": 7,
+    "enterprise": "Apple Business (formerly Apple Business Manager)"
+  },
+  "specs": {
+    "display": "6.9-inch OLED; ProMotion; Always-On; Ceramic Shield 2",
+    "resolution": "2868 × 1320",
+    "refreshRate": "Up to 120 Hz",
+    "brightness": "3,000 nits peak (outdoor)",
+    "chip": "Apple A19 Pro",
+    "ram": "12 GB",
+    "camera": "48 MP Fusion main + 48 MP ultra wide + 48 MP telephoto (4x; 8x optical-quality)",
+    "frontCamera": "18 MP Center Stage",
+    "video": "4K120 Dolby Vision; ProRes RAW; Apple Log 2",
+    "battery": "4823 mAh (nano-SIM + eSIM model); 5088 mAh (eSIM-only model)",
+    "batteryLife": "Up to 37 hours of video playback",
+    "port": "USB-C (USB 3)",
+    "wirelessCharging": "MagSafe up to 25 W; Qi2",
+    "network": "5G",
+    "wifi": "Wi-Fi 7 (Apple N1)",
+    "bluetooth": "Bluetooth 6",
+    "nfc": "Yes (Apple Pay + Core NFC tag reading)",
+    "gnss": "GPS, GLONASS, Galileo, QZSS, BeiDou, NavIC",
+    "sim": "nano-SIM + eSIM (eSIM-only in US)",
+    "keys": "Action Button; Camera Control; side; volume",
+    "accessories": "USB-C",
+    "biometrics": "Face ID",
+    "depthSensing": "LiDAR",
+    "satellite": "Emergency SOS + Roadside Assistance via satellite (region-dependent)",
+    "uwb": "Yes (2nd gen)",
+    "touch": "Standard capacitive",
+    "apps": "Apple apps; App Store",
+    "storage": "256 GB / 512 GB / 1 TB / 2 TB",
+    "replaceableBattery": false,
+    "gloveTouch": false,
+    "pttKey": true,
+    "mdm": [
+      "Apple Business (formerly Apple Business Manager)"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 7",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 410,
+    "weightNote": "Including the phone",
+    "dimensionsMm": "184 × 89.6 × 17.8",
+    "ipRating": "IP65 / IP68 (1.5 m)",
+    "exIp": "IP65 / IP68 (depth 1.5 m)",
+    "cameraFree": false
+  },
+  "throughCase": [
+    {
+      "label": "Face ID / fingerprint",
+      "value": "Yes"
+    },
+    {
+      "label": "Action Button / programmable key",
+      "value": "Yes (programmable key on cover)"
+    },
+    {
+      "label": "Camera Control",
+      "value": "No (no dedicated Camera Control button on any Xshielder cover; Action button can open camera)"
+    },
+    {
+      "label": "Side and volume buttons",
+      "value": "Power and volume keys on cover"
+    },
+    {
+      "label": "Rear cameras",
+      "value": "Yes: 48 MP Pro system incl. 8x optical-quality zoom"
+    },
+    {
+      "label": "LiDAR",
+      "value": "Yes"
+    },
+    {
+      "label": "Front camera",
+      "value": "Yes: 18MP Center Stage front camera with Face ID"
+    },
+    {
+      "label": "Touchscreen",
+      "value": "Usable"
+    },
+    {
+      "label": "Screen cover",
+      "value": "Gorilla Glass display window"
+    },
+    {
+      "label": "Wireless charging",
+      "value": "Yes: up to 25 W (outside Ex area only)"
+    },
+    {
+      "label": "MagSafe accessories",
+      "value": "Yes: designed for the Apple MagSafe charger through the rear glass window (charging outside Ex area only); MagSafe accessories not stated"
+    },
+    {
+      "label": "Speaker and microphone",
+      "value": "All 4 microphones and 2 speakers usable (louder than previous cover per Xshielder); output still reduced vs bare iPhone; Voice Isolation or Ex Bluetooth headset recommended"
+    },
+    {
+      "label": "Headset audio",
+      "value": "Bluetooth only (USB-C not accessible; Ex-certified Bluetooth headset recommended)"
+    },
+    {
+      "label": "USB-C / Lightning port",
+      "value": "Not accessible (charging and data wireless only)"
+    },
+    {
+      "label": "SIM card",
+      "value": "eSIM; physical SIM fitted by Xshielder"
+    }
+  ],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Built in (PTT via the programmable Action Button on the cover; Push to Talk framework)"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (iOS Emergency SOS)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Built in (QR via Camera) / Via app (1D/2D)"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in (Core NFC); not verified through metal enclosure"
+    },
+    {
+      "label": "3D scanning",
+      "value": "Built in (LiDAR) + apps"
+    },
+    {
+      "label": "Satellite SOS",
+      "value": "Built in on iPhone; not verified through enclosure"
+    }
+  ],
+  "variants": [
+    {
+      "name": "S01",
+      "description": "Screwed lid. ATEX certified.",
+      "partNumber": "XS1-SP-G03-C01-S01"
+    },
+    {
+      "name": "S02",
+      "description": "Cemented lid, which the user must not open. ATEX and IECEx certified.",
+      "partNumber": "XS1-SP-G03-C01-S02"
+    }
+  ],
+  "unconfirmed": {
+    "os.securityUntil": "Apple doesn't publish an end date; its legal minimum is five years from first sale. Previous iPhone models have had security updates for seven years or more.",
+    "specs.batteryLife": "UK model (nano-SIM and eSIM). The US eSIM-only model has a larger battery.",
+    "specs.satellite": "Listed on Apple's tech specs; availability depends on the country."
+  },
+  "features": [
+    "camera-48mp",
+    "lidar",
+    "programmable-key",
+    "tripod-mount",
+    "lanyard",
+    "wireless-charging",
+    "updates-2030"
+  ],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "T6 temperature class, the strictest rating",
+    "Push-to-talk key",
+    "5G connectivity",
+    "Security updates for 7+ years (based on previous model support)"
+  ],
+  "limitations": [
+    "IECEx covers the S02 (cemented lid) version only",
+    "Only authorised personnel may open the case",
+    "NFC and satellite SOS not confirmed to work through the enclosure",
+    "Not certified for Zone 0"
+  ],
+  "bestFor": [
+    "zone-1-phones",
+    "iphone",
+    "push-to-talk",
+    "5g"
+  ],
+  "alternatives": [
+    "xciel-xcz1-iphone-14",
+    "atexxo-zone-1-iphone-17",
+    "ecom-smart-ex-03-dz1"
+  ],
+  "sponsor": true,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "Fiditas Ltd (NB 2829), published by Xshielder: EU-Type Examination Certificate FIDI 26 ATEX 0016X, issue 0 (2026-04-22)",
+      "url": "https://xshielder.com/hubfs/FIDI%2026%20ATEX%200016X%20Smartphone%20Xshieleder%20XS1-SP-G03.pdf"
+    },
+    {
+      "label": "Fiditas Ltd, published by Xshielder: IECEx Certificate of Conformity IECEx FIDI 26.0016X issue 0 (2026-04-22)",
+      "url": "https://xshielder.com/hubfs/IECEx_FIDI_26.0016_00%20signed.pdf"
+    },
+    {
+      "label": "IECEx: IECEx certificate search 'Xshielder' (4 current equipment certificates) (2026-10-13)",
+      "url": "https://www.iecex-certs.com/#/search"
+    },
+    {
+      "label": "H.M. Albretsen Verktøysikring AS, published by Xshielder: NS 9611 certificate HMAV-NS9611-0110-1 (2026-03-26)",
+      "url": "https://xshielder.com/hubfs/XS1-SP-G03-C01-S0%20HMAV-NS9611-0110-1%20CERTIFICATION.pdf"
+    },
+    {
+      "label": "Xshielder AS: EU Declaration of Conformity DOC-000031-Rev1 (A17PM) (2026-04-27)",
+      "url": "https://xshielder.com/hubfs/EU%20DOC_Smartphone_A17PM_DOC-000031-Rev1.pdf"
+    },
+    {
+      "label": "Xshielder (via IP Systèmes): Xshielder iPhone 17 Pro Max datasheet (marked 'certification pending')",
+      "url": "https://www.ip-systemes.com/media/7729/7586-datasheet-iphone-17-pro-max-coque-atex-z1-21-et-iecex.pdf"
+    },
+    {
+      "label": "Xshielder AS: Datasheet Xshielder iPhone 17 Pro Max A17PM-000018-5",
+      "url": "https://xshielder.com/hubfs/Datasheet_Xshielder_A17PM_000018_5.pdf"
+    },
+    {
+      "label": "Xshielder AS: Quick Start Guide iPhone 17 Pro Max DOC-000050 rev C (2026-05-18)",
+      "url": "https://xshielder.com/hubfs/DOC-000050_A17PM_Quick_Guide_C.pdf"
+    },
+    {
+      "label": "Xshielder AS: FAQ - Certification & Compliance (2026-10-13)",
+      "url": "https://xshielder.com/faq"
+    },
+    {
+      "label": "Xshielder AS: iPhone 17 Pro Max product page (2026-10-13)",
+      "url": "https://xshielder.com/products/smartphones/intrinsically-safe-smartphone"
+    },
+    {
+      "label": "Apple: iPhone 17 Pro Max - Technical Specifications (Apple Support, UK)",
+      "url": "https://support.apple.com/en-gb/125091"
+    },
+    {
+      "label": "Apple: Apple Business (formerly Apple Business Manager) user guide",
+      "url": "https://support.apple.com/guide/apple-business-manager/welcome/web"
+    },
+    {
+      "label": "Arktake (Japan distributor): Xshielder iPhone 17 Pro Max listing (marking + Ta)",
+      "url": "https://pr.mono.ipros.com/arktake/product/detail/2001619703/"
+    },
+    {
+      "label": "Exloc via Chemical UK Expo: Xshielder iPhone 17 Pro Max listing (wrongly calls it intrinsically safe)",
+      "url": "https://www.chemicalukexpo.com/products/xshielder-iphone-17-pro-max-313344/"
+    },
+    {
+      "label": "Arktake (Xshielder distributor, Japan): Xshielder A17PM - Tamb and standards",
+      "url": "https://pr.mono.ipros.com/arktake/product/detail/2001619703/"
+    },
+    {
+      "label": "Exloc (Xshielder UK partner): Xshielder iPhone 17 Pro Max - Face ID, wireless charging, eSIM",
+      "url": "https://www.chemicalukexpo.com/products/xshielder-iphone-17-pro-max-313344/"
+    },
+    {
+      "label": "Exloc Instruments USA, Inc.: Xshielder ATEX & IECEx Zone 1/21 Cover for iPhone 17 Pro Max (phone included) (2026-10-13)",
+      "url": "https://www.exloc.com/products/xshielder-atex-iecex-zone-1-21-cover-for-iphone-17-pro-maxphone-included"
+    },
+    {
+      "label": "Apple: iPhone 17 Pro Max Tech Specs (eSIM-only model)",
+      "url": "https://support.apple.com/125091"
+    },
+    {
+      "label": "GSMArena: Apple iPhone 17 Pro Max - full specifications (4,823 mAh; eSIM-only 5,088 mAh)",
+      "url": "https://www.gsmarena.com/apple_iphone_17_pro_max-13964.php"
+    }
+  ]
+}

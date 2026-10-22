@@ -1,0 +1,243 @@
+{
+  "productId": "AX-Z2-XC7P",
+  "name": "Atexxo Zone 2 Galaxy XCover7 Pro",
+  "brand": "Atexxo",
+  "brandSlug": "atexxo",
+  "manufacturer": {
+    "name": "Atexxo",
+    "country": "Netherlands",
+    "website": "https://atexxo.com"
+  },
+  "type": "conversion",
+  "formFactor": "smartphone",
+  "hostDevice": "Samsung Galaxy XCover7 Pro",
+  "status": "current",
+  "summary": "The Atexxo Zone 2 Galaxy XCover7 Pro is a standard Samsung Galaxy XCover7 Pro converted by Atexxo for hazardous areas, certified for Zone 2/22 under ATEX. It combines increased safety and intrinsic safety (Ex ec ic). The phone runs Android 16 / One UI 8.x or later.",
+  "image": "../../assets/phones/atexxo-zone-2-galaxy-xcover7-pro.webp",
+  "imageAlt": "Atexxo Zone 2 Galaxy XCover7 Pro, front view",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ec ic IIC T4 Gc / II 3D Ex tc IIIB T85°C Dc",
+      "scope": "Unit assessment: each unit is checked by a notified body. No certificate number is published."
+    },
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [
+      "22"
+    ],
+    "protection": "Increased safety and intrinsic safety (Ex ec ic)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIB",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "85 °C",
+    "epl": "Gc / Dc"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "Charge in safe area. Each unit spark-tested for intrinsically safe circuits (per Atexxo)."
+  },
+  "os": {
+    "name": "Android",
+    "version": "Android 16 / One UI 8.x or later",
+    "atLaunch": "Android 15",
+    "upgradeLimit": "7 OS upgrades",
+    "securityUntil": "2032-04-30",
+    "updates": "Security updates until April 2032",
+    "enterprise": "Samsung Knox"
+  },
+  "specs": {
+    "display": "6.6-inch PLS LCD; Vision Booster; Gorilla Glass Victus+",
+    "resolution": "2408 × 1080",
+    "refreshRate": "Up to 120 Hz",
+    "chip": "Snapdragon 7s Gen 3",
+    "ram": "6 GB",
+    "camera": "50 MP main + 8 MP ultra wide",
+    "frontCamera": "13 MP",
+    "battery": "4350 mAh",
+    "batteryLife": "Up to 22 hours of video playback",
+    "port": "USB-C (USB 3.2 Gen 1)",
+    "wirelessCharging": "No (15 W wired; POGO dock)",
+    "network": "5G",
+    "wifi": "Wi-Fi 6E",
+    "bluetooth": "Bluetooth 5.4",
+    "nfc": "Yes",
+    "gnss": "GPS, GLONASS, BeiDou, Galileo, QZSS",
+    "sim": "Dual SIM (nano-SIM + eSIM)",
+    "keys": "2 programmable keys (XCover key and top key, e.g. PTT, emergency)",
+    "accessories": "USB-C; POGO pins",
+    "biometrics": "Side fingerprint; face recognition",
+    "satellite": "None listed",
+    "touch": "Touch sensitivity (gloves); no underwater touch",
+    "apps": "Samsung Knox with Knox Vault; DeX; Google Play",
+    "storage": "128 GB, microSD up to 2 TB",
+    "replaceableBattery": true,
+    "gloveTouch": true,
+    "pttKey": true,
+    "mdm": [
+      "Samsung Knox"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 6E",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 390,
+    "weightNote": "Including the phone",
+    "dimensionsMm": "93 × 185 × 16",
+    "cameraFree": false,
+    "partNumbers": "MOB-EX-SAM-XC7P series"
+  },
+  "throughCase": [
+    {
+      "label": "Action Button / programmable key",
+      "value": "Push and programmable buttons usable"
+    },
+    {
+      "label": "Side and volume buttons",
+      "value": "Push and programmable buttons usable"
+    },
+    {
+      "label": "Rear cameras",
+      "value": "Front and rear cameras fully functional"
+    },
+    {
+      "label": "Front camera",
+      "value": "Yes"
+    },
+    {
+      "label": "NFC",
+      "value": "Yes (NFC reader stated)"
+    },
+    {
+      "label": "Wireless charging",
+      "value": "No (XCover7 Pro has no wireless charging per Samsung)"
+    },
+    {
+      "label": "USB-C / Lightning port",
+      "value": "USB-C"
+    },
+    {
+      "label": "SIM card",
+      "value": "Self SIM installation"
+    }
+  ],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Built in (2 programmable keys) + app"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (programmable key / Samsung Emergency SOS)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Via app (camera)"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in (NFC reader stated)"
+    },
+    {
+      "label": "3D scanning",
+      "value": "Via app (camera photogrammetry)"
+    },
+    {
+      "label": "Satellite SOS",
+      "value": "Not available"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "os.version": "Current One UI version not confirmed.",
+    "os.securityUntil": "Estimated from Samsung's commitment of seven years of security updates from launch.",
+    "specs.dimensionsMm": "From Atexxo's order table; its product page repeats the Galaxy S-series dimensions."
+  },
+  "features": [
+    "nfc",
+    "camera-48mp",
+    "sos-key",
+    "programmable-key",
+    "updates-2030"
+  ],
+  "strengths": [
+    "Push-to-talk and SOS keys",
+    "5G connectivity",
+    "Security updates expected until at least April 2032",
+    "A standard Samsung Galaxy XCover7 Pro inside, with Samsung Knox device management"
+  ],
+  "limitations": [
+    "Zone 2 only, so not for Zone 1 areas",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "Dust group IIIB: not rated for conductive dust",
+    "Certified by ATEX unit assessment; no certificate number is published",
+    "ATEX only: no IECEx certificate"
+  ],
+  "bestFor": [
+    "zone-2-phones",
+    "push-to-talk",
+    "5g"
+  ],
+  "alternatives": [
+    "ecom-smart-ex-03-dz2",
+    "isafe-is540-2",
+    "bartec-sp9ex2"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "Atexxo: XCover7 Pro Ex Zone 2 product page (order table 93 x 185 x 16 mm)",
+      "url": "https://atexxo.com/product/explosion-proof-samsung-xcover7-pro-ex-zone-2/"
+    },
+    {
+      "label": "Samsung (Singapore): Galaxy XCover7 Pro Enterprise Edition",
+      "url": "https://www.samsung.com/sg/business/smartphones/xcover/galaxy-xcover7-pro-sm-g766bzkds02"
+    },
+    {
+      "label": "Samsung (Sweden): Galaxy XCover7 Pro Enterprise Edition SM-G766BZKDEEB",
+      "url": "https://www.samsung.com/se/smartphones/others/galaxy-xcover7-pro-black-128gb-enterprise-edition-sm-g766bzkdeeb"
+    },
+    {
+      "label": "Samsung: Galaxy XCover7 Pro SM-G766B specifications (Samsung UK)",
+      "url": "https://www.samsung.com/uk/smartphones/others/galaxy-xcover7-pro-black-128gb-sm-g766bzkdeeb/"
+    },
+    {
+      "label": "Atexxo (via DirectIndustry): XCover7 Pro Zone 2 listing MOB-EX-SAM-XC7P",
+      "url": "https://www.directindustry.com/prod/atexxo-bv/product-160752-2857718.html"
+    },
+    {
+      "label": "Atexxo (via DirectIndustry): XCover7 Pro Zone 2 flyer",
+      "url": "https://pdf.directindustry.com/pdf/atexxo-bv/product-flyer-explosion-proof-samsung-xcover7-pro-ex-zone-2/160752-1150465.html"
+    },
+    {
+      "label": "Samsung Mobile Press: Galaxy XCover7 Pro specifications",
+      "url": "https://www.samsungmobilepress.com/media-assets/galaxy-xcover7-pro?tab=specs"
+    },
+    {
+      "label": "SHI (US reseller): Galaxy XCover7 Pro listing (RAM, weight, dimensions)",
+      "url": "https://www.shi.com/Product/50293219"
+    },
+    {
+      "label": "PhoneArena: XCover7 Pro launch: 7 years OS + security updates",
+      "url": "https://www.phonearena.com/news/samsung-launches-xcover-7-pro-tab-active-5-pro-with-upgrades-you-actually-want_id169457"
+    },
+    {
+      "label": "Notebookcheck: XCover7 vs XCover7 Pro (updates until 2032, Wi-Fi 6E)",
+      "url": "https://www.notebookcheck.net/Samsung-outdoor-smartphones-compared-What-distinguishes-the-XCover-7-from-the-XCover-7-Pro.1032345.0.html"
+    }
+  ]
+}

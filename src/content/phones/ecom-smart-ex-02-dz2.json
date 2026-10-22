@@ -1,0 +1,187 @@
+{
+  "productId": "PF-SE02-DZ2",
+  "name": "ecom Smart-Ex 02 DZ2",
+  "brand": "ecom (Pepperl+Fuchs)",
+  "brandSlug": "ecom",
+  "manufacturer": {
+    "name": "ecom instruments (Pepperl+Fuchs)",
+    "country": "Germany",
+    "website": "https://www.ecom-ex.com"
+  },
+  "type": "dedicated",
+  "formFactor": "smartphone",
+  "status": "discontinued",
+  "statusNote": "Distributors list it as end of life, with the Smart-Ex 03 as its replacement.",
+  "successor": "ecom-smart-ex-03-dz2",
+  "launchYear": 2019,
+  "summary": "The ecom Smart-Ex 02 DZ2 is an intrinsically safe (Ex ic) smartphone from ecom (Pepperl+Fuchs), certified for Zone 2/22 under ATEX and IECEx, and for Class I Division 2 in North America. It runs Android 11, with a user-replaceable battery. It has been discontinued; the ecom Smart-Ex 03 DZ2 replaces it.",
+  "image": "../../assets/phones/ecom-smart-ex-02-dz2.webp",
+  "imageAlt": "ecom Smart-Ex 02 DZ2, front view",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ic op is IIC T4 Gc IP64 / II 3D Ex ic op is IIIC T120°C Dc",
+      "number": "EPS 19 ATEX 1 069 X"
+    },
+    "iecex": {
+      "marking": "Ex ic IIC T4 Gc IP64 / Ex ic IIIC T120°C Dc",
+      "number": "IECEx EPS 19.0032X"
+    },
+    "northAmerica": "Cl I, II, III Div 2 Groups A-G T4; Cl I Zn 2 AEx ic IIC T4 Gc; Zn 22 AEx ic IIIC T120°C Dc",
+    "division": "Class I Division 2",
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ic) with inherently safe optical radiation (op is)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "120 °C",
+    "epl": "Gc / Dc",
+    "ambient": "−20 °C to +60 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "batterySwap": "Outside the hazardous area only",
+    "conditions": "Use only Ex-BP S02 or Ex-BP S02C battery packs; battery pack charged separately in non-hazardous area; do not swap battery covers between devices"
+  },
+  "os": {
+    "name": "Android",
+    "version": "Android 11",
+    "atLaunch": "Android 9",
+    "upgradeLimit": "Android 11",
+    "enterprise": "Android Enterprise Recommended"
+  },
+  "specs": {
+    "display": "5-inch Gorilla Glass",
+    "resolution": "720 × 1280",
+    "chip": "Qualcomm Snapdragon 450",
+    "ram": "3 GB",
+    "camera": "12 MP AF, LED flash",
+    "frontCamera": "5 MP",
+    "video": "1080p",
+    "battery": "4400 mAh",
+    "network": "4G",
+    "wifi": "Wi-Fi 5 (802.11ac)",
+    "bluetooth": "Bluetooth 4.2",
+    "nfc": "Yes",
+    "gnss": "GPS, A-GPS, GLONASS, BeiDou, Galileo",
+    "sim": "Dual nano-SIM",
+    "keys": "PTT, alarm, multifunction, Android keys",
+    "accessories": "7-pin magnetic USB 2.0; 3.5 mm jack",
+    "touch": "Glove + wet mode",
+    "storage": "32 GB, microSD up to 128 GB",
+    "replaceableBattery": true,
+    "gloveTouch": true,
+    "pttKey": true,
+    "mdm": [
+      "Android Enterprise Recommended"
+    ],
+    "connectivity": [
+      "4G",
+      "Wi-Fi 5",
+      "NFC"
+    ],
+    "weightG": 380,
+    "dimensionsMm": "82 × 163 × 22",
+    "ipRating": "IP68",
+    "exIp": "IP64",
+    "ruggedness": "MIL-STD-810G",
+    "operatingTemp": "−20 °C to +60 °C",
+    "cameraFree": true,
+    "partNumbers": "Smart-Ex02-ROW-DZ2AIC-ANDN00.. (no camera)"
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Built in (PTT key) + app"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (alarm key)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app (LWP key)"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Via app (camera)"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "certification.atex.marking": "The current datasheet prints 'op is'; the IECEx certificate (issue 1, 2023) gives the marking without it.",
+    "certification.iecex.marking": "The current datasheet prints 'op is'; the IECEx certificate (issue 1, 2023) gives the marking without it.",
+    "specs.weightG": "Taken from the Smart-Ex 02 DZ1; not published separately for the DZ2.",
+    "specs.dimensionsMm": "Taken from the Smart-Ex 02 DZ1; not published separately for the DZ2."
+  },
+  "features": [
+    "nfc",
+    "camera-free",
+    "sos-key",
+    "programmable-key"
+  ],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "Also certified for Class I Division 2 in North America",
+    "Push-to-talk and SOS keys",
+    "User-replaceable battery",
+    "Camera-free version available for sites that restrict cameras"
+  ],
+  "limitations": [
+    "Discontinued; the ecom Smart-Ex 03 DZ2 replaces it",
+    "Zone 2 only, so not for Zone 1 areas",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "4G only, no 5G",
+    "OS upgrades ended at Android 11"
+  ],
+  "bestFor": [],
+  "alternatives": [
+    "ecom-smart-ex-03-dz2",
+    "bartec-sp9ex2",
+    "isafe-is540-2"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "IECEx (Bureau Veritas Consumer Products Services Germany GmbH): IECEx EPS 19.0032X issue 1 (2023-02-23, Current) - Intrinsically Safe Smartphone - Smart-Ex 02 *** DZ2",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/1621360/view"
+    },
+    {
+      "label": "Pepperl+Fuchs: Smart-Ex 02 DZ2 datasheet 480986-100009_eng",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pds/480986-100009_eng.pdf"
+    },
+    {
+      "label": "Pepperl+Fuchs: Smart-Ex 02 DZ1 datasheet 480986-100006_eng (release 2022-06-01)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pds/480986-100006_eng.pdf"
+    },
+    {
+      "label": "Pepperl+Fuchs (reseller copy): Smart-Ex 02 DZ2 safety instructions",
+      "url": "https://www.heatingandprocess.com/wp-content/uploads/2021/03/safety_instructions_Smart-Ex_02_DZ2_ATEX_IECEx-min.pdf"
+    },
+    {
+      "label": "COT (P+F/ecom distributor): ecom Smart-Ex 02 - officially discontinued, alternative Smart-Ex 03",
+      "url": "https://www.cot.de/en/products/ecom-smart-ex-02"
+    },
+    {
+      "label": "Assured Systems (distributor): Smart-Ex 02 DZ2 - end of life; marking with 'op is'",
+      "url": "https://www.assured-systems.com/ecom-smart-ex-02-dz2-intrinsically-safe-smartphone-zone-2-and-division-2/"
+    },
+    {
+      "label": "Pepperl+Fuchs: EU DoC DOC-4477A, Smart-Ex 02 ROW DZ2 (2022-01-17)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/doc/doc4477a.pdf"
+    }
+  ]
+}

@@ -1,0 +1,973 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection, getEntries, getEntry } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Icon from '../../components/Icon.astro';
+import MarkingTabs from '../../components/phone/MarkingTabs.astro';
+import ZoneCoverage from '../../components/phone/ZoneCoverage.astro';
+import CompareTable from '../../components/phone/CompareTable.astro';
+import { safetyRows as safetyRowsFor, specGroups as specGroupsFor, caseWord as caseWordFor } from '../../lib/spec-groups';
+import { SITE, MAIN_NAV, CONTACT } from '../../config/site';
+import { externalLink, pageSlug } from '../../lib/links';
+import {
+  TYPE_LABEL,
+  TYPE_EXPLAINER,
+  TEMP_CLASS_MAX,
+  zoneLabel,
+  confirmedDivision,
+  schemeList,
+  securityEnd,
+  securityEnded,
+  securityUpdates,
+  type Phone,
+} from '../../lib/phones';
+
+export const getStaticPaths = (async () => {
+  const phones = await getCollection('phones');
+  return phones.map((phone) => ({ params: { slug: phone.id }, props: { phone } }));
+}) satisfies GetStaticPaths;
+
+const { phone } = Astro.props as { phone: Phone };
+const d = phone.data;
+const c = d.certification;
+const s = d.specs;
+const os = d.os;
+const safety = d.safety;
+const url = `${SITE.url}/phones/${phone.id}/`;
+const utmContent = pageSlug(Astro.url.pathname);
+
+const alternatives = (await getEntries(d.alternatives.map((id) => ({ collection: 'phones' as const, id })))).filter(Boolean) as Phone[];
+const successor = d.successor ? await getEntry('phones', d.successor) : undefined;
+const discontinued = d.status === 'discontinued';
+
+/* ---------- Unconfirmed values: each distinct note is numbered in page order ---------- */
+const notes: string[] = [];
+function flag(...keys: string[]): number | undefined {
+  const text = keys.map((k) => d.unconfirmed[k]).find(Boolean);
+  if (!text) return undefined;
+  if (!notes.includes(text)) notes.push(text);
+  return notes.indexOf(text) + 1;
+}
+
+interface Row { label: string; value?: string; flag?: number }
+/** A labelled value; the flag is only registered when the value is shown */
+const row = (label: string, value: string | undefined, ...keys: string[]): Row => ({
+  label,
+  value,
+  flag: value ? flag(...keys) : undefined,
+});
+
+/* ---------- Copy built from the data ---------- */
+const zones = zoneLabel(phone);
+const division = confirmedDivision(phone);
+const schemes = schemeList(phone);
+const updates = securityEnd(os);
+const updatesText = securityUpdates(os);
+// A quarter is the maker's own wording, so it's quoted as is even when the value carries a note
+const updatesEstimated = Boolean(d.unconfirmed['os.securityUntil']) && !os.securityUntilLabel;
+const markingConfirmed = !(d.unconfirmed['certification.atex.marking'] && !c.atex?.number && !c.iecex?.number);
+// Only a marking backed by a certificate is quoted in the description and FAQ
+const headline = markingConfirmed ? (c.atex?.marking.split(' / ')[0] ?? c.iecex?.marking.split(' / ')[0] ?? c.note) : undefined;
+const typeLower = TYPE_LABEL[d.type].charAt(0).toLowerCase() + TYPE_LABEL[d.type].slice(1);
+const titleOptions = [`${d.name}: ${zones} Specs & Alternatives`, `${d.name}: Specs & Alternatives`, `${d.name} Specs`];
+const title = titleOptions.find((t) => t.length <= 60) ?? d.name;
+const description = clip(
+  `${d.name} by ${d.manufacturer.name}: ${typeLower} ${markingConfirmed ? 'certified' : 'rated'} for ${zones}${headline ? ` (${headline})` : ''}. Certification decoded, full specs and the closest alternatives compared.`,
+  160,
+);
+
+function clip(text: string, max: number) {
+  if (text.length <= max) return text;
+  return text.slice(0, text.lastIndexOf(' ', max - 1)).replace(/[,:;(]$/, '') + '…';
+}
+
+// Built in page order, so the note numbers run in sequence down the page
+const atAGlance = [
+  row('Certified for', zones),
+  row('Protection', c.protection ?? c.note),
+  row('Temperature class', c.tempClass ? `${c.tempClass} (≤ ${TEMP_CLASS_MAX[c.tempClass]} °C)` : undefined),
+  row('Ambient temperature', c.ambient, 'certification.ambient'),
+  row('Operating system', os.version, 'os.version'),
+  row('Security updates', updatesText, 'os.securityUntil'),
+  row('Weight', s.weightG ? `${s.weightG} g` : undefined, 'specs.weightG'),
+  row('Price', 'On request'),
+].filter((g) => g.value);
+
+const atexFlag = c.atex ? flag('certification.atex.marking') : undefined;
+const iecexFlag = c.iecex ? flag('certification.iecex.marking') : undefined;
+
+const safetyRows = safetyRowsFor(phone).map((r) => row(r.label, r.value, ...r.keys)).filter((r) => r.value);
+const conditionsFlag = safety.conditions ? flag('safety.conditions') : undefined;
+const hasSafety = safetyRows.length > 0 || Boolean(safety.conditions);
+
+const caseWord = caseWordFor(phone);
+const specGroups = specGroupsFor(phone)
+  .map((g) => ({ ...g, rows: g.rows.map((r) => row(r.label, r.value, ...r.keys)).filter((r) => r.value) }))
+  .filter((g) => g.rows.length);
+
+const useCaseLabel = new Map(
+  (MAIN_NAV.find((i) => i.label === 'Best for')?.menu ?? []).flatMap((g) => g.links).map((l) => [l.href, l.label]),
+);
+const bestFor = d.bestFor.map((slug) => ({ href: `/best/${slug}/`, label: useCaseLabel.get(`/best/${slug}/`) ?? slug }));
+
+/* ---------- FAQ ---------- */
+const inZone0 = c.zonesGas.includes('0');
+const certifiedWord = markingConfirmed ? 'certified' : `rated, according to ${d.brand}'s published data,`;
+const protectionKind = c.protection?.split(' ')[0];
+const protectionAnswer =
+  protectionKind === 'Flameproof'
+    ? `It uses a flameproof enclosure (Ex db), a form of explosion-proof protection. The housing is built to contain an ignition inside it and stop the flame reaching the surrounding atmosphere.`
+    : protectionKind === 'Increased'
+      ? `It combines increased safety (Ex ec) with intrinsic safety (Ex ic), both suited to Zone 2. Increased safety adds measures against sparks and hot surfaces; intrinsic safety limits the energy in the circuits.`
+      : protectionKind === 'Intrinsic'
+        ? `It is intrinsically safe: ${c.protection!.charAt(0).toLowerCase()}${c.protection!.slice(1)}. Intrinsic safety limits the electrical and thermal energy in the device below the level that could ignite the surrounding atmosphere.`
+        : undefined;
+
+const faqs = [
+  {
+    q: `Is the ${d.name} certified for Zone 1?`,
+    a: c.zonesGas.includes('1')
+      ? `Yes. The ${d.name} is ${certifiedWord} for ${zones}${headline ? ` with the marking ${headline}` : ''}. Equipment certified for Zone 1 can also be used in Zone 2.`
+      : `No. It is ${certifiedWord} for ${zones} only, so it can be used in Zone 2 but not in Zone 1.`,
+  },
+  {
+    q: `Can the ${d.name} be used in Zone 0?`,
+    a: inZone0
+      ? `Yes. It carries protection level Ga, which Zone 0 requires.`
+      : `No. It is not certified for Zone 0. Zone 0 needs equipment with protection level Ga, such as Ex ia intrinsic safety.`,
+  },
+  ...(protectionAnswer ? [{ q: `What type of explosion protection does the ${d.name} use?`, a: protectionAnswer }] : []),
+  ...(c.tempClass
+    ? [{
+        q: `What does ${c.tempClass} mean for the ${d.name}?`,
+        a: `Its surface stays below ${TEMP_CLASS_MAX[c.tempClass]} °C, so it is suitable for gases that only ignite above that temperature. Check the ignition temperature of the substances on your site.`,
+      }]
+    : []),
+  ...(safety.charging
+    ? [{
+        q: `Can you charge the ${d.name} in a hazardous area?`,
+        a: safety.chargingInZone
+          ? `Yes, with conditions: ${safety.charging.charAt(0).toLowerCase()}${safety.charging.slice(1)}. Check the certificate's conditions of use before charging on site.`
+          : `No. The certificate only allows charging outside the hazardous area.`,
+      }]
+    : []),
+  ...(d.hostDevice
+    ? [{ q: `Which phone is inside the ${d.name}?`, a: `A standard ${d.hostDevice}. ${TYPE_EXPLAINER[d.type]}` }]
+    : []),
+  {
+    q: `What operating system does the ${d.name} run?`,
+    a: `${os.version}.${os.supportYears ? ` Security updates are expected for ${os.supportYears}+ years from launch, based on previous model support.` : updates ? ` Security updates ${securityEnded(os) ? 'ended in' : updatesEstimated ? 'are expected until at least' : 'until'} ${updates}.` : ''}`,
+  },
+  ...(discontinued || d.statusNote
+    ? [{
+        q: `Is the ${d.name} still available?`,
+        a: discontinued
+          ? `No. ${d.statusNote ?? 'It has been discontinued.'}`
+          : d.statusNote!,
+      }]
+    : []),
+  {
+    q: `How much does the ${d.name} cost?`,
+    a: `Prices for certified hazardous-area phones depend on volume, configuration and region, so they are on request. Contact us for a price.`,
+  },
+];
+
+const mfr = externalLink(d.manufacturer.website, utmContent);
+const sources = d.sources.map((src) => ({ ...src, ...externalLink(src.url, utmContent) }));
+
+/* ---------- Structured data ---------- */
+const img = d.image ? await getImage({ src: d.image, width: 800, format: 'webp' }) : undefined;
+const props = [
+  ['Ex marking (ATEX)', c.atex?.marking],
+  ['Ex marking (IECEx)', c.iecex?.marking],
+  ['Hazardous area zones', zones],
+  ['Gas group', c.gasGroup],
+  ['Temperature class', c.tempClass],
+  ['Ambient temperature', c.ambient],
+  ['Operating system', os.version],
+  ['Weight', s.weightG ? `${s.weightG} g` : undefined],
+].filter((p): p is [string, string] => Boolean(p[1]));
+
+const schema = [
+  {
+    '@type': 'Product',
+    '@id': `${url}#product`,
+    name: d.name,
+    description: d.summary,
+    category: 'Intrinsically safe and explosion-proof smartphones',
+    brand: { '@type': 'Brand', name: d.brand },
+    manufacturer: { '@type': 'Organization', name: d.manufacturer.name, url: d.manufacturer.website },
+    ...(img && { image: new URL(img.src, SITE.url).href }),
+    additionalProperty: props.map(([name, value]) => ({ '@type': 'PropertyValue', name, value })),
+  },
+  {
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: title,
+    description,
+    isPartOf: { '@id': `${SITE.url}/#website` },
+    about: { '@id': `${url}#product` },
+    dateModified: d.lastVerified.toISOString().slice(0, 10),
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { name: 'Home', item: `${SITE.url}/` },
+      { name: 'Phones', item: `${SITE.url}/phones/` },
+      { name: d.name, item: url },
+    ].map((b, i) => ({ '@type': 'ListItem', position: i + 1, ...b })),
+  },
+  {
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+
+const verified = d.lastVerified.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const sections = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'certification', label: 'Certification' },
+  ...(hasSafety ? [{ id: 'safety', label: 'Safe use' }] : []),
+  { id: 'specs', label: 'Specifications' },
+  ...(alternatives.length ? [{ id: 'compare', label: 'Compare' }] : []),
+  { id: 'faq', label: 'FAQ' },
+];
+// Bands alternate white and warm down the page, whichever optional sections are present
+const bandFor = (id: string) => (sections.findIndex((sec) => sec.id === id) % 2 === 0 ? 'band-white' : 'band-warm');
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <!-- Hero -->
+  <section class="phone-hero" aria-labelledby="phone-title">
+    <div class="container">
+      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Phones', href: '/phones/' }, { label: d.name, href: '' }]} />
+
+      <div class="hero-grid">
+        <div class="hero-media">
+          {d.image ? (
+            <Image
+              src={d.image}
+              alt={d.imageAlt ?? d.name}
+              widths={[360, 560, 720]}
+              sizes="(min-width: 56rem) 40vw, 100vw"
+              loading="eager"
+              fetchpriority="high"
+            />
+          ) : (
+            <div class="media-placeholder" aria-hidden="true">No image yet</div>
+          )}
+        </div>
+
+        <div class="hero-copy">
+          <p class="eyebrow">
+            {d.brand} · {TYPE_LABEL[d.type]}
+          </p>
+          <h1 id="phone-title">{d.name}</h1>
+
+          <ul class="badges" aria-label="Key certifications">
+            {discontinued && <li class="badge badge-caution">Discontinued</li>}
+            <li class="badge badge-strong">{zones}</li>
+            {schemes.map((sc) => <li class="badge">{sc}</li>)}
+            {c.gasGroup && <li class="badge">{c.gasGroup}</li>}
+            {c.tempClass && <li class="badge">{c.tempClass}</li>}
+            {division && <li class="badge">{division}</li>}
+          </ul>
+
+          {(discontinued || d.statusNote) && (
+            <p class="status-note" role="note">
+              <strong>{discontinued ? 'Discontinued.' : 'Check availability.'}</strong>{' '}
+              {d.statusNote}
+              {successor && (
+                <>
+                  {' '}<a href={`/phones/${successor.id}/`}>See the {successor.data.name}</a>
+                </>
+              )}
+            </p>
+          )}
+
+          <p class="lead">{d.summary}</p>
+
+          <dl class="glance">
+            {atAGlance.map((g) => (
+              <div>
+                <dt>{g.label}</dt>
+                <dd>
+                  {g.value}
+                  {g.flag && <a class="flag" href={`#note-${g.flag}`}><span class="visually-hidden">Unconfirmed, see note </span>{g.flag}</a>}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          <div class="hero-actions">
+            {discontinued && successor ? (
+              <a class="btn btn-primary" href={`/phones/${successor.id}/`}>
+                View the {successor.data.name} <Icon name="arrow-right" />
+              </a>
+            ) : (
+              <a class="btn btn-primary" href={`${CONTACT.href}?phone=${phone.id}`}>
+                Request a price <Icon name="arrow-right" />
+              </a>
+            )}
+            <button class="btn btn-secondary" type="button" data-compare-add={phone.id} aria-pressed="false">
+              <span class="when-off">+ Add to compare</span>
+              <span class="when-on">✓ In your comparison</span>
+            </button>
+          </div>
+          {alternatives.length > 0 && (
+            <a class="arrow-link hero-alt" href="#compare">See how it compares to alternatives <Icon name="arrow-right" /></a>
+          )}
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- In-page navigation -->
+  <nav class="subnav" aria-label="On this page">
+    <div class="container">
+      <ul>
+        {sections.map((sec) => <li><a href={`#${sec.id}`}>{sec.label}</a></li>)}
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Overview -->
+  <section id="overview" class:list={['band', bandFor('overview')]} aria-labelledby="overview-title">
+    <div class="container">
+      <p class="eyebrow">Overview</p>
+      <h2 id="overview-title" class="h2">Strengths and limitations</h2>
+      <div class="procon">
+        <div class="procon-col pro">
+          <h3>Strengths</h3>
+          <ul>{d.strengths.map((t) => <li>{t}</li>)}</ul>
+        </div>
+        <div class="procon-col con">
+          <h3>Limitations</h3>
+          <ul>{d.limitations.map((t) => <li>{t}</li>)}</ul>
+        </div>
+      </div>
+
+      {bestFor.length > 0 && (
+        <div class="best-for">
+          <h3>Best for</h3>
+          <ul>{bestFor.map((b) => <li><a href={b.href}>{b.label}</a></li>)}</ul>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Certification -->
+  <section id="certification" class:list={['band', bandFor('certification')]} aria-labelledby="cert-title">
+    <div class="container">
+      <div class="split-head">
+        <div>
+          <p class="eyebrow">Certification</p>
+          <h2 id="cert-title" class="h2">Where you can use it</h2>
+        </div>
+      </div>
+
+      <ZoneCoverage phone={phone} />
+
+      {(c.atex || c.iecex) ? (
+        <div class="markings">
+          <h3>The Ex marking, decoded</h3>
+          <MarkingTabs
+            schemes={[
+              ...(c.atex ? [{ scheme: 'ATEX', ...c.atex, flag: atexFlag }] : []),
+              ...(c.iecex ? [{ scheme: 'IECEx', ...c.iecex, flag: iecexFlag }] : []),
+            ]}
+          />
+        </div>
+      ) : (
+        <p class="marking-missing">
+          The full Ex marking for this product isn't in our verified data yet. Listed certification: {c.note}.
+        </p>
+      )}
+
+      {d.variants.length > 0 && (
+        <div class="variants">
+          <h3>Versions</h3>
+          <ul>
+            {d.variants.map((v) => (
+              <li>
+                <p class="variant-name">{v.name}</p>
+                <p>{v.description}</p>
+                {(v.marking || v.certificates || v.partNumber) && (
+                  <dl class="variant-facts">
+                    {v.marking && <div><dt>Marking</dt><dd><code>{v.marking}</code></dd></div>}
+                    {v.certificates && <div><dt>Certificates</dt><dd>{v.certificates}</dd></div>}
+                    {v.partNumber && <div><dt>Part number</dt><dd>{v.partNumber}</dd></div>}
+                  </dl>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Safe use -->
+  {hasSafety && (
+    <section id="safety" class:list={['band', bandFor('safety')]} aria-labelledby="safety-title">
+      <div class="container">
+        <div class="split-head">
+          <div>
+            <p class="eyebrow">Safe use</p>
+            <h2 id="safety-title" class="h2">Rules for the hazardous area</h2>
+          </div>
+        </div>
+
+        {safetyRows.length > 0 && (
+          <dl class="safety-grid">
+            {safetyRows.map((r) => (
+              <div>
+                <dt>{r.label}</dt>
+                <dd>
+                  {r.value}
+                  {r.flag && <a class="flag" href={`#note-${r.flag}`}><span class="visually-hidden">Unconfirmed, see note </span>{r.flag}</a>}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        )}
+
+        {safety.conditions && (
+          <div class="conditions">
+            <h3>
+              Conditions of use
+              {conditionsFlag && <a class="flag" href={`#note-${conditionsFlag}`}><span class="visually-hidden">Unconfirmed, see note </span>{conditionsFlag}</a>}
+            </h3>
+            <p>{safety.conditions}</p>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  <!-- Specifications -->
+  <section id="specs" class:list={['band', bandFor('specs')]} aria-labelledby="specs-title">
+    <div class="container">
+      <p class="eyebrow">Specifications</p>
+      <h2 id="specs-title" class="h2">Full specifications</h2>
+      {d.hostDevice && (
+        <p class="spec-intro">
+          Device specifications are for the {d.hostDevice} inside. “What works through the {caseWord}” shows which of its
+          features you can use in the {caseWord}.
+        </p>
+      )}
+      <div class="spec-grid">
+        {specGroups.map((g) => (
+          <div class="spec-group">
+            <h3>{g.title}</h3>
+            <dl>
+              {g.rows.map((r) => (
+                <div>
+                  <dt>{r.label}</dt>
+                  <dd>
+                    {r.value}
+                    {r.flag && <a class="flag" href={`#note-${r.flag}`}><span class="visually-hidden">Unconfirmed, see note </span>{r.flag}</a>}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        ))}
+      </div>
+      <p class="spec-note">
+        Only specifications we could check are listed. A numbered marker next to a value means it is unconfirmed: it comes from a single or
+        secondary source, or sources disagree. The matching note at the foot of the page explains each one. See the{' '}
+        <a href={mfr.href} rel={mfr.rel} target={mfr.target}>{d.manufacturer.name} website</a> for the full data sheet.
+      </p>
+    </div>
+  </section>
+
+  <!-- Compare -->
+  {alternatives.length > 0 && (
+    <section id="compare" class:list={['band', bandFor('compare')]} aria-labelledby="compare-title">
+      <div class="container">
+        <div class="split-head">
+          <div>
+            <p class="eyebrow">Compare</p>
+            <h2 id="compare-title" class="h2">How it compares</h2>
+          </div>
+        </div>
+        <CompareTable phones={[phone, ...alternatives]} caption={`${d.name} compared with its closest alternatives`} />
+      </div>
+    </section>
+  )}
+
+  <!-- FAQ -->
+  <section id="faq" class:list={['band', bandFor('faq')]} aria-labelledby="faq-title">
+    <div class="container faq-wrap">
+      <div>
+        <p class="eyebrow">FAQ</p>
+        <h2 id="faq-title" class="h2">Common questions</h2>
+      </div>
+      <div class="faq">
+        {faqs.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sources -->
+  <section class="band sources" aria-labelledby="sources-title">
+    <div class="container">
+      {notes.length > 0 && (
+        <div class="notes" id="notes">
+          <h2 class="sources-title">Notes on unconfirmed values</h2>
+          <ol>
+            {notes.map((n, i) => (
+              <li id={`note-${i + 1}`}>
+                {n} <a class="note-return" href={`#note-${i + 1}`} data-note-return={i + 1} hidden>Return to note<span class="visually-hidden"> {i + 1}</span></a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
+
+      <details class="sources-details">
+        <summary><h2 id="sources-title" class="sources-title">Sources and verification</h2></summary>
+        <p>
+          Facts last verified on <time datetime={d.lastVerified.toISOString().slice(0, 10)}>{verified}</time> against:
+        </p>
+        <ul>
+          {sources.map((src) => (
+            <li><a href={src.href} rel={src.rel} target={src.target}>{src.label}</a></li>
+          ))}
+        </ul>
+        <p class="sources-note">
+          Always check the certificate for your exact model before use. Spotted an error?{' '}
+          <a href={CONTACT.href}>Tell us</a>.
+        </p>
+      </details>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Highlight the in-page nav link for the section in view
+  const links = new Map(
+    [...document.querySelectorAll<HTMLAnchorElement>('.subnav a')].map((a) => [a.hash.slice(1), a]),
+  );
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        links.forEach((a) => a.removeAttribute('aria-current'));
+        links.get(e.target.id)?.setAttribute('aria-current', 'true');
+      });
+    },
+    { rootMargin: '-30% 0px -60% 0px' },
+  );
+  links.forEach((_, id) => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+</script>
+
+<script>
+  // "Return to note": each footnote links back to the marker you came from (or the first marker for that note)
+  const markers = new Map<string, HTMLAnchorElement[]>();
+  document.querySelectorAll<HTMLAnchorElement>('a.flag[href^="#note-"]').forEach((m) => {
+    const n = m.getAttribute('href')!.slice(6);
+    markers.set(n, [...(markers.get(n) ?? []), m]);
+  });
+  document.querySelectorAll<HTMLAnchorElement>('[data-note-return]').forEach((back) => {
+    const n = back.dataset.noteReturn!;
+    const list = markers.get(n);
+    if (!list) return;
+    let target = list[0];
+    back.hidden = false;
+    list.forEach((m) => m.addEventListener('click', () => { target = m; }));
+    back.addEventListener('click', (e) => {
+      e.preventDefault();
+      // A marker inside an inactive ATEX / IECEx tab is hidden: switch to its tab first
+      const panel = target.closest<HTMLElement>('[role="tabpanel"]');
+      if (panel?.hidden) document.getElementById(panel.getAttribute('aria-labelledby')!)?.click();
+      target.scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      target.focus({ preventScroll: true });
+    });
+  });
+</script>
+
+<style>
+  /* Jump links clear the sticky header and in-page nav */
+  :global(html) { scroll-padding-top: calc(var(--header-h) + 4rem); }
+
+  /* ---------- Hero ---------- */
+  .phone-hero { padding-block: 0.5rem 3rem; }
+
+  .hero-grid {
+    display: grid;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .hero-media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    /* Same deep forest green with a brighter pool of light as the dark Find phones cards */
+    background:
+      radial-gradient(ellipse 52% 58% at 50% 55%, #7fa08e 0%, #5a7e6b 22%, #34584a 48%, #1d382d 75%, #132620 100%);
+    border: 1px solid #132620;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .hero-media img,
+  .media-placeholder {
+    position: absolute;
+    inset: 1.25rem;
+    width: calc(100% - 2.5rem);
+    height: calc(100% - 2.5rem);
+    object-fit: contain;
+  }
+  .hero-media img { filter: drop-shadow(0 8px 10px rgb(0 0 0 / 0.35)); }
+  .media-placeholder {
+    display: grid;
+    place-items: center;
+    color: rgb(255 255 255 / 0.7);
+    font-size: var(--text-sm);
+  }
+
+  .hero-copy .eyebrow a { color: inherit; }
+  .hero-copy h1 {
+    font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: var(--tracking-hero);
+  }
+
+  /* Plain text line, not pills: filled/outlined pills read as buttons */
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.5rem;
+    margin-top: 1.25rem;
+    font-size: 0.9375rem;
+  }
+  .badge {
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .badge + .badge::before {
+    content: '·';
+    margin-right: 0.5rem;
+    color: var(--color-muted);
+  }
+  .badge-caution {
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    background: var(--color-caution-bg);
+    color: var(--color-caution-ink);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+  .badge-caution + .badge::before { content: none; }
+  .badge-caution + .badge { margin-left: 0.25rem; }
+
+  .status-note {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-caution-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-caution-bg);
+    color: var(--color-ink);
+    font-size: var(--text-sm);
+  }
+  .status-note strong { color: var(--color-caution-ink); }
+  .status-note a { color: var(--color-forest); font-weight: 500; }
+
+  .hero-copy .lead { margin-top: 1.25rem; }
+
+  .glance {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 1.75rem 0 0;
+    border-top: 1px solid var(--color-panel-border);
+  }
+  .glance div {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--color-panel-border);
+  }
+  .glance dt { font-size: var(--text-xs); color: var(--color-muted); }
+  .glance dd { margin: 0.15rem 0 0; font-weight: 600; color: var(--color-ink); font-size: var(--text-sm); }
+  .glance dd .flag { margin-left: 0; align-self: flex-start; }
+  .glance dd { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.4rem; }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.75rem;
+  }
+
+  .hero-alt { margin-top: 0.75rem; }
+
+
+  /* ---------- Sticky in-page nav ---------- */
+  .subnav {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 40;
+    background: rgb(250 248 244 / 0.92);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--color-panel-border);
+  }
+  .subnav ul {
+    display: flex;
+    gap: 1.75rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .subnav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3rem;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+  }
+  .subnav a:hover { color: var(--color-ink); }
+  .subnav a[aria-current] { color: var(--color-forest); border-bottom-color: var(--color-forest); }
+
+  /* ---------- Shared section heads ---------- */
+  .split-head {
+    display: grid;
+    gap: 1.25rem;
+    margin-bottom: 2.25rem;
+  }
+
+  /* ---------- Overview ---------- */
+  .procon {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  .procon-col {
+    padding: 1.5rem;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+  }
+  .procon-col h3 { font-size: var(--text-h3); margin-bottom: 1rem; }
+  .procon-col ul { display: grid; gap: 0.75rem; }
+  .procon-col li {
+    position: relative;
+    padding-left: 1.75rem;
+    font-size: var(--text-sm);
+    color: var(--color-ink);
+  }
+  .procon-col li::before {
+    position: absolute;
+    left: 0;
+    top: 0.05rem;
+    display: grid;
+    place-items: center;
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+  .pro li::before { content: '+'; background: var(--color-icon-bg); color: var(--color-forest); }
+  .con li::before { content: '–'; background: var(--color-panel-warm); color: var(--color-muted); }
+  .band-warm .con li::before { background: var(--color-panel); }
+
+  .best-for { margin-top: 2rem; }
+  .best-for h3 {
+    margin-bottom: 0.75rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+  .best-for ul { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .best-for a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: 0 1rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    color: var(--color-ink);
+    font-size: var(--text-sm);
+    text-decoration: none;
+  }
+  .best-for a:hover { border-color: var(--color-forest); color: var(--color-forest); }
+
+  /* ---------- Certification ---------- */
+  .markings { display: grid; gap: 1rem; margin-top: 2.5rem; }
+  .markings h3, .variants h3 { font-size: var(--text-h3); }
+  .marking-missing { margin-top: 2rem; font-size: var(--text-sm); }
+
+  .variants { margin-top: 2.5rem; }
+  .variants ul { display: grid; gap: 1rem; margin-top: 1rem; }
+  .variants li {
+    padding: 1.25rem;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+    font-size: var(--text-sm);
+  }
+  .variant-name { font-weight: 600; color: var(--color-ink); margin-bottom: 0.25rem; }
+  .variant-facts { margin: 0.75rem 0 0; display: grid; gap: 0.5rem; }
+  .variant-facts dt { color: var(--color-muted); font-size: var(--text-xs); }
+  .variant-facts dd { margin: 0; color: var(--color-ink); overflow-wrap: anywhere; }
+  .variant-facts code { font-family: var(--font-mono); font-size: 0.8125rem; }
+
+  /* ---------- Safe use ---------- */
+  .safety-grid {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+  }
+  .safety-grid div {
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+  }
+  .safety-grid dt { font-size: var(--text-xs); color: var(--color-muted); }
+  .safety-grid dd { margin: 0.2rem 0 0; font-weight: 600; color: var(--color-ink); font-size: var(--text-sm); }
+
+  .conditions { margin-top: 2rem; max-width: 46rem; }
+  .conditions h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+  .conditions p { font-size: var(--text-sm); }
+
+  /* ---------- Specs ---------- */
+  .spec-intro { margin-top: 1rem; max-width: 46rem; font-size: var(--text-sm); }
+  .spec-grid {
+    display: grid;
+    gap: 1.25rem 3rem;
+    margin-top: 2rem;
+  }
+  .spec-group h3 {
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.25rem;
+    border-bottom: 2px solid var(--color-forest);
+    font-size: 1rem;
+  }
+  .spec-group dl { margin: 0; }
+  .spec-group dl div {
+    display: grid;
+    grid-template-columns: minmax(8rem, 40%) 1fr;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--color-panel-border);
+    font-size: var(--text-sm);
+  }
+  .spec-group dt { color: var(--color-muted); }
+  .spec-group dd { margin: 0; color: var(--color-ink); font-weight: 500; overflow-wrap: anywhere; }
+  .spec-note { margin-top: 1.5rem; font-size: var(--text-sm); color: var(--color-muted); }
+  .spec-note a { color: var(--color-forest); }
+
+  /* ---------- FAQ ---------- */
+  .faq-wrap { display: grid; gap: 2rem; }
+  .faq details { border-bottom: 1px solid var(--color-panel-border); }
+  .faq details:first-child { border-top: 1px solid var(--color-panel-border); }
+  .faq summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    min-height: 3.5rem;
+    padding-block: 0.75rem;
+    color: var(--color-ink);
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: '+';
+    flex: none;
+    font-size: 1.25rem;
+    color: var(--color-forest);
+    transition: transform 0.2s ease;
+  }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p { padding-bottom: 1.25rem; max-width: 42rem; font-size: var(--text-sm); }
+
+  /* ---------- Notes and sources ---------- */
+  .sources { padding-block: 2.5rem; font-size: var(--text-sm); }
+  .sources-title {
+    margin-bottom: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--color-ink);
+  }
+  .notes { margin-bottom: 2rem; }
+  .note-return { margin-left: 0.5rem; font-size: var(--text-xs); white-space: nowrap; }
+  .notes ol { margin: 0.5rem 0 0; padding-left: 1.5rem; display: grid; gap: 0.35rem; list-style: decimal; }
+  .notes li:target { background: var(--color-caution-bg); outline: 4px solid var(--color-caution-bg); }
+  .sources-details summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  .sources-details summary::-webkit-details-marker { display: none; }
+  /* Chevron sits right after the title; points down when closed, up when open */
+  .sources-details summary::after {
+    content: '';
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-top: -0.2rem;
+    border-right: 2px solid var(--color-forest);
+    border-bottom: 2px solid var(--color-forest);
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+  }
+  .sources-details[open] summary::after { transform: rotate(-135deg); margin-top: 0.2rem; }
+  .sources-details .sources-title { margin-bottom: 0; }
+  .sources-details[open] summary { margin-bottom: 0.5rem; }
+  .sources ul { margin: 0.5rem 0 0; display: grid; gap: 0.25rem; }
+  .sources ul a, .sources-note a { color: var(--color-forest); }
+  .sources-note { margin-top: 1rem; color: var(--color-muted); }
+
+  /* ---------- Larger screens ---------- */
+  @media (min-width: 48rem) {
+    .glance { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 1.5rem; }
+    .procon { grid-template-columns: 1fr 1fr; }
+    .spec-grid { grid-template-columns: 1fr 1fr; }
+    .variants ul { grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); }
+    .safety-grid { grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
+  }
+
+  @media (min-width: 56rem) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 3.5rem;
+      align-items: start;
+    }
+    .hero-media {
+      position: sticky;
+      top: calc(var(--header-h) + 1.5rem);
+      aspect-ratio: 1;
+    }
+    .split-head {
+      grid-template-columns: 1fr minmax(0, 26rem);
+      align-items: end;
+      gap: 3rem;
+    }
+    .faq-wrap { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 3rem; }
+  }
+</style>

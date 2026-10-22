@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-62 -10 296 296">
+  <style>.m{fill:#114634}@media (prefers-color-scheme:dark){.m{fill:#8fcfb0}}</style>
+  <path class="m" d="M78 0H22L0 22v232l22 22h56v-28H39a7 7 0 0 1-7-7V35a7 7 0 0 1 7-7h39Z"/>
+  <path class="m" d="M94 0h56l22 22v232l-22 22H94v-28h39a7 7 0 0 0 7-7V35a7 7 0 0 0-7-7H94Z"/>
+  <rect class="m" x="64" y="40" width="44" height="12" rx="6"/>
+</svg>

@@ -1,0 +1,149 @@
+{
+  "productId": "IS-655.2",
+  "name": "i.safe MOBILE IS655.2",
+  "brand": "i.safe MOBILE",
+  "brandSlug": "isafe",
+  "manufacturer": {
+    "name": "i.safe MOBILE GmbH",
+    "country": "Germany",
+    "website": "https://www.isafe-mobile.com"
+  },
+  "type": "dedicated",
+  "formFactor": "smartphone",
+  "status": "discontinued",
+  "statusNote": "Discontinued by i.safe MOBILE. The IS880.2 is its successor.",
+  "successor": "isafe-is880-2",
+  "summary": "The i.safe MOBILE IS655.2 is an intrinsically safe (Ex ic) smartphone from i.safe MOBILE, certified for Zone 2/22 under ATEX and IECEx, and for Class I Division 2 in North America. It runs Android 10. It has been discontinued; the i.safe MOBILE IS880.2 replaces it.",
+  "image": "../../assets/phones/isafe-is655-2.webp",
+  "imageAlt": "i.safe MOBILE IS655.2, front view",
+  "certification": {
+    "otherSchemes": [
+      "KCs: Ex ic IIC T4 / Ex ic IIIB T135°C"
+    ],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ic IIC T4 Gc IP54 / II 3D Ex ic IIIB T135°C Dc IP54",
+      "number": "EPS 19 ATEX 1 129 X"
+    },
+    "iecex": {
+      "marking": "Ex ic IIC T4 Gc IP54 / Ex ic IIIB T135°C Dc IP54",
+      "number": "IECEx EPS 19.0064X"
+    },
+    "northAmerica": "NEC500 Class I Div 2 Groups A-D T4; Class II Div 2 Groups F,G T135°C; Class III Div 2",
+    "division": "Class I Division 2",
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ic)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIB",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gc / Dc",
+    "ambient": "−10 °C to +60 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "Not reviewed"
+  },
+  "os": {
+    "name": "Android",
+    "version": "Android 10",
+    "securityUntil": "2025-09-30",
+    "securityUntilLabel": "Q3 2025",
+    "updates": "Security updates ended in Q3 2025",
+    "enterprise": "Android Enterprise Recommended"
+  },
+  "specs": {
+    "resolution": "18:9",
+    "chip": "MediaTek Helio P22 (MT6762V)",
+    "ram": "3 GB",
+    "camera": "13 MP AF",
+    "frontCamera": "8 MP",
+    "network": "4G",
+    "wifi": "5 GHz Wi-Fi",
+    "bluetooth": "Bluetooth 5.0 LE",
+    "nfc": "Yes",
+    "sim": "Dual nano-SIM",
+    "keys": "PTT-ready (third-party app required)",
+    "storage": "32 GB, microSD up to 128 GB",
+    "pttKey": false,
+    "mdm": [
+      "Android Enterprise Recommended"
+    ],
+    "connectivity": [
+      "4G",
+      "NFC"
+    ],
+    "exIp": "IP54"
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Key + third-party app"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "specs.camera": "From a single reseller listing.",
+    "specs.frontCamera": "From a single reseller listing."
+  },
+  "features": [
+    "nfc"
+  ],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "Also certified for Class I Division 2 in North America",
+    "Certified for ambient temperatures up to +60 °C"
+  ],
+  "limitations": [
+    "Discontinued; the i.safe MOBILE IS880.2 replaces it",
+    "Zone 2 only, so not for Zone 1 areas",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "Dust group IIIB: not rated for conductive dust",
+    "Not certified below −10 °C ambient"
+  ],
+  "bestFor": [],
+  "alternatives": [
+    "isafe-is880-2",
+    "bartec-sp9ex2",
+    "ecom-smart-ex-03-dz2"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "IECEx (Bureau Veritas Consumer Products Services Germany GmbH): IECEx EPS 19.0064X issue 0 (2019-09-26, Current) - IS655.2 Intrinsically safe smartphone",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/16708/view"
+    },
+    {
+      "label": "i.safe MOBILE: IS655.2 safety instructions 1034MM11 (EPS 19 ATEX 1 129 X)",
+      "url": "https://www.isafe-mobile.com/fileadmin/pim/DOC/PRO/MM/DOC_PRO_MM_IS655.2_Safety_Instructions_DINA6_1034MM11__SALL__AWEB__V2.pdf"
+    },
+    {
+      "label": "i.safe MOBILE: Product range 'Archive' (lists IS530.M1, IS530.2, IS530.1, IS360.2, IS330.x, IS655.2)",
+      "url": "https://www.isafe-mobile.com/en/products/product-range/archive/is3301"
+    },
+    {
+      "label": "i.safe MOBILE: Security updates (security patch table) (2026-10-13)",
+      "url": "https://www.isafe-mobile.com/en/support/security-updates"
+    },
+    {
+      "label": "Rockall Safety (reseller): IS655.2 listing (page text partly mislabelled IS530.1)",
+      "url": "https://www.rockallsafety.co.uk/product/is655-2-atex-zone-2-22-certified-android-smartphone/"
+    },
+    {
+      "label": "Conrad (reseller): IS655.2 listing with ATEX/IECEx marking",
+      "url": "https://www.conrad.com/en/p/i-safe-mobile-is655-2-ex-proof-smartphone-ex-zoning-2-22-14-cm-5-5-inch-ip68-2246494.html"
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+---
+import MarkingDecoder from './MarkingDecoder.astro';
+
+interface Props {
+  schemes: { scheme: string; marking: string; number?: string; scope?: string; flag?: number }[];
+}
+
+const { schemes } = Astro.props;
+const tabbed = schemes.length > 1;
+const id = (kind: 'tab' | 'panel', s: { scheme: string }) => `marking-${kind}-${s.scheme.toLowerCase()}`;
+---
+
+<div class="marking-tabs" data-marking-tabs>
+  {tabbed && (
+    <div class="tablist" role="tablist" aria-label="Certification scheme">
+      {schemes.map((s, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={id('tab', s)}
+          aria-controls={id('panel', s)}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? 0 : -1}
+        >
+          {s.scheme}
+        </button>
+      ))}
+    </div>
+  )}
+  {schemes.map((s, i) => (
+    <div
+      id={id('panel', s)}
+      role={tabbed ? 'tabpanel' : undefined}
+      aria-labelledby={tabbed ? id('tab', s) : undefined}
+      tabindex={tabbed ? 0 : undefined}
+      hidden={tabbed && i > 0}
+    >
+      <MarkingDecoder {...s} inTab={tabbed} />
+    </div>
+  ))}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-marking-tabs]').forEach((root) => {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const select = (tab: HTMLButtonElement) => {
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')!)!.hidden = !on;
+      });
+    };
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(tab));
+      tab.addEventListener('keydown', (e) => {
+        const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+        if (next === undefined) return;
+        e.preventDefault();
+        const t = tabs[(next + tabs.length) % tabs.length];
+        select(t);
+        t.focus();
+      });
+    });
+  });
+</script>
+
+<style>
+  .tablist { display: flex; gap: 0.25rem; }
+  .tablist button {
+    min-height: 44px;
+    margin-bottom: -1px;
+    padding: 0 1.25rem;
+    border: 1px solid transparent;
+    border-bottom: 0;
+    border-radius: var(--radius) var(--radius) 0 0;
+    background: none;
+    color: var(--color-muted);
+    font: 600 var(--text-sm) / 1 var(--font-sans);
+    cursor: pointer;
+  }
+  .tablist button:hover { color: var(--color-forest); }
+  .tablist button[aria-selected='true'] {
+    position: relative;
+    z-index: 1;
+    border-color: var(--color-panel-border);
+    background: var(--color-panel);
+    color: var(--color-ink);
+  }
+  .tablist button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -2px; }
+  [role='tabpanel']:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; border-radius: var(--radius); }
+
+  /* The tabs sit on the card's top edge */
+  [role='tabpanel'] :global(.decoder) { border-top-left-radius: 0; }
+  /* White header so the selected tab flows into it; the line below is the only separator before the gas atmospheres block */
+  [role='tabpanel'] :global(.decoder-head) { background: var(--color-panel); }
+</style>

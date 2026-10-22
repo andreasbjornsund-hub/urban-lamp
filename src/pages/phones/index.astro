@@ -1,0 +1,1068 @@
+---
+import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Icon from '../../components/Icon.astro';
+import PhoneCard from '../../components/phone/PhoneCard.astro';
+import { SITE } from '../../config/site';
+import { EX_FEATURES, FEATURE_GROUPS, FORM_LABEL, phoneFacts, protectionScore } from '../../lib/phones';
+
+const phones = await getCollection('phones');
+// Photo area style on the cards. Review: ?cards=light or ?cards=dark overrides it in the browser.
+const CARD_THEME: 'light' | 'dark' = 'dark';
+const items = await Promise.all(
+  phones.map(async (phone) => {
+    const thumb = phone.data.image
+      ? (await getImage({ src: phone.data.image, width: 120, height: 120, fit: 'contain', format: 'webp' })).src
+      : undefined;
+    return { phone, facts: phoneFacts(phone, thumb) };
+  }),
+);
+// Default order: current phones first, then highest protection, then lightest, then name
+items.sort(
+  (a, b) =>
+    Number(a.facts.status === 'discontinued') - Number(b.facts.status === 'discontinued') ||
+    protectionScore(b.facts) - protectionScore(a.facts) ||
+    (a.facts.weightG ?? 9999) - (b.facts.weightG ?? 9999) ||
+    a.facts.name.localeCompare(b.facts.name),
+);
+const facts = items.map((i) => i.facts);
+const totalCount = facts.length;
+
+const title = 'Find Intrinsically Safe Phones: Filter & Compare Models';
+const description =
+  'Every ATEX and IECEx certified phone in one place. Filter by zone, gas group, temperature class and features, then compare up to four side by side.';
+
+/* ---------- Filter definitions ----------
+   match 'need' (radio list): the rating the site needs. Phones with a higher rating are usable there too and
+   included (Zone 0 and 1 phones when Zone 2 is needed); a small "Show Zone 2 phones only" option under the
+   chosen rating narrows it to that rating (`exact` in the URL).
+   match 'any' (checkboxes): a phone matches if it has any ticked option (categories, e.g. Android or iOS).
+   match 'all' (checkboxes): a phone must have every ticked option (certificates, features).
+   `chip` is the label in the active-filter chips when the option label alone is vague. */
+type Option = { value: string; label: string; chip?: string; unverified?: boolean };
+type Filter = { name: string; legend: string; hint?: string; match: 'need' | 'any' | 'all'; options: Option[] };
+type Section = { heading?: string; note?: string; filters: Filter[] };
+const need = (name: string, legend: string, options: Option[], hint?: string): Filter => ({
+  name, legend, hint, match: 'need', options: [{ value: '', label: 'Any' }, ...options],
+});
+const any = (name: string, legend: string, options: Option[], hint?: string): Filter => ({ name, legend, hint, match: 'any', options });
+const all = (name: string, legend: string, options: Option[], hint?: string): Filter => ({ name, legend, hint, match: 'all', options });
+/** Dust zones and Divisions: only offer ratings some phone actually has (nothing else could match) */
+const present = (values: (string | undefined)[]) => new Set(values.filter(Boolean));
+const dustZones = present(facts.flatMap((f) => f.zonesDust));
+const divisions = present(facts.map((f) => (f.division ? String(f.division) : undefined)));
+
+// Ex rating: where the phone can be used. Strictest option first in every list; protection method last.
+const exSections: Section[] = [
+  {
+    filters: [
+      need('zone', 'Gas zone', ['0', '1', '2'].map((z) => ({ value: z, label: `Zone ${z}` }))),
+      need('dust', 'Dust zone', ['20', '21', '22'].filter((z) => dustZones.has(z)).map((z) => ({ value: z, label: `Zone ${z}` })), 'Only if combustible dust is present.'),
+      need('div', 'North America', ['1', '2'].filter((d) => divisions.has(d)).map((d) => ({ value: d, label: `Class I Division ${d}`, chip: `Division ${d}` })), 'NEC 500 rating.'),
+    ],
+  },
+  {
+    filters: [
+      need('group', 'Gas group', ['IIC', 'IIB', 'IIA'].map((g) => ({ value: g, label: g, chip: `Gas group ${g}` }))),
+      need('temp', 'Temperature class', ['T6', 'T5', 'T4', 'T3', 'T2', 'T1'].map((t) => ({ value: t, label: t, chip: t }))),
+      all('scheme', 'Certification', [
+        { value: 'atex', label: 'ATEX' },
+        { value: 'iecex', label: 'IECEx' },
+        { value: 'ukex', label: 'UKEX' },
+      ], 'Must hold every ticked certificate.'),
+      all('exf', 'Mining', EX_FEATURES.map((f) => ({ value: f.key, label: f.label })), 'Underground mining needs a Group I version.'),
+      any('prot', 'Protection method', [
+        { value: 'intrinsic', label: 'Intrinsic safety (Ex i)' },
+        { value: 'flameproof', label: 'Flameproof enclosure (Ex d)' },
+        { value: 'combined', label: 'Increased safety + intrinsic (Ex ec ic)' },
+      ]),
+    ],
+  },
+];
+
+// Features: device basics, then field-worker features, then availability. Features no phone has verified yet
+// are shown on the dev server (so the full set can be reviewed) and left out of the live site until the
+// catalogue has data.
+const showUnverified = import.meta.env.DEV;
+const available = new Set(facts.flatMap((f) => f.features));
+const featureSections: Section[] = [
+  {
+    heading: 'Device',
+    filters: [
+      any('os', 'Operating system', [
+        { value: 'iOS', label: 'iOS (iPhone)' },
+        { value: 'Android', label: 'Android' },
+        { value: 'Other', label: 'Other / proprietary', chip: 'Other OS' },
+      ]),
+      any('form', 'Device type', Object.entries(FORM_LABEL).map(([value, label]) => ({ value, label }))),
+      any('type', 'Phone type', [
+        { value: 'dedicated', label: 'Dedicated Ex phone' },
+        { value: 'ex-case', label: 'Certified Ex case' },
+        { value: 'conversion', label: 'Device conversion' },
+      ]),
+      any('weight', 'Weight', [
+        { value: 'u300', label: 'Under 300 g' },
+        { value: '300', label: '300–399 g' },
+        { value: '400', label: '400–499 g' },
+        { value: '500', label: '500 g and over' },
+      ]),
+    ],
+  },
+  {
+    heading: 'Must-have features',
+    note: 'Phones must have every feature you tick.',
+    filters: FEATURE_GROUPS.map((g) =>
+      all(
+        'f',
+        g.title,
+        g.features
+          .filter((ft) => showUnverified || available.has(ft.key))
+          .map((ft) => ({ value: ft.key, label: ft.label, unverified: !available.has(ft.key) })),
+      ),
+    ).filter((f) => f.options.length > 0),
+  },
+  {
+    heading: 'Availability',
+    filters: [all('avail', 'Status', [{ value: 'current', label: 'Hide discontinued models', chip: 'Current models only' }])],
+  },
+];
+
+const dropdowns = [
+  {
+    id: 'ex',
+    label: 'Ex rating',
+    note: '',
+    sections: exSections,
+    layout: 'cols',
+  },
+  { id: 'features', label: 'Features', note: '', sections: featureSections, layout: 'stack' },
+];
+
+const url = `${SITE.url}/phones/`;
+const schema = [
+  {
+    '@type': 'CollectionPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: title,
+    description,
+    isPartOf: { '@id': `${SITE.url}/#website` },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: facts.length,
+      itemListElement: facts.map((f, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE.url}${f.href}`, name: f.name })),
+    },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Find phones', item: url },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <section class="finder-hero" aria-labelledby="finder-title">
+    <div class="container">
+      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Find phones', href: '' }]} />
+      <h1 id="finder-title">Find intrinsically safe phones</h1>
+      <p class="lead">
+        Every ATEX and IECEx certified phone in one place. Set the Ex rating your site needs, the features
+        your crews rely on, and compare side by side.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filter bar: stays under the header while scrolling -->
+  <div class="filter-bar" data-filter-bar>
+    <div class="container filter-bar-inner">
+      <p class="filter-label" id="filter-label"><Icon name="filter" /> Filters</p>
+      <form class="filter-form" data-filter-form aria-labelledby="filter-label">
+        {dropdowns.map((dd) => (
+          <div class="dd" data-dd={dd.id}>
+            <button class="dd-btn" type="button" aria-expanded="false" aria-controls={`dd-${dd.id}`} data-dd-btn>
+              {dd.label}
+              <span class="dd-count" data-dd-count hidden></span>
+              <Icon name="chevron-down" />
+            </button>
+            <div class:list={['dd-panel', `dd-${dd.layout}`]} id={`dd-${dd.id}`} data-dd-panel hidden>
+              <div class="dd-head">
+                <h2 class="dd-title" tabindex="-1">{dd.label} filters</h2>
+                <button class="dd-x" type="button" data-dd-close aria-label={`Close ${dd.label} filters`}><Icon name="close" /></button>
+              </div>
+              <div class="dd-body">
+                {dd.note && <p class="dd-note">{dd.note}</p>}
+                <div class="dd-sections">
+                  {dd.sections.map((sec) => (
+                    <div class="dd-section">
+                      {sec.heading && <h3 class="dd-section-title">{sec.heading}</h3>}
+                      {sec.note && <p class="dd-section-note">{sec.note}</p>}
+                      <div class="dd-filters">
+                        {sec.filters.map((f) => (
+                          <fieldset class="filter" data-name={f.name} data-match={f.match}>
+                            <legend>{f.legend}</legend>
+                            {f.hint && <p class="filter-hint">{f.hint}</p>}
+                            <div class="checks">
+                              {f.options.map((o) => (
+                                <label class:list={{ unverified: o.unverified }}>
+                                  <input
+                                    type={f.match === 'need' ? 'radio' : 'checkbox'}
+                                    name={f.name}
+                                    value={o.value}
+                                    checked={f.match === 'need' && !o.value}
+                                    data-chip={o.chip ?? o.label}
+                                  />
+                                  <span class="check-label">
+                                    {o.label}
+                                    {o.unverified && <span class="unverified-note">no verified data yet</span>}
+                                  </span>
+                                  {o.value && <span class="opt-count" data-count-for={`${f.name}=${o.value}`}></span>}
+                                </label>
+                              ))}
+                              {f.match === 'need' && (
+                                <div class="only" data-only={f.name} hidden>
+                                  <label>
+                                    <input type="checkbox" name="exact" value={f.name} />
+                                    <span data-only-label></span>
+                                  </label>
+                                  <span class="tip">
+                                    <button class="tip-btn" type="button" aria-label="What does this mean?" aria-describedby={`tip-${f.name}`}>i</button>
+                                    <span class="tip-text" role="tooltip" id={`tip-${f.name}`} data-only-tip></span>
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+                          </fieldset>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div class="dd-foot">
+                <button class="dd-clear" type="button" data-dd-clear>Clear</button>
+                <button class="btn btn-primary btn-sm" type="button" data-dd-close>
+                  Show <span data-result-count>{totalCount}</span> phones
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </form>
+
+      <p class="results-count" aria-live="polite">
+        <strong data-result-count>{totalCount}</strong> <span data-result-noun>phones</span>
+      </p>
+
+      <label class="sort">
+        <span class="sort-label">Sort</span>
+        <span class="sort-icon" aria-hidden="true"><Icon name="sort" /></span>
+        <select data-sort aria-label="Sort phones">
+          <option value="protection">Highest protection</option>
+          <option value="weight">Lightest</option>
+          <option value="name">Name A–Z</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <section class="band band-white finder" aria-label="Phones">
+    <div class="container" data-card-theme={CARD_THEME}>
+      <p class="results-line" aria-live="polite"><strong data-result-count>{totalCount}</strong> <span data-result-noun>phones</span></p>
+      <ul class="chips" data-chips aria-label="Active filters" hidden></ul>
+
+      <ul class="card-grid" data-grid>
+        {items.map(({ phone, facts: f }) => <PhoneCard phone={phone} facts={f} />)}
+      </ul>
+      <script is:inline>
+        {
+          const t = new URLSearchParams(location.search).get('cards');
+          if (t === 'light' || t === 'dark') document.querySelector('.finder [data-card-theme]').dataset.cardTheme = t;
+        }
+      </script>
+
+      <div class="empty" data-empty hidden>
+        <h2>No phones match all of these filters</h2>
+        <p>Try removing a feature or loosening a requirement.</p>
+        <button class="btn btn-secondary btn-sm" type="button" data-clear-all>Clear all filters</button>
+      </div>
+
+      <div class="unmet-note" data-unmet-note hidden>
+        <p><span data-unmet-count></span> <span data-unmet-verb>don't</span> meet your Ex requirements.</p>
+        <label>
+          <input type="checkbox" data-unmet-toggle />
+          Show them and why
+        </label>
+      </div>
+      <ul class="card-grid" data-unmet-grid></ul>
+    </div>
+  </section>
+
+  <!-- Short guidance for people who don't know their requirements yet -->
+  <section class="band help" aria-labelledby="help-title">
+    <div class="container">
+      <p class="eyebrow">Not sure what you need?</p>
+      <h2 id="help-title" class="h2">Three things decide which phones you can use</h2>
+      <ol class="help-grid">
+        <li>
+          <h3>Zone</h3>
+          <p>How often an explosive atmosphere is present. Zone 0 is continuous, Zone 1 likely in normal work, Zone 2 rare and brief. Your site's area classification drawing shows this.</p>
+        </li>
+        <li>
+          <h3>Gas group</h3>
+          <p>How easily the gas ignites. IIC (hydrogen, acetylene) is the most demanding and covers IIB and IIA, so most phones are certified IIC.</p>
+        </li>
+        <li>
+          <h3>Temperature class</h3>
+          <p>The hottest the phone's surface can get. It must stay below the ignition temperature of the gases on site. T6 (85 °C) is the strictest.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <script type="application/json" id="phone-data" set:html={JSON.stringify(facts)} />
+</BaseLayout>
+
+<script>
+  import { GROUP_RANK, type PhoneFacts } from '../../lib/phones';
+
+  type Status = 'ok' | 'fail' | 'unknown';
+  interface Check { status: Status; text: string }
+  /** Ticked values per filter name */
+  type State = Record<string, string[]>;
+
+  const phones = JSON.parse(document.getElementById('phone-data')!.textContent || '[]') as PhoneFacts[];
+  const form = document.querySelector<HTMLFormElement>('[data-filter-form]')!;
+  const grid = document.querySelector<HTMLUListElement>('[data-grid]')!;
+  const cards = new Map([...grid.querySelectorAll<HTMLLIElement>('[data-phone]')].map((li) => [li.dataset.phone!, li]));
+  const defaultOrder = phones.map((p) => p.id);
+  const sortSelect = document.querySelector<HTMLSelectElement>('[data-sort]')!;
+  const unmetToggle = document.querySelector<HTMLInputElement>('[data-unmet-toggle]')!;
+  const dds = [...document.querySelectorAll<HTMLElement>('[data-dd]')];
+
+  /* ---------- Filter config, read from the markup ---------- */
+  const fieldNames = (root: ParentNode) => [...new Set([...root.querySelectorAll<HTMLElement>('fieldset[data-name]')].map((f) => f.dataset.name!))];
+  /** `exact` holds the 'need' fields narrowed to their exact rating ("Show Zone 2 phones only") */
+  const NAMES = [...fieldNames(form), 'exact'];
+  const MATCH = Object.fromEntries(
+    [...form.querySelectorAll<HTMLElement>('fieldset[data-name]')].map((f) => [f.dataset.name!, f.dataset.match as 'need' | 'any' | 'all']),
+  );
+  /** Which fields each dropdown owns (for its count badge and its Clear button) */
+  const SECTIONS = Object.fromEntries(dds.map((dd) => [dd.dataset.dd!, fieldNames(dd)]));
+  /** Ex rating filters are requirements: phones failing them can be shown dimmed, with the reason */
+  const EX = new Set(SECTIONS.ex);
+  const CHIP = Object.fromEntries(
+    [...form.querySelectorAll<HTMLInputElement>('input[data-chip]')].map((el) => [`${el.name}=${el.value}`, el.dataset.chip!]),
+  );
+  const chip = (name: string, value: string) => CHIP[`${name}=${value}`] ?? value;
+
+  /* ---------- What each phone has, per filter ---------- */
+  const highest = (zones: string[]) => (zones.length ? String(Math.min(...zones.map(Number))) : undefined);
+  const weightBand = (g?: number) => (g == null ? undefined : g < 300 ? 'u300' : g < 400 ? '300' : g < 500 ? '400' : '500');
+  const tnum = (t: string) => Number(t.slice(1));
+
+  /** 'need' and 'any' filters: the phone's single value (its highest rating for Ex filters) */
+  const VALUE: Record<string, (p: PhoneFacts) => string | undefined> = {
+    zone: (p) => highest(p.zonesGas),
+    dust: (p) => highest(p.zonesDust),
+    div: (p) => (p.division ? String(p.division) : undefined),
+    group: (p) => p.gasGroup,
+    temp: (p) => p.tempClass,
+    prot: (p) => p.protection,
+    os: (p) => p.os,
+    form: (p) => p.formFactor,
+    type: (p) => p.type,
+    weight: (p) => weightBand(p.weightG),
+  };
+  /** match 'all' filters: whether the phone has one ticked option */
+  const HAS: Record<string, (p: PhoneFacts, v: string) => boolean> = {
+    scheme: (p, v) => p.schemes.includes(v as 'atex'),
+    exf: (p, v) => p.features.includes(v as never),
+    f: (p, v) => p.features.includes(v as never),
+    avail: (p, v) => v !== 'current' || p.status !== 'discontinued',
+  };
+  /** 'need' filters: does rating a also cover rating b (a is the same or stricter)? */
+  const COVERS: Record<string, (a: string, b: string) => boolean> = {
+    zone: (a, b) => Number(a) <= Number(b),
+    dust: (a, b) => Number(a) <= Number(b),
+    div: (a, b) => Number(a) <= Number(b),
+    group: (a, b) => GROUP_RANK[a] >= GROUP_RANK[b],
+    temp: (a, b) => tnum(a) >= tnum(b),
+  };
+  const DESCRIBE: Record<string, (v: string) => string> = {
+    zone: (v) => `Zone ${v} rated`,
+    dust: (v) => `Zone ${v} rated`,
+    div: (v) => `Class I Division ${v} rated`,
+    group: (v) => `Gas group ${v}`,
+    temp: (v) => `Temperature class ${v}`,
+    prot: (v) => chip('prot', v),
+  };
+  /** A needed rating mid-sentence: "also covers gas group IIB" */
+  const NEEDED: Record<string, (v: string) => string> = {
+    zone: (v) => `Zone ${v}`,
+    dust: (v) => `Zone ${v}`,
+    div: (v) => `Division ${v}`,
+    group: (v) => `gas group ${v}`,
+    temp: (v) => v,
+  };
+  /** Tooltip for the "only" option: who else is included and why */
+  const ALSO: Record<string, (higher: string, v: string) => string> = {
+    zone: (h, v) => `${h} phones can also be used in Zone ${v} areas.`,
+    dust: (h, v) => `${h} phones can also be used in Zone ${v} areas.`,
+    div: (h, v) => `${h} phones can also be used in Division ${v} locations.`,
+    group: (h, v) => `${h} phones are also safe with ${v} gases.`,
+    temp: (h, v) => `${h} phones are also safe where ${v} is needed.`,
+  };
+  const MISSING: Record<string, string> = {
+    dust: 'No dust rating listed',
+    div: 'No Division rating listed',
+    group: 'Gas group not verified',
+    temp: 'Temperature class not verified',
+    prot: 'Protection method not verified',
+  };
+
+  /* ---------- State ---------- */
+  function read(): State {
+    const fd = new FormData(form);
+    return Object.fromEntries(NAMES.map((k) => [k, fd.getAll(k).map(String).filter(Boolean)]));
+  }
+
+  /** Sets the given fields; a 'need' field takes one value, and none selects its "Any" option */
+  function write(s: State) {
+    form.querySelectorAll<HTMLInputElement>('input').forEach((el) => {
+      const v = s[el.name];
+      if (!v) return;
+      el.checked = el.type === 'radio' ? el.value === (v[0] ?? '') : v.includes(el.value);
+    });
+  }
+
+  /* ---------- Matching ---------- */
+  function requirementChecks(p: PhoneFacts, s: State): Check[] {
+    const out: Check[] = [];
+    for (const k of NAMES) {
+      const sel = s[k];
+      if (!EX.has(k) || !sel.length) continue;
+      if (MATCH[k] === 'all') {
+        sel.forEach((v) => {
+          const label = chip(k, v);
+          out.push(HAS[k](p, v)
+            ? { status: 'ok', text: k === 'scheme' ? `${label} certified` : label }
+            : { status: 'fail', text: k === 'scheme' ? `No ${label} certificate listed` : `No ${label.charAt(0).toLowerCase()}${label.slice(1)} listed` });
+        });
+        continue;
+      }
+      const v = VALUE[k](p);
+      if (!v) out.push({ status: 'unknown', text: MISSING[k] ?? 'Not verified' });
+      else if (MATCH[k] === 'any') out.push(sel.includes(v) ? { status: 'ok', text: DESCRIBE[k](v) } : { status: 'fail', text: DESCRIBE[k](v) });
+      else if (v === sel[0]) out.push({ status: 'ok', text: DESCRIBE[k](v) });
+      // A higher rating than the site needs is usable there too
+      else if (COVERS[k](v, sel[0])) out.push({ status: 'ok', text: `${DESCRIBE[k](v)}, also covers ${NEEDED[k](sel[0])}` });
+      else out.push({ status: 'fail', text: `${DESCRIBE[k](v)}, needs ${NEEDED[k](sel[0])}` });
+    }
+    return out;
+  }
+
+  function meetsPreferences(p: PhoneFacts, s: State): boolean {
+    return NAMES.every((k) => {
+      const sel = s[k];
+      // "Show Zone 2 phones only": a higher rating is usable but filtered out (the rating itself is checked below)
+      if (MATCH[k] === 'need' && s.exact.includes(k) && sel.length) {
+        const v = VALUE[k](p);
+        return !v || v === sel[0] || !COVERS[k](v, sel[0]);
+      }
+      if (EX.has(k) || k === 'exact' || !sel.length) return true;
+      return MATCH[k] === 'all' ? sel.every((v) => HAS[k](p, v)) : sel.includes(VALUE[k](p) ?? '');
+    });
+  }
+
+  const meetsRequirements = (p: PhoneFacts, s: State) => requirementChecks(p, s).every((c) => c.status === 'ok');
+  const meets = (p: PhoneFacts, s: State) => meetsPreferences(p, s) && meetsRequirements(p, s);
+
+  /* ---------- Rendering ---------- */
+  const esc = (t: string) => t.replace(/[&<>]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[ch]!);
+  const plural = (n: number) => `${n} ${n === 1 ? 'phone' : 'phones'}`;
+  const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector<T>(sel)!;
+  const unmetGrid = $<HTMLUListElement>('[data-unmet-grid]');
+
+  function render() {
+    const s = read();
+    const showUnmet = unmetToggle.checked;
+    const unmetIds = new Set<string>();
+    let matched = 0;
+
+    for (const p of phones) {
+      const card = cards.get(p.id)!;
+      const checks = requirementChecks(p, s);
+      const reqOk = checks.every((c) => c.status === 'ok');
+      const prefOk = meetsPreferences(p, s);
+      if (prefOk && reqOk) matched++;
+      if (prefOk && !reqOk) unmetIds.add(p.id);
+      card.hidden = !prefOk || (!reqOk && !showUnmet);
+      card.classList.toggle('is-unmet', !reqOk);
+
+      const list = card.querySelector<HTMLUListElement>('[data-req]')!;
+      list.hidden = checks.length === 0;
+      list.classList.toggle('has-fail', !reqOk);
+      list.setAttribute('aria-label', reqOk ? 'Meets your Ex requirements' : "Doesn't meet your Ex requirements");
+      list.innerHTML = checks.map((c) => `<li class="${c.status}">${esc(c.text)}</li>`).join('');
+    }
+
+    const unmet = unmetIds.size;
+    sort(unmetIds);
+    renderOnly(s);
+    renderCounts(s);
+    renderChips(s);
+    renderDropdownCounts(s);
+
+    document.querySelectorAll('[data-result-count]').forEach((el) => (el.textContent = String(matched)));
+    document.querySelectorAll('[data-result-noun]').forEach((el) => (el.textContent = matched === 1 ? 'phone' : 'phones'));
+    $('[data-empty]').hidden = matched > 0 || (showUnmet && unmet > 0);
+
+    $('[data-unmet-note]').hidden = unmet === 0;
+    $('[data-unmet-count]').textContent = plural(unmet);
+    $('[data-unmet-verb]').textContent = unmet === 1 ? "doesn't" : "don't";
+
+    syncUrl(s);
+  }
+
+  /** Phones that don't meet the requirements go to their own grid under the "Show them and why" note */
+  function sort(unmetIds: Set<string>) {
+    const by = sortSelect.value;
+    const list = [...phones];
+    if (by === 'weight') list.sort((a, b) => (a.weightG ?? 9999) - (b.weightG ?? 9999) || a.name.localeCompare(b.name));
+    else if (by === 'name') list.sort((a, b) => a.name.localeCompare(b.name));
+    else list.sort((a, b) => defaultOrder.indexOf(a.id) - defaultOrder.indexOf(b.id));
+    list.forEach((p) => (unmetIds.has(p.id) ? unmetGrid : grid).append(cards.get(p.id)!));
+  }
+
+  /** "Show Zone 2 phones only" sits under the chosen rating, unless no rating is higher than it */
+  function renderOnly(s: State) {
+    document.querySelectorAll<HTMLElement>('[data-only]').forEach((row) => {
+      const k = row.dataset.only!;
+      const v = s[k][0];
+      const fieldset = row.closest('fieldset')!;
+      const higher = [...fieldset.querySelectorAll<HTMLInputElement>(`input[name="${k}"]`)]
+        .map((el) => el.value)
+        .filter((x) => x && x !== v && v && COVERS[k](x, v))
+        .map((x) => NEEDED[k](x).replace(/^gas group /, ''));
+      row.hidden = !v || higher.length === 0;
+      if (row.hidden) return;
+      const label = NEEDED[k](v).replace(/^gas group /, '');
+      row.querySelector('[data-only-label]')!.textContent = `Show ${label} phones only`;
+      row.querySelector('[data-only-tip]')!.textContent =
+        `${ALSO[k](higher.join(higher.length > 2 ? ', ' : ' and '), v)} Tick this to see only ${label} phones.`;
+      // Directly under the chosen option
+      fieldset.querySelector<HTMLInputElement>(`input[name="${k}"]:checked`)!.closest('label')!.after(row);
+    });
+  }
+
+  /** Each option's count: phones that would be usable with it chosen. In 'need' and 'any' groups that is the
+      option on its own; in a match-'all' group it narrows what is already ticked. */
+  function renderCounts(s: State) {
+    document.querySelectorAll<HTMLElement>('[data-count-for]').forEach((el) => {
+      const [name, value] = el.dataset.countFor!.split('=');
+      const next: State = { ...s, [name]: MATCH[name] === 'all' ? [...new Set([...s[name], value])] : [value] };
+      const n = phones.filter((p) => meets(p, next)).length;
+      el.textContent = String(n);
+      el.closest('label')!.classList.toggle('is-zero', n === 0);
+    });
+  }
+
+  const activeIn = (s: State, fields: string[]) => fields.reduce((n, k) => n + s[k].length, 0);
+
+  function renderDropdownCounts(s: State) {
+    dds.forEach((dd) => {
+      const n = activeIn(s, SECTIONS[dd.dataset.dd!]);
+      const badge = dd.querySelector<HTMLElement>('[data-dd-count]')!;
+      badge.hidden = n === 0;
+      badge.textContent = String(n);
+      dd.classList.toggle('is-active', n > 0);
+    });
+  }
+
+  function renderChips(s: State) {
+    const chips = NAMES.filter((k) => k !== 'exact').flatMap((k) =>
+      s[k].map((v) => ({
+        label: s.exact.includes(k) ? `${chip(k, v)} only` : chip(k, v),
+        clear: { [k]: s[k].filter((x) => x !== v), exact: s.exact.filter((x) => x !== k) },
+      })),
+    );
+
+    const ul = document.querySelector<HTMLUListElement>('[data-chips]')!;
+    ul.hidden = chips.length === 0;
+    ul.innerHTML = chips
+      .map((c, i) => `<li><button type="button" data-chip="${i}">${esc(c.label)}<span aria-hidden="true">×</span><span class="visually-hidden"> remove filter</span></button></li>`)
+      .join('') + (chips.length > 1 ? '<li><button type="button" class="chip-clear" data-clear-all>Clear all</button></li>' : '');
+    ul.querySelectorAll<HTMLButtonElement>('[data-chip]').forEach((b) =>
+      b.addEventListener('click', () => {
+        write(chips[Number(b.dataset.chip)].clear);
+        render();
+      }),
+    );
+  }
+
+  /* ---------- URL: filters are shareable; the compare tray manages ?compare= itself ---------- */
+  function syncUrl(s: State) {
+    const url = new URL(location.href);
+    NAMES.forEach((k) => (s[k].length ? url.searchParams.set(k, s[k].join(',')) : url.searchParams.delete(k)));
+    sortSelect.value !== 'protection' ? url.searchParams.set('sort', sortSelect.value) : url.searchParams.delete('sort');
+    unmetToggle.checked ? url.searchParams.set('unmet', '1') : url.searchParams.delete('unmet');
+    history.replaceState(null, '', url);
+  }
+
+  function loadUrl() {
+    const q = new URLSearchParams(location.search);
+    write(Object.fromEntries(NAMES.filter((k) => q.has(k)).map((k) => [k, q.get(k)!.split(',')])));
+    if (q.get('sort')) sortSelect.value = q.get('sort')!;
+    unmetToggle.checked = q.get('unmet') === '1';
+  }
+
+  function clearFields(fields: string[]) {
+    write(Object.fromEntries(fields.map((k) => [k, []])));
+    render();
+  }
+
+  form.addEventListener('change', (e) => {
+    // A new rating starts inclusive again
+    const el = e.target as HTMLInputElement;
+    if (el.type === 'radio') form.querySelectorAll<HTMLInputElement>(`input[name="exact"][value="${el.name}"]`).forEach((x) => (x.checked = false));
+    render();
+  });
+  sortSelect.addEventListener('change', render);
+  unmetToggle.addEventListener('change', render);
+  document.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('[data-clear-all]')) {
+      unmetToggle.checked = false;
+      clearFields(NAMES);
+    }
+  });
+
+  /* ---------- Dropdowns: popovers on desktop, bottom sheets on mobile ---------- */
+  const mobile = matchMedia('(max-width: 47.99rem)');
+
+  function setOpen(dd: HTMLElement, open: boolean, returnFocus = false) {
+    const btn = dd.querySelector<HTMLButtonElement>('[data-dd-btn]')!;
+    const panel = dd.querySelector<HTMLElement>('[data-dd-panel]')!;
+    btn.setAttribute('aria-expanded', String(open));
+    panel.hidden = !open;
+    dd.classList.toggle('is-open', open);
+    const anyOpen = dds.some((d) => d.classList.contains('is-open'));
+    document.documentElement.classList.toggle('dd-sheet-open', anyOpen && mobile.matches);
+    if (open && mobile.matches) {
+      panel.setAttribute('role', 'dialog');
+      panel.setAttribute('aria-modal', 'true');
+      panel.setAttribute('aria-label', btn.textContent!.trim());
+      panel.querySelector<HTMLElement>('.dd-title')!.focus();
+    } else if (!open) {
+      panel.removeAttribute('role');
+      panel.removeAttribute('aria-modal');
+    }
+    if (!open && returnFocus) btn.focus();
+  }
+
+  dds.forEach((dd) => {
+    const btn = dd.querySelector<HTMLButtonElement>('[data-dd-btn]')!;
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      dds.forEach((d) => d !== dd && setOpen(d, false));
+      setOpen(dd, open);
+    });
+    dd.querySelectorAll('[data-dd-close]').forEach((b) => b.addEventListener('click', () => setOpen(dd, false, true)));
+    dd.querySelector('[data-dd-clear]')!.addEventListener('click', () =>
+      clearFields(dd.dataset.dd === 'ex' ? [...SECTIONS.ex, 'exact'] : SECTIONS[dd.dataset.dd!]),
+    );
+    dd.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && dd.classList.contains('is-open')) {
+        e.stopPropagation();
+        setOpen(dd, false, true);
+      }
+    });
+  });
+
+  // Close on a click outside (desktop popovers; the mobile backdrop is outside too)
+  document.addEventListener('pointerdown', (e) => {
+    dds.forEach((dd) => {
+      if (dd.classList.contains('is-open') && !dd.contains(e.target as Node)) setOpen(dd, false);
+    });
+  });
+  mobile.addEventListener('change', () => dds.forEach((d) => setOpen(d, false)));
+
+  loadUrl();
+  render();
+</script>
+
+<style>
+  /* ---------- Hero ---------- */
+  .finder-hero { padding-block: 0.5rem 2rem; }
+  .finder-hero h1 {
+    margin-top: 0.75rem;
+    font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);
+    letter-spacing: var(--tracking-hero);
+  }
+  .finder-hero .lead { max-width: 42rem; margin-top: 1rem; }
+
+  /* ---------- Filter bar ---------- */
+  .filter-bar {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 45;
+    background: rgb(250 248 244 / 0.94);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-block: 1px solid var(--color-panel-border);
+  }
+  .filter-bar-inner {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.625rem 1rem;
+    min-height: 4rem;
+    padding-block: 0.625rem;
+  }
+  .filter-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font: 600 var(--text-sm) / 1 var(--font-sans);
+    color: var(--color-ink);
+  }
+  .filter-label :global(svg) { width: 1.125rem; height: 1.125rem; }
+  .filter-form { display: flex; gap: 0.5rem; }
+
+  /* Panels anchor to the filter bar, aligned with the page content */
+  .dd { position: static; }
+  .dd-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0 1rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+    color: var(--color-ink);
+    font: 500 var(--text-sm) / 1 var(--font-sans);
+    cursor: pointer;
+  }
+  .dd-btn:hover { border-color: var(--color-forest); }
+  .dd-btn :global(svg) { width: 1rem; height: 1rem; transition: transform 0.2s ease; }
+  .dd.is-open .dd-btn :global(svg) { transform: rotate(180deg); }
+  .dd.is-active .dd-btn { border-color: var(--color-forest); background: var(--color-icon-bg); color: var(--color-forest); }
+  .dd-count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.35rem;
+    height: 1.35rem;
+    padding: 0 0.35rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-forest);
+    color: var(--color-on-dark);
+    font-size: var(--text-xs);
+  }
+
+  .dd-panel {
+    position: absolute;
+    top: calc(100% + 0.25rem);
+    left: var(--gutter);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    width: min(44rem, calc(100vw - 2 * var(--gutter)));
+    max-height: calc(100dvh - var(--header-h) - 6rem);
+    background: var(--color-panel);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    box-shadow: 0 24px 48px -20px rgb(40 35 25 / 0.35);
+  }
+  .dd-stack { width: min(60rem, calc(100vw - 2 * var(--gutter))); }
+
+  .dd-head { display: none; }
+  .dd-title { font-size: 1.25rem; }
+  .dd-title:focus { outline: none; }
+
+  .dd-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 1.25rem 1.5rem;
+  }
+  .dd-note {
+    max-width: 44rem;
+    margin-bottom: 1.25rem;
+    padding: 0.625rem 0.875rem;
+    border-left: 3px solid var(--color-forest);
+    background: var(--color-panel-warm);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+  }
+  .dd-sections { display: grid; gap: 1.5rem; }
+  .dd-cols .dd-sections { grid-template-columns: 1fr 1fr; gap: 1.25rem 2rem; }
+  .dd-filters { display: grid; gap: 1.25rem; align-content: start; }
+  .dd-stack .dd-filters { grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr)); gap: 1.25rem 2rem; }
+  .dd-stack .dd-section + .dd-section { padding-top: 1.5rem; border-top: 1px solid var(--color-panel-border); }
+  .dd-section-title { font-size: var(--text-base); }
+  .dd-section-note { margin-top: 0.25rem; font-size: var(--text-sm); color: var(--color-muted); }
+  .dd-section-title + .dd-filters,
+  .dd-section-note + .dd-filters { margin-top: 1rem; }
+
+  .dd-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1.5rem;
+    border-top: 1px solid var(--color-panel-border);
+  }
+  .dd-clear {
+    min-height: 2.75rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-forest);
+    font: 500 var(--text-sm) / 1 var(--font-sans);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+
+  .filter { margin: 0; padding: 0; border: 0; min-width: 0; }
+  .filter legend {
+    padding: 0;
+    margin-bottom: 0.25rem;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .filter-hint { margin-bottom: 0.5rem; font-size: var(--text-xs); color: var(--color-muted); }
+
+  .opt-count { font-size: var(--text-xs); opacity: 0.7; }
+  .opt-count:empty { display: none; }
+  :global(label.is-zero:not(:has(input:checked))) { opacity: 0.5; }
+
+  .checks { display: grid; }
+  .checks label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.375rem;
+    font-size: var(--text-sm);
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+  .checks input { flex: none; width: 1.125rem; height: 1.125rem; margin: 0; accent-color: var(--color-forest); }
+  .check-label { flex: 1; line-height: 1.3; }
+  .checks .opt-count {
+    min-width: 1.5rem;
+    padding: 0.05rem 0.4rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-panel-warm);
+    text-align: center;
+  }
+  .unverified-note { display: block; font-size: 0.6875rem; color: var(--color-muted); }
+
+  .results-count { margin-left: auto; font-size: var(--text-sm); color: var(--color-text); }
+  .results-line { display: none; margin-bottom: 1rem; font-size: var(--text-sm); }
+  .results-line strong { font-family: var(--font-display); font-size: 1.125rem; color: var(--color-ink); }
+  .sort-icon { display: none; }
+  .results-count strong { font-family: var(--font-display); font-size: 1.125rem; color: var(--color-ink); }
+  .sort { display: flex; align-items: center; gap: 0.5rem; font-size: var(--text-sm); color: var(--color-muted); }
+  .sort select {
+    min-height: 2.75rem;
+    padding: 0 2rem 0 0.75rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    background: var(--color-panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231f2723' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 0.7rem center / 0.9rem;
+    font: 500 var(--text-sm) / 1 var(--font-sans);
+    color: var(--color-ink);
+    appearance: none;
+  }
+
+  /* ---------- Results ---------- */
+  .finder { padding-block: 1.5rem 4rem; border-top: 0; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+  .chips :global(button) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.25rem;
+    padding: 0 0.75rem;
+    border: 1px solid var(--color-forest);
+    border-radius: 999px;
+    background: var(--color-icon-bg);
+    color: var(--color-forest);
+    font: 500 var(--text-sm) / 1 var(--font-sans);
+    cursor: pointer;
+  }
+  .chips :global(.chip-clear) { border-color: transparent; background: none; text-decoration: underline; }
+
+  .only { display: flex; align-items: center; gap: 0.375rem; margin: -0.25rem 0 0.25rem 1.75rem; }
+  .only label { min-height: 2rem; font-size: var(--text-xs); color: var(--color-text); }
+  .only input { width: 0.95rem; height: 0.95rem; }
+  .tip { position: relative; display: inline-flex; }
+  .tip-btn {
+    display: grid;
+    place-items: center;
+    width: 1.125rem;
+    height: 1.125rem;
+    padding: 0;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 50%;
+    background: var(--color-panel);
+    color: var(--color-muted);
+    font: 600 0.6875rem / 1 var(--font-display);
+    cursor: help;
+  }
+  /* A bigger invisible hit area for touch */
+  .tip-btn::before { content: ''; position: absolute; inset: -0.75rem; }
+  .tip-text {
+    position: absolute;
+    bottom: calc(100% + 0.5rem);
+    left: 50%;
+    z-index: 3;
+    width: max-content;
+    max-width: min(16rem, 70vw);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-ink);
+    color: var(--color-on-dark);
+    font-size: var(--text-xs);
+    line-height: 1.4;
+    transform: translateX(-50%);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+  }
+  .tip:hover .tip-text,
+  .tip-btn:focus-visible + .tip-text,
+  .tip-btn:focus + .tip-text { visibility: visible; opacity: 1; }
+
+  /* Only the exact-match grid is first; the following groups need space above them */
+  .card-grid + .empty, [data-unmet-note] { margin-top: 1.5rem; }
+  [data-unmet-grid]:not(:empty) { margin-top: 1rem; }
+
+  .unmet-note {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ecd9cb;
+    border-radius: var(--radius-sm);
+    background: #fbf5f0;
+    font-size: var(--text-sm);
+    color: var(--color-ink);
+  }
+  .unmet-note label { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.5rem; cursor: pointer; font-weight: 500; }
+  .unmet-note input { width: 1.125rem; height: 1.125rem; accent-color: var(--color-forest); }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    gap: 1.25rem;
+  }
+
+  .empty {
+    padding: 2.5rem 1.5rem;
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius);
+    text-align: center;
+  }
+  .empty h2 { font-size: var(--text-h3); }
+  .empty p { margin: 0.5rem 0 1.25rem; font-size: var(--text-sm); }
+
+  /* ---------- Help ---------- */
+  .help-grid { display: grid; gap: 2rem; margin-top: 2rem; }
+  .help-grid h3 { font-size: var(--text-h3); }
+  .help-grid p { margin-top: 0.6rem; font-size: var(--text-sm); }
+  .help-grid .arrow-link { margin-top: 0.5rem; }
+
+  /* ---------- Mobile: dropdowns become bottom sheets ---------- */
+  @media (max-width: 47.99rem) {
+    .filter-bar-inner { flex-wrap: nowrap; gap: 0.5rem; }
+    .filter-form { flex: 1; min-width: 0; }
+    .dd { flex: 1; min-width: 0; }
+    .filter-label { flex: none; }
+    .filter-label :global(svg) { display: none; }
+    .dd-btn { width: 100%; justify-content: center; gap: 0.35rem; padding: 0 0.5rem; white-space: nowrap; }
+    .results-count { display: none; }
+    .results-line { display: block; }
+
+    /* Sort collapses to an icon button; the native select sits on top of it, invisible */
+    .sort { position: relative; flex: none; }
+    .sort-label { display: none; }
+    .sort-icon {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius);
+      background: var(--color-panel);
+      color: var(--color-ink);
+    }
+    .sort-icon :global(svg) { width: 1.125rem; height: 1.125rem; }
+    .sort select { position: absolute; inset: 0; width: 100%; opacity: 0; }
+    .sort:focus-within .sort-icon { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+    /* A blurred sticky bar would trap position: fixed children, so the bar goes solid on mobile */
+    .filter-bar { background: var(--color-bg); -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+    .dd-panel,
+    .dd-stack {
+      position: fixed;
+      inset: auto 0 0;
+      top: auto;
+      left: 0;
+      width: 100%;
+      max-height: 88dvh;
+      border-radius: var(--radius-lg, 16px) var(--radius-lg, 16px) 0 0;
+      border-bottom: 0;
+    }
+    .dd-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem var(--gutter);
+      border-bottom: 1px solid var(--color-panel-border);
+    }
+    .dd-x {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border: 0;
+      border-radius: 50%;
+      background: var(--color-panel-warm);
+      cursor: pointer;
+    }
+    .dd-x :global(svg) { width: 1.25rem; height: 1.25rem; }
+    .dd-body { padding: 1rem var(--gutter); }
+    .dd-cols .dd-sections { grid-template-columns: 1fr; }
+    .dd-foot { padding: 0.75rem var(--gutter); }
+    .dd-foot .btn { flex: 1; }
+
+    :global(html.dd-sheet-open) { overflow: hidden; }
+    :global(html.dd-sheet-open)::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 44;
+      background: rgb(20 25 22 / 0.35);
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .help-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>

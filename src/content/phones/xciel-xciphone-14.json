@@ -1,0 +1,204 @@
+{
+  "productId": "XC-Z2-IP14",
+  "name": "Xciel XCiPhone 14",
+  "brand": "Xciel",
+  "brandSlug": "xciel",
+  "manufacturer": {
+    "name": "Xciel Inc",
+    "country": "USA",
+    "website": "https://www.xciel.com"
+  },
+  "type": "ex-case",
+  "formFactor": "smartphone",
+  "hostDevice": "Apple iPhone 14",
+  "status": "current",
+  "summary": "The Xciel XCiPhone 14 is an intrinsically safe (Ex ic) case for the Apple iPhone 14, rated for Zone 2 under ATEX, and for Class I Division 2 in North America. The phone inside is a standard Apple iPhone 14 running iOS 27, so it works with the same apps and device management as other iPhones.",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ic IIC T4 Gc"
+    },
+    "northAmerica": "Class I Division 2, Groups A, B, C, D",
+    "division": "Class I Division 2",
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [],
+    "protection": "Intrinsic safety (Ex ic)",
+    "gasGroup": "IIC",
+    "epl": "Gc",
+    "ambient": "−20 °C to +50 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "Case permanently sealed; removing the iPhone voids certification. Charging and wired accessories only outside hazardous areas (per Xciel family docs)."
+  },
+  "os": {
+    "name": "iOS",
+    "version": "iOS 27",
+    "atLaunch": "iOS 16",
+    "supportYears": 7,
+    "updates": "Security updates for 7+ years (based on previous model support)",
+    "enterprise": "Apple Business (formerly Apple Business Manager)"
+  },
+  "specs": {
+    "display": "6.1-inch OLED Super Retina XDR; Ceramic Shield",
+    "resolution": "2532 × 1170",
+    "refreshRate": "60 Hz",
+    "brightness": "1,200 nits peak (HDR); no outdoor figure",
+    "chip": "Apple A15 Bionic (5-core GPU)",
+    "ram": "6 GB",
+    "camera": "12 MP main + 12 MP ultra wide",
+    "frontCamera": "12 MP TrueDepth AF",
+    "video": "4K60; Action mode",
+    "battery": "3279 mAh",
+    "batteryLife": "Up to 20 hours of video playback",
+    "port": "Lightning (USB 2)",
+    "wirelessCharging": "MagSafe 15 W; Qi",
+    "network": "5G",
+    "wifi": "Wi-Fi 6",
+    "bluetooth": "Bluetooth 5.3",
+    "nfc": "Yes (Apple Pay + Core NFC tag reading)",
+    "gnss": "GPS, GLONASS, Galileo, QZSS, BeiDou",
+    "sim": "nano-SIM + eSIM (eSIM-only in US)",
+    "keys": "Side, volume, Ring/Silent switch (no Action Button)",
+    "accessories": "Lightning",
+    "biometrics": "Face ID",
+    "satellite": "Emergency SOS + Roadside Assistance via satellite (region-dependent)",
+    "uwb": "Yes (U1)",
+    "touch": "Standard capacitive",
+    "apps": "Apple apps; App Store",
+    "storage": "128 GB / 256 GB / 512 GB",
+    "replaceableBattery": false,
+    "gloveTouch": false,
+    "pttKey": false,
+    "mdm": [
+      "Apple Business (formerly Apple Business Manager)"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 6",
+      "NFC",
+      "eSIM"
+    ],
+    "dimensionsMm": "157 × 80 × 12.7",
+    "ipRating": "IP54",
+    "cameraFree": false,
+    "partNumbers": "XCiPhone14"
+  },
+  "throughCase": [
+    {
+      "label": "Side and volume buttons",
+      "value": "External power, volume and mute buttons"
+    },
+    {
+      "label": "Rear cameras",
+      "value": "Camera cover with transparent lens protection"
+    },
+    {
+      "label": "Wireless charging",
+      "value": "Wireless / Lightning connector (outside Ex area only)"
+    },
+    {
+      "label": "Headset audio",
+      "value": "Bluetooth compatible"
+    },
+    {
+      "label": "USB-C / Lightning port",
+      "value": "Lightning connector via case (outside Ex area only)"
+    }
+  ],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Via app (Push to Talk framework)"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (iOS Emergency SOS)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Built in (QR via Camera) / Via app (1D/2D)"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in (Core NFC); through-case use not stated"
+    },
+    {
+      "label": "3D scanning",
+      "value": "Via app (camera photogrammetry)"
+    },
+    {
+      "label": "Satellite SOS",
+      "value": "Built in on iPhone; not verified through enclosure"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "certification.atex.marking": "From current listings. An older Xciel safety instruction, which cites a superseded directive, gives different temperature classes.",
+    "specs.satellite": "Listed on Apple's tech specs; availability depends on the country.",
+    "throughCase.USB-C / Lightning port": "Inferred from related information; not stated by the maker for this exact model."
+  },
+  "features": [],
+  "strengths": [
+    "Also certified for Class I Division 2 in North America",
+    "5G connectivity",
+    "A standard Apple iPhone 14 inside, with the same apps and Apple device management as other iPhones"
+  ],
+  "limitations": [
+    "Zone 2 only, so not for Zone 1 areas",
+    "Ex marking not yet confirmed against a published certificate",
+    "Temperature class not confirmed by a certificate we've seen",
+    "No dust zone rating",
+    "ATEX only: no IECEx certificate"
+  ],
+  "bestFor": [
+    "zone-2-phones",
+    "iphone",
+    "5g"
+  ],
+  "alternatives": [
+    "atexxo-zone-2-iphone-15",
+    "xshielder-iphone-16-pro-max",
+    "bartec-sp9ex2"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "Xciel: XCiPhone 14 datasheet (01/2023)",
+      "url": "https://cdn.hibuwebsites.com/5a8aca1a55574b489d306f762b121113/files/uploaded/XCiPhone%2014%20Data%20Sheet%20013123.pdf"
+    },
+    {
+      "label": "Xciel (via ERS): Xciel iOS safety instructions (older document)",
+      "url": "https://www.ers-online.co.uk/files/products/files/Xciel%20IOS%20Safety%20Instructions%20.pdf"
+    },
+    {
+      "label": "Apple: iPhone 14 - Technical Specifications (Apple Support, UK)",
+      "url": "https://support.apple.com/en-gb/111850"
+    },
+    {
+      "label": "Apple: Apple Business (formerly Apple Business Manager) user guide",
+      "url": "https://support.apple.com/guide/apple-business-manager/welcome/web"
+    },
+    {
+      "label": "ERS (reseller): Xciel XCiPhone14 ATEX Zone 2 case (price, marking)",
+      "url": "https://www.ers-online.co.uk/XCiPhone14/accessories"
+    },
+    {
+      "label": "Apple: iPhone 14 / 14 Plus technical specifications (UK)",
+      "url": "https://apple.com/uk/iphone-14/specs"
+    }
+  ]
+}

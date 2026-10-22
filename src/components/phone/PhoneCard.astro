@@ -1,0 +1,262 @@
+---
+import { Image } from 'astro:assets';
+import Icon from '../Icon.astro';
+import { logo, logoScale } from '../../lib/brand-logos';
+import type { Phone, PhoneFacts } from '../../lib/phones';
+
+interface Props {
+  phone: Phone;
+  facts: PhoneFacts;
+}
+
+const { phone, facts: f } = Astro.props;
+const d = phone.data;
+const SCHEME = { atex: 'ATEX', iecex: 'IECEx', ukex: 'UKEX' } as const;
+const certs = f.schemes.map((s) => SCHEME[s]).join(' + ') || d.certification.note || '—';
+// Black logo for every brand, so none stands out; the brand name stays in text below.
+// Card-size tweaks: i.safe's thin "MOBILE" type reads small, and Bartec's heavy type reads large; both are kept
+// clear of the taller phone photos.
+const brandLogo = logo('brands', d.brandSlug);
+const CARD_OPTICAL: Record<string, number> = { isafe: 1.05, bartec: 0.85 };
+const logoH = brandLogo ? logoScale(d.brandSlug, brandLogo) * (CARD_OPTICAL[d.brandSlug] ?? 1) : 1;
+// Dark photo area: logos turn white, except brands whose colour logo is made for dark surfaces (Xshielder's yellow)
+const ON_DARK = new Set(['xshielder']);
+const darkLogo = ON_DARK.has(d.brandSlug) ? logo('brands', d.brandSlug, 'colour') : undefined;
+const darkLogoH = darkLogo ? logoScale(d.brandSlug, darkLogo) * (CARD_OPTICAL[d.brandSlug] ?? 1) : 1;
+---
+
+<li class="phone-card" data-phone={f.id}>
+  <article aria-labelledby={`card-${f.id}`}>
+    <a class="card-media" href={f.href} tabindex="-1" aria-hidden="true">
+      {d.image && (
+        <Image src={d.image} alt="" widths={[280, 440]} sizes="(min-width: 64rem) 22vw, (min-width: 40rem) 45vw, 90vw" />
+      )}
+    </a>
+    {brandLogo && (
+      <img
+        class:list={['card-logo', 'logo-light', { 'has-dark': darkLogo, 'is-hero': !d.image }]}
+        src={brandLogo.src}
+        width={brandLogo.width}
+        height={brandLogo.height}
+        alt=""
+        style={`--scale: ${logoH.toFixed(2)}`}
+      />
+    )}
+    {darkLogo && (
+      <img
+        class:list={['card-logo', 'logo-dark', { 'is-hero': !d.image }]}
+        src={darkLogo.src}
+        width={darkLogo.width}
+        height={darkLogo.height}
+        alt=""
+        loading="lazy"
+        style={`--scale: ${darkLogoH.toFixed(2)}`}
+      />
+    )}
+    {f.status === 'discontinued' && <span class="card-status" style={`--scale: ${logoH.toFixed(2)}`}>Discontinued</span>}
+
+    <div class="card-body">
+      <p class="card-brand">{d.brand}</p>
+      <h3 id={`card-${f.id}`} class="card-name"><a href={f.href}>{d.name}</a></h3>
+
+      <dl class="card-facts">
+        <div><dt>Zones</dt><dd>{f.zoneLabel}</dd></div>
+        <div><dt>Certification</dt><dd>{certs}</dd></div>
+        <div><dt>OS</dt><dd>{d.os.version}</dd></div>
+        <div><dt>Weight</dt><dd>{f.weightG ? `${f.weightG} g` : '—'}</dd></div>
+      </dl>
+
+      <!-- Filled in by the requirements check when Ex rating filters are set -->
+      <ul class="card-req" data-req hidden></ul>
+
+      <div class="card-actions">
+        <a class="arrow-link" href={f.href}>
+          View details<span class="visually-hidden">: {d.name}</span> <Icon name="arrow-right" />
+        </a>
+        <button class="compare-btn" type="button" data-compare-add={f.id} aria-pressed="false">
+          <span class="when-off">+ Compare</span>
+          <span class="when-on">✓ Comparing</span>
+          <span class="visually-hidden">{d.name}</span>
+        </button>
+      </div>
+    </div>
+  </article>
+</li>
+
+<style>
+  .phone-card { display: flex; }
+  .phone-card article {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    container-type: inline-size;
+    background: var(--color-panel);
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+  }
+  .phone-card article:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: 0 10px 28px -16px rgb(40 35 25 / 0.25);
+  }
+
+  .card-media {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    /* Soft warm pool of light behind the phone, fading to white at the edges */
+    background:
+      radial-gradient(ellipse 60% 70% at 50% 58%, #f1eee7 0%, #f7f5f0 45%, #fff 80%);
+    border-bottom: 1px solid var(--color-panel-border);
+  }
+  .card-media img {
+    position: absolute;
+    /* Extra room at the top keeps tall phones clear of the brand logo, even when lifted on hover */
+    inset: 1.75rem 1rem 1rem;
+    width: calc(100% - 2rem);
+    height: calc(100% - 2.75rem);
+    object-fit: contain;
+    filter: drop-shadow(0 6px 8px rgb(40 35 25 / 0.12));
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  /* The phone lifts a little when the card is hovered or a link in it has keyboard focus */
+  .phone-card article:hover .card-media img,
+  .phone-card article:focus-within .card-media img {
+    transform: translateY(-4px) scale(1.02);
+    filter: drop-shadow(0 14px 14px rgb(40 35 25 / 0.18));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .phone-card article:hover .card-media img,
+    .phone-card article:focus-within .card-media img { transform: none; }
+  }
+  .card-logo {
+    position: absolute;
+    top: 0.875rem;
+    right: 0.875rem;
+    width: auto;
+    height: calc(1rem * var(--scale));
+    max-width: 40%;
+    object-fit: contain;
+    object-position: right center;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  /* No photo yet: a larger logo sits in the middle of the photo area (4:3, so its centre is 37.5% of the width down) */
+  .card-logo.is-hero {
+    top: 37.5cqw;
+    right: auto;
+    left: 50%;
+    height: calc(2.25rem * var(--scale));
+    max-width: 60%;
+    object-position: center;
+    transform: translate(-50%, -50%);
+  }
+  .logo-dark { display: none; }
+
+  /* Dark photo area: deep forest green with a brighter pool of light so black phones still stand out */
+  :global([data-card-theme='dark']) .card-media {
+    background:
+      radial-gradient(ellipse 52% 58% at 50% 55%, #7fa08e 0%, #5a7e6b 22%, #34584a 48%, #1d382d 75%, #132620 100%);
+    border-bottom-color: #132620;
+  }
+  :global([data-card-theme='dark']) .card-media img {
+    filter: drop-shadow(0 8px 10px rgb(0 0 0 / 0.35));
+  }
+  :global([data-card-theme='dark']) .phone-card article:hover .card-media img,
+  :global([data-card-theme='dark']) .phone-card article:focus-within .card-media img {
+    filter: drop-shadow(0 16px 16px rgb(0 0 0 / 0.45));
+  }
+  :global([data-card-theme='dark']) .logo-light { filter: brightness(0) invert(1); opacity: 0.85; }
+  :global([data-card-theme='dark']) .logo-light.has-dark { display: none; }
+  :global([data-card-theme='dark']) .logo-dark { display: block; opacity: 1; }
+
+  .card-status {
+    position: absolute;
+    /* Same height and top line as the brand logo opposite (--scale is the logo's) */
+    top: 0.875rem;
+    left: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    height: calc(1rem * var(--scale, 1));
+    padding: 0 0.4rem;
+    border-radius: 3px;
+    background: #e6e6e6;
+    font-size: max(0.625rem, calc(0.6875rem * var(--scale, 1)));
+    font-weight: 500;
+    line-height: 1;
+    color: #000;
+  }
+
+  .card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 1.25rem;
+  }
+  .card-brand { font-size: var(--text-xs); color: var(--color-muted); }
+  .card-name {
+    margin-top: 0.25rem;
+    font-size: 1.1875rem;
+    line-height: 1.2;
+  }
+  .card-name a { color: inherit; text-decoration: none; }
+  .card-name a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  .card-facts { margin: 1rem 0 0; font-size: var(--text-sm); }
+  .card-facts div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 2.25rem;
+    padding: 0.35rem 0;
+    border-top: 1px solid var(--color-panel-border);
+  }
+  .card-facts dt { color: var(--color-muted); }
+  .card-facts dd { margin: 0; color: var(--color-ink); font-weight: 500; text-align: right; }
+
+  .card-req {
+    display: grid;
+    gap: 0.3rem;
+    margin-top: 0.875rem;
+    padding: 0.75rem;
+    border-radius: var(--radius-sm);
+    background: #f3f7f4;
+    font-size: 0.8125rem;
+  }
+  .card-req:global(.has-fail) { background: #fbf3ee; }
+  .card-req :global(li) { display: flex; gap: 0.5rem; color: var(--color-ink); }
+  .card-req :global(.ok)::before { content: '✓'; color: #2f7d55; font-weight: 700; }
+  .card-req :global(.fail)::before { content: '✕'; color: #b4532a; font-weight: 700; }
+  .card-req :global(.unknown)::before { content: '?'; color: var(--color-muted); font-weight: 700; }
+
+  .card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+
+  .compare-btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: 0 0.9rem;
+    border: 1px solid var(--color-forest);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-forest);
+    font: 500 var(--text-sm) / 1 var(--font-sans);
+    cursor: pointer;
+  }
+  .compare-btn:hover { background: var(--color-icon-bg); }
+  .compare-btn[aria-pressed='true'] { background: var(--color-forest); color: var(--color-on-dark); }
+
+  /* Shown dimmed when "show phones that don't meet requirements" is on */
+  .phone-card:global(.is-unmet) article { opacity: 0.62; }
+  .phone-card:global(.is-unmet) article:hover { opacity: 1; }
+</style>

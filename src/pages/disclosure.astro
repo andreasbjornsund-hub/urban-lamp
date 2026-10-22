@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE, CONTACT } from '../config/site';
+import { externalLink } from '../lib/links';
+
+const title = 'Disclosure: How This Site Is Funded';
+const description =
+  'Who funds intrinsicallysafephones.com, how sponsored links are marked and the rules we apply to every phone we list.';
+const url = `${SITE.url}/disclosure/`;
+const xshielder = externalLink('https://xshielder.com/', 'disclosure');
+
+const schema = [
+  {
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: title,
+    description,
+    isPartOf: { '@id': `${SITE.url}/#website` },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { name: 'Home', item: `${SITE.url}/` },
+      { name: 'Disclosure', item: url },
+    ].map((b, i) => ({ '@type': 'ListItem', position: i + 1, ...b })),
+  },
+];
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <section class="disclosure-hero" aria-labelledby="disclosure-title">
+    <div class="container">
+      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Disclosure', href: '' }]} />
+      <p class="eyebrow">About</p>
+      <h1 id="disclosure-title">Disclosure</h1>
+      <p class="lead">
+        This page explains who pays for {SITE.name}, how that shows up on the site, and the rules we follow for every
+        phone we list.
+      </p>
+    </div>
+  </section>
+
+  <section class="band band-white" aria-labelledby="funding-title">
+    <div class="container split">
+      <h2 id="funding-title" class="h2">Who funds this site</h2>
+      <div class="prose">
+        <p>
+          The main sponsor of this site is <a href={xshielder.href} rel={xshielder.rel} target={xshielder.target}>Xshielder</a>, a
+          Norwegian manufacturer of explosion-proof cases for iPhone. The site is also part of the Hazardous Area Guide network.
+        </p>
+        <p>
+          Xshielder products appear in the phone listings and on use-case pages, and on some of those pages they are ranked. Each
+          ranking page states the criteria it uses, so you can see why a phone sits where it does.
+        </p>
+        <p>
+          Links to xshielder.com are marked as sponsored and carry tracking parameters, so Xshielder can see which pages send visitors
+          its way. Other makers are welcome to <a href={CONTACT.href}>contact us</a> about sponsoring the site.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-warm" aria-labelledby="rules-title">
+    <div class="container split">
+      <h2 id="rules-title" class="h2">Rules we apply to every phone</h2>
+      <div class="prose">
+        <p>
+          Facts come from certificates, declarations of conformity and manufacturer datasheets, and they are checked against those
+          documents. Summaries, strengths and limitations are written by the same rules for every brand.
+        </p>
+        <p>
+          A value we could not confirm from a primary source is shown with a numbered marker and a note explaining what is uncertain.
+          When something is unknown, we say it is not verified rather than saying the phone lacks it.
+        </p>
+        <p>
+          Prices are shown as on request on every phone page and ranking, so cost never affects how a phone is ordered. The cost
+          guide quotes public reseller list prices as a benchmark only. A ranking changes when the
+          certificates show it should, whoever the maker is.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-white" aria-labelledby="errors-title">
+    <div class="container split">
+      <h2 id="errors-title" class="h2">Spotted a mistake?</h2>
+      <div class="prose">
+        <p>
+          If a fact on this site looks wrong, or you work for a maker we list and have a newer certificate, <a href={CONTACT.href}>tell us</a>.
+          We check it against the document and correct the page.
+        </p>
+        <p>Always check the certificate for your exact model before taking a phone into a hazardous area.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .disclosure-hero {
+    padding-block: 0.5rem 3.5rem;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgb(245 158 11 / 0.06), transparent 60%),
+      radial-gradient(1000px 500px at 10% 30%, rgb(34 197 94 / 0.05), transparent 55%),
+      var(--paper-grain);
+    background-size: auto, auto, 3px 3px;
+  }
+  .disclosure-hero .eyebrow { margin-top: 1.5rem; }
+  .disclosure-hero h1 {
+    font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: var(--tracking-hero);
+  }
+  .disclosure-hero .lead { max-width: 40rem; margin-top: 1.25rem; }
+
+  .split { display: grid; gap: 1.5rem; }
+  .prose { display: grid; gap: 1rem; max-width: 42rem; }
+  .prose a { color: var(--color-forest); }
+
+  @media (min-width: 56rem) {
+    .split { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 3rem; }
+  }
+</style>

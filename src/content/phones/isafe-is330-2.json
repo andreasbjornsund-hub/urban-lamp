@@ -1,0 +1,165 @@
+{
+  "productId": "IS-330.2",
+  "name": "i.safe MOBILE IS330.2",
+  "brand": "i.safe MOBILE",
+  "brandSlug": "isafe",
+  "manufacturer": {
+    "name": "i.safe MOBILE GmbH",
+    "country": "Germany",
+    "website": "https://www.isafe-mobile.com"
+  },
+  "type": "dedicated",
+  "formFactor": "feature-phone",
+  "status": "current",
+  "statusNote": "i.safe MOBILE has moved it to the archive section of its range, but distributors still list it. Check availability before ordering.",
+  "launchYear": 2019,
+  "summary": "The i.safe MOBILE IS330.2 is an intrinsically safe (Ex ic) feature phone from i.safe MOBILE, certified for Zone 2/22 under ATEX and IECEx, and for Class I Division 2 in North America. It runs Android 10, with a user-replaceable battery.",
+  "image": "../../assets/phones/isafe-is330-2.webp",
+  "imageAlt": "i.safe MOBILE IS330.2, front view",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ic IIC T4 Gc IP64 / II 3D Ex ic IIIC T135°C Dc IP64",
+      "number": "EPS 19 ATEX 1 074 X"
+    },
+    "iecex": {
+      "marking": "Ex ic IIC T4 Gc IP64 / Ex ic IIIC T135°C Dc IP64",
+      "number": "IECEx EPS 19.0037X"
+    },
+    "northAmerica": "NEC/CEC 70220248: Class I Div 2 Groups A-D T4; Class II Div 2 Groups F,G T135°C; Class III Div 2",
+    "division": "Class I Division 2",
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ic)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gc / Dc",
+    "ambient": "−20 °C to +60 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "batterySwap": "Outside the hazardous area only",
+    "conditions": "Not reviewed"
+  },
+  "os": {
+    "name": "Android",
+    "version": "Android 10",
+    "securityUntil": "2025-09-30",
+    "securityUntilLabel": "Q3 2025",
+    "updates": "Security updates ended in Q3 2025",
+    "enterprise": "Android Enterprise Recommended"
+  },
+  "specs": {
+    "display": "2.6-inch",
+    "resolution": "320 × 432",
+    "chip": "Qualcomm SDM660",
+    "ram": "4 GB",
+    "camera": "13 MP AF",
+    "frontCamera": "5 MP",
+    "battery": "4050 mAh",
+    "network": "4G",
+    "wifi": "Wi-Fi 5",
+    "bluetooth": "Bluetooth 5",
+    "nfc": "Yes",
+    "keys": "Programmable key (PTT option); SOS key",
+    "accessories": "13-pin ISM interface",
+    "storage": "64 GB, microSD up to 128 GB",
+    "replaceableBattery": true,
+    "pttKey": true,
+    "mdm": [
+      "Android Enterprise Recommended"
+    ],
+    "connectivity": [
+      "4G",
+      "Wi-Fi 5",
+      "NFC"
+    ],
+    "exIp": "IP64",
+    "partNumbers": "R. STAHL 307076 (EEA) / 307077 (ROW)"
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Key + third-party app"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (SOS key)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app (SOS key)"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {},
+  "features": [
+    "nfc",
+    "sos-key",
+    "programmable-key"
+  ],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "Also certified for Class I Division 2 in North America",
+    "Push-to-talk and SOS keys",
+    "User-replaceable battery",
+    "Certified for ambient temperatures up to +60 °C"
+  ],
+  "limitations": [
+    "May be near the end of its life: check availability before ordering",
+    "Zone 2 only, so not for Zone 1 areas",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "Security updates ended in Q3 2025",
+    "In-use weight not published"
+  ],
+  "bestFor": [
+    "zone-2-phones",
+    "push-to-talk"
+  ],
+  "alternatives": [
+    "bartec-sp9ex2",
+    "ecom-smart-ex-03-dz2",
+    "atexxo-zone-2-galaxy-s24"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "IECEx (Bureau Veritas Consumer Products Services Germany GmbH): IECEx EPS 19.0037X issue 0 (2020-05-04, Current) - IS330.2 Intrinsically safe multifunctional Feature phone",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/16256/view"
+    },
+    {
+      "label": "i.safe MOBILE: Product range 'Archive' (lists IS530.M1, IS530.2, IS530.1, IS360.2, IS330.x, IS655.2)",
+      "url": "https://www.isafe-mobile.com/en/products/product-range/archive/is3301"
+    },
+    {
+      "label": "i.safe MOBILE: Security updates (security patch table) (2026-10-13)",
+      "url": "https://www.isafe-mobile.com/en/support/security-updates"
+    },
+    {
+      "label": "R. STAHL (distributor): IS330.2 data sheets 307076/307077",
+      "url": "https://r-stahl.com/fileadmin/tx_aimeos/Files/e_/de/SDS_PV_2276233_de_DE/ex-einzeldatenblatt-smartphone-is330-2-mobiltelephone-set-eea-307076-de-de-rstahl.pdf"
+    },
+    {
+      "label": "R. STAHL (distributor): IS330.1 data sheets 307074/307075/317432",
+      "url": "https://r-stahl.com/fileadmin/tx_aimeos/Files/e_/de/SDS_PV_2276226_de_DE/ex-einzeldatenblatt-smartphone-is330-1-mobiltelephone-set-eea-307074-de-de-rstahl.pdf"
+    },
+    {
+      "label": "i.safe MOBILE (via Rockall): IS330.1 datasheet 10.2021",
+      "url": "https://rockallsafety.co.uk/wp-content/uploads/2024/05/DOC_PRO_MD_IS330.1-A5-datasheet-1027MD01__SEN__AWEB__V4.pdf"
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "productId": "AX-Z1-IP15",
+  "name": "Atexxo Zone 1 iPhone 15",
+  "brand": "Atexxo",
+  "brandSlug": "atexxo",
+  "manufacturer": {
+    "name": "Atexxo",
+    "country": "Netherlands",
+    "website": "https://atexxo.com"
+  },
+  "type": "conversion",
+  "formFactor": "smartphone",
+  "hostDevice": "Apple iPhone 15",
+  "status": "current",
+  "summary": "The Atexxo Zone 1 iPhone 15 is a standard Apple iPhone 15 converted by Atexxo for hazardous areas, certified for Zone 1/21 under ATEX and IECEx. It uses a flameproof (Ex db) housing. The phone runs iOS 27.",
+  "image": "../../assets/phones/atexxo-zone-1-iphone-15.webp",
+  "imageAlt": "Atexxo Zone 1 iPhone 15, front view",
+  "certification": {
+    "otherSchemes": [
+      "INMETRO DNV 25.0038 X"
+    ],
+    "standards": [],
+    "atex": {
+      "marking": "II 2G Ex db IIC T4 Gb / II 2D Ex tb IIIC T135°C Db",
+      "number": "EPS 24 ATEX 1 207 X"
+    },
+    "iecex": {
+      "marking": "Ex db IIC T4 Gb / Ex tb IIIC T135°C Db",
+      "number": "IECEx EPS 24.0072X"
+    },
+    "zonesGas": [
+      "1",
+      "2"
+    ],
+    "zonesDust": [
+      "21",
+      "22"
+    ],
+    "protection": "Flameproof enclosure (Ex db)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gb / Db",
+    "ambient": "−20 °C to +50 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "Flameproof Ex db enclosure (dust: Ex tb). Specific conditions (IECEx EPS 24.0072X): Ta −20 to +50 °C; no repair of flameproof joints; screws min. property class A4-70; original parts only; protect glass windows from impact > 2 J; do not open in hazardous location; battery charging only outside hazardous location; SIM can be fitted by the user in a safe area; EX-ATEXXO-STRAP accessory original part only."
+  },
+  "os": {
+    "name": "iOS",
+    "version": "iOS 27",
+    "atLaunch": "iOS 17",
+    "securityUntil": "2030-09-22",
+    "updates": "Security updates for 7+ years (based on previous model support)",
+    "supportYears": 7,
+    "enterprise": "Apple Business (formerly Apple Business Manager)"
+  },
+  "specs": {
+    "display": "6.1-inch OLED; Dynamic Island; Ceramic Shield",
+    "resolution": "2556 × 1179",
+    "refreshRate": "60 Hz",
+    "brightness": "2,000 nits peak (outdoor)",
+    "chip": "Apple A16 Bionic",
+    "ram": "6 GB",
+    "camera": "48 MP main (2x optical-quality) + 12 MP ultra wide",
+    "frontCamera": "12 MP TrueDepth AF",
+    "video": "4K60",
+    "battery": "3349 mAh",
+    "batteryLife": "Up to 20 hours of video playback",
+    "port": "USB-C (USB 2)",
+    "wirelessCharging": "MagSafe up to 15 W; Qi up to 7.5 W",
+    "network": "5G",
+    "wifi": "Wi-Fi 6",
+    "bluetooth": "Bluetooth 5.3",
+    "nfc": "Yes (Apple Pay + Core NFC tag reading)",
+    "gnss": "GPS, GLONASS, Galileo, QZSS, BeiDou",
+    "sim": "nano-SIM + eSIM (eSIM-only in US)",
+    "keys": "Side, volume, Ring/Silent switch (no Action Button)",
+    "accessories": "USB-C",
+    "biometrics": "Face ID",
+    "satellite": "Emergency SOS + Roadside Assistance via satellite (region-dependent)",
+    "uwb": "Yes (2nd gen)",
+    "touch": "Standard capacitive",
+    "apps": "Apple apps; App Store",
+    "storage": "128 GB / 256 GB / 512 GB",
+    "replaceableBattery": false,
+    "gloveTouch": false,
+    "pttKey": false,
+    "mdm": [
+      "Apple Business (formerly Apple Business Manager)"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 6",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 525,
+    "weightNote": "Including the phone",
+    "dimensionsMm": "180 × 100 × 27",
+    "cameraFree": false,
+    "partNumbers": "MOB-EXd-IPH-15 series"
+  },
+  "throughCase": [
+    {
+      "label": "Side and volume buttons",
+      "value": "Functional push buttons"
+    },
+    {
+      "label": "NFC",
+      "value": "Yes"
+    },
+    {
+      "label": "Wireless charging",
+      "value": "Yes, with Apple charger (safe area only)"
+    },
+    {
+      "label": "USB-C / Lightning port",
+      "value": "Wired charging in safe area (access method not stated)"
+    },
+    {
+      "label": "SIM card",
+      "value": "Self SIM installation + eSIM"
+    }
+  ],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Via app (Push to Talk framework)"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (iOS Emergency SOS)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Built in (QR via Camera) / Via app (1D/2D)"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in (Core NFC)"
+    },
+    {
+      "label": "3D scanning",
+      "value": "Via app (camera photogrammetry)"
+    },
+    {
+      "label": "Satellite SOS",
+      "value": "Built in on iPhone; not verified through enclosure"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "os.securityUntil": "Apple doesn't publish an end date; its legal minimum is five years from first sale. Previous iPhone models have had security updates for seven years or more.",
+    "specs.wirelessCharging": "As listed on Apple's tech specs, which don't mention Qi2.",
+    "specs.weightG": "Atexxo gives 525 g in its flyer and 528 g in a product listing."
+  },
+  "features": [
+    "nfc",
+    "lanyard",
+    "wireless-charging",
+    "updates-2030"
+  ],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "5G connectivity",
+    "Security updates for 7+ years (based on previous model support)",
+    "A standard Apple iPhone 15 inside, with the same apps and Apple device management as other iPhones"
+  ],
+  "limitations": [
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "Heavy, at 525 g in use",
+    "No hardware push-to-talk key",
+    "Satellite SOS not confirmed to work through the enclosure",
+    "Not certified for Zone 0"
+  ],
+  "bestFor": [
+    "zone-1-phones",
+    "iphone",
+    "5g"
+  ],
+  "alternatives": [
+    "xshielder-iphone-16-pro-max",
+    "xciel-xcz1-iphone-14",
+    "isafe-is541-1"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "Atexxo: iPhone 15 Zone 1 EU-type examination certificate EPS 24 ATEX 1 207 X",
+      "url": "https://atexxo.com/wp-content/uploads/2025/03/eps_24_atex_1_207x_000_signed_scan-product-flyer-folleto-de-productonew.pdf"
+    },
+    {
+      "label": "IECEx (Bureau Veritas Consumer Products Services Germany GmbH): IECEx EPS 24.0072X issue 0 (2024-12-20, Current) - MOB-EXd-IPH-15 and MOB-EXd-IPH-15-21",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/1801552/view"
+    },
+    {
+      "label": "Atexxo: iPhone 15 Zone 1 INMETRO certificate DNV 25.0038 X",
+      "url": "https://atexxo.com/wp-content/uploads/2025/04/dnv-250038-x-mob-exd-iph-15new.pdf"
+    },
+    {
+      "label": "Apple: iPhone 15 - Technical Specifications (Apple Support, UK)",
+      "url": "https://support.apple.com/en-gb/111831"
+    },
+    {
+      "label": "Apple: Apple Business (formerly Apple Business Manager) user guide",
+      "url": "https://support.apple.com/guide/apple-business-manager/welcome/web"
+    },
+    {
+      "label": "Atexxo (via DirectIndustry): iPhone 15 Zone 1 listing MOB-EXd-IPH-15 (528 g)",
+      "url": "https://www.directindustry.com/prod/atexxo-b-v/product-160752-2742778.html"
+    },
+    {
+      "label": "Atexxo (via DirectIndustry): Ex Zone 1 iPhone 15 listing (528 g) and flyer (525 g)",
+      "url": "https://www.directindustry.com/prod/atexxo-b-v/product-160752-2742778.html"
+    },
+    {
+      "label": "Atexxo (via DirectIndustry): iPhone 15 Ex Zone 1 flyer (525 g)",
+      "url": "https://pdf.directindustry.com/pdf/atexxo-bv/ex-zone-1-iphone-15/160752-1095254.html"
+    },
+    {
+      "label": "Android Authority: Apple UK PSTI statement: minimum 5 years security updates from first supply",
+      "url": "https://www.androidauthority.com/iphone-software--commitment-3449135"
+    },
+    {
+      "label": "RHINOSHIELD: iPhone 15 vs iPhone 16 - weight and video playback",
+      "url": "https://en.service.rhinoshield.co.th/blogs/news/iphone-15-vs-iphone-16"
+    }
+  ]
+}

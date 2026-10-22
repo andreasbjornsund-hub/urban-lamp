@@ -1,0 +1,229 @@
+---
+import { Image } from 'astro:assets';
+import { COMPARE_ROWS, bestInRow, type Phone } from '../../lib/phones';
+import { comparePage } from '../../data/compare-pages';
+
+interface Props {
+  /** The first phone is the one the page is about; it is pinned and highlighted */
+  phones: Phone[];
+  caption: string;
+}
+
+const { phones, caption } = Astro.props;
+const [current] = phones;
+/** Link to the head-to-head page, only for pairs that have one */
+const vsHref = (a: string, b: string) => {
+  const page = comparePage(a, b);
+  return page && `/compare/${page.slug}/`;
+};
+
+const rows = COMPARE_ROWS.map((row) => {
+  const values = phones.map(row.value);
+  return { label: row.label, values, differs: new Set(values).size > 1, best: bestInRow(row, phones) };
+});
+---
+
+<div class="compare" data-compare>
+  <div class="compare-controls">
+    <label>
+      <input type="checkbox" data-only-diff />
+      Show differences only
+    </label>
+    <p class="compare-key"><span class="best-dot" aria-hidden="true"></span> Best in this comparison</p>
+  </div>
+
+  <div class="compare-scroll" tabindex="0" role="region" aria-label={caption}>
+    <table>
+      <caption class="visually-hidden">{caption}</caption>
+      <thead>
+        <tr>
+          <td class="corner"></td>
+          {phones.map((p, i) => (
+            <th scope="col" class:list={{ current: i === 0 }}>
+              <div class="col-head">
+                {p.data.image && (
+                  <Image src={p.data.image} alt="" widths={[160]} sizes="80px" class="col-img" />
+                )}
+                <span class="col-brand">{p.data.brand}</span>
+                {i === 0 ? (
+                  <span class="col-name">{p.data.name}</span>
+                ) : (
+                  <a class="col-name" href={`/phones/${p.id}/`}>{p.data.name}</a>
+                )}
+                {i === 0 ? (
+                  <span class="col-tag">This phone</span>
+                ) : (
+                  vsHref(current.id, p.id) && (
+                    <a class="col-vs" href={vsHref(current.id, p.id)}>
+                      Full comparison<span class="visually-hidden">: {current.data.name} vs {p.data.name}</span>
+                    </a>
+                  )
+                )}
+                <button class="col-add" type="button" data-compare-add={p.id} aria-pressed="false">
+                  <span class="when-off">+ Compare</span>
+                  <span class="when-on">✓ Comparing</span>
+                  <span class="visually-hidden">{p.data.name}</span>
+                </button>
+              </div>
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((r) => (
+          <tr class:list={{ same: !r.differs }}>
+            <th scope="row">{r.label}</th>
+            {r.values.map((v, i) => (
+              <td class:list={{ current: i === 0, best: r.best.has(i) }}>
+                {r.best.has(i) && <span class="best-dot" aria-hidden="true"></span>}
+                {v}
+                {r.best.has(i) && <span class="visually-hidden"> (best in this comparison)</span>}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-compare]').forEach((c) => {
+    const toggle = c.querySelector<HTMLInputElement>('[data-only-diff]');
+    toggle?.addEventListener('change', () => c.classList.toggle('only-diff', toggle.checked));
+  });
+</script>
+
+<style>
+  .compare-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    margin-bottom: 1rem;
+    font-size: var(--text-sm);
+  }
+  .compare-controls label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.75rem;
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+  .compare-controls input { width: 1.125rem; height: 1.125rem; accent-color: var(--color-forest); }
+  .compare-key { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-muted); }
+
+  .best-dot {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-right: 0.45rem;
+    border-radius: 50%;
+    background: #2f9e64;
+    vertical-align: 0.1em;
+  }
+
+  .compare-scroll {
+    /* Positioned so visually hidden labels inside are clipped too, instead of widening the page */
+    position: relative;
+    overflow-x: auto;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+  }
+
+  table {
+    width: 100%;
+    min-width: 36rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: var(--text-sm);
+  }
+  th, td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--color-panel-border);
+  }
+  tbody tr:last-child > * { border-bottom: 0; }
+
+  /* Row labels stay visible while the table scrolls sideways */
+  tbody th, .corner {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    width: 6.5rem;
+    background: var(--color-panel);
+    border-right: 1px solid var(--color-panel-border);
+    color: var(--color-muted);
+    font-weight: 500;
+  }
+
+  thead th { vertical-align: bottom; }
+  .col-head { display: grid; gap: 0.2rem; justify-items: start; }
+  .col-img {
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: 0.5rem;
+    object-fit: contain;
+  }
+  .col-brand { font-size: var(--text-xs); color: var(--color-muted); font-weight: 400; }
+  .col-name {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--color-heading);
+    text-decoration: none;
+  }
+  a.col-name:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .col-tag {
+    margin-top: 0.35rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: var(--color-forest);
+    color: var(--color-on-dark);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+  .col-vs {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    color: var(--color-forest);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+
+  .col-add {
+    margin-top: 0.35rem;
+    min-height: 2rem;
+    padding: 0 0.6rem;
+    border: 1px solid var(--color-forest);
+    border-radius: var(--radius-sm);
+    background: var(--color-panel);
+    color: var(--color-forest);
+    font: 500 var(--text-xs) / 1 var(--font-sans);
+    cursor: pointer;
+  }
+  .col-add[aria-pressed='true'] { background: var(--color-forest); color: var(--color-on-dark); }
+
+  td { color: var(--color-ink); }
+  .current { background: #f6faf7; }
+  tbody tr:not(.same) td { font-weight: 500; }
+  tr.same td { color: var(--color-muted); }
+  td.best { color: var(--color-forest); font-weight: 600; }
+
+  .only-diff tr.same { display: none; }
+
+  @media (max-width: 47.99rem) {
+    th, td { padding: 0.7rem 0.75rem; }
+    tbody th, .corner { font-size: var(--text-xs); }
+  }
+  @media (min-width: 48rem) {
+    table { min-width: 40rem; }
+    tbody th, .corner { width: 10rem; }
+  }
+</style>

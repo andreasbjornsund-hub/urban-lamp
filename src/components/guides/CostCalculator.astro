@@ -1,0 +1,490 @@
+---
+/*
+ * Cost-per-year estimator for one phone (used on /guides/intrinsically-safe-phone-cost/): pick a model and a market, and it
+ * fills in the price, service life and resale value, works out the cost per year, and lists the assumptions behind each figure.
+ * Prices are reseller list prices from ../price-research-2026-10-20.md (outside the repo); a market with no list price gets
+ * an estimate (see marketRatio). Service life, whether the date is Apple's estimate, whether the iPhone can be resold (an Ex
+ * case, not a conversion) and whether it has a top-of-the-range camera come from the phone data, so they follow the workbook.
+ * Publishing these prices departs from the site's "prices on request" rule and needs Andreas's sign-off.
+ */
+import { getCollection } from 'astro:content';
+
+interface Props {
+  /** Hide the calculator's own heading visually when the page already has one right above it */
+  hideTitle?: boolean;
+}
+const { hideTitle = false } = Astro.props;
+
+/** ECB euro reference rates for 20 October 2026 (units per euro) */
+const RATES = { eur: 1, gbp: 0.84028, usd: 1.1215 } as const;
+type Market = keyof typeof RATES;
+const MARKETS: Market[] = ['eur', 'gbp', 'usd'];
+
+/** Lowest and highest list price seen, and the figure the calculator starts from (midpoint, or entry storage for iPhones) */
+type Price = { lo: number; hi: number; use: number } | null;
+interface Preset {
+  id: string;
+  name: string;
+  eur: Price;
+  gbp: Price;
+  usd: Price;
+  /** How `use` was picked from a range: the middle of the sellers found, or the entry storage size */
+  basis: 'midpoint' | 'storage';
+  /** Anything a buyer should know about the listed price */
+  priceNote?: string;
+  /** Price excludes the iPhone */
+  caseOnly?: boolean;
+}
+const p = (lo: number, hi = lo, use = lo === hi ? lo : Math.round((lo + hi) / 20) * 10) => ({ lo, hi, use });
+
+// Reseller list prices seen 20–21 October 2026, before VAT or sales tax. null = no public list price in that market.
+const PRESETS: { group: string; items: Preset[] }[] = [
+  {
+    group: 'Zone 1 smartphones',
+    items: [
+      { id: 'bartec-sp9ex1', name: 'BARTEC SP9EX1', eur: p(2095, 2145), gbp: p(1952), usd: p(2499, 2700), basis: 'midpoint' },
+      { id: 'bartec-sc9ex1', name: 'BARTEC SC9EX1 Smartscanner', eur: p(3895, 3984), gbp: p(3450), usd: p(4535), basis: 'midpoint' },
+      { id: 'ecom-smart-ex-03-dz1', name: 'ecom Smart-Ex 03 DZ1', eur: p(2174, 2384), gbp: p(1826, 1937), usd: p(2391, 2630), basis: 'midpoint' },
+      {
+        id: 'isafe-is540-1',
+        name: 'i.safe MOBILE IS540.1',
+        eur: p(2070, 2200),
+        gbp: p(1915, 1945),
+        usd: p(3125),
+        basis: 'midpoint',
+        priceNote: 'The US price is for the Class I, Division 1 version.',
+      },
+    ],
+  },
+  {
+    group: 'Zone 1 push-to-talk',
+    items: [{ id: 'isafe-is440-1', name: 'i.safe MOBILE IS440.1', eur: p(995, 1195), gbp: p(895), usd: p(1450, 2040), basis: 'midpoint' }],
+  },
+  {
+    group: 'Zone 1 iPhones (iPhone included)',
+    items: [
+      { id: 'xshielder-iphone-17-pro-max', name: 'Xshielder iPhone 17 Pro Max', eur: p(3859, 4479, 3859), gbp: null, usd: p(5250, 5835, 5250), basis: 'storage' },
+      { id: 'xshielder-iphone-17', name: 'Xshielder iPhone 17', eur: p(3079), gbp: null, usd: p(4150, 4500, 4150), basis: 'storage' },
+      { id: 'xshielder-iphone-16-pro-max', name: 'Xshielder iPhone 16 Pro Max', eur: null, gbp: p(3195), usd: p(5895), basis: 'storage' },
+      {
+        id: 'atexxo-zone-1-iphone-17',
+        name: 'Atexxo Zone 1 iPhone 17',
+        eur: p(3550, 3750, 3550),
+        gbp: null,
+        usd: p(4828, 5100, 4828),
+        basis: 'storage',
+        priceNote: "Atexxo's shop doesn't say whether its euro prices include VAT.",
+      },
+    ],
+  },
+  {
+    group: 'Zone 2 smartphones',
+    items: [
+      { id: 'bartec-sp9ex2', name: 'BARTEC SP9EX2', eur: p(1690, 1745), gbp: null, usd: p(1860), basis: 'midpoint' },
+      { id: 'ecom-smart-ex-03-dz2', name: 'ecom Smart-Ex 03 DZ2', eur: p(1656, 1697), gbp: p(1391, 1574), usd: p(2000), basis: 'midpoint' },
+      { id: 'ecom-smart-ex-203', name: 'ecom Smart-Ex 203', eur: p(1150, 1250), gbp: p(1054, 1093), usd: null, basis: 'midpoint' },
+      { id: 'isafe-is540-2', name: 'i.safe MOBILE IS540.2', eur: p(1570, 1588), gbp: p(1348, 1465), usd: p(2100), basis: 'midpoint' },
+    ],
+  },
+  {
+    group: 'Zone 2 iPhones',
+    items: [
+      {
+        id: 'atexxo-zone-2-iphone-17',
+        name: 'Atexxo Zone 2 iPhone 17 (iPhone included)',
+        eur: p(2280, 2480, 2280),
+        gbp: null,
+        usd: p(3360),
+        basis: 'storage',
+        priceNote: "Atexxo's shop doesn't say whether its euro prices include VAT.",
+      },
+      {
+        id: 'xciel-xciphone-17',
+        name: 'Xciel XCiPhone 17 (case only)',
+        eur: p(895),
+        gbp: p(777, 801),
+        usd: p(725),
+        basis: 'midpoint',
+        caseOnly: true,
+        priceNote: 'This is the price of the case alone. The iPhone 17 is bought separately.',
+      },
+    ],
+  },
+];
+const DEFAULT = 'ecom-smart-ex-03-dz1';
+
+/** Resale value at the end of service for an iPhone that comes out of its case unchanged (typically £100–150) */
+const RESALE_GBP = { lo: 100, hi: 150, use: 125 };
+/** Lowest-priced current Zone 1 camera option (BARTEC SP9EX1 Cam version: £1,700 UK, €1,995 Europe); no US list price, so converted */
+const CAMERA_FROM: Record<Market, number> = { gbp: 1700, eur: 1995, usd: Math.round((1995 * RATES.usd) / 10) * 10 };
+
+const phones = new Map((await getCollection('phones')).map((ph) => [ph.id, ph.data]));
+const phone = (id: string) => {
+  const d = phones.get(id);
+  if (!d) throw new Error(`CostCalculator: no phone called "${id}"`);
+  return d;
+};
+const flat = PRESETS.flatMap((g) => g.items);
+const median = (xs: number[]) => {
+  const s = [...xs].sort((a, b) => a - b);
+  return s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2;
+};
+/** How list prices in market `to` compare with market `from`, from presets listed in both: the same brand first, else every phone */
+const marketRatio = (brand: string, from: Market, to: Market) => {
+  const pairs = (items: Preset[]) => items.flatMap((m) => (m[from] && m[to] ? [m[to]!.use / m[from]!.use] : []));
+  const own = pairs(flat.filter((m) => phone(m.id).brand === brand));
+  return own.length ? { ratio: median(own), basis: 'brand' as const } : { ratio: median(pairs(flat)), basis: 'all' as const };
+};
+const round10 = (n: number) => Math.round(n / 10) * 10;
+
+interface MarketPrice {
+  lo: number;
+  hi: number;
+  use: number;
+  /** Set when this market's price is our estimate: the market it was derived from */
+  from?: Market;
+  ratioBasis?: 'brand' | 'all';
+}
+
+const models = PRESETS.map((g) => ({
+  group: g.group,
+  items: g.items.map((m) => {
+    const d = phone(m.id);
+    const until = d.os.securityUntil;
+    if (!until) throw new Error(`CostCalculator: ${m.id} has no os.securityUntil in the phone data`);
+    // Missing market: the phone's own price in another market (Europe first), scaled by how the same brand's prices
+    // differ between the two markets, so the estimate keeps the model, its zone and its generation
+    const prices = {} as Record<Market, MarketPrice>;
+    for (const to of MARKETS) {
+      const own = m[to];
+      if (own) {
+        prices[to] = own;
+        continue;
+      }
+      const from = MARKETS.find((k) => m[k]);
+      if (!from) throw new Error(`CostCalculator: ${m.id} has no price in any market`);
+      const { ratio, basis } = marketRatio(d.brand, from, to);
+      const src = m[from]!;
+      prices[to] = { lo: round10(src.lo * ratio), hi: round10(src.hi * ratio), use: round10(src.use * ratio), from, ratioBasis: basis };
+    }
+    const iphone = d.os.name === 'iOS';
+    const camera = !!d.hostDevice && /\bPro\b/.test(d.hostDevice) && d.features.includes('camera-48mp');
+    return {
+      id: m.id,
+      name: m.name,
+      // Brand as it reads in a sentence: "ecom", not "ecom (Pepperl+Fuchs)"
+      brand: d.brand.replace(/\s*\(.*\)$/, ''),
+      host: d.hostDevice?.replace(/^Apple /, '') ?? '',
+      prices,
+      basis: m.basis,
+      priceNote: m.priceNote ?? '',
+      until,
+      // How the maker words the date when it gives a quarter rather than a day ("Q4 2032")
+      untilLabel: d.os.securityUntilLabel ?? '',
+      // Apple publishes no end date; the import sets supportYears and an estimated date for every iPhone base
+      est: d.os.supportYears != null,
+      // Only an iPhone sold with its Ex case comes back out unchanged and can be resold as a normal phone
+      resale: m.caseOnly ? 'case-only' : iphone && d.type === 'ex-case' ? 'iphone' : iphone ? 'conversion' : 'none',
+      // Top-of-the-range camera (a Pro iPhone with its camera confirmed in the data): worth weighing against an Ex camera
+      camera: camera ? (d.specs.camera ?? '') : '',
+    };
+  }),
+}));
+if (!flat.some((m) => m.id === DEFAULT)) throw new Error(`CostCalculator: default "${DEFAULT}" is not a preset`);
+const data = JSON.stringify({ models, default: DEFAULT, rates: RATES, resaleGbp: RESALE_GBP, cameraFrom: CAMERA_FROM });
+---
+
+<section class="tco" id="cost-calculator" aria-labelledby="tco-title">
+  <h3 id="tco-title" class:list={{ 'visually-hidden': hideTitle }}>Intrinsically safe phone cost calculator</h3>
+
+  <div class="tco-grid">
+    <div class="tco-inputs">
+      <div class="tco-field">
+        <label for="tco-model">Phone</label>
+        <select id="tco-model"></select>
+      </div>
+      <div class="tco-field">
+        <label for="tco-market">Prices for</label>
+        <select id="tco-market">
+          <option value="eur">Europe (€, ex VAT)</option>
+          <option value="gbp">UK (£, ex VAT)</option>
+          <option value="usd">US (US$, before sales tax)</option>
+        </select>
+      </div>
+      <div class="tco-field">
+        <label for="tco-price">Price per phone</label>
+        <div class="tco-money"><span data-cur></span><input id="tco-price" type="number" inputmode="decimal" min="0" step="10" /></div>
+        <span class="tco-hint" data-hint="price"></span>
+      </div>
+      <div class="tco-field">
+        <label for="tco-years">Service life (years)</label>
+        <input id="tco-years" type="number" inputmode="decimal" min="0.5" step="0.1" />
+        <span class="tco-hint" data-hint="years"></span>
+      </div>
+      <div class="tco-field">
+        <label for="tco-resale">Resale value at the end</label>
+        <div class="tco-money"><span data-cur></span><input id="tco-resale" type="number" inputmode="decimal" min="0" step="5" /></div>
+        <span class="tco-hint" data-hint="resale"></span>
+      </div>
+    </div>
+
+    <div class="tco-output">
+      <dl class="tco-result" aria-live="polite">
+        <div class="tco-key"><dt>Cost per phone per year</dt><dd data-out="perYear">–</dd></div>
+        <div><dt>Cost over its service life</dt><dd data-out="net">–</dd></div>
+      </dl>
+      <p class="tco-camera" data-camera hidden></p>
+      <h4 class="tco-basis-title">How we worked this out</h4>
+      <ul class="tco-basis" data-basis></ul>
+    </div>
+  </div>
+
+  <noscript><p class="tco-noscript">The calculator needs JavaScript. The prices and update dates it uses are in the tables above.</p></noscript>
+  <script type="application/json" data-tco-data set:html={data} />
+</section>
+
+<script>
+  type Market = 'eur' | 'gbp' | 'usd';
+  interface Price {
+    lo: number;
+    hi: number;
+    use: number;
+    from?: Market;
+    ratioBasis?: 'brand' | 'all';
+  }
+  interface Model {
+    id: string;
+    name: string;
+    brand: string;
+    host: string;
+    prices: Record<Market, Price>;
+    basis: 'midpoint' | 'storage';
+    priceNote: string;
+    until: string;
+    untilLabel: string;
+    est: boolean;
+    resale: 'iphone' | 'conversion' | 'case-only' | 'none';
+    camera: string;
+  }
+  interface Data {
+    models: { group: string; items: Model[] }[];
+    default: string;
+    rates: Record<Market, number>;
+    resaleGbp: { lo: number; hi: number; use: number };
+    cameraFrom: Record<Market, number>;
+  }
+
+  const PLACE: Record<Market, string> = { eur: 'European', gbp: 'UK', usd: 'US' };
+  const SYMBOL: Record<Market, string> = { eur: '€', gbp: '£', usd: '$' };
+  const FMT: Record<Market, Intl.NumberFormat> = {
+    eur: new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }),
+    gbp: new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 }),
+    usd: new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }),
+  };
+  const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  const num = (input: HTMLInputElement) => {
+    const v = parseFloat(input.value);
+    return Number.isFinite(v) && v >= 0 ? v : 0;
+  };
+  const yearsLeft = (iso: string) => {
+    const ms = new Date(`${iso}T23:59:59`).getTime() - Date.now();
+    return Math.max(0.5, Math.round((ms / (365.25 * 864e5)) * 10) / 10);
+  };
+  const monthYear = (iso: string) => {
+    const [y, m] = iso.split('-');
+    return `${MONTHS[+m - 1]} ${y}`;
+  };
+  /** "€3,859 to €4,479", for use in a sentence */
+  const fromTo = (k: Market, lo: number, hi: number) => `${FMT[k].format(lo)} to ${FMT[k].format(hi)}`;
+  /** "€2,174–2,384", or one price when the range is a single figure */
+  const range = (k: Market, lo: number, hi: number) =>
+    lo === hi ? FMT[k].format(lo) : `${FMT[k].format(lo)}–${FMT[k].format(hi).replace(/^[^\d]+/, '')}`;
+
+  function init(root: HTMLElement) {
+    const data = JSON.parse(root.querySelector('[data-tco-data]')!.textContent!) as Data;
+    const $ = <T extends HTMLElement = HTMLElement>(sel: string) => root.querySelector<T>(sel)!;
+    const model = $<HTMLSelectElement>('#tco-model');
+    const market = $<HTMLSelectElement>('#tco-market');
+    const price = $<HTMLInputElement>('#tco-price');
+    const years = $<HTMLInputElement>('#tco-years');
+    const resale = $<HTMLInputElement>('#tco-resale');
+    const byId: Record<string, Model> = Object.fromEntries(data.models.flatMap((g) => g.items).map((m) => [m.id, m]));
+
+    data.models.forEach((g) => {
+      const og = document.createElement('optgroup');
+      og.label = g.group;
+      g.items.forEach((m) => og.append(new Option(m.name, m.id)));
+      model.append(og);
+    });
+    model.value = data.default;
+
+    const mk = () => market.value as Market;
+    const convert = (amount: number, from: Market, to: Market) =>
+      from === to ? amount : Math.round(((amount / data.rates[from]) * data.rates[to]) / 5) * 5;
+    const resaleFor = (m: Model, k: Market) => (m.resale === 'iphone' ? convert(data.resaleGbp.use, 'gbp', k) : 0);
+
+    /** Fills the fields with the chosen model's figures for the chosen market */
+    function fill() {
+      const m = byId[model.value];
+      price.value = String(m.prices[mk()].use);
+      years.value = String(yearsLeft(m.until));
+      resale.value = String(resaleFor(m, mk()));
+      root.querySelectorAll('[data-cur]').forEach((el) => (el.textContent = SYMBOL[mk()]));
+      explain(m);
+      calculate();
+    }
+
+    /** Hints under the fields, and the bullets that say where each figure comes from */
+    function explain(m: Model) {
+      const k = mk();
+      const pr = m.prices[k];
+      const bullets: string[] = [];
+
+      if (pr.from) {
+        const src = m.prices[pr.from];
+        const whose = pr.ratioBasis === 'brand' ? `${m.brand}'s other phones` : 'the other phones in this calculator';
+        $('[data-hint="price"]').textContent = `Estimated: about ${range(k, pr.lo, pr.hi)}`;
+        bullets.push(
+          `Price: we found no ${PLACE[k]} list price, so this is an estimate. It starts from the ${PLACE[pr.from]} list price (${range(pr.from, src.lo, src.hi)}) and adjusts it by how ${whose} are priced in the two markets.`,
+        );
+      } else {
+        $('[data-hint="price"]').textContent = pr.lo === pr.hi ? `List price ${range(k, pr.lo, pr.hi)}` : `List prices ${range(k, pr.lo, pr.hi)}`;
+        bullets.push(
+          pr.lo === pr.hi
+            ? `Price: the ${PLACE[k]} reseller list price seen in October 2026.`
+            : m.basis === 'storage'
+              ? `Price: ${PLACE[k]} list prices run from ${fromTo(k, pr.lo, pr.hi)} depending on storage and version. We've used the entry model.`
+              : `Price: ${PLACE[k]} resellers list it at ${range(k, pr.lo, pr.hi)} (October 2026). We've used the middle of that range.`,
+        );
+      }
+      if (m.priceNote) bullets.push(m.priceNote);
+
+      const left = yearsLeft(m.until);
+      const end = m.untilLabel || monthYear(m.until);
+      $('[data-hint="years"]').textContent = m.est ? `Estimated updates to about ${monthYear(m.until)}` : `Security updates until ${end}`;
+      bullets.push(
+        m.est
+          ? `Service life: Apple doesn't publish an end date. We estimate security updates for seven years from launch, to about ${monthYear(m.until)}, based on support for earlier iPhones. That leaves ${left} years from today.`
+          : `Service life: ${m.brand} promises security updates until ${end}, about ${left} years from today. Many IT policies retire a phone when its updates stop.`,
+      );
+
+      const r = data.resaleGbp;
+      $('[data-hint="resale"]').textContent =
+        m.resale === 'iphone' ? `Typical: ${range(k, convert(r.lo, 'gbp', k), convert(r.hi, 'gbp', k))}` : 'Enter a figure if you expect one';
+      bullets.push(
+        {
+          iphone: `Resale: the iPhone comes out of the case and can be sold or traded in. £${r.lo}–${r.hi} is typical after five or six years, so we've used about ${FMT[k].format(resaleFor(m, k))}.`,
+          conversion: 'Resale: the iPhone is converted rather than fitted in a removable case, so we haven’t assumed a resale value.',
+          'case-only': 'Resale: the price excludes the iPhone, so its resale value isn’t included.',
+          none: 'Resale: certified Ex phones have a small second-hand market, so we’ve left it at zero.',
+        }[m.resale],
+      );
+      bullets.push('Fleet quotes are often below list price, so check the figures with a supplier before they go into a budget.');
+      $('[data-basis]').replaceChildren(...bullets.map((t) => Object.assign(document.createElement('li'), { textContent: t })));
+
+      const camera = $('[data-camera]');
+      camera.hidden = !m.camera;
+      if (m.camera) {
+        camera.textContent = `Worth considering: the ${m.host} has a top-of-the-range camera that works through the case: ${m.camera}. If your team would otherwise carry a separate Ex camera, this phone can replace it. Zone 1 cameras cost from about ${FMT[k].format(data.cameraFrom[k])}.`;
+      }
+    }
+
+    function calculate() {
+      const empty = price.value === '';
+      const net = num(price) - num(resale);
+      const life = Math.max(0.5, num(years) || 0.5);
+      $('[data-out="perYear"]').textContent = empty ? '–' : FMT[mk()].format(net / life);
+      $('[data-out="net"]').textContent = empty ? '–' : FMT[mk()].format(net);
+    }
+
+    // A new currency converts what the reader typed; fields they left alone take the model's figures for that market
+    let current = mk();
+    market.addEventListener('change', () => {
+      const m = byId[model.value];
+      const from = current;
+      const edited = {
+        price: num(price) !== m.prices[from].use,
+        resale: num(resale) !== resaleFor(m, from),
+      };
+      const typed = { price: num(price), resale: num(resale), years: years.value };
+      current = mk();
+      fill();
+      years.value = typed.years;
+      if (edited.price) price.value = String(convert(typed.price, from, current));
+      if (edited.resale) resale.value = String(convert(typed.resale, from, current));
+      calculate();
+    });
+    model.addEventListener('change', fill);
+    [price, years, resale].forEach((el) => el.addEventListener('input', calculate));
+    fill();
+  }
+
+  document.querySelectorAll<HTMLElement>('.tco').forEach(init);
+</script>
+
+<style>
+  .tco {
+    padding: 1.25rem;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+    color: var(--color-text);
+  }
+  .tco h3 { margin-bottom: 1rem; font-size: var(--text-h3); }
+  .tco-grid { display: grid; gap: 1.5rem; }
+  .tco-inputs { display: grid; gap: 1rem; align-content: start; }
+  .tco-field { display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
+  .tco-field label { font: 500 var(--text-sm) / 1.3 var(--font-sans); color: var(--color-ink); }
+  .tco-hint { font-size: var(--text-xs); line-height: 1.4; color: var(--color-muted); }
+  .tco select,
+  .tco input {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.6rem 0.65rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: #fff;
+    color: var(--color-ink);
+    font: 400 var(--text-base) / 1.3 var(--font-sans);
+  }
+  .tco select:focus-visible,
+  .tco input:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 1px; }
+  .tco-money { position: relative; }
+  .tco-money span { position: absolute; top: 50%; left: 0.65rem; transform: translateY(-50%); color: var(--color-muted); pointer-events: none; }
+  .tco-money input { padding-left: 1.6rem; }
+
+  .tco-output {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+    min-width: 0;
+    padding: 1.25rem;
+    border-radius: var(--radius);
+    background: var(--color-panel-warm);
+  }
+  .tco-result { display: grid; gap: 0.5rem; margin: 0; }
+  .tco-result div { display: flex; justify-content: space-between; align-items: baseline; gap: 0.75rem; }
+  .tco-result dt { font-size: var(--text-sm); color: var(--color-muted); }
+  .tco-result dd { margin: 0; font-weight: 600; color: var(--color-ink); font-variant-numeric: tabular-nums; text-align: right; }
+  .tco-result .tco-key dt { font-weight: 600; color: var(--color-ink); }
+  .tco-result .tco-key dd { font-family: var(--font-display); font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem); line-height: 1; color: var(--color-heading); }
+  .tco-camera {
+    padding: 0.75rem 0.9rem;
+    border-left: 3px solid var(--color-forest);
+    border-radius: var(--radius-sm);
+    background: var(--color-panel);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: var(--color-ink);
+  }
+  .tco-basis-title { font-size: var(--text-base); letter-spacing: var(--tracking-heading); }
+  .tco-basis { display: grid; gap: 0.5rem; padding-left: 1.1rem; list-style: disc; font-size: var(--text-sm); line-height: 1.5; }
+  .tco-basis li::marker { color: var(--color-forest); }
+  .tco-noscript { margin-top: 1rem; font-size: var(--text-sm); }
+
+  @media (min-width: 48rem) {
+    .tco { padding: 1.5rem; }
+    .tco-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 2rem; }
+  }
+</style>

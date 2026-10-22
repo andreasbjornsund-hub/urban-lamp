@@ -1,0 +1,90 @@
+---
+/*
+ * Plain text page (About, How we rate, Terms, Cookies): hero with breadcrumbs, then one band per section,
+ * heading left and copy right, alternating white and warm. Section HTML is trusted copy written in the page file.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import { SITE } from '../config/site';
+
+interface Props {
+  path: string;
+  title: string;
+  description: string;
+  h1: string;
+  lead: string;
+  sections: { heading: string; html: string }[];
+  updated?: string;
+}
+
+const { path, title, description, h1, lead, sections, updated } = Astro.props;
+if (title.length > 60 || description.length > 160) throw new Error(`${path}: title or description is too long`);
+const url = `${SITE.url}${path}`;
+const id = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+const schema = [
+  {
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: title,
+    description,
+    isPartOf: { '@id': `${SITE.url}/#website` },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { name: 'Home', item: `${SITE.url}/` },
+      { name: h1, item: url },
+    ].map((b, i) => ({ '@type': 'ListItem', position: i + 1, ...b })),
+  },
+];
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <section class="info-hero" aria-labelledby="info-title">
+    <div class="container">
+      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: h1, href: '' }]} />
+      <h1 id="info-title">{h1}</h1>
+      <p class="lead">{lead}</p>
+      {updated && <p class="updated">Last updated {updated}.</p>}
+    </div>
+  </section>
+
+  {sections.map((s, i) => (
+    <section class={`band ${i % 2 ? 'band-warm' : 'band-white'}`} aria-labelledby={id(s.heading)}>
+      <div class="container split">
+        <h2 id={id(s.heading)} class="h2">{s.heading}</h2>
+        <div class="prose" set:html={s.html} />
+      </div>
+    </section>
+  ))}
+</BaseLayout>
+
+<style>
+  .info-hero {
+    padding-block: 0.5rem 3.5rem;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgb(245 158 11 / 0.06), transparent 60%),
+      radial-gradient(1000px 500px at 10% 30%, rgb(34 197 94 / 0.05), transparent 55%),
+      var(--paper-grain);
+    background-size: auto, auto, 3px 3px;
+  }
+  .info-hero h1 {
+    margin-top: 1.5rem;
+    font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: var(--tracking-hero);
+  }
+  .info-hero .lead { max-width: 40rem; margin-top: 1.25rem; }
+  .updated { margin-top: 1rem; font-size: var(--text-sm); }
+
+  .split { display: grid; gap: 1.5rem; }
+  .prose { display: grid; gap: 1rem; max-width: 42rem; }
+  .prose :global(a) { color: var(--color-forest); }
+  .prose :global(ul) { display: grid; gap: 0.5rem; padding-left: 1.25rem; list-style: disc; }
+
+  @media (min-width: 56rem) {
+    .split { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 3rem; }
+  }
+</style>

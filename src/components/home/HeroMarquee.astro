@@ -1,0 +1,325 @@
+---
+// Home hero: three strips that drift in alternating directions and fade into the hero background.
+//   1. brand logos   2. certification marks   3. real Ex markings from the catalogue
+// Brands and markings come from the phone collection, so new ones appear on their own.
+// Logos live in src/assets/{brands,marks}/<id>.{svg,png,webp} in single-colour black, with full-colour versions
+// in a colour/ subfolder. tone="colour" prefers those; a logo with no colour file uses the black one, and a brand
+// with no logo at all falls back to its name in type.
+import { getCollection } from 'astro:content';
+import { logo as findLogo, logoScale } from '../../lib/brand-logos';
+
+interface Props {
+  tone?: 'colour' | 'mono';
+}
+const { tone = 'colour' } = Astro.props;
+
+const phones = await getCollection('phones');
+
+const logo = (dir: 'brands' | 'marks', id: string) => findLogo(dir, id, tone);
+
+// Colour version: logos that sit on their own dark badge (Xshielder's yellow logo is made for a dark surface)
+const BADGE: Record<string, string> = { xshielder: '#171B25' };
+
+// Alphabetical, so no brand gets a better slot. "ecom (Pepperl+Fuchs)" -> "ecom" with "Pepperl+Fuchs" below.
+const brands = [...new Map(phones.map((p) => [p.data.brandSlug, p.data.brand])).entries()]
+  .map(([slug, brand]) => {
+    const [, name = brand, parent] = brand.match(/^(.*?)\s*\((.*)\)$/) ?? [];
+    const img = logo('brands', slug);
+    const scale = img ? logoScale(slug, img) : 1;
+    const badge = tone === 'colour' ? BADGE[slug] : undefined;
+    return { slug, name, parent, img, scale, badge };
+  })
+  .sort((a, b) => a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }));
+
+// ATEX equipment carries the CE mark plus the Ex hexagon; UKEX equipment the UKCA mark plus the Ex hexagon.
+// The IECEx logo appears in the colour version only (Rory's call); UL/CSA marks stay out, so Class/Division is
+// set in type. When the logo already spells the scheme's name, only the note is shown beside it.
+const marks = [
+  { code: 'ATEX', note: 'European Union', icons: ['ce', 'ex'] },
+  { code: 'IECEx', note: 'International', icons: tone === 'colour' ? ['iecex'] : [] },
+  { code: 'UKEX', note: 'Great Britain', icons: ['ukca', 'ex'] },
+  { code: 'Class I Div 1 & 2', note: 'North America', icons: [] },
+  { code: 'Zone 1 & 2', note: 'Explosive atmospheres', icons: ['ex-warning'] },
+]
+  .map((m) => ({ ...m, icons: m.icons.flatMap((id) => (logo('marks', id) ? [{ id, img: logo('marks', id)! }] : [])) }))
+  .map((m) => ({ ...m, named: m.icons.some((i) => i.id === 'iecex') }));
+const exMark = logo('marks', 'ex')!;
+
+// Real ATEX gas markings, confirmed values only
+const markings = [
+  ...new Set(
+    phones
+      .filter((p) => p.data.certification.atex?.marking && !p.data.unconfirmed['certification.atex.marking'])
+      .map((p) => p.data.certification.atex!.marking!.split(' / ')[0].trim())
+      .filter((m) => m.startsWith('II ')),
+  ),
+].sort();
+
+// Each track holds its list twice (repeated until it's wider than the screen) and slides by half its width
+const fill = <T,>(items: T[], min: number) => Array.from({ length: Math.ceil(min / items.length) }, () => items).flat();
+const rows = { brands: fill(brands, 12), marks: fill(marks, 10), markings: fill(markings, 8) };
+
+// The brand strip starts part-way along, so the sponsor's logo slides in about this long after the page loads
+const SPONSOR = 'xshielder';
+const SPONSOR_DELAY_S = 1;
+---
+
+<div class:list={['marquees', `tone-${tone}`]}>
+  <p class="visually-hidden">
+    Compares phones from {brands.map((b) => b.name).join(', ')}, certified under ATEX, IECEx, UKEX and North
+    American Class and Division ratings.
+  </p>
+
+  <div class="marquee marquee-brands" aria-hidden="true">
+    <ul class="track">
+      {[0, 1].map((copy) =>
+        rows.brands.map((b) => (
+          <li class:list={['brand', { dup: copy === 1 }]} data-sponsor={copy === 0 && b.slug === SPONSOR ? '' : undefined}>
+            {b.img && b.badge ? (
+              <span class="logo-badge" style={`--badge: ${b.badge}`}>
+                <img src={b.img.src} width={b.img.width} height={b.img.height} alt="" style={`--scale: ${b.scale.toFixed(2)}`} />
+              </span>
+            ) : b.img ? (
+              <img src={b.img.src} width={b.img.width} height={b.img.height} alt="" style={`--scale: ${b.scale.toFixed(2)}`} />
+            ) : (
+              <span class="wordmark">
+                {b.name}
+                {b.parent && <small>{b.parent}</small>}
+              </span>
+            )}
+          </li>
+        )),
+      )}
+    </ul>
+  </div>
+
+  <div class="marquee marquee-marks reverse" aria-hidden="true">
+    <ul class="track">
+      {[0, 1].map((copy) =>
+        rows.marks.map((m) => (
+          <li class:list={['mark', { dup: copy === 1 }]}>
+            {m.icons.length > 0 && (
+              <span class="mark-icons">
+                {m.icons.map((i) => (
+                  <img class={`icon-${i.id}`} src={i.img.src} width={i.img.width} height={i.img.height} alt="" />
+                ))}
+              </span>
+            )}
+            <span class="mark-text">
+              {!m.named && <span class="mark-code">{m.code}</span>}
+              <span class="mark-note">{m.note}</span>
+            </span>
+          </li>
+        )),
+      )}
+    </ul>
+  </div>
+
+  <div class="marquee marquee-markings" aria-hidden="true">
+    <ul class="track">
+      {[0, 1].map((copy) =>
+        rows.markings.map((m) => (
+          <li class:list={['marking', { dup: copy === 1 }]}>
+            <img src={exMark.src} width={exMark.width} height={exMark.height} alt="" />
+            <code>{m}</code>
+          </li>
+        )),
+      )}
+    </ul>
+  </div>
+</div>
+
+<script is:inline define:vars={{ delay: SPONSOR_DELAY_S }}>
+  // Runs straight after the strip is parsed (logo widths come from their width/height attributes), so the
+  // offset is in place before the first frame. Without JS the strip simply starts at the first brand.
+  (() => {
+    const row = document.currentScript?.previousElementSibling?.querySelector('.marquee-brands');
+    const track = row?.querySelector('.track');
+    const logo = track?.querySelector('[data-sponsor]');
+    if (!logo || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const duration = parseFloat(getComputedStyle(track).animationDuration);
+    const speed = track.scrollWidth / 2 / duration; // px per second
+    const enterAt = row.clientWidth * 0.92; // just inside the right-hand fade
+    const x = logo.getBoundingClientRect().left - row.getBoundingClientRect().left;
+    const lead = (x - enterAt) / speed - delay;
+    if (lead > 0) track.style.animationDelay = `-${lead.toFixed(2)}s`;
+  })();
+</script>
+
+<style>
+  .marquees {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(2.25rem, 1.5rem + 2vw, 3.5rem);
+    height: 100%;
+    padding-block: 1rem;
+  }
+
+  /* ---------- Marquee mechanics ---------- */
+  .marquee {
+    --gap: 3.5rem;
+    --duration: 50s;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 85%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 18%, #000 85%, transparent);
+  }
+  .track {
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+    width: max-content;
+    padding-right: var(--gap);
+    animation: marquee var(--duration) linear infinite;
+  }
+  /* Two identical halves (each n items + n gaps): sliding left by one half loops seamlessly */
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+  .reverse .track { animation-direction: reverse; }
+  .marquees:hover .track { animation-play-state: paused; }
+
+  .marquee-marks { --duration: 40s; --gap: 3rem; }
+  .marquee-markings { --duration: 75s; --gap: 1rem; }
+
+  li { flex: none; }
+
+  /* ---------- 1. Brands: large, monochrome ---------- */
+  .marquee-brands { --logo-h: clamp(2.1rem, 1.7rem + 1.1vw, 2.8rem); }
+  .brand img {
+    height: calc(var(--logo-h) * var(--scale, 1));
+    width: auto;
+  }
+  .tone-mono .brand img { opacity: 0.78; }
+  /* Badge: logo and padding both scale with the badge's font size */
+  .logo-badge {
+    display: block;
+    padding: 0.6em 1em;
+    border-radius: 8px;
+    background: var(--badge);
+    font-size: clamp(0.92rem, 0.75rem + 0.46vw, 1.15rem);
+  }
+  .brand .logo-badge img { height: calc(1.9em * var(--scale, 1)); }
+  .wordmark {
+    display: grid;
+    justify-items: center;
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--color-heading);
+    opacity: 0.8;
+    white-space: nowrap;
+  }
+  .wordmark small {
+    margin-top: 0.3rem;
+    font-family: var(--font-sans);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  /* ---------- 2. Certification marks ---------- */
+  .mark {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+  .mark-icons {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .mark img {
+    height: 2.5rem;
+    width: auto;
+  }
+  .mark .icon-ce,
+  .mark .icon-ukca { height: 2.05rem; }
+  .mark .icon-ex-warning { height: 2.65rem; }
+  .mark .icon-iecex { height: 2.8rem; border-radius: 2px; }
+  .tone-mono .mark img:not(.icon-ex-warning) { opacity: 0.85; }
+  .mark-text { display: grid; line-height: 1.15; }
+  .mark-code {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--color-heading);
+    white-space: nowrap;
+  }
+  .mark-note {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  /* ---------- 3. Real markings, as pills ---------- */
+  .marking {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.5rem 1rem 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-panel);
+  }
+  .marking img {
+    height: 1.2rem;
+    width: auto;
+  }
+  .tone-mono .marking img { opacity: 0.85; }
+  .marking code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-ink);
+    white-space: nowrap;
+  }
+
+  /* Colour version: solid white pills, black type and border, yellow Ex mark */
+  .tone-colour .marking {
+    border-color: #15181b;
+    background: var(--color-panel);
+  }
+  .tone-colour .marking code { color: #15181b; }
+
+  /* Desktop: the strips share the square the old hero image filled */
+  @media (min-width: 56rem) {
+    /* First strip on the top edge, last on the bottom edge, the middle one halfway between */
+    .marquees {
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding-block: 0;
+    }
+    .marquee-brands { --logo-h: 3rem; }
+    .mark img { height: 2.75rem; }
+    .mark .icon-ce,
+    .mark .icon-ukca { height: 2.3rem; }
+    .mark .icon-ex-warning { height: 3rem; }
+    .mark .icon-iecex { height: 3.05rem; }
+    .mark-code { font-size: 1.625rem; }
+    .marking { padding: 0.6rem 1.1rem 0.6rem 0.8rem; }
+    .marking img { height: 1.35rem; }
+    .marking code { font-size: 0.875rem; }
+  }
+
+  /* No motion: one still copy of each strip, wrapped */
+  @media (prefers-reduced-motion: reduce) {
+    .track {
+      animation: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: auto;
+      padding-inline: 0;
+      row-gap: 1rem;
+    }
+    .dup { display: none; }
+    .marquee { -webkit-mask-image: none; mask-image: none; }
+  }
+</style>

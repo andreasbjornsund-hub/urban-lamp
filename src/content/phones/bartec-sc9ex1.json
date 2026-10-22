@@ -1,0 +1,206 @@
+{
+  "productId": "BT-SC9EX1",
+  "name": "BARTEC SC9EX1 Smartscanner",
+  "brand": "BARTEC",
+  "brandSlug": "bartec",
+  "manufacturer": {
+    "name": "BARTEC GmbH",
+    "country": "Germany",
+    "website": "https://bartec.com"
+  },
+  "type": "dedicated",
+  "formFactor": "smartphone",
+  "status": "current",
+  "launchYear": 2024,
+  "summary": "The BARTEC SC9EX1 Smartscanner is an intrinsically safe (Ex ia) smartphone with a built-in Zebra scan engine from BARTEC, certified for Zone 0/1/21 under ATEX and IECEx, and for Class I Division 1 in North America. It runs Android 15, with 5G and a user-replaceable battery.",
+  "image": "../../assets/phones/bartec-sc9ex1.webp",
+  "imageAlt": "BARTEC SC9EX1 Smartscanner, front view",
+  "certification": {
+    "otherSchemes": [
+      "KCs (Korea): 26-KA4BO-0420X (gas, Ex ia op is IIC T4 Ga) and 26-KA4BO-0421X (dust)"
+    ],
+    "standards": [],
+    "atex": {
+      "marking": "II 1G Ex ia op is IIC T4 Ga / II 2D Ex ia op is IIIC T135°C Db IP64",
+      "number": "UL 24 ATEX 3153X"
+    },
+    "iecex": {
+      "marking": "Ex ia op is IIC T4 Ga / Ex ia op is IIIC T135°C Db IP64",
+      "number": "IECEx UL 24.0004X"
+    },
+    "northAmerica": "NEC/CEC 500/505 (E226123): Class I Div 1 Groups A-D; Class II Div 1 Groups E-G; Class III; T4; Zone 0 AEx ia op is IIC T4 Ga; Zone 21 AEx ia op is IIIC T135°C Db",
+    "division": "Class I Division 1",
+    "zonesGas": [
+      "0",
+      "1",
+      "2"
+    ],
+    "zonesDust": [
+      "21",
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ia) with inherently safe optical radiation (op is)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Ga / Db",
+    "ambient": "−20 °C to +55 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "batterySwap": "Outside the hazardous area only",
+    "conditions": "Specific conditions of use (UL 24 ATEX 3153X / IECEx UL 24.0004X): protect against impacts with high impact energy (QSG: max 2 J on transparent parts, 4 J on non-transparent plastic parts) and against processes that generate a strong electrostatic charge. Use only battery type 17-S1Z0-0020; change and charge the battery only outside hazardous areas; USB-C and DC-in ports are for non-hazardous locations only. Do not open or dry-wipe the device in the hazardous area. SE55 scan engine is a Class 2 laser (520 nm). Charging temperature 0 to +45 °C; original BARTEC accessories only."
+  },
+  "os": {
+    "name": "Android",
+    "version": "Android 15",
+    "atLaunch": "Android 13",
+    "upgradeLimit": "Android 16 (further upgrades subject to Qualcomm)",
+    "securityUntil": "2030-05-31",
+    "updates": "Security updates until May 2030"
+  },
+  "specs": {
+    "display": "6.1-inch AMOLED; Gorilla Glass Victus",
+    "resolution": "1080 × 2340",
+    "chip": "Qualcomm QCM6490 2.7 GHz",
+    "ram": "8 GB",
+    "camera": "48 MP AF f/1.79",
+    "frontCamera": "8 MP FF",
+    "video": "4K30; 1080p120",
+    "battery": "4300 mAh",
+    "network": "5G",
+    "bands": "5G NR 1-3, 5, 7, 8, 20, 25, 28, 38, 40, 41, 48, 66, 71, 77, 78; LTE 1-5, 7, 8, 12, 13, 17, 20, 28, 38, 40, 41, 48, 66, 71; UMTS 1, 2, 4, 5, 8; GSM 850/900/1800/1900 (not in Cam version)",
+    "wifi": "Wi-Fi 6 (2x2 MU-MIMO)",
+    "bluetooth": "Bluetooth 5.2",
+    "nfc": "Yes",
+    "gnss": "GPS, A-GPS, GLONASS, Galileo, BeiDou",
+    "sim": "nano-SIM + eSIM",
+    "keys": "2 programmable keys (PTT, emergency call)",
+    "accessories": "USB-C; charging pins",
+    "touch": "Glove + stylus",
+    "storage": "128 GB",
+    "replaceableBattery": true,
+    "gloveTouch": true,
+    "pttKey": true,
+    "connectivity": [
+      "5G",
+      "Wi-Fi 6",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 370,
+    "dimensionsMm": "168.7 × 83.4 × 30.8",
+    "ipRating": "IP68",
+    "exIp": "IP64",
+    "ruggedness": "MIL-STD-810H",
+    "operatingTemp": "−20 °C to +55 °C",
+    "partNumbers": "17-S19C-31111110 (ROW); 17-S19C-31111111 (North America, Verizon)"
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Built in (programmable key) + app"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (programmable key)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Built in (Zebra scan engine)"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "safety.conditions": "BARTEC's datasheet gives a charging range of 0 to +45 °C; its product page says 0 to +40 °C.",
+    "os.securityUntil": "BARTEC states 'at least May 2030'."
+  },
+  "features": [
+    "nfc",
+    "camera-48mp",
+    "barcode",
+    "sos-key",
+    "programmable-key",
+    "updates-2030"
+  ],
+  "strengths": [
+    "Certified for Zone 0, the highest-risk gas zone",
+    "ATEX and IECEx certified, with published certificate numbers",
+    "Also certified for Class I Division 1 in North America",
+    "Push-to-talk and SOS keys",
+    "Built-in barcode scan engine"
+  ],
+  "limitations": [
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C"
+  ],
+  "bestFor": [
+    "zone-0-phones",
+    "division-1-phones",
+    "push-to-talk",
+    "5g"
+  ],
+  "alternatives": [
+    "bartec-sp9ex1",
+    "ecom-smart-ex-203",
+    "isafe-is530-1"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "UL Solutions (via BARTEC): IECEx UL 24.0004X - Smartphone / Smartscanner 17-S19",
+      "url": "https://bartec.com/fileadmin/Products/Enterprise_Mobility/GROK/IECEx_UL_24.0004_000.pdf"
+    },
+    {
+      "label": "IECEx / UL Solutions (US): IECEx UL 24.0004X Issue 2 (2026-03-26)",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/1997085/view"
+    },
+    {
+      "label": "Korea Testing Laboratory (hosted by BARTEC): KCs safety certificate 26-KA4BO-0420X (2026-07)",
+      "url": "https://bartec.com/wp-content/uploads/2026/07/26-KA4BO-0420X_Smartscanner_17-S19CGas.pdf"
+    },
+    {
+      "label": "BARTEC (via Elkome): SC9EX1 Smartscanner datasheet (REV 03-2026)",
+      "url": "https://shop.elkome.com/fi/mwdownloads/download/link/id/4696"
+    },
+    {
+      "label": "BARTEC: SC9EX1 Smartscanner datasheet REV-A-03-2026 (2026-03-23)",
+      "url": "https://bartec.com/wp-content/uploads/2026/03/BARTEC-SC9EX1-Smartscanner_Datasheet_EN_2026-03-23.pdf"
+    },
+    {
+      "label": "BARTEC: SP9EX1 Smartphone datasheet (2026-03-23)",
+      "url": "https://bartec.com/wp-content/uploads/2026/03/BARTEC-SP9EX1-Smartphone_Datasheet_EN_2026-03-23.pdf"
+    },
+    {
+      "label": "BARTEC: Quick Start Guide SP9EX/SC9EX1, 11-S190-7E0001/F (2026-01)",
+      "url": "https://bartec.com/wp-content/uploads/2026/03/477073_BARTEC-SP9EX_BARTEC-SC9EX1_QuickStartGuide_RevF_EN_2026-01.pdf"
+    },
+    {
+      "label": "BARTEC: SC9EX1 Smartscanner product page",
+      "url": "https://bartec.com/products-solutions/product-finder/product-detail/bartec-sc9ex1-smartscanner"
+    },
+    {
+      "label": "BARTEC: SP9EX1 product page (security update support until at least May 2030)",
+      "url": "https://bartec.com/products-solutions/product-finder/product-detail/bartec-sp9ex1-smartphone/"
+    },
+    {
+      "label": "BARTEC: SP9EX1 Smartphone Cam version product page",
+      "url": "https://bartec.com/products-solutions/product-finder/product-detail/bartec-sp9ex1-smartphone-cam-version/"
+    },
+    {
+      "label": "Able Instruments (UK reseller): Bartec SC9 Ex1 Intrinsically Safe 5G Smartscanner (2026-10-13)",
+      "url": "https://ableinstruments.com/product/bartec-sc9-ex1-intrinsically-safe-5g-smartscanner/"
+    }
+  ]
+}

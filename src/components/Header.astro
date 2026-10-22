@@ -1,0 +1,385 @@
+---
+import { MAIN_NAV, FIND_PHONES } from '../config/site';
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+const slug = (label: string) => label.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <Logo />
+
+    <nav class="nav-desktop" aria-label="Main">
+      <ul class="nav-list">
+        {MAIN_NAV.map((item) =>
+          item.menu ? (
+            <li class="has-menu" data-dropdown>
+              <button
+                class="nav-trigger"
+                type="button"
+                aria-expanded="false"
+                aria-controls={`menu-${slug(item.label)}`}
+                data-current={isCurrent(item.href) ? 'true' : undefined}
+              >
+                {item.label} <Icon name="chevron-down" />
+              </button>
+              <div
+                id={`menu-${slug(item.label)}`}
+                class:list={['dropdown', { 'dropdown-wide': item.menu.length > 1 }]}
+                hidden
+              >
+                <div class="dropdown-groups">
+                  {item.menu.map((group) => (
+                    <div class="dropdown-group">
+                      {group.heading && <p class="dropdown-heading">{group.heading}</p>}
+                      <ul>
+                        {group.links.map((l) => (
+                          <li>
+                            <a href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+                {item.footerLink && (
+                  <a class="dropdown-footer arrow-link" href={item.footerLink.href}>
+                    {item.footerLink.label} <Icon name="arrow-right" />
+                  </a>
+                )}
+              </div>
+            </li>
+          ) : (
+            <li>
+              <a class="nav-link" href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          )
+        )}
+      </ul>
+      <a class="btn btn-primary btn-sm" href={FIND_PHONES.href}>{FIND_PHONES.label}</a>
+    </nav>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      data-menu-toggle
+    >
+      <span class="icon-open"><Icon name="menu" /></span>
+      <span class="icon-close"><Icon name="close" /></span>
+      <span class="visually-hidden">Menu</span>
+    </button>
+  </div>
+
+  <nav id="mobile-nav" class="nav-mobile" aria-label="Main" hidden>
+    <ul class="container">
+      {MAIN_NAV.map((item) =>
+        item.menu ? (
+          <li>
+            <button
+              class="mobile-trigger"
+              type="button"
+              aria-expanded="false"
+              aria-controls={`m-menu-${slug(item.label)}`}
+              data-disclosure
+            >
+              {item.label} <Icon name="chevron-down" />
+            </button>
+            <div id={`m-menu-${slug(item.label)}`} class="mobile-sub" hidden>
+              {item.menu.map((group) => (
+                <div class="mobile-group">
+                  {group.heading && <p class="dropdown-heading">{group.heading}</p>}
+                  <ul>
+                    {group.links.map((l) => (
+                      <li>
+                        <a href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>{l.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              {item.footerLink && (
+                <a class="arrow-link" href={item.footerLink.href}>
+                  {item.footerLink.label} <Icon name="arrow-right" />
+                </a>
+              )}
+            </div>
+          </li>
+        ) : (
+          <li>
+            <a class="mobile-link" href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+              {item.label}
+            </a>
+          </li>
+        )
+      )}
+      <li class="nav-mobile-cta">
+        <a class="btn btn-primary" href={FIND_PHONES.href}>{FIND_PHONES.label}</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const setExpanded = (button: Element, open: boolean) => {
+    button.setAttribute('aria-expanded', String(open));
+    const panel = document.getElementById(button.getAttribute('aria-controls') ?? '');
+    if (panel) panel.hidden = !open;
+  };
+
+  // Desktop dropdowns: one open at a time; close on Escape, outside click, or when focus leaves
+  const dropdowns = [...document.querySelectorAll<HTMLElement>('[data-dropdown]')];
+  const closeAll = (except?: HTMLElement) =>
+    dropdowns.forEach((d) => d !== except && setExpanded(d.querySelector('.nav-trigger')!, false));
+
+  dropdowns.forEach((d) => {
+    const trigger = d.querySelector<HTMLButtonElement>('.nav-trigger')!;
+    trigger.addEventListener('click', () => {
+      const open = trigger.getAttribute('aria-expanded') !== 'true';
+      closeAll(d);
+      setExpanded(trigger, open);
+    });
+    d.addEventListener('focusout', (e) => {
+      if (!d.contains(e.relatedTarget as Node | null)) setExpanded(trigger, false);
+    });
+    d.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && trigger.getAttribute('aria-expanded') === 'true') {
+        setExpanded(trigger, false);
+        trigger.focus();
+      }
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!dropdowns.some((d) => d.contains(e.target as Node))) closeAll();
+  });
+
+  // Hairline under the sticky header once the page has scrolled
+  const header = document.querySelector<HTMLElement>('.site-header');
+  const onScroll = () => header?.toggleAttribute('data-scrolled', window.scrollY > 4);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Mobile menu and its expandable sections
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const panel = document.getElementById('mobile-nav');
+
+  document.querySelectorAll('[data-disclosure]').forEach((b) =>
+    b.addEventListener('click', () => setExpanded(b, b.getAttribute('aria-expanded') !== 'true'))
+  );
+
+  if (toggle && panel) {
+    toggle.addEventListener('click', () => setExpanded(toggle, toggle.getAttribute('aria-expanded') !== 'true'));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !panel.hidden) {
+        setExpanded(toggle, false);
+        toggle.focus();
+      }
+    });
+
+    matchMedia('(min-width: 56rem)').addEventListener('change', (e) => {
+      if (e.matches) setExpanded(toggle, false);
+      else closeAll();
+    });
+  }
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgb(250 248 244 / 0.86);
+    -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    backdrop-filter: saturate(1.4) blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .site-header[data-scrolled] {
+    border-bottom-color: var(--color-panel-border);
+    box-shadow: 0 6px 20px -14px rgb(40 35 25 / 0.25);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: var(--header-h);
+  }
+
+  /* ---------- Desktop ---------- */
+  .nav-desktop { display: none; }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .has-menu { position: relative; }
+
+  .nav-link,
+  .nav-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    min-height: 2.75rem;
+    padding: 0;
+    border: 0;
+    background: linear-gradient(currentColor, currentColor) no-repeat left calc(100% - 0.6rem) / 0 1px;
+    color: var(--color-ink);
+    font: 450 var(--text-sm) / 1 var(--font-sans);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-size 0.2s ease;
+  }
+  .nav-link:hover,
+  .nav-link[aria-current='page'],
+  .nav-trigger:hover,
+  .nav-trigger[data-current] {
+    background-size: 100% 1px;
+  }
+  .nav-trigger :global(svg) {
+    width: 0.9rem;
+    height: 0.9rem;
+    transition: transform 0.2s ease;
+  }
+  .nav-trigger[aria-expanded='true'] :global(svg) { transform: rotate(180deg); }
+
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: -1.5rem;
+    width: 19rem;
+    padding: 1.25rem 1.5rem 1rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: 0 16px 40px rgb(30 40 35 / 0.1);
+  }
+  .dropdown-wide {
+    left: 50%;
+    width: 40rem;
+    transform: translateX(-50%);
+  }
+
+  .dropdown-groups { display: grid; gap: 1.5rem; }
+  .dropdown-wide .dropdown-groups { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  .dropdown-heading {
+    margin-bottom: 0.4rem;
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .dropdown-group a {
+    display: flex;
+    align-items: center;
+    min-height: 2.25rem;
+    color: var(--color-ink);
+    font-size: var(--text-sm);
+    text-decoration: none;
+  }
+  .dropdown-group a:hover,
+  .dropdown-group a[aria-current='page'] {
+    color: var(--color-forest);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .dropdown-footer {
+    margin-top: 0.75rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--color-border);
+    width: 100%;
+  }
+
+  /* ---------- Mobile ---------- */
+  .menu-toggle {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-right: -0.5rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+  .menu-toggle :global(svg) { width: 1.5rem; height: 1.5rem; }
+  .menu-toggle .icon-close,
+  .menu-toggle[aria-expanded='true'] .icon-open { display: none; }
+  .menu-toggle[aria-expanded='true'] .icon-close { display: block; }
+
+  .nav-mobile {
+    position: absolute;
+    inset: 100% 0 auto;
+    max-height: calc(100dvh - var(--header-h));
+    overflow-y: auto;
+    background: var(--color-bg);
+    border-block: 1px solid var(--color-border);
+    box-shadow: 0 12px 24px rgb(30 40 35 / 0.08);
+  }
+  .nav-mobile > ul { padding-block: 0.5rem 1.25rem; }
+  .nav-mobile > ul > li:not(.nav-mobile-cta) { border-bottom: 1px solid var(--color-border); }
+
+  .mobile-link,
+  .mobile-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 3.25rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-ink);
+    font: 450 var(--text-base) / 1.2 var(--font-sans);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .mobile-link[aria-current='page'] { font-weight: 600; }
+  .mobile-trigger :global(svg) {
+    width: 1.1rem;
+    height: 1.1rem;
+    transition: transform 0.2s ease;
+  }
+  .mobile-trigger[aria-expanded='true'] :global(svg) { transform: rotate(180deg); }
+
+  .mobile-sub { padding: 0 0 1rem 0.75rem; }
+  .mobile-group + .mobile-group { margin-top: 1rem; }
+  .mobile-group a {
+    display: flex;
+    align-items: center;
+    min-height: 2.75rem;
+    color: var(--color-text);
+    font-size: var(--text-base);
+    text-decoration: none;
+  }
+  .mobile-group a[aria-current='page'] { font-weight: 600; color: var(--color-forest); }
+
+  .nav-mobile-cta { padding-top: 1.25rem; }
+  .nav-mobile-cta .btn { width: 100%; }
+
+  @media (min-width: 56rem) {
+    .nav-desktop {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+    .menu-toggle,
+    .nav-mobile { display: none; }
+  }
+</style>

@@ -1,0 +1,125 @@
+{
+  "productId": "IS-120.2",
+  "name": "i.safe MOBILE IS120.2",
+  "brand": "i.safe MOBILE",
+  "brandSlug": "isafe",
+  "manufacturer": {
+    "name": "i.safe MOBILE GmbH",
+    "country": "Germany",
+    "website": "https://www.isafe-mobile.com"
+  },
+  "type": "dedicated",
+  "formFactor": "feature-phone",
+  "status": "current",
+  "summary": "The i.safe MOBILE IS120.2 is an intrinsically safe (Ex ic) feature phone from i.safe MOBILE, certified for Zone 2/22 under ATEX and IECEx. It runs ISM-OS 11.",
+  "image": "../../assets/phones/isafe-is120-2.webp",
+  "imageAlt": "i.safe MOBILE IS120.2, front view",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ic IIC T4 Gc / II 3D Ex ic IIIC T135°C Dc",
+      "number": "EPS 21 ATEX 1 108 X"
+    },
+    "iecex": {
+      "marking": "Ex ic IIC T4 Gc / Ex ic IIIC T135°C Dc",
+      "number": "IECEx EPS 21.0041X"
+    },
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ic)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gc / Dc",
+    "ambient": "−20 °C to +60 °C"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "Not reviewed"
+  },
+  "os": {
+    "name": "Other",
+    "version": "ISM-OS 11",
+    "atLaunch": "ISM-OS 11 (proprietary; no Google Play)"
+  },
+  "specs": {
+    "display": "2.4-inch Gorilla Glass 3",
+    "chip": "MediaTek MT6761D",
+    "ram": "2 GB",
+    "battery": "2200 mAh",
+    "network": "4G",
+    "wifi": "Wi-Fi",
+    "bluetooth": "Bluetooth 5",
+    "sim": "Dual micro-SIM",
+    "storage": "16 GB, microSD up to 128 GB",
+    "connectivity": [
+      "4G"
+    ],
+    "weightG": 214,
+    "dimensionsMm": "140 × 63 × 26",
+    "partNumbers": "Conrad 3451548"
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Barcode scanning",
+      "value": "Not available"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "os.version": "Proprietary ISM-OS, according to distributor data."
+  },
+  "features": [],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "Certified for ambient temperatures up to +60 °C"
+  ],
+  "limitations": [
+    "Zone 2 only, so not for Zone 1 areas",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C"
+  ],
+  "bestFor": [
+    "zone-2-phones"
+  ],
+  "alternatives": [
+    "bartec-sp9ex2",
+    "ecom-smart-ex-203",
+    "isafe-is360-2"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "IECEx (Bureau Veritas Consumer Products Services Germany GmbH): IECEx EPS 21.0041X issue 1 (2025-05-12, Current) - IS120.2 intrinsically safe Mobile Phone",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/1918998/view"
+    },
+    {
+      "label": "Able Instruments (reseller): IS120.2 listing",
+      "url": "https://ableinstruments.com/?p=111625"
+    },
+    {
+      "label": "i.safe MOBILE (via R. STAHL): IS120.2 operating manual 2021-12-21",
+      "url": "https://r-stahl.com/fileadmin/tx_aimeos/Files/56/18/Asset_2715618.pdf"
+    },
+    {
+      "label": "R. STAHL (distributor): IS120.1 BR data sheet 319868",
+      "url": "https://r-stahl.com/fileadmin/tx_aimeos/Files/n_/gb/SDS_PV_2762260_en_GB/single-data-sheet-smartphone-is120-1-mobiltelephone-set-br-319868-en-gb-rstahl.pdf"
+    },
+    {
+      "label": "Dacpol (distributor): IS120.1 technical features (i.safe data)",
+      "url": "https://www.dacpol.eu/de/10268-telefone-fur-zonen-1-21/product/is1201-mobiltelefon-fuer-zonen-121"
+    }
+  ]
+}

@@ -1,0 +1,190 @@
+{
+  "productId": "PF-SE203",
+  "name": "ecom Smart-Ex 203",
+  "brand": "ecom (Pepperl+Fuchs)",
+  "brandSlug": "ecom",
+  "manufacturer": {
+    "name": "ecom instruments (Pepperl+Fuchs)",
+    "country": "Germany",
+    "website": "https://www.ecom-ex.com"
+  },
+  "type": "dedicated",
+  "formFactor": "smartphone",
+  "status": "current",
+  "summary": "The ecom Smart-Ex 203 is an intrinsically safe (Ex ic) smartphone from ecom (Pepperl+Fuchs), certified for Zone 2/22 under ATEX and IECEx, and for Class I Division 2 in North America. It runs Android 14, with 5G and a user-replaceable battery.",
+  "image": "../../assets/phones/ecom-smart-ex-203.webp",
+  "imageAlt": "ecom Smart-Ex 203, front view",
+  "certification": {
+    "otherSchemes": [
+      "KC 26-KA4BO-0339X (gas) / 0340X (dust)",
+      "IA MASC S/25-8680X",
+      "CML 25JPN2462X"
+    ],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ic IIC T4 Gc / II 3D Ex ic IIIC T135°C Dc",
+      "number": "EPS 25 ATEX 1 131 X"
+    },
+    "iecex": {
+      "marking": "Ex ic IIC T4 Gc / Ex ic IIIC T135°C Dc",
+      "number": "IECEx EPS 25.0034X"
+    },
+    "northAmerica": "Class I Div 2 Groups A-D T4; Class II Div 2 Groups F,G T4; Class I Zone 2 AEx ic IIC T4 Gc; Zone 22 AEx ic IIIC T135°C Dc",
+    "division": "Class I Division 2",
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [
+      "22"
+    ],
+    "protection": "Intrinsic safety (Ex ic)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIC",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gc / Dc",
+    "ambient": "−20 °C to +60 °C (−20 to +50 °C with scanner module)"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "batterySwap": "Outside the hazardous area only",
+    "conditions": "Charging only outside hazardous areas, at +5 to +45 °C; no connections to USB-C port or charging pads in hazardous areas; supply SELV/PELV/ES1, Um 12.6 V, Im 4 A; low mechanical-hazard locations only; avoid high electrostatic charge processes; battery pack, battery cover and USB-C cover replaced only in non-hazardous areas (IECEx EPS 25.0034X)."
+  },
+  "os": {
+    "name": "Android",
+    "version": "Android 14",
+    "securityUntil": "2032-03-31",
+    "securityUntilLabel": "Q1 2032",
+    "updates": "Security updates until Q1 2032",
+    "enterprise": "Android Enterprise Recommended"
+  },
+  "specs": {
+    "display": "6.3-inch TFT",
+    "resolution": "1080 × 2340",
+    "chip": "Qualcomm Dragonwing QCM4490",
+    "ram": "8 GB",
+    "camera": "48 MP AF, LED flash",
+    "frontCamera": "16 MP",
+    "battery": "4500 mAh",
+    "network": "5G",
+    "wifi": "Wi-Fi 6E",
+    "bluetooth": "Bluetooth 5.2",
+    "nfc": "Yes",
+    "gnss": "GPS, GLONASS, Galileo, QZSS, BeiDou",
+    "sim": "nano-SIM + eSIM",
+    "keys": "Programmable PTT / multifunction key (usable as alarm); side fingerprint",
+    "accessories": "USB-C; docking charge pads; extra interface for peripherals (SM-Ex S203 SR scanner)",
+    "biometrics": "Fingerprint (side)",
+    "touch": "Glove + wet",
+    "storage": "128 GB, microSD up to 512 GB",
+    "replaceableBattery": true,
+    "gloveTouch": true,
+    "pttKey": true,
+    "mdm": [
+      "Android Enterprise Recommended"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 6E",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 365,
+    "dimensionsMm": "86 × 177 × 17",
+    "ipRating": "IP68",
+    "ruggedness": "MIL-STD-810H",
+    "operatingTemp": "−20 °C to +60 °C",
+    "cameraFree": true,
+    "partNumbers": "SMART-EX203* (480998-100000)"
+  },
+  "throughCase": [],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Built in (PTT key) + app"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (multifunction key as alarm)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Via accessory (SM-Ex S203 SR, Zebra)"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "capabilities.Lone worker": "Not confirmed by the maker for this exact model."
+  },
+  "features": [
+    "nfc",
+    "camera-48mp",
+    "camera-free",
+    "barcode",
+    "sos-key",
+    "programmable-key",
+    "updates-2030"
+  ],
+  "strengths": [
+    "ATEX and IECEx certified, with published certificate numbers",
+    "Also certified for Class I Division 2 in North America",
+    "Push-to-talk and SOS keys",
+    "Barcode scan module available as an accessory",
+    "5G connectivity"
+  ],
+  "limitations": [
+    "Zone 2 only, so not for Zone 1 areas",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C"
+  ],
+  "bestFor": [
+    "zone-2-phones",
+    "push-to-talk",
+    "5g"
+  ],
+  "alternatives": [
+    "bartec-sp9ex2",
+    "isafe-is530-2",
+    "atexxo-zone-2-galaxy-xcover7-pro"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "IECEx (Bureau Veritas Consumer Products Services Germany GmbH): IECEx EPS 25.0034X issue 1 (2025-11-24, Current) - Instrinsically Safe Smartphone, Type: Smart-Ex 203 DZ2",
+      "url": "https://www.iecex-certs.com/#/deliverables/CERT/1992493/view"
+    },
+    {
+      "label": "Pepperl+Fuchs: Smart-Ex 203 datasheet 480998_eng (release 2026-10-08)",
+      "url": "https://files.pepperl-fuchs.com/webcat/navi/productInfo/pds/480998_eng.pdf"
+    },
+    {
+      "label": "ecom instruments: Release plan for security patches (Smart-Ex 03: Q4 2032; Smart-Ex 203: End of Security Patch Q1/2032)",
+      "url": "https://support.ecom-ex.com/457976005.html"
+    },
+    {
+      "label": "Onedirect UK (reseller): Smart-Ex 203 listing (price)",
+      "url": "https://www.onedirect.co.uk/product/pepperl-fuchs-smart-exr-203-zone-2/22"
+    },
+    {
+      "label": "Onedirect (reseller): Smart-Ex 203 listing, part 480998-100000",
+      "url": "https://www.onedirect.co.uk/product/pepperl-fuchs-smart-exr-203-zone-2/22"
+    },
+    {
+      "label": "officeeasy (reseller, France): Smart-Ex 203 listing: II 3G Ex ic IIC T4 Gc / II 3D Ex ic IIIC T135°C Dc",
+      "url": "https://www.officeeasy.fr/ecom-smart-ex-203.html"
+    },
+    {
+      "label": "Pepperl+Fuchs Japan: Smart-Ex 03 / 203 overview (user-replaceable batteries)",
+      "url": "https://pr.mono.ipros.com/p-f/product/detail/2000528354/"
+    }
+  ]
+}

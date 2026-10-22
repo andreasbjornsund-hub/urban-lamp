@@ -1,0 +1,38 @@
+---
+import InfoPage from '../components/InfoPage.astro';
+import { CONTACT } from '../config/site';
+
+const sections = [
+  {
+    heading: 'Information, not safety advice',
+    html: `<p>This site gives general information about phones for hazardous areas. It does not replace your site's area classification, your risk assessment or the judgement of the person responsible for equipment in your hazardous areas.</p>
+<p>Before taking any device into a hazardous area, check its certificate and conditions of use for your exact model, and follow your site's rules.</p>`,
+  },
+  {
+    heading: 'Accuracy',
+    html: `<p>We check the information against certificates and makers' data, but certificates are reissued, products change and mistakes happen. We cannot guarantee that every detail is complete or current. If you spot an error, <a href="${CONTACT.href}">tell us</a>.</p>`,
+  },
+  {
+    heading: 'Prices and products',
+    html: `<p>Prices quoted in our guides are public reseller list prices, given as a benchmark only, and may have changed. For a quote, contact us or a reseller.</p>`,
+  },
+  {
+    heading: 'Links and sponsorship',
+    html: `<p>Links to other websites are provided for convenience, and we are not responsible for their content. Links to our sponsor are marked as sponsored; see the <a href="/disclosure/">disclosure</a>.</p>`,
+  },
+  {
+    heading: 'Trademarks and content',
+    html: `<p>Product names, logos and trademarks belong to their owners and are used only to identify the products. The text, data and design of this site may not be copied in bulk or republished without permission.</p>`,
+  },
+];
+---
+
+<InfoPage
+  path="/terms/"
+  title="Terms of Use"
+  description="The terms for using intrinsicallysafephones.com: general information only, not safety advice, with how we handle accuracy, prices, links and trademarks."
+  h1="Terms of use"
+  lead="The basis on which this site's information is offered."
+  updated="21 October 2026"
+  sections={sections}
+/>

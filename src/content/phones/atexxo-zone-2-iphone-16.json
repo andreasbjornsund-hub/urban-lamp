@@ -1,0 +1,210 @@
+{
+  "productId": "AX-Z2-IP16",
+  "name": "Atexxo Zone 2 iPhone 16",
+  "brand": "Atexxo",
+  "brandSlug": "atexxo",
+  "manufacturer": {
+    "name": "Atexxo",
+    "country": "Netherlands",
+    "website": "https://atexxo.com"
+  },
+  "type": "conversion",
+  "formFactor": "smartphone",
+  "hostDevice": "Apple iPhone 16",
+  "status": "current",
+  "summary": "The Atexxo Zone 2 iPhone 16 is a standard Apple iPhone 16 converted by Atexxo for hazardous areas, certified for Zone 2/22 under ATEX. It combines increased safety and intrinsic safety (Ex ec ic). The phone runs iOS 27.",
+  "image": "../../assets/phones/atexxo-zone-2-iphone-16.webp",
+  "imageAlt": "Atexxo Zone 2 iPhone 16, front view",
+  "certification": {
+    "otherSchemes": [],
+    "standards": [],
+    "atex": {
+      "marking": "II 3G Ex ec ic IIC T4 Gc / II 3D Ex tc IIIB T135°C Dc",
+      "scope": "Unit assessment: each unit is checked by a notified body. No certificate number is published."
+    },
+    "zonesGas": [
+      "2"
+    ],
+    "zonesDust": [
+      "22"
+    ],
+    "protection": "Increased safety and intrinsic safety (Ex ec ic)",
+    "gasGroup": "IIC",
+    "dustGroup": "IIIB",
+    "tempClass": "T4",
+    "maxSurfaceTemp": "135 °C",
+    "epl": "Gc / Dc"
+  },
+  "safety": {
+    "chargingInZone": false,
+    "charging": "Outside the hazardous area only",
+    "conditions": "Charge in safe area (wired USB-C or wireless). Each unit spark-tested for intrinsically safe circuits (according to the maker's flyer)."
+  },
+  "os": {
+    "name": "iOS",
+    "version": "iOS 27",
+    "atLaunch": "iOS 18",
+    "securityUntil": "2031-09-20",
+    "updates": "Security updates for 7+ years (based on previous model support)",
+    "supportYears": 7,
+    "enterprise": "Apple Business (formerly Apple Business Manager)"
+  },
+  "specs": {
+    "display": "6.1-inch OLED; Dynamic Island; Ceramic Shield",
+    "resolution": "2556 × 1179",
+    "refreshRate": "60 Hz",
+    "brightness": "2,000 nits peak (outdoor)",
+    "chip": "Apple A18",
+    "ram": "8 GB",
+    "camera": "48 MP Fusion + 12 MP ultra wide (macro)",
+    "frontCamera": "12 MP TrueDepth AF",
+    "video": "4K60; spatial video",
+    "battery": "3561 mAh",
+    "batteryLife": "Up to 22 hours of video playback",
+    "port": "USB-C (USB 2)",
+    "wirelessCharging": "MagSafe up to 25 W; Qi2",
+    "network": "5G",
+    "wifi": "Wi-Fi 7",
+    "bluetooth": "Bluetooth 5.3",
+    "nfc": "Yes (Apple Pay + Core NFC tag reading)",
+    "gnss": "GPS, GLONASS, Galileo, QZSS, BeiDou",
+    "sim": "nano-SIM + eSIM (eSIM-only in US)",
+    "keys": "Action Button; Camera Control; side; volume",
+    "accessories": "USB-C",
+    "biometrics": "Face ID",
+    "satellite": "Emergency SOS + Roadside Assistance via satellite (region-dependent)",
+    "uwb": "Yes (2nd gen)",
+    "touch": "Standard capacitive",
+    "apps": "Apple apps; App Store",
+    "storage": "128 GB / 256 GB / 512 GB",
+    "replaceableBattery": false,
+    "gloveTouch": false,
+    "pttKey": false,
+    "mdm": [
+      "Apple Business (formerly Apple Business Manager)"
+    ],
+    "connectivity": [
+      "5G",
+      "Wi-Fi 7",
+      "NFC",
+      "eSIM"
+    ],
+    "weightG": 275,
+    "weightNote": "Including the phone",
+    "dimensionsMm": "90 × 168 × 14",
+    "cameraFree": false,
+    "partNumbers": "MOB-EX-IPH series"
+  },
+  "throughCase": [
+    {
+      "label": "Face ID / fingerprint",
+      "value": "Likely (stated for iPhone 14 Zone 2)"
+    },
+    {
+      "label": "Wireless charging",
+      "value": "Yes (safe area only)"
+    },
+    {
+      "label": "USB-C / Lightning port",
+      "value": "Wired charging via housing (USB-C; Lightning on iPhone 14 models)"
+    },
+    {
+      "label": "SIM card",
+      "value": "Self SIM installation or eSIM"
+    }
+  ],
+  "capabilities": [
+    {
+      "label": "Push-to-talk",
+      "value": "Via app (Push to Talk framework); Action Button mappable if accessible"
+    },
+    {
+      "label": "Emergency / SOS",
+      "value": "Built in (iOS Emergency SOS)"
+    },
+    {
+      "label": "Lone worker",
+      "value": "Via app"
+    },
+    {
+      "label": "Barcode scanning",
+      "value": "Built in (QR via Camera) / Via app (1D/2D)"
+    },
+    {
+      "label": "Thermal imaging",
+      "value": "Not available"
+    },
+    {
+      "label": "NFC reading",
+      "value": "Built in (Core NFC); through-case use not stated"
+    },
+    {
+      "label": "3D scanning",
+      "value": "Via app (camera photogrammetry)"
+    },
+    {
+      "label": "Satellite SOS",
+      "value": "Built in on iPhone; not verified through enclosure"
+    }
+  ],
+  "variants": [],
+  "unconfirmed": {
+    "os.securityUntil": "Apple doesn't publish an end date; its legal minimum is five years from first sale. Previous iPhone models have had security updates for seven years or more.",
+    "specs.satellite": "Listed on Apple's tech specs; availability depends on the country."
+  },
+  "features": [
+    "wireless-charging",
+    "updates-2030"
+  ],
+  "strengths": [
+    "5G connectivity",
+    "Security updates for 7+ years (based on previous model support)",
+    "A standard Apple iPhone 16 inside, with the same apps and Apple device management as other iPhones",
+    "Among the lightest Zone 2 smartphones we list, at 275 g in use"
+  ],
+  "limitations": [
+    "Zone 2 only, so not for Zone 1 areas",
+    "T4 temperature class: fine for most gases, but not those that ignite below 135 °C",
+    "Dust group IIIB: not rated for conductive dust",
+    "Certified by ATEX unit assessment; no certificate number is published",
+    "ATEX only: no IECEx certificate"
+  ],
+  "bestFor": [
+    "zone-2-phones",
+    "iphone",
+    "5g"
+  ],
+  "alternatives": [
+    "xciel-xciphone-14",
+    "xshielder-iphone-17",
+    "isafe-is880-2"
+  ],
+  "sponsor": false,
+  "lastVerified": "2026-10-13",
+  "sources": [
+    {
+      "label": "Apple: iPhone 16 - Technical Specifications (Apple Support, UK)",
+      "url": "https://support.apple.com/en-gb/121029"
+    },
+    {
+      "label": "Apple: Apple Business (formerly Apple Business Manager) user guide",
+      "url": "https://support.apple.com/guide/apple-business-manager/welcome/web"
+    },
+    {
+      "label": "Atexxo (via DirectIndustry): iPhone 16 Zone 2 flyer and MOB-EX-IPH-16 listing",
+      "url": "https://www.directindustry.com/prod/atexxo-bv/product-160752-2782886.html"
+    },
+    {
+      "label": "Atexxo (via DirectIndustry): iPhone 16 Zone 2 listing (T135°C)",
+      "url": "https://www.directindustry.com/prod/atexxo-bv/product-160752-2782886.html"
+    },
+    {
+      "label": "Android Authority: Apple UK PSTI statement: minimum 5 years security updates from first supply",
+      "url": "https://www.androidauthority.com/iphone-software--commitment-3449135"
+    },
+    {
+      "label": "RHINOSHIELD: iPhone 15 vs iPhone 16 - weight and video playback",
+      "url": "https://en.service.rhinoshield.co.th/blogs/news/iphone-15-vs-iphone-16"
+    }
+  ]
+}

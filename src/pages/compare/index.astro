@@ -1,0 +1,932 @@
+---
+import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Icon from '../../components/Icon.astro';
+import { SITE, CONTACT, FIND_PHONES } from '../../config/site';
+import { COMPARE_PAGES, comparePage } from '../../data/compare-pages';
+import { compareTeaser } from '../../lib/compare-teaser';
+import { logo } from '../../lib/brand-logos';
+import { zoneLabel, type Phone } from '../../lib/phones';
+
+/*
+ * Hub for the head-to-head pages. A picker of two phones shows the teaser of their head-to-head (our verdict, the key
+ * differences and the first reason to choose each phone) and links to the full page; teasers for other pairs are
+ * fetched from /compare-teasers.json. Only phones with a head-to-head can be picked, and the second list holds only
+ * phones that have a page with the first. Below it every head-to-head is listed as a plain link, grouped by phone, so
+ * all pages stay linked from the hub without JavaScript. Order is neutral: phones alphabetical everywhere, and the
+ * default pair has no sponsor product in it.
+ */
+const DEFAULT_PAIR = ['ecom-smart-ex-03-dz1', 'isafe-is540-1'] as const;
+
+const title = 'Compare Intrinsically Safe & Explosion-Proof Phones';
+const description =
+  'Head-to-head comparisons of intrinsically safe and explosion-proof phones for Zone 1 and 2, with our pick for each team, plus a tool to compare any models.';
+if (title.length > 60) throw new Error(`/compare/: title is ${title.length} characters (max 60)`);
+if (description.length > 160) throw new Error(`/compare/: description is ${description.length} characters (max 160)`);
+
+const url = `${SITE.url}/compare/`;
+const all = await getCollection('phones');
+const byId = new Map(all.map((p) => [p.id, p]));
+const phone = (id: string, slug: string) => {
+  const p = byId.get(id);
+  if (!p) throw new Error(`/compare/${slug}/: no phone called "${id}"`);
+  return p;
+};
+
+const byName = (a: string, b: string) => a.localeCompare(b, 'en', { sensitivity: 'base', numeric: true });
+
+const pairs = COMPARE_PAGES.map((page) => {
+  const phones = page.phones.map((id) => phone(id, page.slug)) as [Phone, Phone];
+  return { page, href: `/compare/${page.slug}/`, phones, name: phones.map((p) => p.data.name).join(' vs ') };
+}).sort((a, b) => byName(a.name, b.name));
+
+/** Every phone in a head-to-head, alphabetical, each with the phones it has a page against (also alphabetical) */
+const contenders = [...new Set(pairs.flatMap((p) => p.phones))]
+  .sort((a, b) => byName(a.data.name, b.data.name))
+  .map((p) => ({
+    phone: p,
+    partners: pairs
+      .filter((pair) => pair.phones.includes(p))
+      .map((pair) => ({ phone: pair.phones.find((x) => x !== p)!, href: pair.href }))
+      .sort((a, b) => byName(a.phone.data.name, b.phone.data.name)),
+  }));
+
+/* ---------- Picker: the default pair and the data the script needs to switch phones ---------- */
+const defaultPage = comparePage(...DEFAULT_PAIR);
+if (!defaultPage) throw new Error(`/compare/: no head-to-head for the default pair ${DEFAULT_PAIR.join(' and ')}`);
+const defaultPhones = DEFAULT_PAIR.map((id) => phone(id, defaultPage.slug)) as [Phone, Phone];
+if (defaultPhones.some((p) => p.data.sponsor)) throw new Error('/compare/: the default pair must not include a sponsor product');
+const teaser = compareTeaser(defaultPage, defaultPage.phones.map((id) => phone(id, defaultPage.slug)) as [Phone, Phone]);
+/** Teaser columns follow the picker order */
+const column = DEFAULT_PAIR.map((id) => teaser.phones.indexOf(id));
+
+/** Product photo (large, plus a thumbnail for the phone menus), or the brand logo for a phone without one */
+async function photo(p: Phone) {
+  const image = p.data.image;
+  if (image) {
+    const size = async (w: number) => (await getImage({ src: image, width: w, height: w, fit: 'contain', format: 'webp' })).src;
+    return { src: await size(640), thumb: await size(128), logo: false };
+  }
+  const l = logo('brands', p.data.brandSlug);
+  return l ? { src: l.src, thumb: l.src, logo: true } : undefined;
+}
+type Photo = Awaited<ReturnType<typeof photo>>;
+
+const pickerPhones = Object.fromEntries(
+  await Promise.all(
+    contenders.map(async ({ phone: p, partners }) => [
+      p.id,
+      { name: p.data.name, zone: zoneLabel(p), photo: await photo(p), partners: partners.map((x) => x.phone.id) },
+    ]),
+  ),
+) as Record<string, { name: string; zone: string; photo: Photo; partners: string[] }>;
+const pickerData = JSON.stringify({ phones: pickerPhones, default: DEFAULT_PAIR }).replace(/</g, '\\u003c');
+const slots = defaultPhones.map((p, i) => ({
+  phone: p,
+  photo: pickerPhones[p.id].photo,
+  label: i === 0 ? 'Phone' : 'Compared with',
+  which: i === 0 ? 'first' : 'second',
+  menuTitle: i === 0 ? 'Choose a phone' : 'Compare it with',
+  menuNote: i === 0 ? undefined : `Phones we have compared with the ${defaultPhones[0].data.name}`,
+  options: (i === 0 ? contenders.map((c) => c.phone) : contenders.find((c) => c.phone === defaultPhones[0])!.partners.map((x) => x.phone)).map(
+    (o) => ({ phone: o, photo: pickerPhones[o.id].photo }),
+  ),
+}));
+
+const verifiedDate = new Date(Math.max(...contenders.map((c) => c.phone.data.lastVerified.getTime())));
+const verifiedIso = verifiedDate.toISOString().slice(0, 10);
+
+/* ---------- Structured data ---------- */
+const schema = [
+  {
+    '@type': 'CollectionPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: title,
+    description,
+    isPartOf: { '@id': `${SITE.url}/#website` },
+    dateModified: verifiedIso,
+    mainEntity: {
+      '@type': 'ItemList',
+      name: 'Head-to-head phone comparisons',
+      itemListOrder: 'https://schema.org/ItemListUnordered',
+      numberOfItems: pairs.length,
+      itemListElement: pairs.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.name, url: `${SITE.url}${p.href}` })),
+    },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { name: 'Home', item: `${SITE.url}/` },
+      { name: 'Compare', item: url },
+    ].map((b, i) => ({ '@type': 'ListItem', position: i + 1, ...b })),
+  },
+];
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <!-- Hero: pick two phones, see the teaser of their head-to-head -->
+  <section class="compare-hero" aria-labelledby="compare-title">
+    <div class="container">
+      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Compare', href: '' }]} />
+
+      <div class="hero-copy">
+        <p class="eyebrow">Compare</p>
+        <h1 id="compare-title">Compare intrinsically safe and <span class="nowrap">explosion-proof</span> phones</h1>
+        <p class="lead">
+          Pick two phones to see our verdict and the differences that decide between them, then read the full
+          head-to-head. Every figure comes from certificates and maker data, and the same rules apply to every brand.
+        </p>
+      </div>
+
+      <div class="compare-tool" data-picker>
+        <script type="application/json" id="picker-data" set:html={pickerData} />
+        <div class="picker" role="group" aria-label="Choose two phones to compare">
+          {slots.map((s, i) => (
+            <>
+              {i === 1 && <span class="picker-vs" aria-hidden="true">vs</span>}
+              <div class="slot" data-slot={i}>
+                <span class="slot-photo" aria-hidden="true">
+                  <img
+                    data-photo
+                    class:list={{ 'is-logo': s.photo?.logo }}
+                    src={s.photo?.src}
+                    alt=""
+                    width="320"
+                    height="320"
+                    hidden={!s.photo}
+                  />
+                </span>
+                <p class="slot-label">{s.label}</p>
+                <p class="slot-name" data-name>{s.phone.data.name}</p>
+                <p class="slot-zone" data-zone>{zoneLabel(s.phone)}</p>
+                <button
+                  type="button"
+                  class="btn btn-secondary slot-change"
+                  popovertarget={`menu-${i}`}
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                  aria-label={`Change the ${s.which} phone, now ${s.phone.data.name}`}
+                  data-change
+                >
+                  Change phone
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 15 5 5 5-5" /><path d="m7 9 5-5 5 5" /></svg>
+                </button>
+
+                <div class="menu" id={`menu-${i}`} popover data-menu>
+                  <div class="menu-head">
+                    <div>
+                      <p class="menu-title" id={`menu-title-${i}`}>{s.menuTitle}</p>
+                      {i === 1 && <p class="menu-note" data-menu-note>{s.menuNote}</p>}
+                    </div>
+                    <button type="button" class="menu-close" popovertarget={`menu-${i}`} popovertargetaction="hide" aria-label="Close">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+                    </button>
+                  </div>
+                  <ul class="menu-list" role="listbox" tabindex="-1" aria-labelledby={`menu-title-${i}`} data-list>
+                    {s.options.map((o) => (
+                      <li class="opt" role="option" id={`opt-${i}-${o.phone.id}`} data-value={o.phone.id} aria-selected={o.phone === s.phone ? 'true' : 'false'}>
+                        <span class="opt-thumb" aria-hidden="true">
+                          {o.photo && <img class:list={{ 'is-logo': o.photo.logo }} src={o.photo.thumb} alt="" width="64" height="64" loading="lazy" />}
+                        </span>
+                        <span class="opt-text">
+                          <span class="opt-name">{o.phone.data.name}</span>
+                          <span class="opt-zone">{zoneLabel(o.phone)}</span>
+                        </span>
+                        <svg class="opt-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </>
+          ))}
+        </div>
+
+        <div class="teaser" data-teaser>
+          <p class="visually-hidden" aria-live="polite" data-t-status></p>
+          <p class="eyebrow">Our verdict</p>
+          <h2 class="teaser-title" data-t-title>{teaser.title}</h2>
+          <div data-t-body>
+            <p class="teaser-summary" data-t-summary>{teaser.summary}</p>
+
+            <h3 class="teaser-sub">Key differences</h3>
+            <table class="diff-table">
+              <thead>
+                <tr>
+                  <td></td>
+                  {column.map((c) => <th scope="col" data-t-head>{byId.get(teaser.phones[c])!.data.name}</th>)}
+                </tr>
+              </thead>
+              <tbody data-t-diffs>
+                {teaser.differences.map((d) => (
+                  <tr>
+                    <th scope="row">{d.title}</th>
+                    {column.map((c) => {
+                      const v = d.values[c];
+                      return (
+                        <td class:list={{ unknown: !v.known }} data-label={byId.get(teaser.phones[c])!.data.name}>
+                          {v.value}
+                          {v.unconfirmed && <span class="unconfirmed"> (unconfirmed)</span>}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <div class="teaser-choose" data-t-choose>
+              {column.map((c) => (
+                <div class="choice">
+                  <h3>Choose the {byId.get(teaser.phones[c])!.data.name} if…</h3>
+                  <p>{teaser.reasons[c]}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <a class="btn btn-primary teaser-link" href={teaser.href} data-t-link>
+            Read the full comparison <Icon name="arrow-right" />
+          </a>
+        </div>
+      </div>
+
+      <p class="any-line">
+        Want two phones we haven’t paired? Add up to four from <a href={FIND_PHONES.href}>Find phones</a> and line them
+        up side by side in the compare bar.
+      </p>
+    </div>
+  </section>
+
+  <!-- Every head-to-head as a plain link, grouped by phone -->
+  <section id="all" class="band band-white" aria-labelledby="all-title">
+    <div class="container">
+      <p class="eyebrow">Head to head</p>
+      <h2 id="all-title" class="h2">All {pairs.length} head-to-head comparisons</h2>
+      <p class="section-lead">
+        Each one ends with which phone we would choose for which team. The two phones are named in alphabetical order,
+        and the same rules apply to every brand. See our <a href="/disclosure/">disclosure</a> for how the site is
+        funded.
+      </p>
+
+      <details class="all-list">
+        <summary>Browse all {pairs.length}, by phone <Icon name="chevron-down" /></summary>
+        <div class="by-phone">
+          {contenders.map(({ phone: p, partners }) => (
+            <section class="phone-group" aria-labelledby={`all-${p.id}`}>
+              <h3 id={`all-${p.id}`}><a href={`/phones/${p.id}/`}>{p.data.name}</a></h3>
+              <ul>
+                {partners.map((x) => (
+                  <li>
+                    <a href={x.href}><span class="visually-hidden">{p.data.name}{' '}</span>vs {x.phone.data.name}</a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Call to action -->
+  <section class="band cta" aria-labelledby="cta-title">
+    <svg class="cta-contours" viewBox="0 0 600 260" aria-hidden="true" focusable="false" preserveAspectRatio="xMaxYMid slice">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M420 130c0-48 46-92 104-92s92 40 92 92-38 96-96 96-100-48-100-96Z" />
+        <path d="M380 132c0-70 64-128 146-128s126 58 126 128-54 134-136 134-136-64-136-134Z" />
+        <path d="M340 134c0-92 82-166 186-166s162 76 162 166-70 172-174 172-174-80-174-172Z" />
+        <path d="M300 136c0-114 100-204 226-204s198 94 198 204-86 210-212 210-212-96-212-210Z" />
+      </g>
+    </svg>
+    <div class="container cta-inner">
+      <div>
+        <p class="eyebrow">Impartial advice</p>
+        <h2 id="cta-title" class="h2">Not sure which phones to compare?</h2>
+        <p class="cta-text">
+          Your zones, gas groups and temperature class decide which phones qualify, and the work your teams do decides
+          between them. Tell us about your site and we will help you build a shortlist impartially.
+        </p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-light" href={CONTACT.href}>Ask us for impartial advice <Icon name="arrow-right" /></a>
+        <a class="btn btn-outline-light" href={FIND_PHONES.href}>Find phones</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import type { Teaser } from '../../lib/compare-teaser';
+
+  interface PickerPhone {
+    name: string;
+    zone: string;
+    photo?: { src: string; thumb: string; logo: boolean };
+    partners: string[];
+  }
+
+  const root = document.querySelector<HTMLElement>('[data-picker]');
+  const dataEl = document.getElementById('picker-data');
+  if (root && dataEl) {
+    const data = JSON.parse(dataEl.textContent ?? '{}') as { phones: Record<string, PickerPhone>; default: [string, string] };
+    const values = [...data.default] as [string, string];
+    const slots = [...root.querySelectorAll<HTMLElement>('[data-slot]')];
+    const menus = slots.map((s) => s.querySelector<HTMLElement>('[data-menu]')!);
+    const lists = slots.map((s) => s.querySelector<HTMLElement>('[data-list]')!);
+    const buttons = slots.map((s) => s.querySelector<HTMLButtonElement>('[data-change]')!);
+    const WHICH = ['first', 'second'];
+    const desktop = matchMedia('(min-width: 40rem)');
+    const q = <T extends Element = HTMLElement>(sel: string) => root.querySelector<T>(sel)!;
+    const status = q('[data-t-status]');
+    const teaserEl = q('[data-teaser]');
+    const slugFor = (a: string, b: string) => [a, b].sort().join('-vs-');
+
+    const el = (tag: string, text?: string, cls?: string) => {
+      const e = document.createElement(tag);
+      if (text !== undefined) e.textContent = text;
+      if (cls) e.className = cls;
+      return e;
+    };
+
+    let teasers: Promise<Record<string, Teaser>> | undefined;
+    const loadTeasers = () =>
+      (teasers ??= fetch('/compare-teasers.json')
+        .then((r) => {
+          if (!r.ok) throw new Error(`compare-teasers.json: ${r.status}`);
+          return r.json();
+        })
+        .catch((e) => {
+          teasers = undefined;
+          throw e;
+        }));
+    // Start the download as soon as someone heads for the picker
+    root.addEventListener('pointerenter', () => loadTeasers().catch(() => {}), { once: true });
+    root.addEventListener('focusin', () => loadTeasers().catch(() => {}), { once: true });
+
+    /* ---------- Phone menus: a listbox in a popover, focus stays on the list and moves with aria-activedescendant ---------- */
+    const options = (i: number) => [...lists[i].querySelectorAll<HTMLElement>('[role="option"]')];
+    const active = [0, 0];
+
+    function optionEl(i: number, id: string) {
+      const p = data.phones[id];
+      const li = el('li', undefined, 'opt');
+      li.setAttribute('role', 'option');
+      li.id = `opt-${i}-${id}`;
+      li.dataset.value = id;
+      li.setAttribute('aria-selected', String(id === values[i]));
+      const thumb = el('span', undefined, 'opt-thumb');
+      thumb.setAttribute('aria-hidden', 'true');
+      if (p.photo) {
+        const img = new Image(64, 64);
+        img.src = p.photo.thumb;
+        img.alt = '';
+        img.loading = 'lazy';
+        if (p.photo.logo) img.className = 'is-logo';
+        thumb.append(img);
+      }
+      const text = el('span', undefined, 'opt-text');
+      text.append(el('span', p.name, 'opt-name'), el('span', p.zone, 'opt-zone'));
+      const check = lists[i].querySelector('.opt-check')?.cloneNode(true);
+      li.append(thumb, text, ...(check ? [check] : []));
+      return li;
+    }
+
+    /** The second menu lists only the phones with a head-to-head against the first */
+    function fillSecond() {
+      lists[1].replaceChildren(...data.phones[values[0]].partners.map((id) => optionEl(1, id)));
+      const note = menus[1].querySelector('[data-menu-note]');
+      if (note) note.textContent = `Phones we have compared with the ${data.phones[values[0]].name}`;
+    }
+    const markSelected = (i: number) =>
+      options(i).forEach((o) => o.setAttribute('aria-selected', String(o.dataset.value === values[i])));
+
+    function setActive(i: number, index: number, scroll = true) {
+      const opts = options(i);
+      active[i] = Math.max(0, Math.min(opts.length - 1, index));
+      opts.forEach((o, k) => o.classList.toggle('is-active', k === active[i]));
+      lists[i].setAttribute('aria-activedescendant', opts[active[i]].id);
+      if (scroll) opts[active[i]].scrollIntoView({ block: 'nearest' });
+    }
+
+    /** Under the button on wider screens (above it when there's no room); a bottom sheet on phones, set in CSS */
+    function position(i: number) {
+      const m = menus[i];
+      m.style.removeProperty('top');
+      m.style.removeProperty('bottom');
+      m.style.removeProperty('left');
+      m.style.removeProperty('max-height');
+      if (!desktop.matches) return;
+      const r = buttons[i].getBoundingClientRect();
+      const w = Math.min(24 * 16, innerWidth - 32);
+      const below = innerHeight - r.bottom - 16;
+      m.style.left = `${Math.max(16, Math.min(r.left + r.width / 2 - w / 2, innerWidth - w - 16))}px`;
+      if (below >= 320 || below >= r.top) {
+        m.style.top = `${r.bottom + 8}px`;
+        m.style.maxHeight = `${below - 8}px`;
+      } else {
+        m.style.bottom = `${innerHeight - r.top + 8}px`;
+        m.style.maxHeight = `${r.top - 24}px`;
+      }
+    }
+
+    function choose(i: number, id: string) {
+      menus[i].hidePopover();
+      buttons[i].focus();
+      if (id === values[i]) return;
+      values[i] = id;
+      if (i === 0) {
+        // A choice that still has a page against the new first phone is kept
+        const partners = data.phones[id].partners;
+        if (!partners.includes(values[1])) values[1] = partners[0];
+        fillSecond();
+      }
+      markSelected(0);
+      markSelected(1);
+      update();
+    }
+
+    menus.forEach((menu, i) => {
+      const list = lists[i];
+      menu.addEventListener('beforetoggle', (e) => {
+        if ((e as ToggleEvent).newState === 'open') position(i);
+      });
+      menu.addEventListener('toggle', (e) => {
+        const open = (e as ToggleEvent).newState === 'open';
+        buttons[i].setAttribute('aria-expanded', String(open));
+        if (open) {
+          setActive(i, options(i).findIndex((o) => o.dataset.value === values[i]));
+          list.focus({ preventScroll: true });
+        }
+      });
+      list.addEventListener('click', (e) => {
+        const o = (e.target as Element).closest<HTMLElement>('[role="option"]');
+        if (o?.dataset.value) choose(i, o.dataset.value);
+      });
+      list.addEventListener('pointermove', (e) => {
+        const o = (e.target as Element).closest<HTMLElement>('[role="option"]');
+        if (o) setActive(i, options(i).indexOf(o), false);
+      });
+      list.addEventListener('keydown', (e) => {
+        const opts = options(i);
+        const go = (index: number) => {
+          e.preventDefault();
+          setActive(i, index);
+        };
+        if (e.key === 'ArrowDown') go(active[i] + 1);
+        else if (e.key === 'ArrowUp') go(active[i] - 1);
+        else if (e.key === 'Home' || e.key === 'PageUp') go(0);
+        else if (e.key === 'End' || e.key === 'PageDown') go(opts.length - 1);
+        else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          choose(i, opts[active[i]].dataset.value!);
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          menu.hidePopover();
+          buttons[i].focus();
+        } else if (e.key === 'Tab') menu.hidePopover();
+        else if (e.key.length === 1 && /\S/.test(e.key)) {
+          // Type-ahead: the next phone whose name starts with that letter
+          const k = e.key.toLowerCase();
+          const order = [...opts.slice(active[i] + 1), ...opts.slice(0, active[i] + 1)];
+          const hit = order.find((o) => o.querySelector('.opt-name')?.textContent?.toLowerCase().startsWith(k));
+          if (hit) go(opts.indexOf(hit));
+        }
+      });
+    });
+    const reposition = () => menus.forEach((m, i) => m.matches(':popover-open') && position(i));
+    addEventListener('resize', reposition);
+    addEventListener('scroll', reposition, { passive: true });
+
+    /* ---------- Slots and teaser ---------- */
+    function showSlot(i: number, id: string) {
+      const p = data.phones[id];
+      const slot = slots[i];
+      const img = slot.querySelector<HTMLImageElement>('[data-photo]')!;
+      img.hidden = !p.photo;
+      if (p.photo && img.getAttribute('src') !== p.photo.src) {
+        img.src = p.photo.src;
+        img.classList.toggle('is-logo', p.photo.logo);
+        img.animate?.([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 280, easing: 'ease-out' });
+      }
+      slot.querySelector('[data-name]')!.textContent = p.name;
+      slot.querySelector('[data-zone]')!.textContent = p.zone;
+      buttons[i].setAttribute('aria-label', `Change the ${WHICH[i]} phone, now ${p.name}`);
+    }
+
+    function render(t: Teaser, ids: [string, string]) {
+      const column = ids.map((id) => t.phones.indexOf(id));
+      const names = ids.map((id) => data.phones[id].name);
+      q('[data-t-title]').textContent = t.title;
+      q('[data-t-summary]').textContent = t.summary;
+      root!.querySelectorAll('[data-t-head]').forEach((th, i) => (th.textContent = names[i]));
+      q('[data-t-diffs]').replaceChildren(
+        ...t.differences.map((d) => {
+          const tr = el('tr');
+          const th = el('th', d.title);
+          th.setAttribute('scope', 'row');
+          tr.append(th);
+          column.forEach((c, i) => {
+            const v = d.values[c];
+            const td = el('td', v.value, v.known ? '' : 'unknown');
+            td.dataset.label = names[i];
+            if (v.unconfirmed) td.append(el('span', ' (unconfirmed)', 'unconfirmed'));
+            tr.append(td);
+          });
+          return tr;
+        }),
+      );
+      q('[data-t-choose]').replaceChildren(
+        ...column.map((c, i) => {
+          const div = el('div', undefined, 'choice');
+          div.append(el('h3', `Choose the ${names[i]} if…`), el('p', t.reasons[c]));
+          return div;
+        }),
+      );
+      q('[data-t-body]').hidden = false;
+    }
+
+    let latest = 0;
+    async function update() {
+      const ids = [...values] as [string, string];
+      ids.forEach((id, i) => showSlot(i, id));
+      const slug = slugFor(...ids);
+      q<HTMLAnchorElement>('[data-t-link]').href = `/compare/${slug}/`;
+
+      const isDefault = ids.join() === data.default.join();
+      const params = new URLSearchParams(isDefault ? '' : { a: ids[0], b: ids[1] });
+      history.replaceState(null, '', `${location.pathname}${params.size ? `?${params}` : ''}${location.hash}`);
+
+      const call = ++latest;
+      teaserEl.setAttribute('aria-busy', 'true');
+      try {
+        const all = await loadTeasers();
+        if (call !== latest) return;
+        render(all[slug], ids);
+      } catch {
+        if (call !== latest) return;
+        // Without the teasers the link still works: show the pair's name and the button only
+        q('[data-t-title]').textContent = ids.map((id) => data.phones[id].name).join(' vs ');
+        q('[data-t-body]').hidden = true;
+      }
+      teaserEl.removeAttribute('aria-busy');
+      status.textContent = `Showing ${ids.map((id) => data.phones[id].name).join(' vs ')}`;
+    }
+
+    // A shared link (?a=…&b=…) opens on that pair; an unknown phone is ignored, an unpaired second one replaced
+    const params = new URLSearchParams(location.search);
+    const a = params.get('a');
+    const b = params.get('b');
+    if (a && data.phones[a]) {
+      const partners = data.phones[a].partners;
+      const next = [a, b && partners.includes(b) ? b : partners[0]];
+      if (next.join() !== values.join()) {
+        values.splice(0, 2, ...next);
+        fillSecond();
+        markSelected(0);
+        update();
+      }
+    }
+  }
+</script>
+
+<style>
+  /* ---------- Hero ---------- */
+  .compare-hero {
+    padding-block: 0.5rem 3.5rem;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgb(245 158 11 / 0.06), transparent 60%),
+      radial-gradient(1000px 500px at 10% 30%, rgb(34 197 94 / 0.05), transparent 55%),
+      var(--paper-grain);
+    background-size: auto, auto, 3px 3px;
+  }
+  .hero-copy { margin-top: 1rem; }
+  .hero-copy h1 {
+    font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: var(--tracking-hero);
+    max-width: 48rem;
+  }
+  .hero-copy .lead { margin-top: 1.25rem; max-width: 42rem; }
+  .nowrap { white-space: nowrap; }
+
+  /* ---------- Picker: the two phones on stage, unboxed ---------- */
+  .compare-tool { --photo: 9rem; margin-top: 2.5rem; }
+  .picker {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: stretch;
+    column-gap: 0.25rem;
+  }
+  .picker-vs {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-top: calc(var(--photo) / 2 - 1.125rem);
+    border-radius: 50%;
+    background: var(--color-forest);
+    color: var(--color-on-dark);
+    box-shadow: 0 0 0 4px var(--color-bg);
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .slot { display: flex; flex-direction: column; align-items: center; min-width: 0; text-align: center; }
+  .slot:first-child { grid-column: 1; }
+  .slot:last-child { grid-column: 3; }
+
+  /* A soft glow behind each phone and a shadow under it, instead of a box */
+  .slot-photo { position: relative; display: grid; place-items: center; width: var(--photo); aspect-ratio: 1; }
+  .slot-photo::before {
+    content: '';
+    position: absolute;
+    inset: 4% 6% 8%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(30 58 47 / 0.12), rgb(245 158 11 / 0.06) 55%, transparent);
+  }
+  .slot-photo::after {
+    content: '';
+    position: absolute;
+    left: 26%;
+    right: 26%;
+    bottom: 2%;
+    height: 7%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(20 30 25 / 0.22), transparent);
+  }
+  .slot-photo:has(.is-logo)::after { display: none; }
+  .slot-photo img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; }
+  .slot-photo img.is-logo { width: 62%; height: auto; }
+  .slot-label {
+    margin-top: 0.85rem;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .slot-name {
+    margin-top: 0.2rem;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: var(--tracking-heading);
+    color: var(--color-heading);
+    overflow-wrap: anywhere;
+  }
+  .slot-zone { margin: 0.2rem 0 0.9rem; font-size: var(--text-xs); color: var(--color-muted); }
+  /* Pinned to the bottom so both buttons line up when one name wraps */
+  .slot-change {
+    margin-top: auto;
+    padding-inline: 0.9rem;
+    background: var(--color-panel);
+    font-weight: 600;
+    box-shadow: var(--shadow-card);
+  }
+  .slot-change svg { width: 1.05rem; height: 1.05rem; }
+  .slot-change:hover svg { transform: none; }
+  .slot-change[aria-expanded='true'] { background: var(--color-forest); color: var(--color-on-dark); }
+
+  /* ---------- Phone menu (a popover in the top layer; rows are re-rendered by the script, hence :global) ---------- */
+  .menu {
+    position: fixed;
+    inset: auto;
+    width: min(24rem, calc(100vw - 2rem));
+    max-height: 70vh;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+    color: var(--color-ink);
+    text-align: left;
+    box-shadow: 0 16px 40px rgb(20 30 25 / 0.18), 0 2px 6px rgb(20 30 25 / 0.08);
+    overflow: hidden;
+  }
+  .menu:popover-open { display: flex; flex-direction: column; }
+  .menu-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 0.5rem 0.75rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .menu-title { font-family: var(--font-display); font-weight: 600; color: var(--color-heading); }
+  .menu-note { margin-top: 0.15rem; font-size: var(--text-xs); color: var(--color-muted); }
+  .menu-close {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-top: -0.4rem;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: none;
+    color: var(--color-muted);
+    cursor: pointer;
+  }
+  .menu-close:hover { background: var(--color-panel-warm); color: var(--color-ink); }
+  .menu-close svg { width: 1.1rem; height: 1.1rem; }
+  .menu-list { flex: 1; min-height: 0; padding: 0.375rem; overflow-y: auto; overscroll-behavior: contain; outline: none; }
+  .menu-list :global(.opt) {
+    display: grid;
+    grid-template-columns: 3.25rem minmax(0, 1fr) 1.25rem;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 3.75rem;
+    padding: 0.35rem 0.6rem 0.35rem 0.35rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .menu-list :global(.opt.is-active) { background: var(--color-panel-warm); }
+  .menu-list:focus-visible :global(.opt.is-active) { outline: 2px solid var(--color-forest); outline-offset: -2px; }
+  .menu-list :global(.opt-thumb) {
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    background: radial-gradient(ellipse 60% 70% at 50% 58%, #f1eee7 0%, #f7f5f0 45%, #fff 80%);
+  }
+  .menu-list :global(.opt-thumb img) { width: 100%; height: 100%; object-fit: contain; padding: 0.15rem; }
+  .menu-list :global(.opt-thumb img.is-logo) { width: 70%; height: auto; padding: 0; }
+  .menu-list :global(.opt-text) { display: flex; flex-direction: column; min-width: 0; }
+  .menu-list :global(.opt-name) { font-weight: 600; line-height: 1.3; color: var(--color-ink); }
+  .menu-list :global(.opt-zone) { font-size: var(--text-xs); color: var(--color-muted); }
+  .menu-list :global(.opt-check) { width: 1.1rem; height: 1.1rem; color: var(--color-forest); visibility: hidden; }
+  .menu-list :global(.opt[aria-selected='true'] .opt-check) { visibility: visible; }
+  .menu-list :global(.opt[aria-selected='true'] .opt-name) { color: var(--color-forest); }
+
+  /* Phones: the menu is a bottom sheet */
+  @media (max-width: 39.99rem) {
+    .menu {
+      inset: auto 0 0 0;
+      width: 100%;
+      max-width: none;
+      max-height: 80vh;
+      border-radius: 12px 12px 0 0;
+      border-bottom: 0;
+    }
+    .menu::backdrop { background: rgb(20 30 25 / 0.4); }
+  }
+
+  /* ---------- Teaser ---------- */
+  .teaser {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1rem 1.5rem;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius);
+    background: var(--color-panel);
+    box-shadow: var(--shadow-card);
+    transition: opacity 0.15s ease;
+  }
+  .teaser[aria-busy='true'] { opacity: 0.55; }
+  .teaser-title { margin-top: 0.25rem; font-size: var(--text-h3); }
+  .teaser-summary { margin-top: 0.75rem; max-width: 46rem; }
+  .teaser-sub { margin-top: 1.75rem; font-size: var(--text-base); }
+
+  /* Rows and choice cards are re-rendered by the script, without Astro's scope attribute, hence :global() */
+  .diff-table { width: 100%; margin-top: 0.75rem; border-collapse: collapse; table-layout: fixed; font-size: var(--text-sm); }
+  .diff-table thead th {
+    padding: 0 0.75rem 0.5rem;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-muted);
+    text-align: left;
+    vertical-align: bottom;
+  }
+  .diff-table tbody :global(tr) { border-top: 1px solid var(--color-border); }
+  .diff-table tbody :global(th) { padding: 0.6rem 0.75rem 0.6rem 0; font-weight: 600; text-align: left; vertical-align: top; }
+  .diff-table :global(td) { padding: 0.6rem 0.75rem; vertical-align: top; overflow-wrap: anywhere; }
+  .diff-table :global(td.unknown) { color: var(--color-muted); }
+  .diff-table :global(.unconfirmed) { font-size: var(--text-xs); color: var(--color-muted); white-space: nowrap; }
+
+  .teaser-choose { display: grid; gap: 0.75rem; margin-top: 1.75rem; }
+  .teaser-choose :global(.choice) {
+    padding: 1rem;
+    border: 1px solid var(--color-panel-border);
+    border-left: 3px solid var(--color-forest);
+    border-radius: var(--radius);
+    background: var(--color-panel-warm);
+  }
+  .teaser-choose :global(h3) { font-size: var(--text-base); line-height: 1.3; }
+  .teaser-choose :global(p) { margin-top: 0.4rem; font-size: var(--text-sm); }
+  .teaser-link { margin-top: 1.5rem; }
+
+  .any-line { margin-top: 1.25rem; font-size: var(--text-sm); color: var(--color-muted); }
+  .any-line a { color: var(--color-forest); font-weight: 600; }
+
+  /* Phones: each difference stacks, with the phone's name above its value */
+  @media (max-width: 39.99rem) {
+    .diff-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    .diff-table tbody :global(tr) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1rem; padding-block: 0.6rem; }
+    .diff-table tbody :global(th) { grid-column: 1 / -1; padding: 0 0 0.3rem; }
+    .diff-table :global(td) { padding: 0; }
+    .diff-table :global(td)::before {
+      content: attr(data-label);
+      display: block;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--color-muted);
+    }
+  }
+
+  /* ---------- All head-to-heads ---------- */
+  .section-lead { max-width: 44rem; margin-top: 1rem; }
+  .section-lead a { color: var(--color-forest); }
+
+  .all-list { margin-top: 1.75rem; }
+  .all-list summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-forest);
+    border-radius: var(--radius);
+    color: var(--color-forest);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .all-list summary::-webkit-details-marker { display: none; }
+  .all-list summary:hover { background: var(--color-forest); color: var(--color-on-dark); }
+  .all-list summary :global(svg) { width: 1rem; height: 1rem; transition: transform 0.15s ease; }
+  .all-list[open] summary :global(svg) { transform: rotate(180deg); }
+
+  .by-phone { margin-top: 2rem; columns: 1; column-gap: 3rem; }
+  .phone-group { break-inside: avoid; padding-bottom: 1.75rem; }
+  .phone-group h3 { font-size: var(--text-base); }
+  .phone-group h3 a { color: var(--color-heading); text-decoration: none; }
+  .phone-group h3 a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .phone-group ul { margin-top: 0.4rem; }
+  .phone-group li a {
+    display: inline-block;
+    padding-block: 0.3rem;
+    font-size: var(--text-sm);
+    color: var(--color-forest);
+    text-underline-offset: 3px;
+  }
+
+  /* ---------- CTA panel (as on the Best for pages) ---------- */
+  .cta {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(3.5rem, 3rem + 2vw, 4.5rem);
+    background: var(--color-forest);
+    border-color: var(--color-forest);
+    color: var(--color-on-dark);
+  }
+  .cta-contours {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(60%, 40rem);
+    height: 100%;
+    color: var(--color-on-dark);
+    opacity: 0.09;
+    pointer-events: none;
+  }
+  .cta-inner { position: relative; display: grid; gap: 2rem; align-items: center; }
+  .cta .eyebrow { color: var(--color-on-dark-muted); }
+  .cta h2 { color: var(--color-on-dark); }
+  .cta-text { max-width: 38rem; margin-top: 1rem; color: var(--color-on-dark-muted); }
+  .cta-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .cta :global(:focus-visible) { outline-color: var(--color-on-dark); }
+
+  /* ---------- Tablet and up ---------- */
+  @media (min-width: 40rem) {
+    .compare-tool { --photo: 13rem; }
+    .picker { column-gap: 1.5rem; }
+    .picker-vs { width: 2.75rem; height: 2.75rem; margin-top: calc(var(--photo) / 2 - 1.375rem); font-size: 0.9375rem; }
+    .slot-name { font-size: var(--text-xl); }
+    .teaser { padding: 1.75rem 2rem 2rem; }
+    .teaser-choose { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .diff-table thead td { width: 28%; }
+    .by-phone { columns: 2; }
+  }
+  /* Desktop: a bigger stage, centred */
+  @media (min-width: 56rem) {
+    .compare-tool { --photo: 17rem; }
+    .picker { max-width: 60rem; margin-inline: auto; column-gap: 3rem; }
+    .picker-vs { width: 3.25rem; height: 3.25rem; margin-top: calc(var(--photo) / 2 - 1.625rem); font-size: 1.0625rem; }
+    .slot-name { font-size: 1.625rem; }
+    .slot-zone { font-size: var(--text-sm); }
+    .teaser { padding: 2rem 2rem 2.25rem; }
+    .cta-inner { grid-template-columns: minmax(0, 8fr) auto; }
+  }
+  @media (min-width: 64rem) {
+    .by-phone { columns: 3; }
+  }
+</style>
