@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 
@@ -21,16 +22,26 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: withastro/action@v6
-      # IndexNow (Bing, Yandex and others) hears only about pages that are new, removed or have a new lastmod
-      - name: List pages changed since the live deploy
+      # IndexNow (Bing, Yandex and others) hears only about pages that are new, removed or have a new lastmod.
+      # The previous sitemap comes from the last successful deploy's artifact: Cloudflare blocks the runner
+      # from fetching the live one.
+      - name: List pages changed since the last deploy
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          curl -sf https://intrinsicallysafephones.com/sitemap.xml -o live-sitemap.xml || echo "Live sitemap unavailable"
-          python3 scripts/indexnow_changed.py live-sitemap.xml dist/sitemap.xml > indexnow-urls.txt
+          last=$(gh run list --workflow deploy.yml --branch main --status success --limit 1 --json databaseId --jq '.[0].databaseId')
+          if [ -n "$last" ]; then gh run download "$last" --name sitemap --dir previous || echo "No sitemap saved by run $last"; fi
+          python3 scripts/indexnow_changed.py previous/sitemap.xml dist/sitemap.xml > indexnow-urls.txt
           echo "$(grep -c . indexnow-urls.txt || true) changed pages"
       - uses: actions/upload-artifact@v4
         with:
           name: indexnow-urls
           path: indexnow-urls.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sitemap
+          path: dist/sitemap.xml
+          retention-days: 90
 
   deploy:
     needs: build

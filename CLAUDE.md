@@ -24,6 +24,9 @@ Read this first. It holds the decisions and rules behind the code; DESIGN.md cov
 - Hosting: GitHub Pages, behind Cloudflare. Real 301 redirects and response headers (caching, security) are
   set in Cloudflare, not in the repo.
 - Deploy: `.github/workflows/deploy.yml` builds on push to `main`, deploys, then purges Cloudflare.
+  Last, it sends IndexNow the URLs that are new, removed or have a new `lastmod`, found by comparing the built sitemap
+  with the previous successful deploy's `sitemap` artifact (Cloudflare blocks the runner from fetching the live one).
+  A template-only change (titles, layout) doesn't change `lastmod`, so it isn't sent.
 - Settings → Pages → Source is "GitHub Actions" (switched 2026-10-21 at launch).
 
 ```bash
