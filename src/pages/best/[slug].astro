@@ -208,7 +208,7 @@ const schema = [
           </p>
           <a class="top-card-media" href={`/phones/${top.id}/`} tabindex="-1" aria-hidden="true">
             {top.phone.data.image && (
-              <Image src={top.phone.data.image} alt="" widths={[360, 560]} sizes="(min-width: 56rem) 30vw, 80vw" loading="eager" fetchpriority="high" />
+              <Image src={top.phone.data.image} alt={top.phone.data.imageAlt ?? top.phone.data.name} widths={[360, 560]} sizes="(min-width: 56rem) 30vw, 80vw" loading="eager" fetchpriority="high" />
             )}
           </a>
           <h2 id="top-card-title" class="top-card-name"><a href={`/phones/${top.id}/`}>{top.phone.data.name}</a></h2>
@@ -279,7 +279,7 @@ const schema = [
             <li class:list={['pick', { 'pick-top': p.rank === 1 }]} id={`pick-${p.rank}`}>
               <article aria-labelledby={`pick-${p.rank}-name`}>
                 <a class="pick-media" href={`/phones/${p.id}/`} tabindex="-1" aria-hidden="true">
-                  {d.image && <Image src={d.image} alt="" widths={[320, 480]} sizes="(min-width: 56rem) 22rem, 80vw" />}
+                  {d.image && <Image src={d.image} alt={d.imageAlt ?? d.name} widths={[320, 480]} sizes="(min-width: 56rem) 22rem, 80vw" />}
                 </a>
 
                 <div class="pick-body">

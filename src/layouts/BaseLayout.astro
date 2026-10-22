@@ -13,9 +13,23 @@ interface Props {
   schema?: Record<string, unknown>[];
   ogImage?: string;
   noindex?: boolean;
+  /** 'article' for guides, with their dates as article:published_time / modified_time */
+  ogType?: 'website' | 'article';
+  article?: { published: string; modified: string };
+  /** hreflang alternates, including this page; only for pages with a translation that links back */
+  alternates?: { hreflang: string; href: string }[];
 }
 
-const { title, description, schema = [], ogImage = SITE.ogImage, noindex = false } = Astro.props;
+const {
+  title,
+  description,
+  schema = [],
+  ogImage = SITE.ogImage,
+  noindex = false,
+  ogType = 'website',
+  article,
+  alternates = [],
+} = Astro.props;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 const ogImageUrl = new URL(ogImage, SITE.url).href;
 
@@ -55,15 +69,18 @@ const graph = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    {noindex ? <meta name="robots" content="noindex, follow" /> : <link rel="canonical" href={canonical} />}
     <meta name="theme-color" content="#faf8f4" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <meta property="og:type" content="website" />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={new URL(a.href, SITE.url).href} />)}
+
+    <meta property="og:type" content={ogType} />
+    {article && <meta property="article:published_time" content={article.published} />}
+    {article && <meta property="article:modified_time" content={article.modified} />}
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:locale" content={SITE.locale} />
     <meta property="og:title" content={title} />

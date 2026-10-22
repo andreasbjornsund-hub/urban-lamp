@@ -21,6 +21,16 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: withastro/action@v6
+      # IndexNow (Bing, Yandex and others) hears only about pages that are new, removed or have a new lastmod
+      - name: List pages changed since the live deploy
+        run: |
+          curl -sf https://intrinsicallysafephones.com/sitemap.xml -o live-sitemap.xml || echo "Live sitemap unavailable"
+          python3 scripts/indexnow_changed.py live-sitemap.xml dist/sitemap.xml > indexnow-urls.txt
+          echo "$(grep -c . indexnow-urls.txt || true) changed pages"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: indexnow-urls
+          path: indexnow-urls.txt
 
   deploy:
     needs: build
@@ -45,3 +55,23 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{"purge_everything": true}' \
             | jq '.success'
+
+  indexnow:
+    needs: purge-cache
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: indexnow-urls
+      - name: Submit changed pages to IndexNow
+        # The key file is public/fcab8b499a524ce3c127919e32d19cf5.txt
+        run: |
+          if [ ! -s indexnow-urls.txt ]; then echo "No changed pages"; exit 0; fi
+          jq -R . indexnow-urls.txt | jq -s '{
+            host: "intrinsicallysafephones.com",
+            key: "fcab8b499a524ce3c127919e32d19cf5",
+            keyLocation: "https://intrinsicallysafephones.com/fcab8b499a524ce3c127919e32d19cf5.txt",
+            urlList: .
+          }' > indexnow.json
+          curl -s -o /dev/null -w "IndexNow: HTTP %{http_code}\n" -X POST https://api.indexnow.org/indexnow \
+            -H "Content-Type: application/json; charset=utf-8" --data @indexnow.json

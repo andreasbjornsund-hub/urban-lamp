@@ -1,0 +1,95 @@
+---
+/*
+ * Served by GitHub Pages for any missing URL (built as dist/404.html). Not indexed; points visitors to the main sections.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { FIND_PHONES, BEST_BY_INDUSTRY } from '../config/site';
+import { GUIDE_PAGES } from '../data/guide-pages';
+
+const groups = [
+  {
+    heading: 'Best phones by zone',
+    links: [
+      { label: 'Best Zone 1 phones', href: '/best/zone-1-phones/' },
+      { label: 'Best Zone 2 phones', href: '/best/zone-2-phones/' },
+      { label: 'Best iPhones for hazardous areas', href: '/best/iphone/' },
+    ],
+  },
+  {
+    heading: 'Best phones by industry',
+    links: BEST_BY_INDUSTRY.links.slice(0, 3),
+  },
+  {
+    heading: 'Guides',
+    links: GUIDE_PAGES.map((g) => ({ label: g.navLabel, href: `/guides/${g.slug}/` })),
+  },
+];
+---
+
+<BaseLayout
+  title="Page Not Found | Intrinsically Safe Phones"
+  description="This page doesn't exist. Find and compare intrinsically safe and explosion-proof phones for Zone 1 and 2, or read our guides."
+  noindex
+>
+  <section class="nf-hero" aria-labelledby="nf-title">
+    <div class="container">
+      <h1 id="nf-title">Page not found</h1>
+      <p class="lead">
+        The page you were looking for has moved or never existed. Every phone, comparison and guide is still
+        on the site.
+      </p>
+      <div class="nf-actions">
+        <a class="btn btn-primary" href={FIND_PHONES.href}>{FIND_PHONES.label} <Icon name="arrow-right" /></a>
+        <a class="btn btn-secondary" href="/compare/">Compare phones</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-white" aria-label="Popular pages">
+    <div class="container nf-groups">
+      {groups.map((g) => (
+        <div>
+          <h2 class="nf-heading">{g.heading}</h2>
+          <ul>
+            {g.links.map((l) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf-hero {
+    padding-block: 3rem 3.5rem;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgb(245 158 11 / 0.06), transparent 60%),
+      radial-gradient(1000px 500px at 10% 30%, rgb(34 197 94 / 0.05), transparent 55%),
+      var(--paper-grain);
+    background-size: auto, auto, 3px 3px;
+  }
+  .nf-hero h1 {
+    font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: var(--tracking-hero);
+  }
+  .nf-hero .lead { max-width: 40rem; margin-top: 1.25rem; }
+  .nf-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .nf-groups { display: grid; gap: 2rem; }
+  .nf-heading { font-size: var(--text-lg); margin-bottom: 0.75rem; }
+  .nf-groups ul { display: grid; gap: 0.5rem; }
+  .nf-groups a { color: var(--color-forest); }
+
+  @media (min-width: 48rem) {
+    .nf-groups { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3rem; }
+  }
+</style>

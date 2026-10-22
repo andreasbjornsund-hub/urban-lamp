@@ -101,7 +101,14 @@ const schema = [
 ];
 ---
 
-<BaseLayout title={page.title} description={page.description} schema={schema} ogImage={shareImage}>
+<BaseLayout
+  title={page.title}
+  description={page.description}
+  schema={schema}
+  ogImage={shareImage}
+  ogType="article"
+  article={{ published: page.datePublished, modified: page.dateModified }}
+>
   <section class="guide-hero" aria-labelledby="guide-title">
     <div class="container guide-hero-inner">
       <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: page.navLabel, href: '' }]} />

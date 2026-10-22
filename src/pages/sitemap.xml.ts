@@ -18,26 +18,34 @@ const day = (d: Date) => d.toISOString().slice(0, 10);
 export const GET: APIRoute = async () => {
   const phones = await getCollection('phones');
 
-  const comparePages = COMPARE_PAGES.map((c) => {
-    const verified = phones.filter((p) => c.phones.includes(p.id)).map((p) => p.data.lastVerified.getTime());
-    return { loc: `${SITE.url}/compare/${c.slug}/`, lastmod: day(new Date(Math.max(...verified))), priority: '0.8' };
-  });
+  // lastmod is the date the content last changed, never the build date, or search engines learn to ignore it
+  const verifiedOf = (ids: string[]) =>
+    day(new Date(Math.max(...phones.filter((p) => ids.includes(p.id)).map((p) => p.data.lastVerified.getTime()))));
+  const latest = (dates: (string | undefined)[]) => dates.filter(Boolean).sort().at(-1);
+
+  const phonePages = phones.map((p) => ({ loc: `${SITE.url}/phones/${p.id}/`, lastmod: day(p.data.lastVerified), priority: '0.8' }));
+  const comparePages = COMPARE_PAGES.map((c) => ({ loc: `${SITE.url}/compare/${c.slug}/`, lastmod: verifiedOf(c.phones), priority: '0.8' }));
+  // Same date as the page's own "verified" line: the newest check among its picks
+  const bestPages = BEST_PAGES.map((b) => ({ loc: `${SITE.url}/best/${b.slug}/`, lastmod: verifiedOf(b.picks.map((p) => p.id)), priority: '0.9' }));
+  const guidePages = GUIDE_PAGES.map((g) => ({ loc: `${SITE.url}/guides/${g.slug}/`, lastmod: g.dateModified, priority: '0.8' }));
+  const phonesLastmod = latest(phonePages.map((e) => e.lastmod));
 
   const astroPages: Entry[] = [
-    { loc: `${SITE.url}/`, lastmod: day(new Date()), priority: '1.0' },
-    { loc: `${SITE.url}/phones/`, lastmod: day(new Date()), priority: '0.9' },
-    { loc: `${SITE.url}/disclosure/`, lastmod: day(new Date()), priority: '0.3' },
+    // The home page summarises the phones, Best for pages and guides
+    { loc: `${SITE.url}/`, lastmod: latest([phonesLastmod, ...guidePages.map((e) => e.lastmod)]), priority: '1.0' },
+    { loc: `${SITE.url}/phones/`, lastmod: phonesLastmod, priority: '0.9' },
+    // Info pages have no content date to go on, so they carry no lastmod
+    { loc: `${SITE.url}/disclosure/`, priority: '0.3' },
     ...['about', 'how-we-rate', 'contact', 'terms', 'cookies'].map((slug) => ({
       loc: `${SITE.url}/${slug}/`,
-      lastmod: day(new Date()),
       priority: slug === 'contact' ? '0.5' : '0.3',
     })),
-    ...BEST_PAGES.map((b) => ({ loc: `${SITE.url}/best/${b.slug}/`, lastmod: day(new Date()), priority: '0.9' })),
-    ...phones.map((p) => ({ loc: `${SITE.url}/phones/${p.id}/`, lastmod: day(p.data.lastVerified), priority: '0.8' })),
+    ...bestPages,
+    ...phonePages,
     // The /compare/ index changes whenever one of its head-to-heads does
-    { loc: `${SITE.url}/compare/`, lastmod: comparePages.map((c) => c.lastmod).sort().at(-1), priority: '0.8' },
+    { loc: `${SITE.url}/compare/`, lastmod: latest(comparePages.map((c) => c.lastmod)), priority: '0.8' },
     ...comparePages,
-    ...GUIDE_PAGES.map((g) => ({ loc: `${SITE.url}/guides/${g.slug}/`, lastmod: g.dateModified, priority: '0.8' })),
+    ...guidePages,
   ];
   const astroLocs = new Set(astroPages.map((e) => e.loc));
 
