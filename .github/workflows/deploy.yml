@@ -77,7 +77,7 @@ jobs:
       - name: Submit changed pages to IndexNow
         # The key file is public/fcab8b499a524ce3c127919e32d19cf5.txt
         run: |
-          if [ ! -s indexnow-urls.txt ]; then echo "No changed pages"; exit 0; fi
+          if ! grep -q . indexnow-urls.txt; then echo "No changed pages"; exit 0; fi
           jq -R . indexnow-urls.txt | jq -s '{
             host: "intrinsicallysafephones.com",
             key: "fcab8b499a524ce3c127919e32d19cf5",
