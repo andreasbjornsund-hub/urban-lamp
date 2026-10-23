@@ -29,4 +29,6 @@ previous, built = entries(sys.argv[1]), entries(sys.argv[2])
 if previous:
     changed = [loc for loc, lastmod in built.items() if loc not in previous or previous[loc] != lastmod]
     removed = [loc for loc in previous if loc not in built]
-    print('\n'.join(changed + removed))
+    # Nothing at all when nothing changed, so the workflow sees an empty list
+    if changed or removed:
+        print('\n'.join(changed + removed))
